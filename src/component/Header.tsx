@@ -4,12 +4,13 @@ import ProfilePic from "./UIComponent/ProfilePic";
 import { useModal } from "./Context/ModalProvider";
 import { useState } from "react";
 import MobileMainDrawer from "./Drawer/MobileMainDrawer";
+import { useCurrentUser } from "./Context/CurrentUserProvider";
 
 
 function Header () {
 
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-
+    const {currentUser} = useCurrentUser();
     const { setModalType } = useModal();
 
     return (
@@ -21,7 +22,7 @@ function Header () {
                     <div
                     onClick={() => setDrawerOpen(true)}
                     className="w-12 h-12">
-                        <ProfilePic/>
+                        <ProfilePic user={currentUser}/>
                     </div>
                 </div>
 

@@ -8,8 +8,12 @@ import ProfilePage from './component/ScreenPages/ProfilePage';
 import { ModalProvider } from './component/Context/ModalProvider';
 import ModalManager from './component/Modal/ModalManager';
 import { CurrentUserProvider } from './component/Context/CurrentUserProvider';
+import type { User } from './types/User';
+
+
 
 function App() {
+
 
   return (
     <Router>

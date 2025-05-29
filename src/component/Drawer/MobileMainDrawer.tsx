@@ -1,9 +1,10 @@
 import FollowersFollowing from "../UIComponent/FollowersFollowing";
 import ProfilePic from "../UIComponent/ProfilePic";
-import { CiUser, CiBookmark, CiBellOn, CiCircleQuestion, CiPower, CiPickerHalf } from "react-icons/ci";
+import {CiHome, CiUser, CiBookmark, CiBellOn, CiCircleQuestion, CiPower, CiPickerHalf } from "react-icons/ci";
 import DrawerNavigationPair from "./DrawerNavigationPair";
 import TextSetter from "./TextSetter";
 import type { Dispatch, SetStateAction } from "react";
+import { useCurrentUser } from "../Context/CurrentUserProvider";
 
 type MobileMainDrawerProps = {
     setDrawerOpen:Dispatch<SetStateAction<boolean>>
@@ -11,6 +12,7 @@ type MobileMainDrawerProps = {
 
 function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
+    const {currentUser} = useCurrentUser();
 
     return (
         <div
@@ -23,7 +25,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                 
                 <div className="w-full h-fit mb-2">
                     <div className="w-12 h-12">
-                        <ProfilePic/>
+                        <ProfilePic user={currentUser}/>
                     </div>
                     <div>
                     <p className="font-bold text-xl text-(--text-main)">Jokerhut</p>
@@ -40,7 +42,11 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
                 <div className="flex w-full h-fit flex-col">
 
-                    <DrawerNavigationPair name={"Profile"} routePath="profile" setDrawerOpen={setDrawerOpen}>
+                    <DrawerNavigationPair name={"Home"} routePath="/" setDrawerOpen={setDrawerOpen}>
+                        <CiHome/>
+                    </DrawerNavigationPair>
+
+                    <DrawerNavigationPair name={"Profile"} routePath="/profile" setDrawerOpen={setDrawerOpen}>
                         <CiUser/>
                     </DrawerNavigationPair>
 

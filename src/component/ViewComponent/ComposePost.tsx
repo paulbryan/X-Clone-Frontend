@@ -3,15 +3,18 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { FaRegImage } from "react-icons/fa";
 import { MdOutlineGif } from "react-icons/md";
 import UploadTweetButton from "../ButtonComponent/UploadTweetButton";
+import { useCurrentUser } from "../Context/CurrentUserProvider";
 
 function ComposePost () {
+
+    const {currentUser} = useCurrentUser();
 
     return (
 
         <div className="w-full h-fit flex rounded-2xl px-4 py-3 bg-[var(--background-main)]">
             
             <div className="w-12 mr-1">
-                <ProfilePic/>
+                <ProfilePic user={currentUser}/>
             </div>
             <div className="flex flex-col w-full h-fit">
                 <div className="w-full h-fit flex mb-1">

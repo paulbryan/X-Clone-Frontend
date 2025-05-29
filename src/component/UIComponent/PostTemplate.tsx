@@ -1,7 +1,11 @@
+import { useCurrentUser } from "../Context/CurrentUserProvider";
+import UsernameComponent from "../UserInfo/UsernameComponent";
 import PostInteractionComponent from "./PostInteractionComponent";
 import ProfilePic from "./ProfilePic";
 
 function PostTemplate () {
+
+    const {currentUser} = useCurrentUser();
 
     return (
 
@@ -11,7 +15,7 @@ function PostTemplate () {
             <div className="flex w-full h-fitl px-4 pt-3">
                 <div className="flex w-12 mr-2">
                     <div className="w-10 h-10">
-                        <ProfilePic/>
+                        <ProfilePic user={currentUser}/>
                     </div>
                 </div>
 
@@ -19,9 +23,9 @@ function PostTemplate () {
                     <div className="w-full h-fit flex-col">
                         <div className="w-full h-5 flex gap-2 align-middle text-white mb-0.5">
                                 <p className="font-bold">Jokerhut</p>
-                                <p className="text-(--twitter-text)">
-                                    @Jokerhut
-                                </p>
+                                <div className="text-(--twitter-text)">
+                                    <UsernameComponent user={currentUser}/>
+                                </div>
                                 <p>·</p>
                                 <p>Feb 5</p>
                         </div>

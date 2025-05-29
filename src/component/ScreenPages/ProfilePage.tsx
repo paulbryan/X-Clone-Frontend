@@ -1,9 +1,11 @@
+import { useState } from "react";
 import ProfilePageOverview from "../Profile/ProfilePageOverview";
 import TabList from "../TabList";
 
-const tabList = ["Tweets", "Liked", "Media"];
-
 function ProfilePage () {
+
+    const tabs = ["Tweets", "Liked", "Media"];
+    const [activeTab, setActiveTab] = useState("Tweets");
 
     return (
         <div className="h-full">
@@ -12,7 +14,7 @@ function ProfilePage () {
             <ProfilePageOverview/>
 
             <div>
-                <TabList tabs={tabList} activeTab={tabList[0]}/>
+                <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
             </div>
 
             <div className="h-full">

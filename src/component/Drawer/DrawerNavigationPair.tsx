@@ -17,8 +17,9 @@ function DrawerNavigationPair ( { children, name, routePath, setDrawerOpen }: Dr
     const navigate = useNavigate();
 
     const handleNavigation = () => {
+
         if (routePath) {
-            navigate("/" + routePath);
+            navigate(routePath);
         }
         setDrawerOpen(false);
     } 

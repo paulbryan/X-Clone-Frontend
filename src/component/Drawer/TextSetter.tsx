@@ -1,6 +1,6 @@
 import type { ThemeType } from "../../types/ThemeType";
 import type { BackgroundType } from "../../types/BackgroundType";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ColorCircleButton from "../ButtonComponent/ColorCircleButton";
 import BackgroundSetterButton from "../ButtonComponent/BackgroundSetterButton";
 

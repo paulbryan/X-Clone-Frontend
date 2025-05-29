@@ -1,21 +1,30 @@
+import { useState } from "react";
+import { useCurrentUser } from "../Context/CurrentUserProvider";
 import FollowersFollowing from "../UIComponent/FollowersFollowing";
 import ProfilePic from "../UIComponent/ProfilePic";
 import { FaRegCalendar } from "react-icons/fa6";
+import type { User } from "../../types/User";
+import BannerComponent from "../UserInfo/BannerComponent";
 
 
 function ProfilePageOverview () {
+
+    const {currentUser} = useCurrentUser();
+
+    const [pageUser, setPageUser] = useState<User | null>(currentUser);
+
 
     return (
             <div className="h-fit">
 
                 <div className="w-full h-40 relative">
 
-                    <div>
-                        <img className="h-32 opacity-100 w-full" src="https://png.pngtree.com/thumb_back/fh260/background/20200706/pngtree-magnificent-cosmic-space-blue-nebula-background-image_347731.jpg"/>
+                    <div className="opacity-100 h-32 w-full">
+                        <BannerComponent user={pageUser}/>
                     </div>
 
                     <div className="absolute w-20 h-10 left-5 bottom-10 rounded-full">
-                        <ProfilePic/>
+                        <ProfilePic user={pageUser}/>
                     </div>
 
                     <div className="w-full h-12 flex justify-end items-center px-4">
