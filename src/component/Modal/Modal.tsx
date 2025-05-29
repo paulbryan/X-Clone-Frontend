@@ -11,7 +11,7 @@ type ModalProps = {
 
     return (
         <div 
-        className="w-full z-10 h-full top-0 pt-16 px-4 fixed backdrop-blur-xs
+        className="w-full z-10 h-full top-0 pt-16 px-4 fixed backdrop-blur-sm
         flex justify-center items-start"
         onClick={() => setToggle(null)} 
          >

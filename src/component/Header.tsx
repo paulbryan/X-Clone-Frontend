@@ -2,19 +2,25 @@ import { FaXTwitter } from "react-icons/fa6";
 import ProfilePic from "./UIComponent/ProfilePic";
 
 import { useModal } from "./Context/ModalProvider";
+import { useState } from "react";
+import MobileMainDrawer from "./Drawer/MobileMainDrawer";
 
 
 function Header () {
+
+    const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
     const { setModalType } = useModal();
 
     return (
 
         <>
-            <div className="h-14 w-full flex justify-between px-3 text-white">
+            <div className="h-14 w-full relative flex justify-between px-3 text-white">
 
                 <div className="h-full w-full flex relative items-center justify-start">
-                    <div className="w-12 h-12">
+                    <div
+                    onClick={() => setDrawerOpen(true)}
+                    className="w-12 h-12">
                         <ProfilePic/>
                     </div>
                 </div>
@@ -33,6 +39,12 @@ function Header () {
                 </div>
 
             </div>
+
+            {drawerOpen ? (
+                <MobileMainDrawer setDrawerOpen={setDrawerOpen}/>
+            ) : (
+                null
+            )}
 
 
         </>

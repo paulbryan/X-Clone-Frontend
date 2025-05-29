@@ -1,19 +1,23 @@
 import type { FC } from "react";
 import TabButton from "./ButtonComponent/TabButton";
+import type { Dispatch, SetStateAction } from "react";
 
 interface TabListProps {
   tabs: string[];
   activeTab: string;
+  setActiveTab: Dispatch<SetStateAction<string>>
 }
 
-const TabList: FC<TabListProps> = ({ tabs, activeTab }) => {
+const TabList: FC<TabListProps> = ({ tabs, activeTab, setActiveTab }) => {
+
   return (
     <div className="h-14 w-full flex">
       {tabs.map((tab) => (
         <TabButton
           key={tab}
           tab={tab}
-          active={tab === activeTab}
+          activeTab = {activeTab}
+          setActiveTab={setActiveTab}
         />
       ))}
     </div>

@@ -1,3 +1,4 @@
+import FollowersFollowing from "../UIComponent/FollowersFollowing";
 import ProfilePic from "../UIComponent/ProfilePic";
 import { FaRegCalendar } from "react-icons/fa6";
 
@@ -10,7 +11,7 @@ function ProfilePageOverview () {
                 <div className="w-full h-40 relative">
 
                     <div>
-                        <img className="h-32 opacity-100 w-full" src="https://cdn.discordapp.com/attachments/1138945433759141959/1376918461606793298/1500x500.png?ex=683712bf&is=6835c13f&hm=62027369c0eba028de20dbc8583523a69b5d839043c83575e56bd772162700a2&"/>
+                        <img className="h-32 opacity-100 w-full" src="https://png.pngtree.com/thumb_back/fh260/background/20200706/pngtree-magnificent-cosmic-space-blue-nebula-background-image_347731.jpg"/>
                     </div>
 
                     <div className="absolute w-20 h-10 left-5 bottom-10 rounded-full">
@@ -50,12 +51,7 @@ function ProfilePageOverview () {
                         </div>
 
                         <div className="h-fit w-full flex items-center gap-4 mb-0.5 text-(--twitter-text)">
-                            <div className="flex">
-                                <p> <span className="font-bold text-(--text-main)">5</span> Followers</p>
-                            </div>
-                            <div className="flex">
-                                <p> <span className="font-bold text-(--text-main)">0</span> Following</p>
-                            </div>
+                        <FollowersFollowing/>
                         </div>
 
                     </div>

@@ -1,0 +1,1 @@
+export type ThemeType = "var(--twitter-purple)" | "var(--twitter-yellow)" | "var(--twitter-red)" | "var(--twitter-blue)";

@@ -1,16 +1,18 @@
 import type { FC } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 interface TabButtonProps {
   tab: string;
-  active: boolean;
+  activeTab: string;
+  setActiveTab: Dispatch<SetStateAction<string>>
 }
 
-const TabButton: FC<TabButtonProps> = ({ tab, active }) => {
+const TabButton: FC<TabButtonProps> = ({ tab, setActiveTab, activeTab }) => {
   return (
-    <div
+    <div onClick={() => setActiveTab(tab)}
       className={
         "w-full h-full flex items-center justify-center " +
-        (active
+        (tab == activeTab
           ? "text-(--color-main) border-b-2 border-(--color-main) font-semibold"
           : "text-gray-500 border-b border-(--twitter-border)")
       }
