@@ -1,0 +1,1 @@
+export type ModalType = "signup" | "login" | "editProfile" | "posting" | null;

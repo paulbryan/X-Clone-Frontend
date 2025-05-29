@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+    --twitter-blue: #1C9BF0;
+    --twitter-border: #4C5159;
+    --twitter-text: #8b98a5;
+    --twitter-hover: #16181c;
+    --dim-background: #15202c;
+    --twitter-black: #000000;
+    --twitter-red: #ff2c84;
+    --twitter-yellow: #ffd404;
+    --twitter-purple: #8054fc;
+    --background-main: var(--dim-background);
+    --color-main: var(--twitter-blue);
+    --text-main: #f7f9f9;
+  }
