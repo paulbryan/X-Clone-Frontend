@@ -1,6 +1,7 @@
 import {
     createContext,
     useContext,
+    useEffect,
     useState,
     type ReactNode,
   } from "react";
@@ -40,14 +41,19 @@ import {
     };
 
     const fetchUsersFromServerById = async (usersToFetch: number[]): Promise<User[]> => {
-      const res = await fetch(`http://localhost:8080/api/posts/getPost`, {
+      const res = await fetch(`http://localhost:8080/api/users/getUser`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(usersToFetch),
       });
+      if (!res.ok) {
+        throw new Error("Failed to fetch users");
+      }
     
-    const data: User[] = await res.json();
-      return data;
+      const users: User[] = await res.json();
+      console.log(JSON.stringify(users))
+      return users;
+    
     };
   
     const getUserFromCache = (id: number) => {

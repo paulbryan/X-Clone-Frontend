@@ -5,12 +5,14 @@ import { FiMail } from "react-icons/fi";
 import ComposePostMobileButton from "./ButtonComponent/ComposePostMobileButton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCurrentUser } from "./Context/CurrentUserProvider";
 
 
 
 function FooterBar () {
 
     const navigate = useNavigate();
+    const {currentUser} = useCurrentUser();
 
     return (
 
@@ -30,8 +32,9 @@ function FooterBar () {
                     <FiMail />
                 </div>
 
+                {currentUser && (
                 <ComposePostMobileButton/>
-
+                )}
             </div>
 
             

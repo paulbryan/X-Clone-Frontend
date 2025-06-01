@@ -16,7 +16,7 @@ function ComposePost () {
 
     return (
 
-        <div className="w-full h-fit flex rounded-2xl px-4 py-3 bg-[var(--background-main)]">
+        <div className="w-full h-fit flex rounded-2xl px-4 py-3 bg-[var(--background-main)] border border-(--color-main)">
             
             <div className="w-10 h-10 mr-1">
                 <ProfilePic user={currentUser}/>

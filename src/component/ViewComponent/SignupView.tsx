@@ -41,6 +41,18 @@ function SignupView ({ setToggle }: SignUpViewProps) {
           reader.readAsDataURL(blob); // ✅ KEY LINE
         });
       }
+
+      const onProfileImageChange = (event: any) => {
+        if (event.target.files && event.target.files[0]) {
+          setProfilePicInput(URL.createObjectURL(event.target.files[0]));
+        }
+       }
+
+       const onBannerImageChange = (event: any) => {
+        if (event.target.files && event.target.files[0]) {
+          setBannerInput(URL.createObjectURL(event.target.files[0]));
+        }
+       }
     
 
     async function registerUser () {
@@ -94,9 +106,12 @@ function SignupView ({ setToggle }: SignUpViewProps) {
             <div className="w-full h-28 mb-4">
                 <div className="w-full h-24 relative">
                     <img className="h-full w-full object-cover" src={bannerInput}/>
-                    <div className="w-18 h-18 absolute  left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <img className="rounded-full border-2 border-(--background-main)" src={profilePicInput}/>
+                    <input className="opacity-0 z-20 absolute top-0 w-full h-full" type="file" onChange={onBannerImageChange}  />
+                    <div className="w-18 h-18 absolute  left-1/2 -translate-x-1/2 -translate-y-1/2" onClick={(e) => e.stopPropagation()}>
+                        <img className="rounded-full border-2 relative border-(--background-main)" src={profilePicInput}/>
+                        <input className="opacity-0 z-30 rounded-full absolute top-0 w-18 h-18" type="file" onChange={onProfileImageChange}  />
                     </div>
+
                 </div>
             </div>
 

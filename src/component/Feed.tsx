@@ -15,7 +15,7 @@ type FeedProps = {
 function Feed ({postIdsArray} : FeedProps) {
 
     const {postCache, getPostFromCache, removeFromPostCache, addToPostCache, fetchPostsFromServerById} = usePostCache();
-    const {addToUserCache, removeFromUserCache, getUserFromCache, fetchUsersFromServerById} = useUserCache();
+    const {userCache, addToUserCache, removeFromUserCache, getUserFromCache, fetchUsersFromServerById} = useUserCache();
     const [loadedPosts, setLoadedPosts] = useState<Post[]>([]);
     const [hasLoadedPosts, setHasLoadedPosts] = useState<boolean>(false);
     const [hasLoadedUsers, setHasLoadedUsers] = useState<boolean>(false);
@@ -26,12 +26,17 @@ function Feed ({postIdsArray} : FeedProps) {
     )}, [postCache])
 
     useEffect(() => {
+        console.log("cache as object:", Object.fromEntries(userCache.entries())
+    )}, [userCache])
+
+    useEffect(() => {
         checkLoadedPosts();
     }, [loadedPosts])
 
     useEffect(() => {
+        console.log("Calling load")
         loadPosts();
-    }, [postIdsArray])
+    }, [postIdsArray, postCache])
  
     useEffect(() => {
         if (hasLoadedPosts && !hasLoadedUsers) {
@@ -81,10 +86,12 @@ function Feed ({postIdsArray} : FeedProps) {
                 }
             }
             setLoadedPosts([...finalPostArray])
+            console.log("Loaded and fetched")
         }
     }
 
     function checkLoadedPosts () {
+        console.log("Checking loaded posts")
         if (loadedPosts.length == postIdsArray.length) {
             console.log("All posts found: " + JSON.stringify(loadedPosts))
             setHasLoadedPosts(true);

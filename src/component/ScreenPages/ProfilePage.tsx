@@ -11,7 +11,7 @@ function ProfilePage () {
 
     const tabs = ["Tweets", "Liked", "Media"];
     const [activeTab, setActiveTab] = useState("Tweets");
-    const [idsForFeed, setIdsForFeed] = useState([0, 0, 0, 0]);
+    const [idsForFeed, setIdsForFeed] = useState<number[]>([]);
 
     const {ID} = useParams();
     const pageUserID = Number(ID);
@@ -32,38 +32,38 @@ function ProfilePage () {
 
     useEffect(() => {
         if (pageUser) {
+            console.log("Page user is " + JSON.stringify(pageUser))
             determineArrayForTab();
         }
     }, [pageUser, activeTab])
 
     useEffect(() => {
-        determinePageUser();
+        if (pageUserID) {
+            determinePageUser();
+        }
     }, [pageUserID])
     
     async function determinePageUser () {
         if (currentUser && pageUserID == currentUser.id) {
             setPageUser(currentUser);
-        } else {
+        } else{
 
             const userInCache = getUserFromCache(pageUserID);
 
             if (userInCache) {
                 setPageUser(userInCache);
             } else {
-                const singleArray : number[] = [pageUserID];
-                const fetchedUser: User[] = await fetchUsersFromServerById(singleArray);
-                addToUserCache(fetchedUser[0])
-                const newUserInCache = getUserFromCache(pageUserID);
-                if (newUserInCache) {
-                    setPageUser(newUserInCache);
-                }            
+                const fetchedUser: User[] = await fetchUsersFromServerById([pageUserID]);
+                console.log("Fetched user is " + JSON.stringify( fetchedUser[0]));
+                addToUserCache(fetchedUser[0]);
+                setPageUser(fetchedUser[0]);
             }
 
         }
     }
 
     return (
-        <div className="">
+        <div className="flex flex-col h-full w-full flex-grow overflow-y-auto">
 
             <ProfilePageOverview pageUser={pageUser}/>
 
@@ -71,11 +71,13 @@ function ProfilePage () {
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
             </div>
 
-            <div className="w-full flex mb-14">
-                {pageUser ? (
-                    <Feed key={activeTab} postIdsArray={idsForFeed}/>
+            <div className="mb-14">
+                {pageUser && idsForFeed.length > 0 ? (
+                <>
+                <Feed key={activeTab} postIdsArray={idsForFeed}/>
+                </>
                 ) : (
-                    <p className="text-red text-4xl bg-red-600">Loading Feed</p>
+                    null
                 )}
             </div>
 

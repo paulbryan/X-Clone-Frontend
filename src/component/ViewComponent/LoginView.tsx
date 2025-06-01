@@ -43,10 +43,40 @@ function LoginView ({ setToggle }: LoginViewProps) {
 
     }
 
+    function adminLoginQuick (id : number) {
+
+        fetch(`http://localhost:8080/api/users/getAdminUser?id=` + id)
+        .then(res => res.json())
+        .then(data => {
+            console.log("all good")
+            setCurrentUser(data);
+            setToggle(null);
+        })
+
+    }
+
     return (
         <div className="w-full h-full flex flex-col text-(--text-main) rounded-2xl p-4 items-center gap-4 bg-(--background-main)">
             <div>
-                <h1 className="text-4xl text-center font-bold">Sign up to X</h1>
+                <h1 className="text-4xl text-center font-bold">Log in to X</h1>
+            </div>
+
+            <div className='w-full h-20 flex items-center justify-around'>
+
+                <div onClick={() => adminLoginQuick(13)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
+                    <p className=' font-bold text-(--color-main)'>JOKER</p>
+                </div>
+                <div onClick={() => adminLoginQuick(14)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
+                    <p className=' font-bold text-(--color-main)'>STEVE</p>
+                </div>
+                <div onClick={() => adminLoginQuick(14)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
+                    <p className=' font-bold text-(--color-main)'>BILL</p>
+                </div>
+                <div onClick={() => adminLoginQuick(15)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
+                    <p className=' font-bold text-(--color-main)'>ZUCK</p>
+                </div>
+                
+
             </div>
 
 

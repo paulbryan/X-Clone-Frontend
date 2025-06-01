@@ -16,14 +16,16 @@ function Header () {
     return (
 
         <>
-            <div className="h-14 w-full relative flex justify-between px-3 text-white">
+            <div className="h-14 w-full relative flex justify-between bg-(--background-main) px-3 text-white">
 
                 <div className="h-full w-full flex relative items-center justify-start">
+                    {currentUser && (
                     <div
                     onClick={() => setDrawerOpen(true)}
                     className="w-12 h-12">
                         <ProfilePic user={currentUser}/>
                     </div>
+                    )}
                 </div>
 
                 <div className="h-full w-full flex relative items-center justify-center">
@@ -31,15 +33,26 @@ function Header () {
                 </div>
 
                 <div className="h-full w-full flex relative items-center justify-end">
-                    <div 
-                    className="flex p-0.5 font-semibold justify-center items-center w-20 rounded-2xl border-(--color-main) border"
-                    onClick={() => setModalType("signup")}
-                    >
-                        <p>Sign up</p>
-                    </div>
                 </div>
 
             </div>
+
+            {!currentUser && (
+                    <>
+                    <div 
+                    className="flex p-3 gap-4 h-14 font-bold justify-center items-center w-full">
+
+                    <div className="p-1 rounded-2xl border-(--twitter-text) flex items-center justify-center w-full border" onClick={() => setModalType("signup")}
+                    >
+                        <p>Register</p>
+                     </div>   
+                     <div className="p-1 rounded-2xl text-(--text-main) flex items-center justify-center w-full bg-(--color-main)" onClick={() => setModalType("login")}
+                    >
+                        <p>Log in</p>
+                     </div>  
+                    </div>
+                    </>
+                    )}
 
             {drawerOpen ? (
                 <MobileMainDrawer setDrawerOpen={setDrawerOpen}/>
