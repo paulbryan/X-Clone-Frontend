@@ -1,17 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCurrentUser } from "../Context/CurrentUserProvider";
 import FollowersFollowing from "../UIComponent/FollowersFollowing";
 import ProfilePic from "../UIComponent/ProfilePic";
 import { FaRegCalendar } from "react-icons/fa6";
 import type { User } from "../../types/User";
 import BannerComponent from "../UserInfo/BannerComponent";
+import { useParams } from "react-router-dom";
+import { useUserCache } from "../Context/UserCacheProvider";
+import UsernameComponent from "../UserInfo/UsernameComponent";
+import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
+import BioComponent from "../UserInfo/BioComponent";
 
+type ProfilePageOverviewProps = {
+    pageUser?: User | null;
+}
 
-function ProfilePageOverview () {
+function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
 
     const {currentUser} = useCurrentUser();
+    const [isOwnPage, setIsOwnPage] = useState<boolean>(false);
 
-    const [pageUser, setPageUser] = useState<User | null>(currentUser);
+    useEffect(() => {
+        if (currentUser && pageUser && currentUser.id == pageUser.id) {
+            setIsOwnPage(true);
+        } else {
+            setIsOwnPage(false);
+        }
+    }, [pageUser, currentUser])
 
 
     return (
@@ -23,13 +38,17 @@ function ProfilePageOverview () {
                         <BannerComponent user={pageUser}/>
                     </div>
 
-                    <div className="absolute w-20 h-10 left-5 bottom-10 rounded-full">
+                    <div className="absolute w-20 h-20 left-5 bottom-0 rounded-full">
                         <ProfilePic user={pageUser}/>
                     </div>
 
                     <div className="w-full h-12 flex justify-end items-center px-4">
                         <div className="w-28 h-auto flex items-center justify-center align-middle rounded-2xl border border-(--text-main) text-(--text-main)">
-                            <p>Follow</p>
+                            {isOwnPage ? (
+                                <p>Edit Profile</p>
+                            ) : (
+                                <p>Follow</p>
+                            )}
                         </div>
                     </div>
 
@@ -40,16 +59,14 @@ function ProfilePageOverview () {
                 <div className="w-full h-full px-4 text-(--text-main) flex flex-col">
 
                     <div className="w-full h-12 mt-1 mb-3 flex flex-col">
-                        <p className="font-bold text-xl">Jokerhut</p>
-                        <p className="text-(--twitter-text)">@TheJokerHut</p>
+                        <div className="font-bold text-xl"><DisplayNameComponent user={pageUser}/></div>
+                        <div className="text-(--twitter-text)"><UsernameComponent user={pageUser}/></div>
                     </div>
 
                     <div className="flex w-full h-fit gap-0.5 flex-col">
 
-                        <div>
-                            <p className="text-(--text-main)">
-                            21 year old on my web development journey. Main languages are Java and ReactJS.
-                            </p>
+                        <div className="text-(--text-main)">
+                            <BioComponent user={pageUser}/>
                         </div>
                         
                         <div className="h-fit w-full text-(--twitter-text)">

@@ -4,21 +4,26 @@ import { FaRegImage } from "react-icons/fa";
 import { MdOutlineGif } from "react-icons/md";
 import UploadTweetButton from "../ButtonComponent/UploadTweetButton";
 import { useCurrentUser } from "../Context/CurrentUserProvider";
+import { useState } from "react";
+import type { NewPost } from "../../types/NewPost";
+import { usePostCache } from "../Context/PostCacheProvider";
+import type { Post } from "../../types/Post";
 
 function ComposePost () {
 
+    const [textInput, setTextInput] = useState<string>("");
     const {currentUser} = useCurrentUser();
 
     return (
 
         <div className="w-full h-fit flex rounded-2xl px-4 py-3 bg-[var(--background-main)]">
             
-            <div className="w-12 mr-1">
+            <div className="w-10 h-10 mr-1">
                 <ProfilePic user={currentUser}/>
             </div>
             <div className="flex flex-col w-full h-fit">
                 <div className="w-full h-fit flex mb-1">
-                    <TextareaAutosize className="w-full min-h-16 p-1 text-white placeholder:text-(--twitter-text)"
+                    <TextareaAutosize value={textInput} onChange={(e) => setTextInput(e.target.value)} className="w-full min-h-16 p-1 text-white placeholder:text-(--twitter-text)"
                     placeholder="What's up?!"
                     />
                 </div>
@@ -28,7 +33,7 @@ function ComposePost () {
                         <MdOutlineGif className="text-4xl"/>
                     </div>
                     <div className="w-full h-full justify-end flex items-center">
-                        <UploadTweetButton/>
+                        <UploadTweetButton textInput = {textInput}/>
                     </div>
                 </div>
             </div>

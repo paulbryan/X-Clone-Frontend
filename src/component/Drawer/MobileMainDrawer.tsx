@@ -3,8 +3,11 @@ import ProfilePic from "../UIComponent/ProfilePic";
 import {CiHome, CiUser, CiBookmark, CiBellOn, CiCircleQuestion, CiPower, CiPickerHalf } from "react-icons/ci";
 import DrawerNavigationPair from "./DrawerNavigationPair";
 import TextSetter from "./TextSetter";
-import type { Dispatch, SetStateAction } from "react";
+import { useEffect, type Dispatch, type SetStateAction } from "react";
 import { useCurrentUser } from "../Context/CurrentUserProvider";
+import UsernameComponent from "../UserInfo/UsernameComponent";
+import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
+import { useNavigate } from "react-router-dom";
 
 type MobileMainDrawerProps = {
     setDrawerOpen:Dispatch<SetStateAction<boolean>>
@@ -13,6 +16,12 @@ type MobileMainDrawerProps = {
 function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
     const {currentUser} = useCurrentUser();
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log("curriser " + JSON.stringify(currentUser))
+    }, [currentUser])
 
     return (
         <div
@@ -24,14 +33,14 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
             className="w-5/6 p-4 border-r flex flex-col border-(--twitter-border) h-full bg-(--background-main)">
                 
                 <div className="w-full h-fit mb-2">
-                    <div className="w-12 h-12">
+                    <div onClick={() => navigate(`/profile/${currentUser?.id}`)} className="w-12 h-12">
                         <ProfilePic user={currentUser}/>
                     </div>
                     <div>
-                    <p className="font-bold text-xl text-(--text-main)">Jokerhut</p>
-                    <p className="text-(--twitter-text)">
-                        @Jokerhut
-                    </p>
+                        <div className="text-(--twitter-text) text-xl">
+                            <DisplayNameComponent user={currentUser}/>
+                        </div>
+                    <UsernameComponent user={currentUser}/>
                     </div>
 
                     <div className="flex gap-4">
@@ -46,7 +55,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                         <CiHome/>
                     </DrawerNavigationPair>
 
-                    <DrawerNavigationPair name={"Profile"} routePath="/profile" setDrawerOpen={setDrawerOpen}>
+                    <DrawerNavigationPair name={"Profile"} routePath={`/profile/${currentUser?.id}`} setDrawerOpen={setDrawerOpen}>
                         <CiUser/>
                     </DrawerNavigationPair>
 

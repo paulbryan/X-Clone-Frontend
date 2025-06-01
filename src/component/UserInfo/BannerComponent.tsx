@@ -1,14 +1,14 @@
 import type { User } from "../../types/User";
 
 type BannerComponentProps = {
-    user: User | null;
+    user?: User | null;
   };
 
 function BannerComponent ( { user }: BannerComponentProps ) {
 
     if (user) {
         return (
-            <img className="object-cover h-full w-full" src={user.bannerImage}/>
+            <img className="object-cover h-full w-full" src={`data:image/jpeg;base64,${user.bannerImage}`}/>
         )
     } else {
         return null;

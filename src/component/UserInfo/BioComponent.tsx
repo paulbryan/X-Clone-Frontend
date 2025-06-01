@@ -1,7 +1,7 @@
 import type { User } from "../../types/User";
 
 type BioComponentProps = {
-    user: User | null;
+    user?: User | null;
   };
 
 function BioComponent ( {user}: BioComponentProps ) {

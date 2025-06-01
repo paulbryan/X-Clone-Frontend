@@ -1,7 +1,7 @@
 import type { User } from "../../types/User";
 
 type DisplayNameComponentProps = {
-    user: User | null;
+    user?: User | null;
   };
 
 function DisplayNameComponent ({user}:DisplayNameComponentProps) {

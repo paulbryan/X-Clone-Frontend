@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css'
 import FooterBar from './component/FooterBar'
 import Header from './component/Header';
@@ -9,6 +9,8 @@ import { ModalProvider } from './component/Context/ModalProvider';
 import ModalManager from './component/Modal/ModalManager';
 import { CurrentUserProvider } from './component/Context/CurrentUserProvider';
 import type { User } from './types/User';
+import { UserCacheProvider } from './component/Context/UserCacheProvider';
+import { PostCacheProvider } from './component/Context/PostCacheProvider';
 
 
 
@@ -19,7 +21,8 @@ function App() {
     <Router>
       <CurrentUserProvider>
         <ModalProvider>
-
+        <UserCacheProvider>
+        <PostCacheProvider>
         <ModalManager />
 
         <div className="w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
@@ -42,7 +45,7 @@ function App() {
             />
 
             <Route
-            path="profile"
+            path="profile/:ID"
             element={
               <ProfilePage/>
             }
@@ -57,6 +60,8 @@ function App() {
           </div>
 
         </div>
+        </PostCacheProvider>
+        </UserCacheProvider>
         </ModalProvider>
       </CurrentUserProvider>
     </Router>

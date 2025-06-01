@@ -1,15 +1,11 @@
-export type User = {
+export type SignupUser = {
 
-    id: number;
     username: string;
     email: string;
     displayName: string;
     profilePicture: string;
     bannerImage: string;
     bio: string;
-    createdAt: string;
-    posts: number[],
-    likedPosts?: [],
-    bookmarkedPosts?: [],
+    password: string;
 
 }

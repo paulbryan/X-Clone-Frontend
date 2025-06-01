@@ -1,23 +1,22 @@
 import type { User } from "../../types/User";
 
 type ProfilePicComponentProps = {
-    user: User | null;
+    user?: User | null;
   };
 
 function ProfilePic ({user}: ProfilePicComponentProps) {
-
+    console.log("Base64:", user?.profilePicture?.slice(0, 30));
     return (
     <>
         {user ? (
             <img
-            className="h-auto w-auto rounded-full"
-            src= {user.profilePicture}
+            className="h-full w-full rounded-full object-cover"
+            src= {`data:image/png;base64,${user.profilePicture}`}
             />
         ) : (
-            <img
-            className="h-auto w-auto rounded-full"
-            src= {"https://downtownpensacola.com/static/img/defaultbanner.jpg"}
-            />
+            <div
+            className="h-full w-full rounded-full bg-(--twitter-text)"
+            > </div>
         )}
     </>
     )

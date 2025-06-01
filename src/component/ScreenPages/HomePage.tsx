@@ -14,8 +14,7 @@ function HomePage () {
             <div>
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
             </div>
-            <div>
-                <MainFeed/>
+            <div className="h-full flex grow w-full">
             </div>
         </div>
 
