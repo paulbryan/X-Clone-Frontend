@@ -1,5 +1,7 @@
 import type { User } from "../../types/User";
 import { useCurrentUser } from "../Context/CurrentUserProvider";
+import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
+import PostTextComponent from "../UserInfo/PostTextComponent";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import PostInteractionComponent from "./PostInteractionComponent";
 import ProfilePic from "./ProfilePic";
@@ -21,17 +23,12 @@ function PostSkeleton () {
                 <div className="pb-3 w-full h-fit">
                     <div className="w-full h-fit flex-col">
                         <div className="w-full h-5 flex gap-2 align-middle text-white mb-0.5">
-                                <p className="font-bold">Jokerhut</p>
+                                    <DisplayNameComponent user={null}/>
                                 <div className="text-(--twitter-text)">
                                     <UsernameComponent user={null}/>
-                                </div>
-                                <p>·</p>
-                                <p>Feb 5</p>
-                        </div>
+                                </div>                        </div>
                         <div className="text-white max-h-32">
-                            <p>
-                            Project almost finished, if all goes well should be done by the weekend!⏱️✅ I added different background and color themes, and now i'm doing the CSS for mobile screens.
-                            </p>
+                            <PostTextComponent/>
                         </div>
                         <div>
                             <PostInteractionComponent/>

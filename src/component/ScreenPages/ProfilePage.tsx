@@ -11,6 +11,7 @@ function ProfilePage () {
 
     const tabs = ["Tweets", "Liked", "Media"];
     const [activeTab, setActiveTab] = useState("Tweets");
+    const [idsForFeed, setIdsForFeed] = useState([0, 0, 0, 0]);
 
     const {ID} = useParams();
     const pageUserID = Number(ID);
@@ -19,6 +20,21 @@ function ProfilePage () {
     const {addToUserCache, getUserFromCache, fetchUsersFromServerById} = useUserCache();
 
     const [pageUser, setPageUser] = useState<User | null>(null);
+
+    function determineArrayForTab () {
+        if (pageUser) {
+            switch (activeTab) {
+                case "Tweets" : setIdsForFeed(pageUser.posts); break;
+                case "Liked" : setIdsForFeed([0, 0, 0, 0]); break;
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (pageUser) {
+            determineArrayForTab();
+        }
+    }, [pageUser, activeTab])
 
     useEffect(() => {
         determinePageUser();
@@ -47,7 +63,7 @@ function ProfilePage () {
     }
 
     return (
-        <div className="h-full">
+        <div className="">
 
             <ProfilePageOverview pageUser={pageUser}/>
 
@@ -55,9 +71,9 @@ function ProfilePage () {
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
             </div>
 
-            <div className="h-full w-full">
+            <div className="w-full flex mb-14">
                 {pageUser ? (
-                    <Feed postIdsArray={pageUser.posts}/>
+                    <Feed key={activeTab} postIdsArray={idsForFeed}/>
                 ) : (
                     <p className="text-red text-4xl bg-red-600">Loading Feed</p>
                 )}

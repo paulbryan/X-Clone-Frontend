@@ -47,7 +47,7 @@ function PostTemplate ({post} : PostTemplateProps) {
 
 
         <>
-            <div className="h-fit w-full flex border-b-2 border-t-2 border-(--twitter-border)">
+            <div className="h-fit w-full flex border-b-2 border-(--twitter-border)">
 
             <div className="flex w-full h-fitl px-4 pt-3">
                 <div className="flex w-12 mr-2">

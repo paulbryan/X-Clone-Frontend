@@ -10,7 +10,7 @@ function UsernameComponent ({user}:UsernameComponentProps) {
             <p>@{user.username}</p>
         )
     } else {
-        return null;
+        return <div className="w-18 h-2 bg-(--twitter-text) rounded-l-2xl rounded-r-2xl"></div>
     }
 
 }

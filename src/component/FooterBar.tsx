@@ -15,7 +15,7 @@ function FooterBar () {
     return (
 
         <>
-            <div className="h-14 w-full text-2xl text-white border-t border-t-(--twitter-border) flex items-center justify-around">
+            <div className="h-14 w-full bg-(--background-main) absolute bottom-0 text-2xl text-white border-t border-t-(--twitter-border) flex items-center justify-around">
 
                 <div className="w-full h-full flex items-center justify-center">
                     <FaHouse className="hover:cursor-pointer" onClick={() => navigate("/")}/>

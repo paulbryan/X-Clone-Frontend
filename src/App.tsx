@@ -35,25 +35,27 @@ function App() {
             <TabList/>
           </div> */}
 
-          <Routes>
+        <div className='flex-grow overflow-y-auto'>
+        <Routes>
 
-            <Route
-            path=""
-            element={
-              <HomePage/>
-            }
-            />
+        <Route
+        path=""
+        element={
+          <HomePage/>
+        }
+        />
 
-            <Route
-            path="profile/:ID"
-            element={
-              <ProfilePage/>
-            }
-            />
+        <Route
+        path="profile/:ID"
+        element={
+          <ProfilePage/>
+        }
+        />
 
 
 
-          </Routes>
+        </Routes>
+        </div>
 
           <div className=''>
             <FooterBar/>

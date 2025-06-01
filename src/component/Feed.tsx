@@ -22,8 +22,8 @@ function Feed ({postIdsArray} : FeedProps) {
     const {currentUser} = useCurrentUser();
 
     useEffect(() => {
-        console.log(" cache is " + JSON.stringify(postCache))
-    , [postCache]})
+        console.log("cache as object:", Object.fromEntries(postCache.entries())
+    )}, [postCache])
 
     useEffect(() => {
         checkLoadedPosts();
@@ -65,7 +65,6 @@ function Feed ({postIdsArray} : FeedProps) {
 
         console.log("S2 " + JSON.stringify(notFoundPosts))
 
-
         if (notFoundPosts.length > 0) {
             console.log("Awaiting fetch")
 
@@ -81,11 +80,8 @@ function Feed ({postIdsArray} : FeedProps) {
                     finalPostArray.push(post);
                 }
             }
-
             setLoadedPosts([...finalPostArray])
-
         }
-
     }
 
     function checkLoadedPosts () {
@@ -127,9 +123,6 @@ function Feed ({postIdsArray} : FeedProps) {
         console.log("all good")
 
         setHasLoadedUsers(true);
-
-
-
     }
 
     async function fetchUnloadedPosts (notFoundPosts : number[]) {
@@ -154,19 +147,19 @@ function Feed ({postIdsArray} : FeedProps) {
     }
 
     return (
-        <div className='flex flex-grow h-full w-full'>
+        <div className='w-full'>
             {hasLoadedPosts && hasLoadedUsers ? (
-                <>
+                <div className="flex flex-col w-full">
                 {loadedPosts.map((post) => {
                   return <PostTemplate post={post} />
                 })}
-                </>
+                </div>
             ) : (
-                <>
+                <div className="flex flex-col w-full">
                 {postIdsArray.map(() => {
-                    <PostSkeleton/>
+                   return <PostSkeleton/>
                 })}
-                </>
+                </div>
             )}
         </div>
     )
