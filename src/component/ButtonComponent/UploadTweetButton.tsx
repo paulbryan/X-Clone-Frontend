@@ -1,6 +1,7 @@
 import type { NewPost } from "../../types/NewPost";
 import type { Post } from "../../types/Post";
 import { useCurrentUser } from "../Context/CurrentUserProvider";
+import { useFeedContext } from "../Context/FeedContext";
 import { usePostCache } from "../Context/PostCacheProvider";
 
 type UploadTweetButtonProps = {
@@ -11,6 +12,7 @@ function UploadTweetButton ({textInput} : UploadTweetButtonProps) {
 
     const {currentUser} = useCurrentUser();
     const {addToPostCache} = usePostCache();
+    const {addToForYouFeedIds} = useFeedContext();
 
     function composeNewPost () {
 
@@ -30,6 +32,7 @@ function UploadTweetButton ({textInput} : UploadTweetButtonProps) {
               .then((data : Post) => {
                 addToPostCache(data);
                 currentUser.posts = [...currentUser.posts, data.id];
+                addToForYouFeedIds(data.id);
               });
 
         }

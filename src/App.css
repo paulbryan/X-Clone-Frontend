@@ -14,3 +14,7 @@
     --color-main: var(--twitter-blue);
     --text-main: #f7f9f9;
   }
+
+  html, body {
+  overscroll-behavior: contain;
+}

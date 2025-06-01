@@ -11,6 +11,7 @@ import { CurrentUserProvider } from './component/Context/CurrentUserProvider';
 import type { User } from './types/User';
 import { UserCacheProvider } from './component/Context/UserCacheProvider';
 import { PostCacheProvider } from './component/Context/PostCacheProvider';
+import { FeedProvider } from './component/Context/FeedContext';
 
 
 
@@ -23,9 +24,10 @@ function App() {
         <ModalProvider>
         <UserCacheProvider>
         <PostCacheProvider>
+        <FeedProvider>
         <ModalManager />
 
-        <div className="w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
+        <div className="overscroll-y-contain w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
 
           <div>
             <Header/>
@@ -62,6 +64,7 @@ function App() {
           </div>
 
         </div>
+        </FeedProvider>
         </PostCacheProvider>
         </UserCacheProvider>
         </ModalProvider>

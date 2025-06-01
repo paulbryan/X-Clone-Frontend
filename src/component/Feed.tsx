@@ -156,7 +156,7 @@ function Feed ({postIdsArray} : FeedProps) {
     return (
         <div className='w-full'>
             {hasLoadedPosts && hasLoadedUsers ? (
-                <div className="flex flex-col w-full">
+                <div className="flex flex-col-reverse w-full">
                 {loadedPosts.map((post) => {
                   return <PostTemplate post={post} />
                 })}
