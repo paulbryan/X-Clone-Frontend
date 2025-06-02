@@ -77,7 +77,7 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
 
     function initializeCurrentUserLikes () {
       if (currentUser) {
-        setCurrentUserLikedIds(currentUser.bookmarkedPosts)
+        setCurrentUserLikedIds(currentUser.likedPosts)
       }
     }
 
