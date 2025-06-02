@@ -23,25 +23,19 @@ function ProfilePage() {
 
     useEffect(() => {
         if (pageUserID) {
-            console.log("🔍 useEffect: pageUserID changed →", pageUserID);
             determinePageUser();
         }
     }, [pageUserID]);
 
     async function determinePageUser() {
-        console.log("🔍 determinePageUser called for ID:", pageUserID);
         if (currentUser && pageUserID === currentUser.id) {
-            console.log("👤 Current user is the page owner.");
             setPageUser(currentUser);
         } else {
             const userInCache = getUserFromCache(pageUserID);
             if (userInCache) {
-                console.log("💾 User found in cache:", userInCache);
                 setPageUser(userInCache);
             } else {
-                console.log("🌐 Fetching user from server...");
                 const fetchedUser: User[] = await fetchUsersFromServerById([pageUserID]);
-                console.log("✅ Server fetched user:", fetchedUser[0]);
                 addToUserCache(fetchedUser[0]);
                 setPageUser(fetchedUser[0]);
             }
@@ -60,16 +54,12 @@ function ProfilePage() {
         switch (activeTab) {
             case "Tweets":
                 const posts = isOwner ? currentUserPostsIds : pageUser.posts;
-                console.log("🧵 Returning posts:", posts);
                 return posts;
             case "Liked":
-                console.log("❤️ Liked tab selected. (Hardcoded stub)");
                 return [0, 0, 0, 0];
             case "Media":
-                console.log("🖼️ Media tab selected. (No implementation yet)");
                 return [];
             default:
-                console.log("❓ Unknown tab selected.");
                 return [];
         }
     }
