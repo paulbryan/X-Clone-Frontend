@@ -15,6 +15,7 @@ type FeedContextType = {
     initializeCurrentUserBookmarks: () => void;
     removeCurrentUserBookmarks: (id: number) => void;
 
+    currentUserLikedIds: number[];
     addToCurrentUserLikes: (id: number) => void;
     removeFromCurrentUserLikes: (id: number) => void;
     initializeCurrentUserLikes: () => void;
@@ -99,7 +100,7 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
       }, [currentUser]);
 
     return (
-      <FeedContext.Provider value={{addToCurrentUserLikes, removeFromCurrentUserLikes, initializeCurrentUserLikes, forYouFeedIds, removeCurrentUserBookmarks, addToForYouFeedIds, getForYouFeedIds, currentUserPostsIds, addToCurrentUserPosts, initializeCurrentUserBookmarks, addToCurrentUserBookmarks, currentUserBookmarkIds}}>
+      <FeedContext.Provider value={{addToCurrentUserLikes, removeFromCurrentUserLikes, initializeCurrentUserLikes, forYouFeedIds, removeCurrentUserBookmarks, addToForYouFeedIds, getForYouFeedIds, currentUserPostsIds, addToCurrentUserPosts, initializeCurrentUserBookmarks, addToCurrentUserBookmarks, currentUserBookmarkIds, currentUserLikedIds}}>
         {children}
       </FeedContext.Provider>
     );

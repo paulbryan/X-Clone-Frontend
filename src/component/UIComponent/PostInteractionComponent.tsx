@@ -11,7 +11,7 @@ type PostInteractionComponentProps = {
 function PostInteractionComponent ({postId} : PostInteractionComponentProps) {
 
     const {currentUser} = useCurrentUser();
-    const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks} = useFeedContext();
+    const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks, currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes} = useFeedContext();
 
     function handleBookmark () {
 
@@ -65,11 +65,58 @@ function PostInteractionComponent ({postId} : PostInteractionComponentProps) {
             }
 
         }
+    }
+
+    function handleLike () {
+
+        if (currentUser) {
+
+            if (currentUserLikedIds.includes(postId)) {
+                
+                removeFromCurrentUserLikes(postId);
+
+                const newLike = {
+                    likerId: currentUser.id,
+                    likedPostId: postId
+                }
+
+                fetch("http://localhost:8080/api/likes/deleteLike", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newLike),
+                  })
+                  .then(res => res.text())
+                  .then(data => {
+                    console.log("Data res is " + data)
+                    if (data != "SUCCESS") {
+                        addToCurrentUserLikes(postId);
+                    }
+                  });
 
 
+            } else {
+                addToCurrentUserLikes(postId);
 
+                const newLike = {
+                    likerId: currentUser.id,
+                    likedPostId: postId
+                }
+                    
+                fetch("http://localhost:8080/api/likes/createLike", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newLike),
+                  })
+                  .then(res => res.text())
+                  .then(data => {
+                    console.log("Data res is " + data)
+                    if (data != "SUCCESS") {
+                        removeFromCurrentUserLikes(postId);
+                    }
+                  });
+            }
 
-
+        }
     }
 
     return (
@@ -85,8 +132,8 @@ function PostInteractionComponent ({postId} : PostInteractionComponentProps) {
                     <FaRepeat/>
                 </InteractionButton>
 
-                <InteractionButton postId={postId}>
-                    <FaRegHeart/>
+                <InteractionButton postId={postId} checkOfIds={currentUserLikedIds}>
+                    <FaRegHeart onClick={() => handleLike()}/>
                 </InteractionButton>
 
                 <InteractionButton postId={postId} checkOfIds={currentUserBookmarkIds}>
