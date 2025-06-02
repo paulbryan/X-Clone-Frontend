@@ -16,8 +16,6 @@ type PostTemplateProps = {
 
 function PostTemplate ({post, currentPostUser} : PostTemplateProps) {
 
-
-
     const {currentUser} = useCurrentUser();
     const {getUserFromCache} = useUserCache();
     const [postUser, setPostUser] = useState<User | undefined>(currentPostUser);

@@ -11,13 +11,6 @@ function HomePage () {
     const [activeTab, setActiveTab] = useState("For You");
     const {currentUser} = useCurrentUser();
     const {forYouFeedIds, getForYouFeedIds} = useFeedContext();
-    const dummyIds : number[] = [0, 0, 0, 0, 0];
-
-    useEffect(() => {
-        if (forYouFeedIds.length < 1) {
-            getForYouFeedIds()
-        }
-    }, [])
 
     return (
 

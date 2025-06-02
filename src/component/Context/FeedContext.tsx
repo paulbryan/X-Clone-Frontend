@@ -93,6 +93,12 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
     }
 
     useEffect(() => {
+      if (forYouFeedIds.length < 1) {
+        getForYouFeedIds();
+      }
+    }, [forYouFeedIds])
+
+    useEffect(() => {
         if (currentUser && currentUser.posts && currentUser.posts.length > 0) {
           setCurrentUserPostsIds(currentUser.posts);
         }
