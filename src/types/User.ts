@@ -10,6 +10,6 @@ export type User = {
     createdAt: string;
     posts: number[],
     likedPosts?: [],
-    bookmarkedPosts?: [],
+    bookmarkedPosts: [],
 
 }

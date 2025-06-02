@@ -6,10 +6,11 @@ import { usePostCache } from "./Context/PostCacheProvider";
 import type { User } from "../types/User";
 import { useUserCache } from "./Context/UserCacheProvider";
 import { useCurrentUser } from "./Context/CurrentUserProvider";
+import LoadingIcon from "./UIComponent/LoadingIcon";
 
 
 type FeedProps = {
-    postIdsArray: number[];
+    postIdsArray?: number[];
 }
 
 function Feed ({postIdsArray} : FeedProps) {
@@ -20,6 +21,16 @@ function Feed ({postIdsArray} : FeedProps) {
     const [hasLoadedPosts, setHasLoadedPosts] = useState<boolean>(false);
     const [hasLoadedUsers, setHasLoadedUsers] = useState<boolean>(false);
     const {currentUser} = useCurrentUser();
+
+    const [loadingBuffered, setLoadingBuffered] = useState(false);
+
+    useEffect(() => {
+        if (hasLoadedPosts && hasLoadedUsers) {
+            setTimeout(() => {
+                setLoadingBuffered(true);
+            }, 200)
+        }
+    }, [hasLoadedPosts, hasLoadedUsers])
 
     useEffect(() => {
         console.log("cache as object:", Object.fromEntries(postCache.entries())
@@ -52,47 +63,49 @@ function Feed ({postIdsArray} : FeedProps) {
 
     async function loadPosts () {
 
-        console.log("S0 " + JSON.stringify(postIdsArray))
+        if (postIdsArray) {
+            console.log("S0 " + JSON.stringify(postIdsArray))
 
-        let notFoundPosts : number[] = [];
-
-        console.log("S1 loading posts")
-
-        for (let i = 0; i < postIdsArray.length; i++) {
-
-            const post = getPostFromCache(postIdsArray[i]);
-            console.log("FOund post? " + JSON.stringify(post))
-            if (!post){
-                notFoundPosts.push(postIdsArray[i])
-            }
-
-        }
-
-        console.log("S2 " + JSON.stringify(notFoundPosts))
-
-        if (notFoundPosts.length > 0) {
-            console.log("Awaiting fetch")
-
-            await fetchUnloadedPosts(notFoundPosts);
-            
-        } else {
-            console.log("well all posts are found")
-            const finalPostArray : Post[] = [];
+            let notFoundPosts : number[] = [];
+    
+            console.log("S1 loading posts")
+    
             for (let i = 0; i < postIdsArray.length; i++) {
+    
                 const post = getPostFromCache(postIdsArray[i]);
-                console.log("Second run print" + post)
-                if (post) {
-                    finalPostArray.push(post);
+                console.log("FOund post? " + JSON.stringify(post))
+                if (!post){
+                    notFoundPosts.push(postIdsArray[i])
                 }
+    
             }
-            setLoadedPosts([...finalPostArray])
-            console.log("Loaded and fetched")
+    
+            console.log("S2 " + JSON.stringify(notFoundPosts))
+    
+            if (notFoundPosts.length > 0) {
+                console.log("Awaiting fetch")
+    
+                await fetchUnloadedPosts(notFoundPosts);
+                
+            } else {
+                console.log("well all posts are found")
+                const finalPostArray : Post[] = [];
+                for (let i = 0; i < postIdsArray.length; i++) {
+                    const post = getPostFromCache(postIdsArray[i]);
+                    console.log("Second run print" + post)
+                    if (post) {
+                        finalPostArray.push(post);
+                    }
+                }
+                setLoadedPosts([...finalPostArray])
+                console.log("Loaded and fetched")
+            }
         }
     }
 
     function checkLoadedPosts () {
         console.log("Checking loaded posts")
-        if (loadedPosts.length == postIdsArray.length) {
+        if (postIdsArray && loadedPosts.length == postIdsArray.length) {
             console.log("All posts found: " + JSON.stringify(loadedPosts))
             setHasLoadedPosts(true);
             loadUsers();
@@ -155,17 +168,15 @@ function Feed ({postIdsArray} : FeedProps) {
 
     return (
         <div className='w-full'>
-            {hasLoadedPosts && hasLoadedUsers ? (
+            {loadingBuffered && postIdsArray && hasLoadedPosts && hasLoadedUsers ? (
                 <div className="flex flex-col-reverse w-full">
                 {loadedPosts.map((post) => {
-                  return <PostTemplate post={post} />
+                  return <PostTemplate post={post} currentPostUser={getUserFromCache(post.userId)}/>
                 })}
                 </div>
             ) : (
-                <div className="flex flex-col w-full">
-                {postIdsArray.map(() => {
-                   return <PostSkeleton/>
-                })}
+                <div className="flex justify-center py-2 flex-col w-full">
+                    <LoadingIcon/>
                 </div>
             )}
         </div>

@@ -1,16 +1,51 @@
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import { useCurrentUser } from "../Context/CurrentUserProvider";
 
 type InteractionButtonProps = {
   children: ReactNode;
+  checkOfIds?: number[]; 
+  postId: number;
+  
 };
 
-function InteractionButton({ children }: InteractionButtonProps) {
-  return (
-    <div className="h-5 flex w-16 align-middle items-center gap-2">
-      {children}
-      <p className="align-middle">1</p>
-    </div>
-  );
+function InteractionButton({ children, checkOfIds, postId }: InteractionButtonProps) {
+
+  const {currentUser} = useCurrentUser();
+  const [isMarked, setIsMarked] = useState<boolean>(false); 
+
+  useEffect(() => {
+
+    if (currentUser && checkOfIds) {
+
+      console.log("Checking marked " + JSON.stringify(checkOfIds))
+
+      if (checkOfIds.includes(postId)) {
+        setIsMarked(true);
+      } else {
+        setIsMarked(false);
+      }
+
+    }
+
+  }, [currentUser, checkOfIds, postId])
+
+  if (isMarked) {
+    return (
+      <div>
+      <div className="h-5 flex text-(--color-main) w-16 align-middle items-center gap-2">
+        {children}
+        <p className="align-middle">1</p>
+      </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="h-5 flex w-16 align-middle items-center gap-2">
+        {children}
+        <p className="align-middle">1</p>
+      </div>
+    );
+  }
 }
 
 export default InteractionButton;

@@ -12,7 +12,7 @@ function UploadTweetButton ({textInput} : UploadTweetButtonProps) {
 
     const {currentUser} = useCurrentUser();
     const {addToPostCache} = usePostCache();
-    const {addToForYouFeedIds} = useFeedContext();
+    const {addToForYouFeedIds, addToCurrentUserPosts} = useFeedContext();
 
     function composeNewPost () {
 
@@ -31,7 +31,7 @@ function UploadTweetButton ({textInput} : UploadTweetButtonProps) {
               .then(res => res.json())
               .then((data : Post) => {
                 addToPostCache(data);
-                currentUser.posts = [...currentUser.posts, data.id];
+                addToCurrentUserPosts(data.id)
                 addToForYouFeedIds(data.id);
               });
 

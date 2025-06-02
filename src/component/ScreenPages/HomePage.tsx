@@ -29,9 +29,7 @@ function HomePage () {
             </div>
             )}
             <div className="h-full flex grow w-full overflow-y-auto">
-                {forYouFeedIds.length > 0 && (
-                    <Feed postIdsArray={forYouFeedIds}/>
-                )}
+                <Feed postIdsArray={forYouFeedIds}/>
             </div>
         </div>
 

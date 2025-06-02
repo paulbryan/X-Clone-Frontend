@@ -12,6 +12,7 @@ import type { User } from './types/User';
 import { UserCacheProvider } from './component/Context/UserCacheProvider';
 import { PostCacheProvider } from './component/Context/PostCacheProvider';
 import { FeedProvider } from './component/Context/FeedContext';
+import BookmarkPage from './component/ScreenPages/BookmarkPage';
 
 
 
@@ -51,6 +52,13 @@ function App() {
         path="profile/:ID"
         element={
           <ProfilePage/>
+        }
+        />
+
+        <Route
+        path="bookmarks"
+        element={
+          <BookmarkPage/>
         }
         />
 

@@ -63,7 +63,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                         <CiBellOn/>
                     </DrawerNavigationPair>
 
-                    <DrawerNavigationPair name={"Bookmarks"} setDrawerOpen={setDrawerOpen}>
+                    <DrawerNavigationPair name={"Bookmarks"} routePath="/bookmarks" setDrawerOpen={setDrawerOpen}>
                         <CiBookmark/>
                     </DrawerNavigationPair>
 

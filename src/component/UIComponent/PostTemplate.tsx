@@ -11,23 +11,26 @@ import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 
 type PostTemplateProps = {
     post: Post;
+    currentPostUser?: User;
 }
 
-function PostTemplate ({post} : PostTemplateProps) {
+function PostTemplate ({post, currentPostUser} : PostTemplateProps) {
 
 
 
     const {currentUser} = useCurrentUser();
     const {getUserFromCache} = useUserCache();
-    const [postUser, setPostUser] = useState<User>();
+    const [postUser, setPostUser] = useState<User | undefined>(currentPostUser);
 
     useEffect(() => {
-        if (currentUser && currentUser.id == post.userId) {
-            setPostUser(currentUser);
-        } else {
-            const userToGet = getUserFromCache(post.userId);
-            if (userToGet) {
-                setPostUser(userToGet);
+        if (!currentPostUser) {
+            if (currentUser && currentUser.id == post.userId) {
+                setPostUser(currentUser);
+            } else {
+                const userToGet = getUserFromCache(post.userId);
+                if (userToGet) {
+                    setPostUser(userToGet);
+                }
             }
         }
     }, [post])
@@ -74,7 +77,7 @@ function PostTemplate ({post} : PostTemplateProps) {
                             </p>
                         </div>
                         <div>
-                            <PostInteractionComponent/>
+                            <PostInteractionComponent postId={post.id}/>
                         </div>
                     </div>
 

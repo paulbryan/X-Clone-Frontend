@@ -10,6 +10,7 @@ import { useUserCache } from "../Context/UserCacheProvider";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import BioComponent from "../UserInfo/BioComponent";
+import LoadingIcon from "../UIComponent/LoadingIcon";
 
 type ProfilePageOverviewProps = {
     pageUser?: User | null;
@@ -28,8 +29,8 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
         }
     }, [pageUser, currentUser])
 
-
-    return (
+    if (pageUser) {
+        return (
             <div className="h-fit">
 
                 <div className="w-full h-40 relative">
@@ -86,6 +87,13 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
 
             </div>
     )
+    } else {
+        return (
+            <div className="w-full h-80 flex items-center">
+                <LoadingIcon/>
+            </div>
+        )
+    }
 
 }
 
