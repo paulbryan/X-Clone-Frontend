@@ -94,8 +94,14 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         if (currentUser && currentUser.posts && currentUser.posts.length > 0) {
-          console.log("🧠 FeedContext: setting currentUserPostsIds from currentUser");
           setCurrentUserPostsIds(currentUser.posts);
+        }
+      }, [currentUser]);
+
+      useEffect(() => {
+        if (currentUser && currentUser.likedPosts && currentUser.likedPosts.length > 0) {
+          console.log("🧠 FeedContext: setting liked posts " + currentUser.likedPosts);
+          setCurrentUserLikedIds(currentUser.likedPosts);
         }
       }, [currentUser]);
 

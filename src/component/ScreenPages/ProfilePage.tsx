@@ -12,7 +12,7 @@ function ProfilePage() {
     const tabs = ["Tweets", "Liked", "Media"];
     const [activeTab, setActiveTab] = useState("Tweets");
 
-    const { currentUserPostsIds } = useFeedContext();
+    const { currentUserPostsIds, currentUserLikedIds } = useFeedContext();
     const { ID } = useParams();
     const pageUserID = Number(ID);
 
@@ -56,7 +56,8 @@ function ProfilePage() {
                 const posts = isOwner ? currentUserPostsIds : pageUser.posts;
                 return posts;
             case "Liked":
-                return [0, 0, 0, 0];
+                const likes = isOwner ? currentUserLikedIds : pageUser.likedPosts;
+                return likes;
             case "Media":
                 return [];
             default:
