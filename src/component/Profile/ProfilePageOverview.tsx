@@ -78,7 +78,7 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
                         </div>
 
                         <div className="h-fit w-full flex items-center gap-4 mb-0.5 text-(--twitter-text)">
-                        <FollowersFollowing/>
+                        <FollowersFollowing pageUser={pageUser}/>
                         </div>
 
                     </div>
