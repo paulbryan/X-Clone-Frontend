@@ -25,12 +25,18 @@ function Feed ({postIdsArray} : FeedProps) {
     const [loadingBuffered, setLoadingBuffered] = useState(false);
 
     useEffect(() => {
+        console.log("Has loaded users? " + hasLoadedUsers + " HAS LOADED POSTS? : " + hasLoadedPosts + " POSTIDSARRAY? " + JSON.stringify(postIdsArray)) 
         if (hasLoadedPosts && hasLoadedUsers) {
+            console.log("Buffering timeout")
             setTimeout(() => {
                 setLoadingBuffered(true);
             }, 200)
         }
     }, [hasLoadedPosts, hasLoadedUsers])
+
+    useEffect(() => {
+        console.log("Loaded posts: " + JSON.stringify(loadedPosts))
+    }, [loadedPosts])
 
     useEffect(() => {
         console.log("Calling load")
@@ -58,9 +64,16 @@ function Feed ({postIdsArray} : FeedProps) {
             const post = getPostFromCache(postIdsArray[i]);
             if (post) finalPostArray.push(post);
         }
+
+        console.log("PIARRAY: " + JSON.stringify(postIdsArray))
+
+        console.log("FPA: " + JSON.stringify(finalPostArray))
+
     
         setLoadedPosts(finalPostArray);
         setHasLoadedPosts(true);
+
+        console.log("Loaded posts" + JSON.stringify(loadedPosts))
     
         await loadUsers(finalPostArray);
         setHasLoadedUsers(true);

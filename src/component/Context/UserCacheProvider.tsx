@@ -6,6 +6,7 @@ import {
     type ReactNode,
   } from "react";
   import type { User } from "../../types/User";
+import { useCurrentUser } from "./CurrentUserProvider";
   
   // 1. Context type with functions
   type UserCacheContextType = {
@@ -25,6 +26,7 @@ import {
   // 3. Provider
   export const UserCacheProvider = ({ children }: { children: ReactNode }) => {
     const [userCache, setUserCache] = useState<Map<number, User>>(new Map());
+    const {currentUser} = useCurrentUser();
 
     const addToFollowers = (followedId: number, currentUserId: number) => {
 
@@ -93,7 +95,11 @@ import {
     };
   
     const getUserFromCache = (id: number) => {
-      return userCache.get(id);
+      if (currentUser && currentUser.id == id) {
+        return currentUser;
+      } else {
+        return userCache.get(id);
+      }
     };
   
     return (
