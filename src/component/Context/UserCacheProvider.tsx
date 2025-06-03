@@ -14,6 +14,8 @@ import {
     removeFromUserCache: (id: number) => void;
     getUserFromCache: (id: number) => User | undefined;
     fetchUsersFromServerById: (ids: number[]) => Promise<User[]>;
+    addToFollowers: (followedId: number, currentUserId: number) => void;
+    removeFromFollowers: (followedId: number, currentUserId: number) => void;
 
   };
   
@@ -96,7 +98,7 @@ import {
   
     return (
       <UserCacheContext.Provider
-        value={{ userCache, addToUserCache, removeFromUserCache, getUserFromCache, fetchUsersFromServerById }}
+        value={{addToFollowers, removeFromFollowers, userCache, addToUserCache, removeFromUserCache, getUserFromCache, fetchUsersFromServerById }}
       >
         {children}
       </UserCacheContext.Provider>

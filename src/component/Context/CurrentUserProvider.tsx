@@ -6,6 +6,9 @@ import type { Dispatch, SetStateAction } from "react";
 type CurrentUserContextType = {
     currentUser: User | null;
     setCurrentUser: Dispatch<SetStateAction<User | null>>;
+    addToFollowing: (followedId: number) => void;
+    removeFromFollowing: (followedId: number) => void;
+
   };
 
 const CurrentUserContext = createContext<CurrentUserContextType | undefined>(undefined);
@@ -13,11 +16,33 @@ const CurrentUserContext = createContext<CurrentUserContextType | undefined>(und
 export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-    
+    const addToFollowing = (followedId: number) => {
+      setCurrentUser((prev) => {
+        if (prev && !prev.following.includes(followedId)) {
+          return {
+            ...prev,
+            following: [...prev.following, followedId],
+          };
+        }
+        return prev;
+      });
+    };
+
+    const removeFromFollowing = (followedId: number) => {
+      setCurrentUser((prev) => {
+        if (prev && prev.following.includes(followedId)) {
+          return {
+            ...prev,
+            following: prev.following.filter(id => id !== followedId),
+          };
+        }
+        return prev;
+      });
+    };
 
 
     return (
-      <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
+      <CurrentUserContext.Provider value={{addToFollowing, removeFromFollowing, currentUser, setCurrentUser}}>
         {children}
       </CurrentUserContext.Provider>
     );
