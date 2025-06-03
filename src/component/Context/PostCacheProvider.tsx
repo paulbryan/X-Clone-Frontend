@@ -16,6 +16,9 @@ import type { Post } from "../../types/Post";
     addToLikedPosts: (postId: number, userId: number) => void;
     removeFromLikedPosts: (postId: number, userId: number) => void;
 
+    addToBookmarkedBy: (postId: number, userId: number) => void;
+    removeFromBookmarkedBy: (postId: number, userId: number) => void;
+
     };
   
   const PostCacheContext = createContext<PostCacheContextType | undefined>(undefined);
@@ -83,6 +86,40 @@ import type { Post } from "../../types/Post";
       });
 
     }
+
+    const addToBookmarkedBy = (postId: number, userId: number) => {
+
+      setPostCache((prev) => {
+        const updated = new Map(prev);
+        const post = updated.get(postId);
+        if (post && !post.bookmarkedBy.includes(userId)) {
+          updated.set(postId, {
+            ...post,
+            bookmarkedBy: [...post.bookmarkedBy, userId],
+          });
+        }
+        return updated;
+
+      });
+
+    }
+
+    const removeFromBookmarkedBy = (postId: number, userId: number) => {
+
+      setPostCache((prev) => {
+        const updated = new Map(prev);
+        const post = updated.get(postId);
+        if (post && post.bookmarkedBy.includes(userId)) {
+          updated.set(postId, {
+            ...post,
+            bookmarkedBy: post.bookmarkedBy.filter(id => id !== userId),
+          });
+        }
+        return updated;
+
+      });
+
+    }
   
     const getPostFromCache = (id: number) => {
       return postCache.get(id);
@@ -90,7 +127,7 @@ import type { Post } from "../../types/Post";
   
     return (
       <PostCacheContext.Provider
-        value={{addToLikedPosts, removeFromLikedPosts, postCache, addToPostCache, removeFromPostCache, getPostFromCache, fetchPostsFromServerById }}
+        value={{addToBookmarkedBy, removeFromBookmarkedBy, addToLikedPosts, removeFromLikedPosts, postCache, addToPostCache, removeFromPostCache, getPostFromCache, fetchPostsFromServerById }}
       >
         {children}
       </PostCacheContext.Provider>

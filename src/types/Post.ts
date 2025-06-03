@@ -5,5 +5,6 @@ export type Post = {
     text: string;
     createdAt: string;
     likedBy: number[];
+    bookmarkedBy: number[];
 
 }
