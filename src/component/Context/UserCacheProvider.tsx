@@ -23,6 +23,40 @@ import {
   // 3. Provider
   export const UserCacheProvider = ({ children }: { children: ReactNode }) => {
     const [userCache, setUserCache] = useState<Map<number, User>>(new Map());
+
+    const addToFollowers = (followedId: number, currentUserId: number) => {
+
+      setUserCache((prev) => {
+        const updated = new Map(prev);
+        const user = updated.get(followedId);
+        if (user && !user.followers.includes(currentUserId)) {
+          updated.set(followedId, {
+            ...user,
+            followers: [...user.followers, currentUserId],
+          });
+        }
+        return updated;
+
+      });
+
+    }
+
+    const removeFromFollowers = (followedId: number, currentUserId: number) => {
+
+      setUserCache((prev) => {
+        const updated = new Map(prev);
+        const user = updated.get(currentUserId);
+        if (user && user.followers.includes(currentUserId)) {
+          updated.set(followedId, {
+            ...user,
+            followers: user.followers.filter(id => id !== currentUserId),
+          });
+        }
+        return updated;
+
+      });
+
+    }
   
     const addToUserCache = (user: User) => {
       setUserCache(prev => {

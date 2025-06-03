@@ -11,7 +11,7 @@ export type User = {
     posts: number[],
     likedPosts: [],
     bookmarkedPosts: [],
-    followers: [],
-    following: []
+    followers: number[],
+    following: number[]
 
 }
