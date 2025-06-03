@@ -75,7 +75,7 @@ function PostTemplate ({post, currentPostUser} : PostTemplateProps) {
                             </p>
                         </div>
                         <div>
-                            <PostInteractionComponent postId={post.id}/>
+                            <PostInteractionComponent postId={post.id} likeList={post.likedBy}/>
                         </div>
                     </div>
 

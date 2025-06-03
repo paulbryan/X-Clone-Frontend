@@ -3,15 +3,19 @@ import { FaRepeat } from "react-icons/fa6";
 import InteractionButton from "./InteractionButton";
 import { useCurrentUser } from "../Context/CurrentUserProvider";
 import { useFeedContext } from "../Context/FeedContext";
+import { useState } from "react";
+import { usePostCache } from "../Context/PostCacheProvider";
 
 type PostInteractionComponentProps = {
     postId: number;
+    likeList: number[];
 }
 
-function PostInteractionComponent ({postId} : PostInteractionComponentProps) {
+function PostInteractionComponent ({postId, likeList} : PostInteractionComponentProps) {
 
     const {currentUser} = useCurrentUser();
     const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks, currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes} = useFeedContext();
+    const {addToLikedPosts, removeFromLikedPosts} = usePostCache(); 
 
     function handleBookmark () {
 
@@ -73,6 +77,7 @@ function PostInteractionComponent ({postId} : PostInteractionComponentProps) {
 
             if (currentUserLikedIds.includes(postId)) {
                 
+                removeFromLikedPosts(postId, currentUser.id)
                 removeFromCurrentUserLikes(postId);
 
                 const newLike = {
@@ -90,11 +95,13 @@ function PostInteractionComponent ({postId} : PostInteractionComponentProps) {
                     console.log("Data res is " + data)
                     if (data != "SUCCESS") {
                         addToCurrentUserLikes(postId);
+                        addToLikedPosts(postId, currentUser.id)
                     }
                   });
 
 
             } else {
+                addToLikedPosts(postId, currentUser.id)
                 addToCurrentUserLikes(postId);
 
                 const newLike = {
@@ -112,6 +119,7 @@ function PostInteractionComponent ({postId} : PostInteractionComponentProps) {
                     console.log("Data res is " + data)
                     if (data != "SUCCESS") {
                         removeFromCurrentUserLikes(postId);
+                        removeFromLikedPosts(postId, currentUser.id)
                     }
                   });
             }
@@ -124,19 +132,19 @@ function PostInteractionComponent ({postId} : PostInteractionComponentProps) {
         <>
             <div className="h-5 mt-3 text-(--twitter-text) w-full flex items-center align-middle justify-between">
 
-                <InteractionButton postId={postId}>
+                <InteractionButton postId={postId} numberList={[]}>
                     <FaRegComment/>
                 </InteractionButton>
 
-                <InteractionButton postId={postId}>
+                <InteractionButton postId={postId} numberList={[]}>
                     <FaRepeat/>
                 </InteractionButton>
 
-                <InteractionButton postId={postId} checkOfIds={currentUserLikedIds}>
+                <InteractionButton postId={postId} checkOfIds={currentUserLikedIds} numberList={likeList}>
                     <FaRegHeart onClick={() => handleLike()}/>
                 </InteractionButton>
 
-                <InteractionButton postId={postId} checkOfIds={currentUserBookmarkIds}>
+                <InteractionButton postId={postId} checkOfIds={currentUserBookmarkIds} numberList={[]}>
                     <FaRegBookmark onClick={() => handleBookmark()}/>
                 </InteractionButton>
 

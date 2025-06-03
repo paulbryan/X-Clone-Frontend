@@ -5,10 +5,11 @@ type InteractionButtonProps = {
   children: ReactNode;
   checkOfIds?: number[]; 
   postId: number;
-  
+  numberList: number[];
+
 };
 
-function InteractionButton({ children, checkOfIds, postId }: InteractionButtonProps) {
+function InteractionButton({ children, checkOfIds, postId, numberList }: InteractionButtonProps) {
 
   const {currentUser} = useCurrentUser();
   const [isMarked, setIsMarked] = useState<boolean>(false); 
@@ -34,7 +35,7 @@ function InteractionButton({ children, checkOfIds, postId }: InteractionButtonPr
       <div>
       <div className="h-5 flex text-(--color-main) w-16 align-middle items-center gap-2">
         {children}
-        <p className="align-middle">1</p>
+        <p className="align-middle">{numberList.length}</p>
       </div>
       </div>
     );
@@ -42,7 +43,7 @@ function InteractionButton({ children, checkOfIds, postId }: InteractionButtonPr
     return (
       <div className="h-5 flex w-16 align-middle items-center gap-2">
         {children}
-        <p className="align-middle">1</p>
+        <p className="align-middle">{numberList.length}</p>
       </div>
     );
   }

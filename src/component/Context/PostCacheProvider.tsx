@@ -12,6 +12,10 @@ import type { Post } from "../../types/Post";
     removeFromPostCache: (id: number) => void;
     getPostFromCache: (id: number) => Post | undefined;
     fetchPostsFromServerById: (ids: number[]) => Promise<Post[]>;
+
+    addToLikedPosts: (postId: number, userId: number) => void;
+    removeFromLikedPosts: (postId: number, userId: number) => void;
+
     };
   
   const PostCacheContext = createContext<PostCacheContextType | undefined>(undefined);
@@ -75,6 +79,7 @@ import type { Post } from "../../types/Post";
           });
         }
         return updated;
+
       });
 
     }
@@ -85,7 +90,7 @@ import type { Post } from "../../types/Post";
   
     return (
       <PostCacheContext.Provider
-        value={{ postCache, addToPostCache, removeFromPostCache, getPostFromCache, fetchPostsFromServerById }}
+        value={{addToLikedPosts, removeFromLikedPosts, postCache, addToPostCache, removeFromPostCache, getPostFromCache, fetchPostsFromServerById }}
       >
         {children}
       </PostCacheContext.Provider>
