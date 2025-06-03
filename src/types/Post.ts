@@ -4,6 +4,6 @@ export type Post = {
     userId: number;
     text: string;
     createdAt: string;
-    likedBy?: [];
+    likedBy: number[];
 
 }

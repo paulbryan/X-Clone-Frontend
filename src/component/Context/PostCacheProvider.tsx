@@ -45,6 +45,39 @@ import type { Post } from "../../types/Post";
         return updated;
       });
     };
+
+    const addToLikedPosts = (postId: number, userId: number) => {
+
+      setPostCache((prev) => {
+        const updated = new Map(prev);
+        const post = updated.get(postId);
+        if (post && !post.likedBy.includes(userId)) {
+          updated.set(postId, {
+            ...post,
+            likedBy: [...post.likedBy, userId],
+          });
+        }
+        return updated;
+
+      });
+
+    }
+
+    const removeFromLikedPosts = (postId: number, userId: number) => {
+
+      setPostCache((prev) => {
+        const updated = new Map(prev);
+        const post = updated.get(postId);
+        if (post && post.likedBy.includes(userId)) {
+          updated.set(postId, {
+            ...post,
+            likedBy: post.likedBy.filter(id => id !== userId),
+          });
+        }
+        return updated;
+      });
+
+    }
   
     const getPostFromCache = (id: number) => {
       return postCache.get(id);
