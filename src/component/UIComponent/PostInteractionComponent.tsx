@@ -9,13 +9,14 @@ import { usePostCache } from "../Context/PostCacheProvider";
 type PostInteractionComponentProps = {
     postId: number;
     likeList: number[];
+    bookmarkList: number[];
 }
 
-function PostInteractionComponent ({postId, likeList} : PostInteractionComponentProps) {
+function PostInteractionComponent ({postId, likeList, bookmarkList} : PostInteractionComponentProps) {
 
     const {currentUser} = useCurrentUser();
     const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks, currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes} = useFeedContext();
-    const {addToLikedPosts, removeFromLikedPosts} = usePostCache(); 
+    const {addToLikedPosts, removeFromLikedPosts, addToBookmarkedBy, removeFromBookmarkedBy} = usePostCache(); 
 
     function handleBookmark () {
 
@@ -24,6 +25,7 @@ function PostInteractionComponent ({postId, likeList} : PostInteractionComponent
             if (currentUserBookmarkIds.includes(postId)) {
                 
                 removeCurrentUserBookmarks(postId);
+                removeFromBookmarkedBy(postId, currentUser.id)
 
                 const newBookmark = {
                     bookmarkedBy: currentUser.id,
@@ -40,13 +42,14 @@ function PostInteractionComponent ({postId, likeList} : PostInteractionComponent
                     console.log("Data res is " + data)
                     if (data != "SUCCESS") {
                         addToCurrentUserBookmarks(postId);
+                        addToBookmarkedBy(postId, currentUser.id)
                     }
                   });
 
 
             } else {
                 addToCurrentUserBookmarks(postId);
-
+                addToBookmarkedBy(postId, currentUser.id)
                 const newBookmark = {
                     bookmarkedBy: currentUser.id,
                     bookmarkedPost: postId
@@ -64,6 +67,7 @@ function PostInteractionComponent ({postId, likeList} : PostInteractionComponent
                     console.log("Data res is " + data)
                     if (data != "SUCCESS") {
                         removeCurrentUserBookmarks(postId);
+                        removeFromBookmarkedBy(postId, currentUser.id)
                     }
                   });
             }
@@ -144,7 +148,7 @@ function PostInteractionComponent ({postId, likeList} : PostInteractionComponent
                     <FaRegHeart onClick={() => handleLike()}/>
                 </InteractionButton>
 
-                <InteractionButton postId={postId} checkOfIds={currentUserBookmarkIds} numberList={[]}>
+                <InteractionButton postId={postId} checkOfIds={currentUserBookmarkIds} numberList={bookmarkList}>
                     <FaRegBookmark onClick={() => handleBookmark()}/>
                 </InteractionButton>
 
