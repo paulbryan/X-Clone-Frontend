@@ -5,6 +5,7 @@ import { useModal } from "./Context/ModalProvider";
 import { useState } from "react";
 import MobileMainDrawer from "./Drawer/MobileMainDrawer";
 import { useCurrentUser } from "./Context/CurrentUserProvider";
+import { useNavigate } from "react-router-dom";
 
 
 function Header () {
@@ -12,6 +13,7 @@ function Header () {
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
     const {currentUser} = useCurrentUser();
     const { setModalType } = useModal();
+    const navigate = useNavigate();
 
     return (
 
@@ -29,7 +31,7 @@ function Header () {
                 </div>
 
                 <div className="h-full w-full flex relative items-center justify-center">
-                    <FaXTwitter className="text-2xl"/>
+                    <FaXTwitter onClick={() => navigate("/")} className="text-2xl"/>
                 </div>
 
                 <div className="h-full w-full flex relative items-center justify-end">
