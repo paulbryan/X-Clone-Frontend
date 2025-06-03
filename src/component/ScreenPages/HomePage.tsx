@@ -15,13 +15,13 @@ function HomePage () {
     return (
 
         
-        <div className="h-full w-full overflow-hidden mb-14">
+        <div className="h-full w-full overflow-hidden">
             {currentUser && (
             <div>
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
             </div>
             )}
-            <div className="h-full flex grow w-full overflow-y-auto">
+            <div className="h-full flex grow w-full overflow-y-auto mb-14">
                 <Feed postIdsArray={forYouFeedIds}/>
             </div>
         </div>
