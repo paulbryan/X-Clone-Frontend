@@ -17,7 +17,7 @@ function ProfilePage() {
     const pageUserID = Number(ID);
 
     const { currentUser } = useCurrentUser();
-    const { addToUserCache, getUserFromCache, fetchUsersFromServerById } = useUserCache();
+    const { addToUserCache, getUserFromCache, fetchUsersFromServerById, userCache } = useUserCache();
 
     const [pageUser, setPageUser] = useState<User | null>(null);
 

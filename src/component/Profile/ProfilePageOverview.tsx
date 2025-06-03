@@ -31,6 +31,8 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
         }
     }, [pageUser, currentUser])
 
+    
+
     function handleFollow () {
 
         if (pageUser && currentUser) {

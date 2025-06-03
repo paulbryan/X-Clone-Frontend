@@ -47,7 +47,7 @@ import {
 
       setUserCache((prev) => {
         const updated = new Map(prev);
-        const user = updated.get(currentUserId);
+        const user = updated.get(followedId);
         if (user && user.followers.includes(currentUserId)) {
           updated.set(followedId, {
             ...user,
