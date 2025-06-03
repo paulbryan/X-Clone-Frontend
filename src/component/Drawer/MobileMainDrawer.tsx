@@ -44,7 +44,9 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                     </div>
 
                     <div className="flex gap-4">
-                        <FollowersFollowing/>
+                        {currentUser && (
+                            <FollowersFollowing pageUser={currentUser}/>
+                        )}
                     </div>
 
                 </div>
