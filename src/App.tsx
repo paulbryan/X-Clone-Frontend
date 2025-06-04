@@ -13,6 +13,7 @@ import { UserCacheProvider } from './component/Context/UserCacheProvider';
 import { PostCacheProvider } from './component/Context/PostCacheProvider';
 import { FeedProvider } from './component/Context/FeedContext';
 import BookmarkPage from './component/ScreenPages/BookmarkPage';
+import NotificationPage from './component/ScreenPages/NotificationPage';
 
 
 
@@ -59,6 +60,13 @@ function App() {
         path="bookmarks"
         element={
           <BookmarkPage/>
+        }
+        />
+
+        <Route
+        path="notifications"
+        element={
+          <NotificationPage/>
         }
         />
 

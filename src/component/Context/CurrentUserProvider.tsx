@@ -3,6 +3,7 @@ import type {ReactNode} from "react";
 import type { User } from "../../types/User";
 import type { Dispatch, SetStateAction } from "react";
 import type { NotificationType } from "../../types/NotificationType";
+import type { Notification } from "../../types/Notification";
 
 type CurrentUserContextType = {
     currentUser: User | null;
@@ -10,7 +11,9 @@ type CurrentUserContextType = {
     addToFollowing: (followedId: number) => void;
     removeFromFollowing: (followedId: number) => void;
     initializeNotifications: (userId: number) => void;
-    notifications: Notification[] | [];
+    notifications: Notification[];
+    unreadNotifications: number;
+    clearRead: () => void;
 
   };
 
@@ -18,7 +21,8 @@ const CurrentUserContext = createContext<CurrentUserContextType | undefined>(und
 
 export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
-    const [notifications, setNotifications] = useState<Notification[] | []>([]);
+    const [notifications, setNotifications] = useState<Notification[]>([]);
+    const [unreadNotifications, setUnreadNotificationsLength] = useState<number>(0); 
 
     const addToFollowing = (followedId: number) => {
       setCurrentUser((prev) => {
@@ -32,12 +36,28 @@ export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
       });
     };
 
+    function clearRead () {
+      setUnreadNotificationsLength(0);
+    }
+
+    function setUnreadLength (notifArray: Notification[]) {
+      let count = 0;
+      for (let i = 0; i < notifArray.length; i++) {
+        if (notifArray[i].seen) {
+          count++;
+        }
+      }
+      setUnreadNotificationsLength(count);
+    }
+
     function initializeNotifications (userId: number) {
 
       fetch(`http://localhost:8080/api/notifications/getAllNotifications/${userId}`)
       .then(res => res.json())
       .then(data => {
+        console.log("New notifications are" + JSON.stringify(data))
         setNotifications(data);
+        setUnreadLength(data);
       });
 
     }
@@ -56,7 +76,7 @@ export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
 
 
     return (
-      <CurrentUserContext.Provider value={{notifications, initializeNotifications, addToFollowing, removeFromFollowing, currentUser, setCurrentUser}}>
+      <CurrentUserContext.Provider value={{unreadNotifications, clearRead, notifications, initializeNotifications, addToFollowing, removeFromFollowing, currentUser, setCurrentUser}}>
         {children}
       </CurrentUserContext.Provider>
     );

@@ -3,7 +3,7 @@ import { FaHouse } from "react-icons/fa6";
 import { FaSearch, FaRegBell } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import ComposePostMobileButton from "./ButtonComponent/ComposePostMobileButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "./Context/CurrentUserProvider";
 
@@ -12,8 +12,8 @@ import { useCurrentUser } from "./Context/CurrentUserProvider";
 function FooterBar () {
 
     const navigate = useNavigate();
-    const {currentUser} = useCurrentUser();
-
+    const {currentUser, unreadNotifications} = useCurrentUser();
+ 
     return (
 
         <>
@@ -25,8 +25,15 @@ function FooterBar () {
                 <div className="w-full h-full flex items-center justify-center">
                     <FaSearch />
                 </div>
-                <div className="w-full h-full flex items-center justify-center">
-                    <FaRegBell />
+                <div className="w-full h-full flex relative items-center justify-center">
+                    <FaRegBell onClick={() => {
+                        if (currentUser) {
+                            navigate("/notifications")
+                        }
+                    }} />
+                    {currentUser && unreadNotifications > 0 && (
+                        <div className="w-4 rounded-full h-4 absolute z-40 bg-(--color-main) top-2 right-9">  </div>
+                    )}
                 </div>
                 <div className="w-full h-full flex items-center justify-center">
                     <FiMail />

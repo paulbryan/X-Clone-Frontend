@@ -8,13 +8,12 @@ import UsernameComponent from "../UserInfo/UsernameComponent";
 
 type NotificationTemplateProps = {
 
-    post?: Post;
-    sender: User;
+    sender?: User;
     notification: Notification;
 
 }
 
-function NotificationTemplate ({post, sender, notification}: NotificationTemplateProps)  {
+function NotificationTemplate ({sender, notification}: NotificationTemplateProps)  {
 
     const navigate = useNavigate();
     const displayMessage = determineDisplayMessage();
@@ -43,7 +42,7 @@ function NotificationTemplate ({post, sender, notification}: NotificationTemplat
 
             <div className="w-full h-fit">
             <div className="flex w-12 mr-2">
-                <div className="w-10 h-10" onClick={() => navigate(`/profile/${sender.id}`)}>
+                <div className="w-10 h-10" onClick={() => navigate(`/profile/${notification.senderId}`)}>
                     <ProfilePic user={sender}/>
                 </div>
             </div>
@@ -54,16 +53,15 @@ function NotificationTemplate ({post, sender, notification}: NotificationTemplat
                     <div className="w-full h-5 flex gap-2 align-middle text-white mb-0.5">
                             <div> 
                                 <DisplayNameComponent user={sender}/>
-                                <p> {displayMessage}</p>
                             </div>
+                            <p> {displayMessage}</p>
                     </div>
-                    {post && (
+
                     <div className="text-white max-h-32">
                         <p>
-                            {post.text.slice(0, 20)}{post.text.length > 20 ? "..." : ""}
+                            {notification.text.slice(0, 20)}{notification.text.length > 20 ? "..." : ""}
                         </p>
                     </div>
-                    )}
                 </div>
 
             </div>
@@ -76,3 +74,5 @@ function NotificationTemplate ({post, sender, notification}: NotificationTemplat
 
 
 }
+
+export default NotificationTemplate;
