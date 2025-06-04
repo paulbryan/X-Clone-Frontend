@@ -1,5 +1,7 @@
-export type NotificationType = {
-    
+import type { NotificationType } from "./NotificationType";
+
+export type Notification = {
+
     id: number;
     senderId: number;
     receiverId: number;

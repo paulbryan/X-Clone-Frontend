@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import type {ReactNode} from "react";
 import type { User } from "../../types/User";
 import type { Dispatch, SetStateAction } from "react";
+import type { NotificationType } from "../../types/NotificationType";
 
 type CurrentUserContextType = {
     currentUser: User | null;
@@ -9,6 +10,7 @@ type CurrentUserContextType = {
     addToFollowing: (followedId: number) => void;
     removeFromFollowing: (followedId: number) => void;
     initializeNotifications: (userId: number) => void;
+    notifications: Notification[] | [];
 
   };
 
@@ -54,7 +56,7 @@ export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
 
 
     return (
-      <CurrentUserContext.Provider value={{initializeNotifications, addToFollowing, removeFromFollowing, currentUser, setCurrentUser}}>
+      <CurrentUserContext.Provider value={{notifications, initializeNotifications, addToFollowing, removeFromFollowing, currentUser, setCurrentUser}}>
         {children}
       </CurrentUserContext.Provider>
     );
