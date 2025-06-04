@@ -69,7 +69,7 @@ function PostTemplate ({post, currentPostUser} : PostTemplateProps) {
                                     <UsernameComponent user={postUser}/>
                                 </div>
                                 <p>·</p>
-                                <CreatedAtDisplay createdAt={post.createdAt}/>
+                                <CreatedAtDisplay createdAt={post.createdAt} typeOfCreatedAt="timeago"/>
                         </div>
                         <div className="text-white max-h-32">
                             <p>

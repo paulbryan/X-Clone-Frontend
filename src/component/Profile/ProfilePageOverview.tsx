@@ -137,10 +137,9 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
                         
                         <div className="h-fit w-full text-(--twitter-text)">
                             <div className="flex items-center gap-2">
-                            <FaRegCalendar />
-                            {pageUser.createdAt && (
+                                <FaRegCalendar />
                                 <CreatedAtDisplay typeOfCreatedAt="date" createdAt={pageUser.createdAt}/>
-                            )}                            </div>
+                            </div>
                         </div>
 
                         <div className="h-fit w-full flex items-center gap-4 mb-0.5 text-(--twitter-text)">
