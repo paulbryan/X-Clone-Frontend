@@ -63,7 +63,7 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
                 <div className="w-full h-full px-4 text-(--text-main) flex flex-col">
 
                     <div className="w-full h-12 mt-1 mb-3 flex flex-col">
-                        <div className="font-bold text-xl"><DisplayNameComponent user={pageUser}/></div>
+                        <div className="font-bold text-xl text-(--text-main)"><DisplayNameComponent user={pageUser}/></div>
                         <div className="text-(--twitter-text)"><UsernameComponent user={pageUser}/></div>
                     </div>
 

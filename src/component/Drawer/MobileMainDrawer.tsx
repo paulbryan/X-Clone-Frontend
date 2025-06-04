@@ -32,18 +32,18 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
             onClick={(e) => e.stopPropagation()}
             className="w-5/6 p-4 border-r flex flex-col border-(--twitter-border) h-full bg-(--background-main)">
                 
-                <div className="w-full h-fit mb-2">
+                <div className="w-full h-fit ">
                     <div onClick={() => navigate(`/profile/${currentUser?.id}`)} className="w-12 h-12">
                         <ProfilePic user={currentUser}/>
                     </div>
-                    <div>
-                        <div className="text-(--twitter-text) text-xl">
+                    <div className="text-(--twitter-text)">
+                        <div className="text-(--text-main) text-xl">
                             <DisplayNameComponent user={currentUser}/>
                         </div>
                     <UsernameComponent user={currentUser}/>
                     </div>
 
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 mt-2">
                         {currentUser && (
                             <FollowersFollowing pageUser={currentUser}/>
                         )}

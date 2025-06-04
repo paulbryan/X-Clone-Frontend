@@ -10,8 +10,8 @@
     --twitter-red: #ff2c84;
     --twitter-yellow: #ffd404;
     --twitter-purple: #8054fc;
-    --background-main: var(--dim-background);
-    --color-main: var(--twitter-blue);
+    --background-main: var(--twitter-black);
+    --color-main: var(--twitter-red);
     --text-main: #f7f9f9;
   }
 

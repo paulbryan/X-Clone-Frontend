@@ -1,11 +1,12 @@
 import { FaXTwitter } from "react-icons/fa6";
 import ProfilePic from "./UIComponent/ProfilePic";
+import { FaArrowLeft } from "react-icons/fa";
 
 import { useModal } from "./Context/ModalProvider";
 import { useState } from "react";
 import MobileMainDrawer from "./Drawer/MobileMainDrawer";
 import { useCurrentUser } from "./Context/CurrentUserProvider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 function Header () {
@@ -14,6 +15,9 @@ function Header () {
     const {currentUser} = useCurrentUser();
     const { setModalType } = useModal();
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const isHome = location.pathname === "/";
 
     return (
 
@@ -21,12 +25,18 @@ function Header () {
             <div className="h-14 w-full relative flex justify-between bg-(--background-main) px-3 text-white">
 
                 <div className="h-full w-full flex relative items-center justify-start">
-                    {currentUser && (
+                    {currentUser && isHome ? (
                     <div
                     onClick={() => setDrawerOpen(true)}
                     className="w-12 h-12">
                         <ProfilePic user={currentUser}/>
                     </div>
+                    ) : !isHome && (
+                        <div 
+                        className="w-12 h-12 flex items-center justify-center text-xl"
+                        onClick={() => navigate(-1)}>
+                        <FaArrowLeft />
+                        </div>
                     )}
                 </div>
 
