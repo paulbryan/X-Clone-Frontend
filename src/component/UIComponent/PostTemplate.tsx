@@ -9,6 +9,7 @@ import ProfilePic from "./ProfilePic";
 import { useUserCache } from "../Context/UserCacheProvider";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import CreatedAtDisplay from "./CreatedAtDisplay";
+import { useNavigate } from "react-router-dom";
 
 type PostTemplateProps = {
     post: Post;
@@ -20,6 +21,7 @@ function PostTemplate ({post, currentPostUser} : PostTemplateProps) {
     const {currentUser} = useCurrentUser();
     const {getUserFromCache} = useUserCache();
     const [postUser, setPostUser] = useState<User | undefined>(currentPostUser);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!currentPostUser) {
@@ -54,7 +56,7 @@ function PostTemplate ({post, currentPostUser} : PostTemplateProps) {
 
             <div className="flex w-full h-fitl px-4 pt-3">
                 <div className="flex w-12 mr-2">
-                    <div className="w-10 h-10">
+                    <div className="w-10 h-10" onClick={() => navigate(`/profile/${post.userId}`)}>
                         <ProfilePic user={postUser}/>
                     </div>
                 </div>
