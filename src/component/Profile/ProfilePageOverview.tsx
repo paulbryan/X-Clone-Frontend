@@ -12,6 +12,7 @@ import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import BioComponent from "../UserInfo/BioComponent";
 import LoadingIcon from "../UIComponent/LoadingIcon";
 import CreatedAtDisplay from "../UIComponent/CreatedAtDisplay";
+import FollowButton from "../ButtonComponent/FollowButton";
 
 type ProfilePageOverviewProps = {
     pageUser?: User | null;
@@ -19,11 +20,8 @@ type ProfilePageOverviewProps = {
 
 function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
 
-    const {currentUser, addToFollowing, removeFromFollowing} = useCurrentUser();
+    const {currentUser} = useCurrentUser();
     const [isOwnPage, setIsOwnPage] = useState<boolean>(false);
-    const {addToFollowers, removeFromFollowers} = useUserCache();
-
-    const [createdOn, setCreatedOn] = useState(null);
 
 
     useEffect(() => {
@@ -33,66 +31,6 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
             setIsOwnPage(false);
         }
     }, [pageUser, currentUser])
-
-
-
-    function handleFollow () {
-
-        if (pageUser && currentUser) {
-
-            if (currentUser.following.includes(pageUser.id)) {
-                
-                removeFromFollowers(pageUser.id, currentUser.id);
-                removeFromFollowing(pageUser.id);
-
-                const newFollow = {
-                    followerId: currentUser.id,
-                    followedId: pageUser.id
-                }
-
-                fetch("http://localhost:8080/api/follows/unfollowUser", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newFollow),
-                  })
-                  .then(res => res.text())
-                  .then(data => {
-                    console.log("Data res is " + data)
-                    if (data != "SUCCESS") {
-                        addToFollowers(pageUser.id, currentUser.id);
-                        addToFollowing(pageUser.id)
-                    }
-                  });
-
-
-            } else {
-                addToFollowers(pageUser.id, currentUser.id);
-                addToFollowing(pageUser.id)
-                const newFollow = {
-                    followerId: currentUser.id,
-                    followedId: pageUser.id
-                }
-                
-                console.log("Sending: " + JSON.stringify(newFollow))
-    
-                fetch("http://localhost:8080/api/follows/followUser", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newFollow),
-                  })
-                  .then(res => res.text())
-                  .then(data => {
-                    console.log("Data res is " + data)
-                    if (data != "SUCCESS") {
-                        removeFromFollowers(pageUser.id, currentUser.id);
-                        removeFromFollowing(pageUser.id);                    }
-                  });
-            }
-
-
-        }
-
-    }
 
     if (pageUser) {
         return (
@@ -113,7 +51,7 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
                             {isOwnPage ? (
                                 <p>Edit Profile</p>
                             ) : (
-                                <p onClick={() => handleFollow()}>Follow</p>
+                                <FollowButton pageUser={pageUser}/>
                             )}
                         </div>
                     </div>
