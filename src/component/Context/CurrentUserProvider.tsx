@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import type {ReactNode} from "react";
 import type { User } from "../../types/User";
 import type { Dispatch, SetStateAction } from "react";
@@ -8,6 +8,7 @@ type CurrentUserContextType = {
     setCurrentUser: Dispatch<SetStateAction<User | null>>;
     addToFollowing: (followedId: number) => void;
     removeFromFollowing: (followedId: number) => void;
+    initializeNotifications: (userId: number) => void;
 
   };
 
@@ -15,6 +16,7 @@ const CurrentUserContext = createContext<CurrentUserContextType | undefined>(und
 
 export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [notifications, setNotifications] = useState<Notification[] | []>([]);
 
     const addToFollowing = (followedId: number) => {
       setCurrentUser((prev) => {
@@ -27,6 +29,16 @@ export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
         return prev;
       });
     };
+
+    function initializeNotifications (userId: number) {
+
+      fetch(`http://localhost:8080/api/notifications/getAllNotifications/${userId}`)
+      .then(res => res.json())
+      .then(data => {
+        setNotifications(data);
+      });
+
+    }
 
     const removeFromFollowing = (followedId: number) => {
       setCurrentUser((prev) => {
@@ -42,7 +54,7 @@ export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
 
 
     return (
-      <CurrentUserContext.Provider value={{addToFollowing, removeFromFollowing, currentUser, setCurrentUser}}>
+      <CurrentUserContext.Provider value={{initializeNotifications, addToFollowing, removeFromFollowing, currentUser, setCurrentUser}}>
         {children}
       </CurrentUserContext.Provider>
     );

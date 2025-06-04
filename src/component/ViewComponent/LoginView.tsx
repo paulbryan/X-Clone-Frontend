@@ -17,7 +17,7 @@ function LoginView ({ setToggle }: LoginViewProps) {
     const [passwordInput, setPasswordInput] = useState("");
     const [emailInput, setEmailInput] = useState("");
 
-    const {currentUser, setCurrentUser} = useCurrentUser();
+    const {currentUser, setCurrentUser, initializeNotifications} = useCurrentUser();
 
     function loginUser () {
 
@@ -38,6 +38,7 @@ function LoginView ({ setToggle }: LoginViewProps) {
           .then(data => {
             console.log(data.user);
             setCurrentUser(data);
+            initializeNotifications(data.id);
             setToggle(null)
           });
 
@@ -50,6 +51,7 @@ function LoginView ({ setToggle }: LoginViewProps) {
         .then(data => {
             console.log("all good")
             setCurrentUser(data);
+            initializeNotifications(data.id);
             setToggle(null);
         })
 
