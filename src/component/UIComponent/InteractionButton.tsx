@@ -12,7 +12,10 @@ type InteractionButtonProps = {
 function InteractionButton({ children, checkOfIds, postId, numberList }: InteractionButtonProps) {
 
   const {currentUser} = useCurrentUser();
-  const [isMarked, setIsMarked] = useState<boolean>(false); 
+  const [isMarked, setIsMarked] = useState<boolean>(currentUser && checkOfIds && checkOfIds.includes(postId) ? true : false); 
+
+
+
 
   useEffect(() => {
 
