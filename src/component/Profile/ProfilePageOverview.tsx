@@ -11,6 +11,7 @@ import UsernameComponent from "../UserInfo/UsernameComponent";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import BioComponent from "../UserInfo/BioComponent";
 import LoadingIcon from "../UIComponent/LoadingIcon";
+import CreatedAtDisplay from "../UIComponent/CreatedAtDisplay";
 
 type ProfilePageOverviewProps = {
     pageUser?: User | null;
@@ -22,6 +23,8 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
     const [isOwnPage, setIsOwnPage] = useState<boolean>(false);
     const {addToFollowers, removeFromFollowers} = useUserCache();
 
+    const [createdOn, setCreatedOn] = useState(null);
+
 
     useEffect(() => {
         if (currentUser && pageUser && currentUser.id == pageUser.id) {
@@ -31,7 +34,7 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
         }
     }, [pageUser, currentUser])
 
-    
+
 
     function handleFollow () {
 
@@ -135,8 +138,9 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
                         <div className="h-fit w-full text-(--twitter-text)">
                             <div className="flex items-center gap-2">
                             <FaRegCalendar />
-                            <p>Joined December 2024</p>
-                            </div>
+                            {pageUser.createdAt && (
+                                <CreatedAtDisplay typeOfCreatedAt="date" createdAt={pageUser.createdAt}/>
+                            )}                            </div>
                         </div>
 
                         <div className="h-fit w-full flex items-center gap-4 mb-0.5 text-(--twitter-text)">
