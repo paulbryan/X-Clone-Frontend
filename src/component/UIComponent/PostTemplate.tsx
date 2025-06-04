@@ -8,6 +8,7 @@ import PostInteractionComponent from "./PostInteractionComponent";
 import ProfilePic from "./ProfilePic";
 import { useUserCache } from "../Context/UserCacheProvider";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
+import CreatedAtDisplay from "./CreatedAtDisplay";
 
 type PostTemplateProps = {
     post: Post;
@@ -35,6 +36,7 @@ function PostTemplate ({post, currentPostUser} : PostTemplateProps) {
 
     useEffect(() => {
         console.log("Hi im a post")
+        console.log("My data is " + post.createdAt)
         if (postUser) {
             console.log("My user is : " + JSON.stringify(postUser))
         }
@@ -67,7 +69,7 @@ function PostTemplate ({post, currentPostUser} : PostTemplateProps) {
                                     <UsernameComponent user={postUser}/>
                                 </div>
                                 <p>·</p>
-                                <p>Feb 5</p>
+                                <CreatedAtDisplay createdAt={post.createdAt}/>
                         </div>
                         <div className="text-white max-h-32">
                             <p>

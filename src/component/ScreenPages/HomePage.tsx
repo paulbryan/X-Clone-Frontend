@@ -22,7 +22,7 @@ function HomePage () {
             </div>
             )}
             <div className="h-full flex grow w-full overflow-y-auto mb-14">
-                <Feed postIdsArray={forYouFeedIds}/>
+                <Feed key={activeTab} postIdsArray={forYouFeedIds}/>
             </div>
         </div>
 
