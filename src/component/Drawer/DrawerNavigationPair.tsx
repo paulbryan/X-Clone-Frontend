@@ -21,7 +21,11 @@ function DrawerNavigationPair ( { children, name, routePath, setDrawerOpen }: Dr
         if (routePath) {
             navigate(routePath);
         }
-        setDrawerOpen(false);
+
+        setTimeout(() => {
+            setDrawerOpen(false);
+        }, 50)
+
     } 
 
     return (
