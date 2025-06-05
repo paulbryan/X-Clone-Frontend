@@ -7,8 +7,11 @@ import NotificationTemplate from "../UIComponent/NotificationTemplate";
 import type { User } from "../../types/User";
 import { useEffect } from "react";
 
+type NotificationFeedProps = {
+    tempUnreads?: number[];
+}
 
-function NotificationFeed () {
+function NotificationFeed ({tempUnreads} : NotificationFeedProps) {
 
     const {currentUser, notifications } = useCurrentUser()
     const {getUserFromCache, addToUserCache, fetchUsersFromServerById} = useUserCache();
@@ -51,7 +54,7 @@ function NotificationFeed () {
 
                 <div className="flex flex-col-reverse w-full">
                 {notifications.map((notification) => (
-                    <NotificationTemplate sender={getUserFromCache(notification.senderId)} notification={notification} />
+                    <NotificationTemplate isTempUnseen={tempUnreads?.includes(notification.id)} sender={getUserFromCache(notification.senderId)} notification={notification} />
                 ))}
                 </div>
 

@@ -10,10 +10,11 @@ type NotificationTemplateProps = {
 
     sender?: User;
     notification: Notification;
+    isTempUnseen?: boolean;
 
 }
 
-function NotificationTemplate ({sender, notification}: NotificationTemplateProps)  {
+function NotificationTemplate ({sender, notification, isTempUnseen}: NotificationTemplateProps)  {
 
     const navigate = useNavigate();
     const displayMessage = determineDisplayMessage();
@@ -36,7 +37,9 @@ function NotificationTemplate ({sender, notification}: NotificationTemplateProps
 
     return (
         <>
-        <div className="h-fit w-full flex border-b-2 border-(--twitter-border)">
+        <div className={`h-fit w-full flex border-b-2 border-(--twitter-border) ${
+            isTempUnseen ? 'bg-(--twitter-text)/20' : ' '
+        }`}>
 
         <div className="flex flex-col w-full h-fit px-4 pt-3">
 
