@@ -5,7 +5,7 @@ import type { Notification } from "../../types/Notification";
 import LoadingIcon from "../UIComponent/LoadingIcon";
 import NotificationTemplate from "../UIComponent/NotificationTemplate";
 import type { User } from "../../types/User";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type NotificationFeedProps = {
     tempUnreads?: number[];
@@ -15,6 +15,13 @@ function NotificationFeed ({tempUnreads} : NotificationFeedProps) {
 
     const {currentUser, notifications } = useCurrentUser()
     const {getUserFromCache, addToUserCache, fetchUsersFromServerById} = useUserCache();
+    const [bufferedTimeOut, setBufferedTimeout] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setBufferedTimeout(true)
+        }, 200)
+    }, [])
 
     useEffect(() => {
         if (notifications) {
@@ -49,7 +56,7 @@ function NotificationFeed ({tempUnreads} : NotificationFeedProps) {
     return (
         
         <div className='w-full'>
-            {notifications && notifications.length > 0 &&
+            {bufferedTimeOut && notifications && notifications.length > 0 &&
             notifications.every(notification => getUserFromCache(notification.senderId)) ? (
 
                 <div className="flex flex-col-reverse w-full">

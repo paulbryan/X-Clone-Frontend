@@ -5,6 +5,7 @@ import ProfilePic from "./ProfilePic";
 import { useNavigate } from "react-router-dom";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import UsernameComponent from "../UserInfo/UsernameComponent";
+import NotificationTypeIcon from "./NotificationTypeIcon";
 
 type NotificationTemplateProps = {
 
@@ -41,7 +42,11 @@ function NotificationTemplate ({sender, notification, isTempUnseen}: Notificatio
             isTempUnseen ? 'bg-(--twitter-text)/20' : ' '
         }`}>
 
-        <div className="flex flex-col w-full h-fit px-4 pt-3">
+        <div className="w-14 h-fit flex justify-center text-2xl pt-4 text-center">
+            <NotificationTypeIcon notificationType={notification.type}/>
+        </div>
+
+        <div className="flex flex-col w-full h-fit pr-4 pt-3">
 
             <div className="w-full h-fit">
             <div className="flex w-12 mr-2">
@@ -53,14 +58,14 @@ function NotificationTemplate ({sender, notification, isTempUnseen}: Notificatio
 
             <div className="pb-3 w-full h-fit">
                 <div className="w-full h-fit flex-col">
-                    <div className="w-full h-5 flex gap-2 align-middle text-white mb-0.5">
-                            <div> 
+                    <div className="w-full h-5 flex gap-1 align-middle text-white mb-0.5">
+                            <div className="font-bold"> 
                                 <DisplayNameComponent user={sender}/>
                             </div>
                             <p> {displayMessage}</p>
                     </div>
 
-                    <div className="text-white max-h-32">
+                    <div className="text-(--twitter-text) max-h-32">
                         <p>
                             {notification.text.slice(0, 20)}{notification.text.length > 20 ? "..." : ""}
                         </p>
