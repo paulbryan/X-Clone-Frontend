@@ -12,7 +12,7 @@ type CurrentUserContextType = {
     removeFromFollowing: (followedId: number) => void;
     initializeNotifications: (userId: number) => void;
     notifications: Notification[];
-    unreadNotifications: number;
+    unreadNotifications: number[];
     clearRead: () => void;
 
   };
@@ -22,7 +22,7 @@ const CurrentUserContext = createContext<CurrentUserContextType | undefined>(und
 export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [notifications, setNotifications] = useState<Notification[]>([]);
-    const [unreadNotifications, setUnreadNotificationsLength] = useState<number>(0); 
+    const [unreadNotifications, setUnreadNotifications] = useState<number[]>([]); 
 
     const addToFollowing = (followedId: number) => {
       setCurrentUser((prev) => {
@@ -37,17 +37,17 @@ export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
     };
 
     function clearRead () {
-      setUnreadNotificationsLength(0);
+      setUnreadNotifications([]);
     }
 
     function setUnreadLength (notifArray: Notification[]) {
-      let count = 0;
+      let unread: number[] = [];
       for (let i = 0; i < notifArray.length; i++) {
-        if (notifArray[i].seen) {
-          count++;
+        if (!notifArray[i].seen) {
+          unread.push(notifArray[i].id)
         }
       }
-      setUnreadNotificationsLength(count);
+      setUnreadNotifications(unread);
     }
 
     function initializeNotifications (userId: number) {

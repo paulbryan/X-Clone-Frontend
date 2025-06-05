@@ -31,7 +31,7 @@ function FooterBar () {
                             navigate("/notifications")
                         }
                     }} />
-                    {currentUser && unreadNotifications > 0 && (
+                    {currentUser && unreadNotifications.length > 0 && (
                         <div className="w-4 rounded-full h-4 absolute z-40 bg-(--color-main) top-2 right-9">  </div>
                     )}
                 </div>
