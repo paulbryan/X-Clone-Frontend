@@ -15,7 +15,7 @@ type FeedProps = {
 function Feed ({postIdsArray} : FeedProps) {
 
     const {postCache, getPostFromCache, addToPostCache, fetchPostsFromServerById} = usePostCache();
-    const {userCache, addToUserCache, getUserFromCache, fetchUsersFromServerById} = useUserCache();
+    const {addToUserCache, getUserFromCache, fetchUsersFromServerById} = useUserCache();
     const [loadedPosts, setLoadedPosts] = useState<Post[]>([]);
     const [hasLoadedPosts, setHasLoadedPosts] = useState<boolean>(false);
     const [hasLoadedUsers, setHasLoadedUsers] = useState<boolean>(false);
@@ -32,10 +32,6 @@ function Feed ({postIdsArray} : FeedProps) {
             }, 200)
         }
     }, [hasLoadedPosts, hasLoadedUsers])
-
-    useEffect(() => {
-        console.log("Loaded posts: " + JSON.stringify(loadedPosts))
-    }, [loadedPosts])
 
     useEffect(() => {
         console.log("Calling load")
@@ -63,21 +59,25 @@ function Feed ({postIdsArray} : FeedProps) {
             const post = getPostFromCache(postIdsArray[i]);
             if (post) finalPostArray.push(post);
         }
-
-        console.log("PIARRAY: " + JSON.stringify(postIdsArray))
-
-        console.log("FPA: " + JSON.stringify(finalPostArray))
-
     
         setLoadedPosts(finalPostArray);
         setHasLoadedPosts(true);
 
-        console.log("Loaded posts" + JSON.stringify(loadedPosts))
-    
         await loadUsers(finalPostArray);
         setHasLoadedUsers(true);
     }
- 
+
+    async function fetchUnloadedPosts (notFoundPosts : number[]) {
+
+        const fetchedPosts: Post[] = await fetchPostsFromServerById(notFoundPosts);
+        console.log("starting add to cache")
+        for (let i = 0; i < fetchedPosts.length; i++) {
+            console.log("Adding to cache: " + JSON.stringify(fetchedPosts[i]))
+            addToPostCache(fetchedPosts[i]);
+        }
+
+    }
+
     async function loadUsers(posts: Post[]) {
         const notFoundUsers : number[] = [];
     
@@ -94,22 +94,10 @@ function Feed ({postIdsArray} : FeedProps) {
         }
     }
 
-    async function fetchUnloadedPosts (notFoundPosts : number[]) {
-
-        const fetchedPosts: Post[] = await fetchPostsFromServerById(notFoundPosts);
-        console.log("starting add to cache")
-        for (let i = 0; i < fetchedPosts.length; i++) {
-            console.log("Adding to cache: " + JSON.stringify(fetchedPosts[i]))
-            addToPostCache(fetchedPosts[i]);
-        }
-
-    }
-
     async function fetchUnloadedUsers (notFoundUsers : number[]) {
 
         const fetchedUsers: User[] = await fetchUsersFromServerById(notFoundUsers);
         for (let i = 0; i < fetchedUsers.length; i++) {
-
             addToUserCache(fetchedUsers[i]);
         }
 
@@ -121,7 +109,7 @@ function Feed ({postIdsArray} : FeedProps) {
             loadedPosts.every(post => getUserFromCache(post.userId)) ? (
                 <div className="flex flex-col-reverse w-full">
                 {loadedPosts.map((post) => (
-                    <PostTemplate post={post} currentPostUser={getUserFromCache(post.userId)} />
+                    <PostTemplate key={post.id} post={post} currentPostUser={getUserFromCache(post.userId)} />
                 ))}
                 </div>
             ) : (

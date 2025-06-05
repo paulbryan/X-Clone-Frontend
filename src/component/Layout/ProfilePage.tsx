@@ -19,7 +19,7 @@ function ProfilePage() {
     const { currentUser } = useCurrentUser();
     const { addToUserCache, getUserFromCache, fetchUsersFromServerById, userCache } = useUserCache();
 
-    const [pageUser, setPageUser] = useState<User | null>(null);
+    const [pageUser, setPageUser] = useState<User | null>();
 
     useEffect(() => {
         if (pageUserID) {

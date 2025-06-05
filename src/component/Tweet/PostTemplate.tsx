@@ -36,18 +36,6 @@ function PostTemplate ({post, currentPostUser} : PostTemplateProps) {
         }
     }, [post])
 
-    useEffect(() => {
-        console.log("Hi im a post")
-        console.log("My data is " + post.createdAt)
-        if (postUser) {
-            console.log("My user is : " + JSON.stringify(postUser))
-        }
-        if (post) {
-            console.log("My post is: " + JSON.stringify(post))
-        }
-
-    }, [post])
-
     return (
 
 
