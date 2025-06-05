@@ -7,6 +7,7 @@ import { useState } from "react";
 import MobileMainDrawer from "./Drawer/MobileMainDrawer";
 import { useCurrentUser } from "./Context/CurrentUserProvider";
 import { useNavigate, useLocation } from "react-router-dom";
+import HomePage from "./ScreenPages/HomePage";
 
 
 function Header () {
@@ -22,13 +23,13 @@ function Header () {
     return (
 
         <>
-            <div className="h-14 w-full relative flex justify-between bg-(--background-main) px-3 text-white">
+            <div className={`h-16 ${!isHome ? 'border-b border-(--twitter-border)' : ''} w-full relative flex justify-between bg-(--background-main) px-3 text-white`}>
 
                 <div className="h-full w-full flex relative items-center justify-start">
                     {currentUser && isHome ? (
                     <div
                     onClick={() => setDrawerOpen(true)}
-                    className="w-12 h-12">
+                    className="w-12 h-12 flex justify-center items-center">
                         <ProfilePic user={currentUser}/>
                     </div>
                     ) : !isHome && (
