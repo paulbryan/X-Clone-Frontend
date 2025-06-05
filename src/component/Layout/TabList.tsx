@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import TabButton from "./ButtonComponent/TabButton";
+import TabButton from "../ButtonComponent/TabButton";
 import type { Dispatch, SetStateAction } from "react";
 
 interface TabListProps {

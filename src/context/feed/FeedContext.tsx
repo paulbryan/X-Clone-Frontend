@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type {ReactNode} from "react";
-import { useCurrentUser } from "./CurrentUserProvider";
+import { useCurrentUser } from "../currentUser/CurrentUserProvider";
 
 type FeedContextType = {
     forYouFeedIds: number[];

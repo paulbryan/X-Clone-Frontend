@@ -1,8 +1,8 @@
 import type { NewPost } from "../../types/NewPost";
 import type { Post } from "../../types/Post";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
-import { useFeedContext } from "../Context/FeedContext";
-import { usePostCache } from "../Context/PostCacheProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useFeedContext } from "../../context/feed/FeedContext";
+import { usePostCache } from "../../context/cache/PostCacheProvider";
 
 type UploadTweetButtonProps = {
     textInput: string;

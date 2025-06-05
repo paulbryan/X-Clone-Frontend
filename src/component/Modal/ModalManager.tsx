@@ -1,4 +1,4 @@
-import { useModal } from "../Context/ModalProvider";
+import { useModal } from "../../context/misc/ModalProvider";
 import Modal from "./Modal";
 import SignupView from "../ViewComponent/SignupView";
 import LoginView from "../ViewComponent/LoginView";

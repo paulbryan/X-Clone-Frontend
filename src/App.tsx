@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import './App.css'
-import FooterBar from './component/FooterBar'
-import Header from './component/Header';
+import FooterBar from './component/Layout/FooterBar'
+import Header from './component/Layout/Header';
 import { BrowserRouter as Router, Routes, Route, useLocation, Link } from "react-router-dom";
-import HomePage from './component/ScreenPages/HomePage';
-import ProfilePage from './component/ScreenPages/ProfilePage';
-import { ModalProvider } from './component/Context/ModalProvider';
+import HomePage from './component/Layout/HomePage';
+import ProfilePage from './component/Layout/ProfilePage';
+import { ModalProvider } from './context/misc/ModalProvider';
 import ModalManager from './component/Modal/ModalManager';
-import { CurrentUserProvider } from './component/Context/CurrentUserProvider';
+import { CurrentUserProvider } from './context/currentUser/CurrentUserProvider';
 import type { User } from './types/User';
-import { UserCacheProvider } from './component/Context/UserCacheProvider';
-import { PostCacheProvider } from './component/Context/PostCacheProvider';
-import { FeedProvider } from './component/Context/FeedContext';
-import BookmarkPage from './component/ScreenPages/BookmarkPage';
-import NotificationPage from './component/ScreenPages/NotificationPage';
+import { UserCacheProvider } from './context/cache/UserCacheProvider';
+import { PostCacheProvider } from './context/cache/PostCacheProvider';
+import { FeedProvider } from './context/feed/FeedContext';
+import BookmarkPage from './component/Layout/BookmarkPage';
+import NotificationPage from './component/Layout/NotificationPage';
 
 
 

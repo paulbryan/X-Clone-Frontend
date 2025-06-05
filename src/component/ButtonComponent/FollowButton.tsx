@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { User } from "../../types/User";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
-import { useUserCache } from "../Context/UserCacheProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useUserCache } from "../../context/cache/UserCacheProvider";
 
 
 type FollowButtonProps = {

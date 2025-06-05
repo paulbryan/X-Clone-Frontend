@@ -1,9 +1,9 @@
-import { useCurrentUser } from "../Context/CurrentUserProvider"
-import { usePostCache } from "../Context/PostCacheProvider"
-import { useUserCache } from "../Context/UserCacheProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider"
+import { usePostCache } from "../../context/cache/PostCacheProvider"
+import { useUserCache } from "../../context/cache/UserCacheProvider";
 import type { Notification } from "../../types/Notification";
 import LoadingIcon from "../UIComponent/LoadingIcon";
-import NotificationTemplate from "../UIComponent/NotificationTemplate";
+import NotificationTemplate from "../Notifications/NotificationTemplate";
 import type { User } from "../../types/User";
 import { useEffect, useState } from "react";
 

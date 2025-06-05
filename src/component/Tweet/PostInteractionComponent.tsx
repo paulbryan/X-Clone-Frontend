@@ -1,10 +1,10 @@
 import { FaRegComment, FaRegHeart, FaRegBookmark } from "react-icons/fa";
 import { FaRepeat } from "react-icons/fa6";
-import InteractionButton from "./InteractionButton";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
-import { useFeedContext } from "../Context/FeedContext";
+import InteractionButton from "../ButtonComponent/InteractionButton";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useFeedContext } from "../../context/feed/FeedContext";
 import { useState } from "react";
-import { usePostCache } from "../Context/PostCacheProvider";
+import { usePostCache } from "../../context/cache/PostCacheProvider";
 
 type PostInteractionComponentProps = {
     postId: number;

@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import type { Post } from "../../types/Post";
 import type { User } from "../../types/User";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
-import { usePostCache } from "../Context/PostCacheProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { usePostCache } from "../../context/cache/PostCacheProvider";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import PostInteractionComponent from "./PostInteractionComponent";
-import ProfilePic from "./ProfilePic";
-import { useUserCache } from "../Context/UserCacheProvider";
+import ProfilePic from "../UserInfo/ProfilePic";
+import { useUserCache } from "../../context/cache/UserCacheProvider";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
-import CreatedAtDisplay from "./CreatedAtDisplay";
+import CreatedAtDisplay from "../UIComponent/CreatedAtDisplay";
 import { useNavigate } from "react-router-dom";
 
 type PostTemplateProps = {

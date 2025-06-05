@@ -1,12 +1,12 @@
-import ProfilePic from "../UIComponent/ProfilePic";
+import ProfilePic from "../UserInfo/ProfilePic";
 import TextareaAutosize from 'react-textarea-autosize';
 import { FaRegImage } from "react-icons/fa";
 import { MdOutlineGif } from "react-icons/md";
 import UploadTweetButton from "../ButtonComponent/UploadTweetButton";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import { useState } from "react";
 import type { NewPost } from "../../types/NewPost";
-import { usePostCache } from "../Context/PostCacheProvider";
+import { usePostCache } from "../../context/cache/PostCacheProvider";
 import type { Post } from "../../types/Post";
 
 function ComposePost () {

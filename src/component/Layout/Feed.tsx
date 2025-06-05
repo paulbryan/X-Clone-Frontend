@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import PostTemplate from "./UIComponent/PostTemplate";
-import type { Post } from "../types/Post";
-import PostSkeleton from "./UIComponent/PostSkeleton";
-import { usePostCache } from "./Context/PostCacheProvider";
-import type { User } from "../types/User";
-import { useUserCache } from "./Context/UserCacheProvider";
-import { useCurrentUser } from "./Context/CurrentUserProvider";
-import LoadingIcon from "./UIComponent/LoadingIcon";
+import PostTemplate from "../Tweet/PostTemplate";
+import type { Post } from "../../types/Post";
+import { usePostCache } from "../../context/cache/PostCacheProvider";
+import type { User } from "../../types/User";
+import { useUserCache } from "../../context/cache/UserCacheProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import LoadingIcon from "../UIComponent/LoadingIcon";
 
 
 type FeedProps = {

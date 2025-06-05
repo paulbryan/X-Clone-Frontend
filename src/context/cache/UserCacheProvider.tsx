@@ -6,7 +6,7 @@ import {
     type ReactNode,
   } from "react";
   import type { User } from "../../types/User";
-import { useCurrentUser } from "./CurrentUserProvider";
+import { useCurrentUser } from "../currentUser/CurrentUserProvider";
   
   // 1. Context type with functions
   type UserCacheContextType = {

@@ -1,10 +1,10 @@
-import FollowersFollowing from "../UIComponent/FollowersFollowing";
-import ProfilePic from "../UIComponent/ProfilePic";
+import FollowersFollowing from "../UserInfo/FollowersFollowing";
+import ProfilePic from "../UserInfo/ProfilePic";
 import {CiHome, CiUser, CiBookmark, CiBellOn, CiCircleQuestion, CiPower, CiPickerHalf } from "react-icons/ci";
 import DrawerNavigationPair from "./DrawerNavigationPair";
 import TextSetter from "./TextSetter";
 import { useEffect, type Dispatch, type SetStateAction } from "react";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import { useNavigate } from "react-router-dom";

@@ -1,13 +1,12 @@
 import { FaXTwitter } from "react-icons/fa6";
-import ProfilePic from "./UIComponent/ProfilePic";
+import ProfilePic from "../UserInfo/ProfilePic";
 import { FaArrowLeft } from "react-icons/fa";
 
-import { useModal } from "./Context/ModalProvider";
+import { useModal } from "../../context/misc/ModalProvider";
 import { useState } from "react";
-import MobileMainDrawer from "./Drawer/MobileMainDrawer";
-import { useCurrentUser } from "./Context/CurrentUserProvider";
+import MobileMainDrawer from "../Drawer/MobileMainDrawer";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import { useNavigate, useLocation } from "react-router-dom";
-import HomePage from "./ScreenPages/HomePage";
 
 
 function Header () {
@@ -29,7 +28,7 @@ function Header () {
                     {currentUser && isHome ? (
                     <div
                     onClick={() => setDrawerOpen(true)}
-                    className="w-12 h-12 flex justify-center items-center">
+                    className="w-10 h-10 flex justify-center items-center">
                         <ProfilePic user={currentUser}/>
                     </div>
                     ) : !isHome && (

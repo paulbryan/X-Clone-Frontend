@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import NotificationFeed from "../Feed/NotificationFeed";
 
 function NotificationPage () {

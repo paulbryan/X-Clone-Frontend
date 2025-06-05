@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import InputFormField from '../InputComponent/InputFormField';
 
 import type { ModalType } from '../../types/ModalType';
-import { useCurrentUser } from '../Context/CurrentUserProvider';
-import { UserCacheProvider } from '../Context/UserCacheProvider';
+import { useCurrentUser } from '../../context/currentUser/CurrentUserProvider';
+import { UserCacheProvider } from '../../context/cache/UserCacheProvider';
 
 type LoginViewProps = {
     setToggle: (type: ModalType) => void;

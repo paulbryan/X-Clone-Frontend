@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useFeedContext } from "../Context/FeedContext";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
-import Feed from "../Feed";
+import { useFeedContext } from "../../context/feed/FeedContext";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import Feed from "./Feed";
 
 function BookmarkPage () {
 

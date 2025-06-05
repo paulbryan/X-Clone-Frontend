@@ -1,11 +1,11 @@
 import type { Post } from "../../types/Post"
 import type { User } from "../../types/User";
 import type { Notification } from "../../types/Notification"
-import ProfilePic from "./ProfilePic";
+import ProfilePic from "../UserInfo/ProfilePic";
 import { useNavigate } from "react-router-dom";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import UsernameComponent from "../UserInfo/UsernameComponent";
-import NotificationTypeIcon from "./NotificationTypeIcon";
+import NotificationTypeIcon from "../UIComponent/NotificationTypeIcon";
 
 type NotificationTemplateProps = {
 

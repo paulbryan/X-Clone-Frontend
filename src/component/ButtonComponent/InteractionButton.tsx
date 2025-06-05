@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 
 type InteractionButtonProps = {
   children: ReactNode;

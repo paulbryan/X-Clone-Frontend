@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import ProfilePageOverview from "../Profile/ProfilePageOverview";
-import TabList from "../TabList";
+import ProfilePageOverview from "../UserInfo/ProfilePageOverview";
+import TabList from "./TabList";
 import { useParams } from "react-router-dom";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import type { User } from "../../types/User";
-import { useUserCache } from "../Context/UserCacheProvider";
-import Feed from "../Feed";
-import { useFeedContext } from "../Context/FeedContext";
+import { useUserCache } from "../../context/cache/UserCacheProvider";
+import Feed from "./Feed";
+import { useFeedContext } from "../../context/feed/FeedContext";
 
 function ProfilePage() {
     const tabs = ["Tweets", "Liked", "Media"];

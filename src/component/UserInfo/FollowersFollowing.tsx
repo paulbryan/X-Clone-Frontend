@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { User } from "../../types/User";
-import { useUserCache } from "../Context/UserCacheProvider";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
+import { useUserCache } from "../../context/cache/UserCacheProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 
 type FollowersFollowingProps = {
     pageUser: User;

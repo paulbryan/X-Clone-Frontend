@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import MainFeed from "../Feed";
-import TabList from "../TabList";
-import { useCurrentUser } from "../Context/CurrentUserProvider";
-import Feed from "../Feed";
-import { useFeedContext } from "../Context/FeedContext";
+import MainFeed from "./Feed";
+import TabList from "./TabList";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import Feed from "./Feed";
+import { useFeedContext } from "../../context/feed/FeedContext";
 
 function HomePage () {
 
