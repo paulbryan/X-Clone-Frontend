@@ -6,5 +6,6 @@ export type Post = {
     createdAt: string;
     likedBy: number[];
     bookmarkedBy: number[];
+    parentId?: number;
 
 }

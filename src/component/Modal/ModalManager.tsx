@@ -2,7 +2,7 @@ import { useModal } from "../../context/misc/ModalProvider";
 import Modal from "./Modal";
 import SignupView from "../ViewComponent/SignupView";
 import LoginView from "../ViewComponent/LoginView";
-import ComposePost from "../ViewComponent/ComposePost";
+import ComposePost from "./ComposePost";
 
 function ModalManager() {
   const { modalType, setModalType } = useModal();
