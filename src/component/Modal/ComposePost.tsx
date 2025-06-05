@@ -9,7 +9,11 @@ import type { NewPost } from "../../types/NewPost";
 import { usePostCache } from "../../context/cache/PostCacheProvider";
 import type { Post } from "../../types/Post";
 
-function ComposePost () {
+type ComposePostProps = {
+    parentId?: number;
+}
+
+function ComposePost ({parentId}: ComposePostProps) {
 
     const [textInput, setTextInput] = useState<string>("");
     const {currentUser} = useCurrentUser();
@@ -33,7 +37,7 @@ function ComposePost () {
                         <MdOutlineGif className="text-4xl"/>
                     </div>
                     <div className="w-full h-full justify-end flex items-center">
-                        <UploadTweetButton textInput = {textInput}/>
+                        <UploadTweetButton textInput = {textInput} parentId={parentId}/>
                     </div>
                 </div>
             </div>

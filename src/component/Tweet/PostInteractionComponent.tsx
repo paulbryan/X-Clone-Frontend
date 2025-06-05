@@ -5,6 +5,8 @@ import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import { useFeedContext } from "../../context/feed/FeedContext";
 import { useState } from "react";
 import { usePostCache } from "../../context/cache/PostCacheProvider";
+import type { ModalType } from "../../types/ModalType";
+import { useModal } from "../../context/misc/ModalProvider";
 
 type PostInteractionComponentProps = {
     postId: number;
@@ -17,6 +19,7 @@ function PostInteractionComponent ({postId, likeList, bookmarkList} : PostIntera
     const {currentUser} = useCurrentUser();
     const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks, currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes} = useFeedContext();
     const {addToLikedPosts, removeFromLikedPosts, addToBookmarkedBy, removeFromBookmarkedBy} = usePostCache(); 
+    const {setModalType} = useModal();
 
     function handleBookmark () {
 
@@ -137,7 +140,7 @@ function PostInteractionComponent ({postId, likeList, bookmarkList} : PostIntera
             <div className="h-5 mt-3 text-(--twitter-text) w-full flex items-center align-middle justify-between">
 
                 <InteractionButton postId={postId} numberList={[]}>
-                    <FaRegComment/>
+                    <FaRegComment onClick={() => setModalType("replying")}/>
                 </InteractionButton>
 
                 <InteractionButton postId={postId} numberList={[]}>

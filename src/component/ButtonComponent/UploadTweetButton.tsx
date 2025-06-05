@@ -6,9 +6,10 @@ import { usePostCache } from "../../context/cache/PostCacheProvider";
 
 type UploadTweetButtonProps = {
     textInput: string;
+    parentId?: number;
 }
 
-function UploadTweetButton ({textInput} : UploadTweetButtonProps) {
+function UploadTweetButton ({textInput, parentId} : UploadTweetButtonProps) {
 
     const {currentUser} = useCurrentUser();
     const {addToPostCache} = usePostCache();

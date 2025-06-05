@@ -1,1 +1,1 @@
-export type ModalType = "signup" | "login" | "editProfile" | "posting" | null;
+export type ModalType = "signup" | "login" | "editProfile" | "posting" | "replying" | null;

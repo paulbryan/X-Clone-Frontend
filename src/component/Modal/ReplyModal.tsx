@@ -10,7 +10,7 @@ function ReplyModal ({ setToggle }: ReplyModalProps) {
 
         <div className="w-full h-full flex flex-col text-(--text-main) rounded-2xl p-4 items-center gap-4 bg-(--background-main)">
         
-
+            
         
         </div>
 
