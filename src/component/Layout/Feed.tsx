@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import PostTemplate from "../Tweet/PostTemplate";
 import type { Post } from "../../types/Post";
 import { usePostCache } from "../../context/cache/PostCacheProvider";
-import type { User } from "../../types/User";
 import { useUserCache } from "../../context/cache/UserCacheProvider";
 import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import LoadingIcon from "../UIComponent/LoadingIcon";
@@ -17,95 +16,57 @@ function Feed ({postIdsArray} : FeedProps) {
     const {postCache, getPostFromCache, addToPostCache, fetchPostsFromServerById} = usePostCache();
     const {addToUserCache, getUserFromCache, fetchUsersFromServerById} = useUserCache();
     const [loadedPosts, setLoadedPosts] = useState<Post[]>([]);
-    const [hasLoadedPosts, setHasLoadedPosts] = useState<boolean>(false);
-    const [hasLoadedUsers, setHasLoadedUsers] = useState<boolean>(false);
+    const [hasFetchedUsers, setHasFetchedUsers] = useState<boolean>(false);
     const {currentUser} = useCurrentUser();
 
     const [loadingBuffered, setLoadingBuffered] = useState(false);
 
     useEffect(() => {
-        console.log("Has loaded users? " + hasLoadedUsers + " HAS LOADED POSTS? : " + hasLoadedPosts + " POSTIDSARRAY? " + JSON.stringify(postIdsArray)) 
-        if (hasLoadedPosts && hasLoadedUsers) {
+        console.log("FEED LOG: Has loaded users? " + hasFetchedUsers + " HAS LOADED POSTS? : " + " POSTIDSARRAY? ") 
             console.log("Buffering timeout")
             setTimeout(() => {
                 setLoadingBuffered(true);
             }, 200)
-        }
-    }, [hasLoadedPosts, hasLoadedUsers])
+    }, [])
 
     useEffect(() => {
-        console.log("Calling load")
-        loadPosts();
+        preFetchBatch();
     }, [postIdsArray, postCache])
 
-    async function loadPosts () {
+    async function preFetchBatch() {
         if (!postIdsArray) return;
-    
-        const notFoundPosts : number[] = [];
-    
-        for (let i = 0; i < postIdsArray.length; i++) {
-            const post = getPostFromCache(postIdsArray[i]);
-            if (!post){
-                notFoundPosts.push(postIdsArray[i]);
-            }
-        }
-    
-        if (notFoundPosts.length > 0) {
-            await fetchUnloadedPosts(notFoundPosts);
-        }
-    
-        const finalPostArray : Post[] = [];
-        for (let i = 0; i < postIdsArray.length; i++) {
-            const post = getPostFromCache(postIdsArray[i]);
-            if (post) finalPostArray.push(post);
-        }
-    
-        setLoadedPosts(finalPostArray);
-        setHasLoadedPosts(true);
-
-        await loadUsers(finalPostArray);
-        setHasLoadedUsers(true);
-    }
-
-    async function fetchUnloadedPosts (notFoundPosts : number[]) {
-
-        const fetchedPosts: Post[] = await fetchPostsFromServerById(notFoundPosts);
-        console.log("starting add to cache")
-        for (let i = 0; i < fetchedPosts.length; i++) {
-            console.log("Adding to cache: " + JSON.stringify(fetchedPosts[i]))
-            addToPostCache(fetchedPosts[i]);
-        }
-
-    }
-
-    async function loadUsers(posts: Post[]) {
-        const notFoundUsers : number[] = [];
-    
-        for (const post of posts) {
-            const posterId = post.userId;
-            const poster = getUserFromCache(posterId);
-            if (!poster && (!currentUser || currentUser.id !== posterId)) {
-                notFoundUsers.push(posterId);
-            }
-        }
-    
+      
+        const notFoundPostIds = postIdsArray.filter(id => !getPostFromCache(id));
+        const fetchedPosts = notFoundPostIds.length > 0
+          ? await fetchPostsFromServerById(notFoundPostIds)
+          : [];
+      
+        fetchedPosts.forEach(addToPostCache);
+      
+        const finalPosts = postIdsArray
+        .map(id => getPostFromCache(id))
+        .filter(post => post !== undefined);
+        setLoadedPosts(finalPosts);
+      
+        const notFoundUsers = finalPosts
+          .map(p => p.userId)
+          .filter((id, i, arr) =>
+            (!getUserFromCache(id) && (!currentUser || currentUser.id !== id)) &&
+            arr.indexOf(id) === i // dedupe
+          );
+      
         if (notFoundUsers.length > 0) {
-            await fetchUnloadedUsers(notFoundUsers);
+          const fetchedUsers = await fetchUsersFromServerById(notFoundUsers);
+          fetchedUsers.forEach(addToUserCache);
         }
-    }
+      
+        setHasFetchedUsers(true);
+      }
 
-    async function fetchUnloadedUsers (notFoundUsers : number[]) {
-
-        const fetchedUsers: User[] = await fetchUsersFromServerById(notFoundUsers);
-        for (let i = 0; i < fetchedUsers.length; i++) {
-            addToUserCache(fetchedUsers[i]);
-        }
-
-    }
 
     return (
         <div className='w-full'>
-            {loadingBuffered && postIdsArray && hasLoadedPosts && hasLoadedUsers &&
+            {loadingBuffered && postIdsArray && hasFetchedUsers &&
             loadedPosts.every(post => getUserFromCache(post.userId)) ? (
                 <div className="flex flex-col-reverse w-full">
                 {loadedPosts.map((post) => (
