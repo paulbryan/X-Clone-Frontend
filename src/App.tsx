@@ -14,6 +14,7 @@ import { PostCacheProvider } from './context/cache/PostCacheProvider';
 import { FeedProvider } from './context/feed/FeedContext';
 import BookmarkPage from './component/Layout/BookmarkPage';
 import NotificationPage from './component/Layout/NotificationPage';
+import { PageUserProvider } from './context/currentUser/PageUserContext';
 
 
 
@@ -50,10 +51,10 @@ function App() {
         />
 
         <Route
-        path="profile/:ID"
-        element={
-          <ProfilePage/>
-        }
+          path="profile/:ID"
+          element={
+            <ProfilePage />
+          }
         />
 
         <Route

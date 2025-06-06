@@ -7,132 +7,72 @@ import { useState } from "react";
 import { usePostCache } from "../../context/cache/PostCacheProvider";
 import type { ModalType } from "../../types/ModalType";
 import { useModal } from "../../context/misc/ModalProvider";
+import type { Post } from "../../types/Post";
 
 type PostInteractionComponentProps = {
     postId: number;
     likeList: number[];
     bookmarkList: number[];
+    setNewPost: (post: Post) => void;
 }
 
-function PostInteractionComponent ({postId, likeList, bookmarkList} : PostInteractionComponentProps) {
+function PostInteractionComponent ({postId, likeList, bookmarkList, setNewPost} : PostInteractionComponentProps) {
 
     const {currentUser} = useCurrentUser();
     const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks, currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes} = useFeedContext();
-    const {addToLikedPosts, removeFromLikedPosts, addToBookmarkedBy, removeFromBookmarkedBy} = usePostCache(); 
+    const { addToPostCache} = usePostCache(); 
     const {setModalType} = useModal();
 
-    function handleBookmark () {
-
-        if (currentUser) {
-
-            if (currentUserBookmarkIds.includes(postId)) {
-                
-                removeCurrentUserBookmarks(postId);
-                removeFromBookmarkedBy(postId, currentUser.id)
-
-                const newBookmark = {
-                    bookmarkedBy: currentUser.id,
-                    bookmarkedPost: postId
-                }
-
-                fetch("http://localhost:8080/api/bookmarks/deleteBookmark", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newBookmark),
-                  })
-                  .then(res => res.text())
-                  .then(data => {
-                    console.log("Data res is " + data)
-                    if (data != "SUCCESS") {
-                        addToCurrentUserBookmarks(postId);
-                        addToBookmarkedBy(postId, currentUser.id)
-                    }
-                  });
-
-
-            } else {
-                addToCurrentUserBookmarks(postId);
-                addToBookmarkedBy(postId, currentUser.id)
-                const newBookmark = {
-                    bookmarkedBy: currentUser.id,
-                    bookmarkedPost: postId
-                }
-                
-                console.log("Sending: " + JSON.stringify(newBookmark))
+    function handleBookmark() {         
+        if (!currentUser) return;
+      
+        const isBookmarked = currentUserBookmarkIds.includes(postId);
+        const url = isBookmarked
+          ? "http://localhost:8080/api/bookmarks/deleteBookmark"
+          : "http://localhost:8080/api/bookmarks/createBookmark";
+      
+        fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            bookmarkedBy: currentUser.id,
+            bookmarkedPost: postId,
+          }),
+        })
+          .then(res => res.json())
+          .then((updatedPost: Post) => {
+            addToPostCache(updatedPost);
+            setNewPost(updatedPost);
+            isBookmarked
+              ? removeCurrentUserBookmarks(postId)
+              : addToCurrentUserBookmarks(postId);
+          })
+          .catch(err => console.error("Failed to update bookmark", err));
+      }
     
-                fetch("http://localhost:8080/api/bookmarks/createBookmark", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newBookmark),
-                  })
-                  .then(res => res.text())
-                  .then(data => {
-                    console.log("Data res is " + data)
-                    if (data != "SUCCESS") {
-                        removeCurrentUserBookmarks(postId);
-                        removeFromBookmarkedBy(postId, currentUser.id)
-                    }
-                  });
-            }
-
-        }
-    }
-
-    function handleLike () {
-
-        if (currentUser) {
-
-            if (currentUserLikedIds.includes(postId)) {
-                
-                removeFromLikedPosts(postId, currentUser.id)
-                removeFromCurrentUserLikes(postId);
-
-                const newLike = {
-                    likerId: currentUser.id,
-                    likedPostId: postId
-                }
-
-                fetch("http://localhost:8080/api/likes/deleteLike", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newLike),
-                  })
-                  .then(res => res.text())
-                  .then(data => {
-                    console.log("Data res is " + data)
-                    if (data != "SUCCESS") {
-                        addToCurrentUserLikes(postId);
-                        addToLikedPosts(postId, currentUser.id)
-                    }
-                  });
-
-
-            } else {
-                addToLikedPosts(postId, currentUser.id)
-                addToCurrentUserLikes(postId);
-
-                const newLike = {
-                    likerId: currentUser.id,
-                    likedPostId: postId
-                }
-                    
-                fetch("http://localhost:8080/api/likes/createLike", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newLike),
-                  })
-                  .then(res => res.text())
-                  .then(data => {
-                    console.log("Data res is " + data)
-                    if (data != "SUCCESS") {
-                        removeFromCurrentUserLikes(postId);
-                        removeFromLikedPosts(postId, currentUser.id)
-                    }
-                  });
-            }
-
-        }
-    }
+    function handleLike() {
+        if (!currentUser) return;
+      
+        const isLiked = currentUserLikedIds.includes(postId);
+        const url = isLiked
+          ? "http://localhost:8080/api/likes/deleteLike"
+          : "http://localhost:8080/api/likes/createLike";
+      
+        fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ likerId: currentUser.id, likedPostId: postId }),
+        })
+          .then(res => res.json())
+          .then((updatedPost: Post) => {
+            addToPostCache(updatedPost);
+            setNewPost(updatedPost);
+            isLiked
+              ? removeFromCurrentUserLikes(postId)
+              : addToCurrentUserLikes(postId);
+          })
+          .catch(err => console.error("Failed to update like", err));
+      }
 
     return (
 

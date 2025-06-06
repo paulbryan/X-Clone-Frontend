@@ -14,15 +14,14 @@ type FeedProps = {
 function Feed ({postIdsArray} : FeedProps) {
 
     const {postCache, getPostFromCache, addToPostCache, fetchPostsFromServerById} = usePostCache();
-    const {addToUserCache, getUserFromCache, fetchUsersFromServerById} = useUserCache();
-    const [loadedPosts, setLoadedPosts] = useState<Post[]>([]);
-    const [hasFetchedUsers, setHasFetchedUsers] = useState<boolean>(false);
-    const {currentUser} = useCurrentUser();
+    const {getUserFromCache, getOrFetchUserById} = useUserCache();
+    const [batchFetched, setBatchFetched] = useState<boolean>(false);
+    const [usersReady, setUsersReady] = useState(false);
 
     const [loadingBuffered, setLoadingBuffered] = useState(false);
 
     useEffect(() => {
-        console.log("FEED LOG: Has loaded users? " + hasFetchedUsers + " HAS LOADED POSTS? : " + " POSTIDSARRAY? ") 
+        console.log("FEED LOG: Has loaded users? " + batchFetched + " HAS LOADED POSTS? : " + " POSTIDSARRAY? ") 
             console.log("Buffering timeout")
             setTimeout(() => {
                 setLoadingBuffered(true);
@@ -33,53 +32,61 @@ function Feed ({postIdsArray} : FeedProps) {
         preFetchBatch();
     }, [postIdsArray, postCache])
 
-    async function preFetchBatch() {
+    
+        async function preFetchBatch() {
         if (!postIdsArray) return;
-      
+
         const notFoundPostIds = postIdsArray.filter(id => !getPostFromCache(id));
-        const fetchedPosts = notFoundPostIds.length > 0
-          ? await fetchPostsFromServerById(notFoundPostIds)
-          : [];
-      
-        fetchedPosts.forEach(addToPostCache);
-      
-        const finalPosts = postIdsArray
-        .map(id => getPostFromCache(id))
-        .filter(post => post !== undefined);
-        setLoadedPosts(finalPosts);
-      
-        const notFoundUsers = finalPosts
-          .map(p => p.userId)
-          .filter((id, i, arr) =>
-            (!getUserFromCache(id) && (!currentUser || currentUser.id !== id)) &&
-            arr.indexOf(id) === i // dedupe
-          );
-      
-        if (notFoundUsers.length > 0) {
-          const fetchedUsers = await fetchUsersFromServerById(notFoundUsers);
-          fetchedUsers.forEach(addToUserCache);
+
+        if (notFoundPostIds.length > 0) {
+            const fetchedPosts = await fetchPostsFromServerById(notFoundPostIds);
+            fetchedPosts.forEach(addToPostCache);
         }
+
+        setBatchFetched(true);
+        }
+
+      useEffect(() => {
+
+        if (!postIdsArray) return;
+
+        const preloadUsers = async () => {
+          const neededUserIds = postIdsArray
+            .map(id => getPostFromCache(id))
+            .filter(Boolean)
+            .map(post => post!.userId)
+            .filter(userId => !getUserFromCache(userId));
       
-        setHasFetchedUsers(true);
-      }
+          await Promise.all(neededUserIds.map(uid => getOrFetchUserById(uid)));
+      
+          setUsersReady(true);
+        };
+      
+        if (loadingBuffered && batchFetched && postIdsArray?.every(id => getPostFromCache(id))) {
+          preloadUsers();
+        }
+      }, [loadingBuffered, batchFetched, postIdsArray]);
 
 
-    return (
-        <div className='w-full'>
-            {loadingBuffered && postIdsArray && hasFetchedUsers &&
-            loadedPosts.every(post => getUserFromCache(post.userId)) ? (
-                <div className="flex flex-col-reverse w-full">
-                {loadedPosts.map((post) => (
-                    <PostTemplate key={post.id} post={post} currentPostUser={getUserFromCache(post.userId)} />
+      return (
+        <div className="w-full">
+          {loadingBuffered && batchFetched && postIdsArray && usersReady &&
+            postIdsArray.every(postId => {
+              const post = getPostFromCache(postId);
+              return post && getUserFromCache(post.userId);
+            }) ? (
+              <div className="flex flex-col-reverse w-full">
+                {postIdsArray.map((postId) => (
+                  <PostTemplate key={postId} postId={postId} />
                 ))}
-                </div>
+              </div>
             ) : (
-                <div className="flex justify-center py-2 flex-col w-full">
-                    <LoadingIcon />
-                </div>
+              <div className="flex justify-center py-2 flex-col w-full">
+                <LoadingIcon />
+              </div>
             )}
         </div>
-    )
+      );
 
 }
 

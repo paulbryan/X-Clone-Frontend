@@ -8,59 +8,21 @@ import {
   import type { User } from "../../types/User";
 import { useCurrentUser } from "../currentUser/CurrentUserProvider";
   
-  // 1. Context type with functions
   type UserCacheContextType = {
     userCache: Map<number, User>;
     addToUserCache: (user: User) => void;
     removeFromUserCache: (id: number) => void;
     getUserFromCache: (id: number) => User | undefined;
     fetchUsersFromServerById: (ids: number[]) => Promise<User[]>;
-    addToFollowers: (followedId: number, currentUserId: number) => void;
-    removeFromFollowers: (followedId: number, currentUserId: number) => void;
+    getOrFetchUserById: (id: number) => Promise<User>;
 
   };
   
-  // 2. Create context
   const UserCacheContext = createContext<UserCacheContextType | undefined>(undefined);
   
-  // 3. Provider
   export const UserCacheProvider = ({ children }: { children: ReactNode }) => {
     const [userCache, setUserCache] = useState<Map<number, User>>(new Map());
     const {currentUser} = useCurrentUser();
-
-    const addToFollowers = (followedId: number, currentUserId: number) => {
-
-      setUserCache((prev) => {
-        const updated = new Map(prev);
-        const user = updated.get(followedId);
-        if (user && !user.followers.includes(currentUserId)) {
-          updated.set(followedId, {
-            ...user,
-            followers: [...user.followers, currentUserId],
-          });
-        }
-        return updated;
-
-      });
-
-    }
-
-    const removeFromFollowers = (followedId: number, currentUserId: number) => {
-
-      setUserCache((prev) => {
-        const updated = new Map(prev);
-        const user = updated.get(followedId);
-        if (user && user.followers.includes(currentUserId)) {
-          updated.set(followedId, {
-            ...user,
-            followers: user.followers.filter(id => id !== currentUserId),
-          });
-        }
-        return updated;
-
-      });
-
-    }
   
     const addToUserCache = (user: User) => {
       setUserCache(prev => {
@@ -93,6 +55,20 @@ import { useCurrentUser } from "../currentUser/CurrentUserProvider";
       return users;
     
     };
+
+    const getOrFetchUserById = async (id: number): Promise<User> => {
+      const cached = userCache.get(id);
+      if (cached) return cached;
+    
+      const fetched = await fetchUsersFromServerById([id]);
+      if (fetched.length > 0) {
+        const user = fetched[0];
+        addToUserCache(user);
+        return user;
+      }
+    
+      throw new Error(`User ${id} not found`);
+    };
   
     const getUserFromCache = (id: number) => {
       if (currentUser && currentUser.id == id) {
@@ -104,14 +80,13 @@ import { useCurrentUser } from "../currentUser/CurrentUserProvider";
   
     return (
       <UserCacheContext.Provider
-        value={{addToFollowers, removeFromFollowers, userCache, addToUserCache, removeFromUserCache, getUserFromCache, fetchUsersFromServerById }}
+        value={{getOrFetchUserById, userCache, addToUserCache, removeFromUserCache, getUserFromCache, fetchUsersFromServerById }}
       >
         {children}
       </UserCacheContext.Provider>
     );
   };
   
-  // 4. Hook
   export const useUserCache = () => {
     const context = useContext(UserCacheContext);
     if (!context) throw new Error("useUserCache must be used within a UserCacheProvider");

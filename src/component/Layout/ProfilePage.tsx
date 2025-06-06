@@ -19,7 +19,7 @@ function ProfilePage() {
     const { currentUser } = useCurrentUser();
     const { addToUserCache, getUserFromCache, fetchUsersFromServerById, userCache } = useUserCache();
 
-    const [pageUser, setPageUser] = useState<User | null>();
+    const [pageUser, setPageUser] = useState<User | null>(null);
 
     useEffect(() => {
         if (pageUserID) {
@@ -40,6 +40,14 @@ function ProfilePage() {
                 setPageUser(fetchedUser[0]);
             }
         }
+    }
+
+    function setNewUser(user: User) {
+
+        if (user) {
+            setPageUser(user);
+        }
+
     }
 
     function getRelevantPostIds(): number[] {
@@ -69,7 +77,7 @@ function ProfilePage() {
 
     return (
         <div className="flex flex-col h-full w-full flex-grow overflow-y-auto">
-            <ProfilePageOverview pageUser={pageUser} />
+            <ProfilePageOverview  pageUser={pageUser} setNewUser={setNewUser}/>
 
             <div>
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />

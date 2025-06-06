@@ -97,17 +97,16 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
         getForYouFeedIds();
       }
     }, [forYouFeedIds])
-
-    useEffect(() => {
-        if (currentUser && currentUser.posts && currentUser.posts.length > 0) {
-          setCurrentUserPostsIds(currentUser.posts);
-        }
-      }, [currentUser]);
-
+    
       useEffect(() => {
         if (currentUser && currentUser.likedPosts && currentUser.likedPosts.length > 0) {
-          console.log("🧠 FeedContext: setting liked posts " + currentUser.likedPosts);
           setCurrentUserLikedIds(currentUser.likedPosts);
+        }
+        if (currentUser && currentUser.bookmarkedPosts && currentUser.bookmarkedPosts.length > 0) {
+          setCurrentUserBookmarkIds(currentUser.bookmarkedPosts);
+        }
+        if (currentUser && currentUser.posts && currentUser.posts.length > 0) {
+          setCurrentUserPostsIds(currentUser.posts);
         }
       }, [currentUser]);
 

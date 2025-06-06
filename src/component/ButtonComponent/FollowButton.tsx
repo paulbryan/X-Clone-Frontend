@@ -1,103 +1,77 @@
 import { useEffect, useState } from "react";
-import type { User } from "../../types/User";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import { useUserCache } from "../../context/cache/UserCacheProvider";
+import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import type { User } from "../../types/User";
 
+type handleFollowProps = {
+    pageUser?: User | null;
+    setNewUser: (user: User) => void;
+};
 
-type FollowButtonProps = {
-    pageUser: User;
-}
-
-function FollowButton ({pageUser}: FollowButtonProps) {
-
-    const {currentUser, addToFollowing, removeFromFollowing} = useCurrentUser();
-
-    const [isFollowing, setIsFollowing] = useState<boolean>(false);
-    const {addToFollowers, removeFromFollowers} = useUserCache();
+function FollowButton({ pageUser, setNewUser }: handleFollowProps) {
+    const { currentUser, addToFollowing, removeFromFollowing } = useCurrentUser();
+    const { addToUserCache } = useUserCache();
+    const [isFollowing, setIsFollowing] = useState(false);
 
     useEffect(() => {
-
-        if (currentUser) {
-            if (currentUser.following.includes(pageUser.id)) {
-                setIsFollowing(true);
-            } else {
-                setIsFollowing(false);
-            }
-        } else {
-            setIsFollowing(false);
+        if (pageUser) {
+            console.log("page user followers is: " + JSON.stringify(pageUser.followers))
         }
 
-    }, [currentUser])
+        if (!currentUser || !pageUser) return setIsFollowing(false);
+        setIsFollowing(pageUser.followers.includes(currentUser.id));
+    }, [pageUser, currentUser]);
 
-    function handleFollow () {
 
-        if (pageUser && currentUser) {
 
-            if (currentUser.following.includes(pageUser.id)) {
-                
-                removeFromFollowers(pageUser.id, currentUser.id);
+    async function handleFollow() {
+        if (!currentUser || !pageUser) return;
+
+        const endpoint = isFollowing ? "unfollowUser" : "followUser";
+
+        console.log("EndPoint: " + endpoint)
+        console.log("Current pageUser Followers: " + JSON.stringify(pageUser.followers))
+        console.log("Is following?: " + isFollowing)
+
+        try {
+            const res = await fetch(`http://localhost:8080/api/follows/${endpoint}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    followerId: currentUser.id,
+                    followedId: pageUser.id,
+                }),
+            });
+
+            if (!res.ok) throw new Error("Failed follow update");
+
+            const updatedUser: User = await res.json();
+            console.log("UpdatedUser Followers: " + JSON.stringify(updatedUser.followers))
+
+            addToUserCache(updatedUser);
+            
+            setNewUser(updatedUser);
+
+            if (isFollowing) {
                 removeFromFollowing(pageUser.id);
-
-                const newFollow = {
-                    followerId: currentUser.id,
-                    followedId: pageUser.id
-                }
-
-                fetch("http://localhost:8080/api/follows/unfollowUser", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newFollow),
-                  })
-                  .then(res => res.text())
-                  .then(data => {
-                    console.log("Data res is " + data)
-                    if (data != "SUCCESS") {
-                        addToFollowers(pageUser.id, currentUser.id);
-                        addToFollowing(pageUser.id)
-                    }
-                  });
-
-
             } else {
-                addToFollowers(pageUser.id, currentUser.id);
-                addToFollowing(pageUser.id)
-                const newFollow = {
-                    followerId: currentUser.id,
-                    followedId: pageUser.id
-                }
-                
-                console.log("Sending: " + JSON.stringify(newFollow))
-    
-                fetch("http://localhost:8080/api/follows/followUser", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newFollow),
-                  })
-                  .then(res => res.text())
-                  .then(data => {
-                    console.log("Data res is " + data)
-                    if (data != "SUCCESS") {
-                        removeFromFollowers(pageUser.id, currentUser.id);
-                        removeFromFollowing(pageUser.id);                    }
-                  });
+                addToFollowing(pageUser.id);
             }
 
+            console.log("Setting isFollowing to " + !isFollowing)
 
+        } catch (err) {
+            console.error("Follow error:", err);
         }
-
     }
 
+    if (!pageUser) return null;
 
     return (
-        <>
-            {isFollowing ? (
-                <p onClick={() => handleFollow()}> Following </p>
-            ) : (
-                <p onClick={() => handleFollow()}> Follow </p>
-            )}
-        </>
-    )
-
+        <p onClick={handleFollow}>
+            {isFollowing ? "Following" : "Follow"}
+        </p>
+    );
 }
 
 export default FollowButton;

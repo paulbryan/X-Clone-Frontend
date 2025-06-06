@@ -13,11 +13,8 @@ import type { Post } from "../../types/Post";
     getPostFromCache: (id: number) => Post | undefined;
     fetchPostsFromServerById: (ids: number[]) => Promise<Post[]>;
 
-    addToLikedPosts: (postId: number, userId: number) => void;
-    removeFromLikedPosts: (postId: number, userId: number) => void;
-
-    addToBookmarkedBy: (postId: number, userId: number) => void;
-    removeFromBookmarkedBy: (postId: number, userId: number) => void;
+    getSinglePost: (id: number) => Promise<Post>;
+    getOrFetchPostById: (id: number) => Promise<Post>;
 
     };
   
@@ -53,81 +50,31 @@ import type { Post } from "../../types/Post";
       });
     };
 
-    const addToLikedPosts = (postId: number, userId: number) => {
-
-      setPostCache((prev) => {
-        const updated = new Map(prev);
-        const post = updated.get(postId);
-        if (post && !post.likedBy.includes(userId)) {
-          updated.set(postId, {
-            ...post,
-            likedBy: [...post.likedBy, userId],
-          });
-        }
-        return updated;
-
-      });
-
-    }
-
-    const removeFromLikedPosts = (postId: number, userId: number) => {
-
-      setPostCache((prev) => {
-        const updated = new Map(prev);
-        const post = updated.get(postId);
-        if (post && post.likedBy.includes(userId)) {
-          updated.set(postId, {
-            ...post,
-            likedBy: post.likedBy.filter(id => id !== userId),
-          });
-        }
-        return updated;
-
-      });
-
-    }
-
-    const addToBookmarkedBy = (postId: number, userId: number) => {
-
-      setPostCache((prev) => {
-        const updated = new Map(prev);
-        const post = updated.get(postId);
-        if (post && !post.bookmarkedBy.includes(userId)) {
-          updated.set(postId, {
-            ...post,
-            bookmarkedBy: [...post.bookmarkedBy, userId],
-          });
-        }
-        return updated;
-
-      });
-
-    }
-
-    const removeFromBookmarkedBy = (postId: number, userId: number) => {
-
-      setPostCache((prev) => {
-        const updated = new Map(prev);
-        const post = updated.get(postId);
-        if (post && post.bookmarkedBy.includes(userId)) {
-          updated.set(postId, {
-            ...post,
-            bookmarkedBy: post.bookmarkedBy.filter(id => id !== userId),
-          });
-        }
-        return updated;
-
-      });
-
-    }
+    const getOrFetchPostById = async (id: number, options?: { forceRefresh?: boolean }) => {
+      if (!options?.forceRefresh) {
+        const cached = getPostFromCache(id);
+        if (cached) return cached;
+      }
+    
+      return getSinglePost(id); // handles caching inside now
+    };
   
     const getPostFromCache = (id: number) => {
       return postCache.get(id);
     };
+
+    const getSinglePost = async (id: number): Promise<Post> => {
+      const res = await fetch(`http://localhost:8080/api/posts/getSinglePost/${id}`);
+      if (!res.ok) throw new Error(`Failed to fetch post ${id}`);
+      const post: Post = await res.json();
+    
+      addToPostCache(post); // ✅ cache it always
+      return post;
+    };
   
     return (
       <PostCacheContext.Provider
-        value={{addToBookmarkedBy, removeFromBookmarkedBy, addToLikedPosts, removeFromLikedPosts, postCache, addToPostCache, removeFromPostCache, getPostFromCache, fetchPostsFromServerById }}
+        value={{getSinglePost, getOrFetchPostById, postCache, addToPostCache, removeFromPostCache, getPostFromCache, fetchPostsFromServerById }}
       >
         {children}
       </PostCacheContext.Provider>

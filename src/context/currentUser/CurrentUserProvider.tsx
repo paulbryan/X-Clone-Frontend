@@ -1,8 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import type {ReactNode} from "react";
 import type { User } from "../../types/User";
 import type { Dispatch, SetStateAction } from "react";
-import type { NotificationType } from "../../types/NotificationType";
 import type { Notification } from "../../types/Notification";
 
 type CurrentUserContextType = {

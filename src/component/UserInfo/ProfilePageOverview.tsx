@@ -13,16 +13,17 @@ import BioComponent from "./BioComponent";
 import LoadingIcon from "../UIComponent/LoadingIcon";
 import CreatedAtDisplay from "../UIComponent/CreatedAtDisplay";
 import FollowButton from "../ButtonComponent/FollowButton";
+import { usePageUser } from "../../context/currentUser/PageUserContext";
 
 type ProfilePageOverviewProps = {
     pageUser?: User | null;
+    setNewUser: (user: User) => void;
 }
 
-function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
+function ProfilePageOverview ({pageUser, setNewUser}: ProfilePageOverviewProps) {
 
     const {currentUser} = useCurrentUser();
     const [isOwnPage, setIsOwnPage] = useState<boolean>(false);
-
 
     useEffect(() => {
         if (currentUser && pageUser && currentUser.id == pageUser.id) {
@@ -51,7 +52,7 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
                             {isOwnPage ? (
                                 <p>Edit Profile</p>
                             ) : (
-                                <FollowButton pageUser={pageUser}/>
+                                <FollowButton pageUser={pageUser} setNewUser={setNewUser}/>
                             )}
                         </div>
                     </div>
@@ -84,9 +85,9 @@ function ProfilePageOverview ({pageUser} : ProfilePageOverviewProps) {
                         <FollowersFollowing pageUser={pageUser}/>
                         </div>
 
-                    </div>
+                        </div>
 
-                </div>
+                    </div>
 
             </div>
     )

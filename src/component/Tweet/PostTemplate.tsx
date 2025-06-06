@@ -12,68 +12,106 @@ import CreatedAtDisplay from "../UIComponent/CreatedAtDisplay";
 import { useNavigate } from "react-router-dom";
 
 type PostTemplateProps = {
-    post: Post;
-    currentPostUser?: User;
+    postId: number;
 }
 
-function PostTemplate ({post, currentPostUser} : PostTemplateProps) {
+function PostTemplate ({postId} : PostTemplateProps) {
 
-    const {currentUser} = useCurrentUser();
-    const {getUserFromCache} = useUserCache();
-    const [postUser, setPostUser] = useState<User | undefined>(currentPostUser);
+    const {getUserFromCache, getOrFetchUserById} = useUserCache();
+    const {getOrFetchPostById, getPostFromCache} = usePostCache();
+    const [postUser, setPostUser] = useState<User | null>(() => {
+        const post = getPostFromCache(postId);
+        if (!post) return null;
+        return getUserFromCache(post.userId) ?? null;
+      });
+    const [post, setPost] = useState<Post | null>(() => getPostFromCache(postId) ?? null);
+
+    function setNewPost(post: Post) {
+
+        if (post) {
+            setPost(post);
+        }
+
+    }
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!currentPostUser) {
-            if (currentUser && currentUser.id == post.userId) {
-                setPostUser(currentUser);
-            } else {
-                const userToGet = getUserFromCache(post.userId);
-                if (userToGet) {
-                    setPostUser(userToGet);
-                }
-            }
-        }
+
+        if (post) return;
+
+        const loadPost = async () => {
+          try {
+            const fetched = await getOrFetchPostById(postId);
+            setPost(fetched);
+          } catch (err) {
+            console.error(err);
+          }
+        };
+      
+        loadPost();
+
     }, [post])
+
+    useEffect(() => {
+
+        if (post && postUser) return;
+        if (!post) return;
+        const loadUser = async () => {
+            try {
+                const fetched = await getOrFetchUserById(post.userId);
+                setPostUser(fetched);
+            } catch (err) {
+                console.error(err);
+              }
+        }
+        loadUser();
+
+    }, [post])
+    
+
 
     return (
 
-
+        
         <>
             <div className="h-fit w-full flex border-b-2 border-(--twitter-border)">
 
-            <div className="flex w-full h-fitl px-4 pt-3">
-                <div className="flex w-12 mr-2">
-                    <div className="w-10 h-10" onClick={() => navigate(`/profile/${post.userId}`)}>
-                        <ProfilePic user={postUser}/>
-                    </div>
-                </div>
-
-                <div className="pb-3 w-full h-fit">
-                    <div className="w-full h-fit flex-col">
-                        <div className="w-full h-5 flex gap-2 align-middle text-white mb-0.5">
-                                <div> 
-                                    <DisplayNameComponent user={postUser}/>
-                                </div>
-                                <div className="text-(--twitter-text)">
-                                    <UsernameComponent user={postUser}/>
-                                </div>
-                                <p>·</p>
-                                <CreatedAtDisplay createdAt={post.createdAt} typeOfCreatedAt="timeago"/>
-                        </div>
-                        <div className="text-white max-h-32">
-                            <p>
-                            {post.text}
-                            </p>
-                        </div>
-                        <div>
-                            <PostInteractionComponent postId={post.id} likeList={post.likedBy} bookmarkList={post.bookmarkedBy}/>
+        {post && (
+                    <div className="flex w-full h-fitl px-4 pt-3">
+                    <div className="flex w-12 mr-2">
+                        <div className="w-10 h-10" onClick={() => navigate(`/profile/${post.userId}`)}>
+                            <ProfilePic user={postUser}/>
                         </div>
                     </div>
 
-                </div>
+                    <div className="pb-3 w-full h-fit">
+                        <div className="w-full h-fit flex-col">
+                            <div className="w-full h-5 flex gap-2 align-middle text-white mb-0.5">
+                                    <div> 
+                                        <DisplayNameComponent user={postUser}/>
+                                    </div>
+                                    <div className="text-(--twitter-text)">
+                                        <UsernameComponent user={postUser}/>
+                                    </div>
+                                    <p>·</p>
+                                    <CreatedAtDisplay createdAt={post.createdAt} typeOfCreatedAt="timeago"/>
+                            </div>
+                            <div className="text-white max-h-32">
+                                <p>
+                                {post.text}
+                                </p>
+                            </div>
+                            <div>
+                                <PostInteractionComponent setNewPost={setNewPost} postId={post.id} likeList={post.likedBy} bookmarkList={post.bookmarkedBy}/>
+                            </div>
+                        </div>
 
-            </div>
+                    </div>
+
+                </div>
+        )}
+
 
             </div>
         </>
