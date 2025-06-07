@@ -47,7 +47,7 @@ function ComposeTweet ({parentId, parentUsername}: ComposeTweetProps) {
                     />
                 </div>
                 <div className="flex w-full h-10 items-center">
-                    <div className="flex gap-2 items-center text-(--color-main) h-full w-full">
+                    <div className="flex gap-2 pl-2 items-center text-(--color-main) h-full w-full">
                         <FaRegImage />
                         <MdOutlineGif className="text-4xl"/>
                     </div>
