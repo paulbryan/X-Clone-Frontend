@@ -7,9 +7,10 @@ import { usePostCache } from "../../context/cache/PostCacheProvider";
 type UploadTweetButtonProps = {
     textInput: string;
     parentId?: number;
+    setNewPost?: (post: Post) => void;
 }
 
-function UploadTweetButton ({textInput, parentId} : UploadTweetButtonProps) {
+function UploadTweetButton ({textInput, parentId, setNewPost} : UploadTweetButtonProps) {
 
     const {currentUser} = useCurrentUser();
     const {addToPostCache} = usePostCache();
@@ -21,7 +22,8 @@ function UploadTweetButton ({textInput, parentId} : UploadTweetButtonProps) {
             
             const newComposedPost : NewPost = {
                 userId: currentUser.id,
-                text: textInput
+                text: textInput,
+                parentId: parentId
             }
 
             fetch("http://localhost:8080/api/posts/createPost", {
@@ -30,10 +32,16 @@ function UploadTweetButton ({textInput, parentId} : UploadTweetButtonProps) {
                 body: JSON.stringify(newComposedPost),
               })
               .then(res => res.json())
-              .then((data : Post) => {
-                addToPostCache(data);
-                addToCurrentUserPosts(data.id)
-                addToForYouFeedIds(data.id);
+              .then((data : Post[]) => {
+                if (data.length > 1 && setNewPost) {
+                    addToPostCache(data[0])
+                    addToPostCache(data[1])
+                    setNewPost(data[1]);
+                } else {
+                    addToPostCache(data[0]);
+                    addToForYouFeedIds(data[0].id);
+                }
+                addToCurrentUserPosts(data[0].id)
               });
 
         }

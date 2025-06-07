@@ -12,11 +12,12 @@ import type { Post } from "../../types/Post";
 type ComposeTweetProps = {
     parentId?: number;
     parentUsername?: string;
+    setNewPost?: (post: Post) => void;
 }
 
 //TODO maybe add upper tweet
 
-function ComposeTweet ({parentId, parentUsername}: ComposeTweetProps) {
+function ComposeTweet ({parentId, parentUsername, setNewPost}: ComposeTweetProps) {
 
     const [textInput, setTextInput] = useState<string>("");
     const {currentUser} = useCurrentUser();
@@ -52,7 +53,7 @@ function ComposeTweet ({parentId, parentUsername}: ComposeTweetProps) {
                         <MdOutlineGif className="text-4xl"/>
                     </div>
                     <div className="w-full h-full justify-end flex items-center">
-                        <UploadTweetButton textInput = {textInput} parentId={parentId}/>
+                        <UploadTweetButton textInput = {textInput} parentId={parentId} setNewPost={setNewPost}/>
                     </div>
                 </div>
             </div>

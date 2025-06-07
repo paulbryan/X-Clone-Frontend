@@ -13,10 +13,11 @@ type PostInteractionComponentProps = {
     postId: number;
     likeList: number[];
     bookmarkList: number[];
+    replyList: number[];
     setNewPost: (post: Post) => void;
 }
 
-function PostInteractionComponent ({postId, likeList, bookmarkList, setNewPost} : PostInteractionComponentProps) {
+function PostInteractionComponent ({postId, likeList, bookmarkList, setNewPost, replyList} : PostInteractionComponentProps) {
 
     const {currentUser} = useCurrentUser();
     const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks, currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes} = useFeedContext();
@@ -79,7 +80,7 @@ function PostInteractionComponent ({postId, likeList, bookmarkList, setNewPost} 
         <>
             <div className="h-5 mt-3 text-(--twitter-text) w-full flex items-center align-middle justify-between">
 
-                <InteractionButton postId={postId} numberList={[]}>
+                <InteractionButton postId={postId} numberList={replyList}>
                     <FaRegComment onClick={() => setModalType("replying")}/>
                 </InteractionButton>
 

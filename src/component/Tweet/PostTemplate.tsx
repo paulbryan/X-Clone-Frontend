@@ -102,6 +102,7 @@ function PostTemplate ({postId} : PostTemplateProps) {
                 postId={post.id}
                 likeList={post.likedBy}
                 bookmarkList={post.bookmarkedBy}
+                replyList={post.replies}
                 />
             </div>
             </div>

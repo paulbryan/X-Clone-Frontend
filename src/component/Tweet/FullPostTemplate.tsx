@@ -13,14 +13,16 @@ import { useNavigate } from "react-router-dom";
 import InputFormField from "../InputComponent/InputFormField";
 import ComposePost from "../Modal/ComposePost";
 import ComposeTweet from "./ComposeTweet";
+import Feed from "../Layout/Feed";
 
 type FullPostTemplateProps = {
     postId: number;
     parentId?: number;
     fullPost?: boolean;
+    showLine?: boolean;
 }
 
-function FullPostTemplate ({postId, parentId, fullPost} : FullPostTemplateProps) {
+function FullPostTemplate ({postId, parentId, fullPost, showLine} : FullPostTemplateProps) {
 
     const {getUserFromCache, getOrFetchUserById} = useUserCache();
     const {getOrFetchPostById, getPostFromCache} = usePostCache();
@@ -87,10 +89,26 @@ function FullPostTemplate ({postId, parentId, fullPost} : FullPostTemplateProps)
         {post && (
             <>
             <div className="flex flex-col pt-3 pb-4 w-full border-gray-700">
-                <div className={`grid px-4 grid-cols-[auto_1fr] border-b border-(--twitter-border) pb-3 gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
-                <div className="w-12 h-12 cursor-pointer" onClick={() => navigate(`/profile/${post.userId}`)}>
-                    <ProfilePic user={postUser} />
-                </div>
+
+                {fullPost && (post.parentId) && (
+                    <FullPostTemplate postId={post.parentId} showLine={true}/>
+                )}
+
+                <div className={`grid px-4 grid-cols-[auto_1fr] ${fullPost && "border-b pb-3"} border-(--twitter-border) gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
+                <div className="relative w-12 flex justify-center">
+                    {/* Profile Picture */}
+                    <div
+                        className="z-10 h-12 w-12 cursor-pointer"
+                        onClick={() => navigate(`/profile/${post.userId}`)}
+                    >
+                        <ProfilePic user={postUser} />
+                    </div>
+
+                    {/* Vertical Line */}
+                    {showLine && (
+                        <div className="absolute top-12 bottom-0 w-px bg-gray-600" />
+                    )}
+                        </div>
 
                 {/* RIGHT COLUMN: Content */}
                 <div className="flex flex-col w-full">
@@ -110,7 +128,7 @@ function FullPostTemplate ({postId, parentId, fullPost} : FullPostTemplateProps)
                       </>  
                     )}
                     </div> 
-                    {parentId && (
+                    {!fullPost && (parentId || post.parentId) && (
                         <div className="text-sm text-(--twitter-text)">
                             <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
                         </div>    
@@ -118,10 +136,15 @@ function FullPostTemplate ({postId, parentId, fullPost} : FullPostTemplateProps)
                     </div> 
                     {!fullPost && (
                     <div className={`text-(--text-main) whitespace-pre-line break-words mb-2`}>
-                    <p>{post.text}</p>
+                    <p onClick={() => navigate("/tweet/"+postId)}>{post.text}</p>
                     </div>
                     )}
                 </div>
+                {fullPost && (parentId || post.parentId) && (
+                    <div className="text-sm col-span-2 pl-2 text-(--twitter-text)">
+                        <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
+                    </div>    
+                )}
                 {fullPost && (
                     <div className={`text-(--text-main) col-span-2 whitespace-pre-line break-words pl-2 text-xl my-2`}>
                     <p className="">{post.text}</p>
@@ -129,16 +152,19 @@ function FullPostTemplate ({postId, parentId, fullPost} : FullPostTemplateProps)
                 )}
                 </div>
 
-                <div className="grid px-4 grid-cols-[auto_1fr] border-b border-(--twitter-border) gap-x-3 w-full`">
-                    <div className="w-12">
-                    
-                    </div>
+                <div className={`grid px-4 grid-cols-[auto_1fr] ${!showLine && "border-b"} border-(--twitter-border) gap-x-3 w-full`}>
+                <div className="relative w-12">
+                {showLine && (
+                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-600" />
+                )}
+                </div>
                     <div className={`w-full pb-3 text-lg border-(--twitter-border)`}>
                     <PostInteractionComponent
                         setNewPost={setNewPost}
                         postId={post.id}
                         likeList={post.likedBy}
                         bookmarkList={post.bookmarkedBy}
+                        replyList={post.replies}
                     />
                     </div> 
                 </div>
@@ -146,23 +172,14 @@ function FullPostTemplate ({postId, parentId, fullPost} : FullPostTemplateProps)
 
                 {fullPost && (
                     <>
-                    <ComposeTweet parentId={postId} parentUsername={postUser?.username}/>
-                    <FullPostTemplate postId={17} parentId={postId}/>
+                    <ComposeTweet parentId={postId} parentUsername={postUser?.username} setNewPost={setNewPost}/>
+                    <Feed replyFeedParentId={postId} postIdsArray={post.replies}/>
                     </>
-                )}
+               )}
 
-                {/* <div className="grid px-4 py-4 grid-cols-[auto_1fr] pb-3 gap-x-3 w-full">
-                <div className="w-12 h-12 cursor-pointer" onClick={() => navigate(`/profile/${post.userId}`)}>
-                    <ProfilePic user={postUser} />
-                </div>
-                <div className="flex h-full gap-3 items-center">
-                    <InputFormField isTextArea={true} placeholderValue="Tweet your reply" inputValue={inputValue} setInputValue={setInputValue}/>
-                    <div className="flex justify-center items-center rounded-2xl border border-r w-20 h-10">
-                    
-                    </div>
-                </div>
 
-                </div> */}
+
+
 
                 </div>
             </>

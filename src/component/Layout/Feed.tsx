@@ -5,13 +5,15 @@ import { usePostCache } from "../../context/cache/PostCacheProvider";
 import { useUserCache } from "../../context/cache/UserCacheProvider";
 import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import LoadingIcon from "../UIComponent/LoadingIcon";
+import FullPostTemplate from "../Tweet/FullPostTemplate";
 
 
 type FeedProps = {
     postIdsArray?: number[];
+    replyFeedParentId: number;
 }
 
-function Feed ({postIdsArray} : FeedProps) {
+function Feed ({postIdsArray, replyFeedParentId} : FeedProps) {
 
     const {postCache, getPostFromCache, addToPostCache, fetchPostsFromServerById} = usePostCache();
     const {getUserFromCache, getOrFetchUserById} = useUserCache();
@@ -77,7 +79,7 @@ function Feed ({postIdsArray} : FeedProps) {
             }) ? (
               <div className="flex flex-col-reverse w-full">
                 {postIdsArray.map((postId) => (
-                  <PostTemplate key={postId} postId={postId} />
+                  <FullPostTemplate key={postId} postId={postId} parentId={replyFeedParentId}/>
                 ))}
               </div>
             ) : (
