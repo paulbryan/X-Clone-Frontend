@@ -25,7 +25,7 @@ function ComposeTweet ({parentId, parentUsername}: ComposeTweetProps) {
         <div className="flex flex-col pt-4 pb-4 w-full border-b border-gray-700">
         <div className="grid px-4 grid-cols-[auto_1fr] gap-x-3 w-full">
             
-            {parentId && (
+            {/* {parentId && (
             <>
             <div>
 
@@ -35,7 +35,7 @@ function ComposeTweet ({parentId, parentUsername}: ComposeTweetProps) {
                 <p className="text-(--twitter-text)">Replying to <span className="text-(--color-main)">@{parentUsername}</span></p>
             </div>
             </>
-            )}
+            )} */}
 
             <div className="w-12 h-12 cursor-pointer">
                 <ProfilePic user={currentUser}/>

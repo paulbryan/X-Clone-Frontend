@@ -36,7 +36,7 @@ function InteractionButton({ children, checkOfIds, postId, numberList }: Interac
   if (isMarked) {
     return (
       <div>
-      <div className="h-5 flex text-(--color-main) w-16 align-middle items-center gap-2">
+      <div className="h-5 flex text-(--color-main) w-16 align-middle items-center gap-3">
         {children}
         <p className="align-middle">{numberList.length}</p>
       </div>
@@ -44,7 +44,7 @@ function InteractionButton({ children, checkOfIds, postId, numberList }: Interac
     );
   } else {
     return (
-      <div className="h-5 flex w-16 align-middle items-center gap-2">
+      <div className="h-5 flex w-16 align-middle items-center gap-3">
         {children}
         <p className="align-middle">{numberList.length}</p>
       </div>

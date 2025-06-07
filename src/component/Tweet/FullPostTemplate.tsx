@@ -32,6 +32,8 @@ function FullPostTemplate ({postId, parentId, fullPost} : FullPostTemplateProps)
     const [post, setPost] = useState<Post | null>(() => getPostFromCache(postId) ?? null);
     const [inputValue, setInputValue] = useState("");
 
+    const [isMainPost, setIsMainPost] = useState(false);
+
     function setNewPost(post: Post) {
 
         if (post) {
@@ -85,7 +87,7 @@ function FullPostTemplate ({postId, parentId, fullPost} : FullPostTemplateProps)
         {post && (
             <>
             <div className="flex flex-col pt-3 pb-4 w-full border-gray-700">
-                <div className="grid px-4 grid-cols-[auto_1fr] pb-3 gap-x-3 w-full">            {/* LEFT COLUMN: Profile Pic */}
+                <div className={`grid px-4 grid-cols-[auto_1fr] border-b border-(--twitter-border) pb-3 gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
                 <div className="w-12 h-12 cursor-pointer" onClick={() => navigate(`/profile/${post.userId}`)}>
                     <ProfilePic user={postUser} />
                 </div>
@@ -93,26 +95,20 @@ function FullPostTemplate ({postId, parentId, fullPost} : FullPostTemplateProps)
                 {/* RIGHT COLUMN: Content */}
                 <div className="flex flex-col w-full">
                     
-                    {fullPost ? (
-                    <div className="flex flex-col text-white mb-0.5">
-                        <div className="font-bold">
-                        <DisplayNameComponent user={postUser}/>
-                        </div>
-                    <div className="text-(--twitter-text) text-sm">
-                        <UsernameComponent user={postUser} />
-                    </div>
-                    </div>  
-                    ) : (
                     <div className="flex flex-col">
-                    <div className="flex items-center gap-2 text-white mb-0.5">
+                    <div className={`flex ${fullPost ? "flex-col" : "mb-0.5 gap-2 items-center"}  text-(--text-main) `}>
                         <div className="font-bold">
                         <DisplayNameComponent user={postUser}/>
                         </div>
-                    <div className="text-(--twitter-text) text-sm">
+                    <div className="text-(--twitter-text) text-md">
                         <UsernameComponent user={postUser} />
                     </div>
-                    <p>•</p>
-                    <CreatedAtDisplay createdAt={post.createdAt} typeOfCreatedAt="timeago"/>
+                    {!fullPost && (
+                      <>
+                        <p>•</p>
+                        <CreatedAtDisplay createdAt={post.createdAt} typeOfCreatedAt="timeago"/>
+                      </>  
+                    )}
                     </div> 
                     {parentId && (
                         <div className="text-sm text-(--twitter-text)">
@@ -120,23 +116,35 @@ function FullPostTemplate ({postId, parentId, fullPost} : FullPostTemplateProps)
                         </div>    
                     )}
                     </div> 
-                    )}
-
-                    <div className="text-white whitespace-pre-line break-words mb-2">
+                    {!fullPost && (
+                    <div className={`text-(--text-main) whitespace-pre-line break-words mb-2`}>
                     <p>{post.text}</p>
                     </div>
+                    )}
                 </div>
-                </div>
-                <div className="w-full pr-4 pl-8 pb-3 border-y border-(--twitter-border)">
-                <PostInteractionComponent
-                    setNewPost={setNewPost}
-                    postId={post.id}
-                    likeList={post.likedBy}
-                    bookmarkList={post.bookmarkedBy}
-                />
+                {fullPost && (
+                    <div className={`text-(--text-main) col-span-2 whitespace-pre-line break-words pl-2 text-xl my-2`}>
+                    <p className="">{post.text}</p>
+                    </div> 
+                )}
                 </div>
 
-                {postId === 18 && !parentId && (
+                <div className="grid px-4 grid-cols-[auto_1fr] border-b border-(--twitter-border) gap-x-3 w-full`">
+                    <div className="w-12">
+                    
+                    </div>
+                    <div className={`w-full pb-3 text-lg border-(--twitter-border)`}>
+                    <PostInteractionComponent
+                        setNewPost={setNewPost}
+                        postId={post.id}
+                        likeList={post.likedBy}
+                        bookmarkList={post.bookmarkedBy}
+                    />
+                    </div> 
+                </div>
+
+
+                {fullPost && (
                     <>
                     <ComposeTweet parentId={postId} parentUsername={postUser?.username}/>
                     <FullPostTemplate postId={17} parentId={postId}/>
