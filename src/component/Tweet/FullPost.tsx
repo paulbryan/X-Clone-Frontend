@@ -32,7 +32,9 @@ function FullPost() {
     <div className="flex flex-col w-full text-white">
 
       {/* Main Post */}
-      <FullPostTemplate postId={numericPostId} />
+      <FullPostTemplate fullPost={true} postId={numericPostId} />
+
+      
 
 
     </div>

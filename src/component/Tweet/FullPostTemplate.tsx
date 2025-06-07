@@ -16,9 +16,11 @@ import ComposeTweet from "./ComposeTweet";
 
 type FullPostTemplateProps = {
     postId: number;
+    parentId?: number;
+    fullPost?: boolean;
 }
 
-function FullPostTemplate ({postId} : FullPostTemplateProps) {
+function FullPostTemplate ({postId, parentId, fullPost} : FullPostTemplateProps) {
 
     const {getUserFromCache, getOrFetchUserById} = useUserCache();
     const {getOrFetchPostById, getPostFromCache} = usePostCache();
@@ -90,6 +92,8 @@ function FullPostTemplate ({postId} : FullPostTemplateProps) {
 
                 {/* RIGHT COLUMN: Content */}
                 <div className="flex flex-col w-full">
+                    
+                    {fullPost ? (
                     <div className="flex flex-col text-white mb-0.5">
                         <div className="font-bold">
                         <DisplayNameComponent user={postUser}/>
@@ -97,7 +101,26 @@ function FullPostTemplate ({postId} : FullPostTemplateProps) {
                     <div className="text-(--twitter-text) text-sm">
                         <UsernameComponent user={postUser} />
                     </div>
+                    </div>  
+                    ) : (
+                    <div className="flex flex-col">
+                    <div className="flex items-center gap-2 text-white mb-0.5">
+                        <div className="font-bold">
+                        <DisplayNameComponent user={postUser}/>
+                        </div>
+                    <div className="text-(--twitter-text) text-sm">
+                        <UsernameComponent user={postUser} />
                     </div>
+                    <p>•</p>
+                    <CreatedAtDisplay createdAt={post.createdAt} typeOfCreatedAt="timeago"/>
+                    </div> 
+                    {parentId && (
+                        <div className="text-sm text-(--twitter-text)">
+                            <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
+                        </div>    
+                    )}
+                    </div> 
+                    )}
 
                     <div className="text-white whitespace-pre-line break-words mb-2">
                     <p>{post.text}</p>
@@ -113,7 +136,12 @@ function FullPostTemplate ({postId} : FullPostTemplateProps) {
                 />
                 </div>
 
-                <ComposeTweet/>
+                {postId === 18 && !parentId && (
+                    <>
+                    <ComposeTweet parentId={postId} parentUsername={postUser?.username}/>
+                    <FullPostTemplate postId={17} parentId={postId}/>
+                    </>
+                )}
 
                 {/* <div className="grid px-4 py-4 grid-cols-[auto_1fr] pb-3 gap-x-3 w-full">
                 <div className="w-12 h-12 cursor-pointer" onClick={() => navigate(`/profile/${post.userId}`)}>

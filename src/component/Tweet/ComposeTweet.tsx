@@ -11,11 +11,12 @@ import type { Post } from "../../types/Post";
 
 type ComposeTweetProps = {
     parentId?: number;
+    parentUsername?: string;
 }
 
 //TODO maybe add upper tweet
 
-function ComposeTweet ({parentId}: ComposeTweetProps) {
+function ComposeTweet ({parentId, parentUsername}: ComposeTweetProps) {
 
     const [textInput, setTextInput] = useState<string>("");
     const {currentUser} = useCurrentUser();
@@ -24,13 +25,25 @@ function ComposeTweet ({parentId}: ComposeTweetProps) {
         <div className="flex flex-col pt-4 pb-4 w-full border-b border-gray-700">
         <div className="grid px-4 grid-cols-[auto_1fr] gap-x-3 w-full">
             
+            {parentId && (
+            <>
+            <div>
+
+            </div>
+
+            <div className="w-full">
+                <p className="text-(--twitter-text)">Replying to <span className="text-(--color-main)">@{parentUsername}</span></p>
+            </div>
+            </>
+            )}
+
             <div className="w-12 h-12 cursor-pointer">
                 <ProfilePic user={currentUser}/>
             </div>
             <div className="flex flex-col w-full h-fit">
-                <div className="w-full h-fit flex mb-1">
-                    <TextareaAutosize value={textInput} onChange={(e) => setTextInput(e.target.value)} className="w-full min-h-16 p-1 text-white placeholder:text-(--twitter-text)"
-                    placeholder="What's up?!"
+                <div className="w-full h-fit flex">
+                    <TextareaAutosize value={textInput} onChange={(e) => setTextInput(e.target.value)} className="w-full min-h-12 p-1 text-white placeholder:text-(--twitter-text)"
+                    placeholder="Tweet your reply"
                     />
                 </div>
                 <div className="flex w-full h-10 items-center">
