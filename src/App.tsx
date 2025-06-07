@@ -15,6 +15,7 @@ import { FeedProvider } from './context/feed/FeedContext';
 import BookmarkPage from './component/Layout/BookmarkPage';
 import NotificationPage from './component/Layout/NotificationPage';
 import { PageUserProvider } from './context/currentUser/PageUserContext';
+import FullPost from './component/Tweet/FullPost';
 
 
 
@@ -54,6 +55,13 @@ function App() {
           path="profile/:ID"
           element={
             <ProfilePage />
+          }
+        />
+
+        <Route
+          path="tweet/:postId"
+          element={
+            <FullPost />
           }
         />
 

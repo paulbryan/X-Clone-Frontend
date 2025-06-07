@@ -75,45 +75,39 @@ function PostTemplate ({postId} : PostTemplateProps) {
 
         
         <>
-            <div className="h-fit w-full flex border-b-2 border-(--twitter-border)">
 
         {post && (
-                    <div className="flex w-full h-fitl px-4 pt-3">
-                    <div className="flex w-12 mr-2">
-                        <div className="w-10 h-10" onClick={() => navigate(`/profile/${post.userId}`)}>
-                            <ProfilePic user={postUser}/>
-                        </div>
-                    </div>
+            <div className="grid grid-cols-[48px_1fr] gap-x-3 px-4 pt-3 pb-4 w-full border-b border-gray-700">            {/* LEFT COLUMN: Profile Pic */}
+            <div className="w-12 h-12 cursor-pointer" onClick={() => navigate(`/profile/${post.userId}`)}>
+                <ProfilePic user={postUser} />
+            </div>
 
-                    <div className="pb-3 w-full h-fit">
-                        <div className="w-full h-fit flex-col">
-                            <div className="w-full h-5 flex gap-2 align-middle text-white mb-0.5">
-                                    <div> 
-                                        <DisplayNameComponent user={postUser}/>
-                                    </div>
-                                    <div className="text-(--twitter-text)">
-                                        <UsernameComponent user={postUser}/>
-                                    </div>
-                                    <p>·</p>
-                                    <CreatedAtDisplay createdAt={post.createdAt} typeOfCreatedAt="timeago"/>
-                            </div>
-                            <div className="text-white max-h-32">
-                                <p>
-                                {post.text}
-                                </p>
-                            </div>
-                            <div>
-                                <PostInteractionComponent setNewPost={setNewPost} postId={post.id} likeList={post.likedBy} bookmarkList={post.bookmarkedBy}/>
-                            </div>
-                        </div>
-
-                    </div>
-
+            {/* RIGHT COLUMN: Content */}
+            <div className="flex flex-col w-full">
+                <div className="flex items-center gap-2 text-white mb-0.5">
+                <DisplayNameComponent user={postUser} />
+                <div className="text-(--twitter-text)">
+                    <UsernameComponent user={postUser} />
                 </div>
+                <p>·</p>
+                <CreatedAtDisplay createdAt={post.createdAt} typeOfCreatedAt="timeago" />
+                </div>
+
+                <div className="text-white whitespace-pre-line break-words mb-2">
+                <p onClick={() => navigate("tweet/" + postId)}>{post.text}</p>
+                </div>
+
+                <PostInteractionComponent
+                setNewPost={setNewPost}
+                postId={post.id}
+                likeList={post.likedBy}
+                bookmarkList={post.bookmarkedBy}
+                />
+            </div>
+            </div>
         )}
 
 
-            </div>
         </>
 
     )
