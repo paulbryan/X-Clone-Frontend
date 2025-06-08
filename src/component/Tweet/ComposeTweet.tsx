@@ -8,43 +8,35 @@ import { useState } from "react";
 import type { NewPost } from "../../types/NewPost";
 import { usePostCache } from "../../context/cache/PostCacheProvider";
 import type { Post } from "../../types/Post";
+import type { ModalType } from "../../types/ModalType";
 
 type ComposeTweetProps = {
     parentId?: number;
     parentUsername?: string;
     setNewPost?: (post: Post) => void;
+    setToggle?: (modalType: ModalType) => void;
 }
 
 //TODO maybe add upper tweet
 
-function ComposeTweet ({parentId, parentUsername, setNewPost}: ComposeTweetProps) {
+function ComposeTweet ({parentId, parentUsername, setNewPost, setToggle}: ComposeTweetProps) {
 
     const [textInput, setTextInput] = useState<string>("");
     const {currentUser} = useCurrentUser();
 
+    const isModal = setToggle != null;
+    const placeHolder = parentId ? "Tweet your reply" : "What's up?!"
+
     return (
-        <div className="flex flex-col pt-4 pb-4 w-full border-b border-gray-700">
+        <div className={`flex flex-col pt-4 pb-4 bg-(--background-main) w-full ${isModal ? "rounded-2xl border border-(--color-main)" : "border-b border-gray-700"}`}>
         <div className="grid px-4 grid-cols-[auto_1fr] gap-x-3 w-full">
-            
-            {/* {parentId && (
-            <>
-            <div>
-
-            </div>
-
-            <div className="w-full">
-                <p className="text-(--twitter-text)">Replying to <span className="text-(--color-main)">@{parentUsername}</span></p>
-            </div>
-            </>
-            )} */}
-
             <div className="w-12 h-12 cursor-pointer">
                 <ProfilePic user={currentUser}/>
             </div>
             <div className="flex flex-col w-full h-fit">
                 <div className="w-full h-fit flex">
                     <TextareaAutosize value={textInput} onChange={(e) => setTextInput(e.target.value)} className="w-full min-h-12 p-1 text-white placeholder:text-(--twitter-text)"
-                    placeholder="Tweet your reply"
+                    placeholder={placeHolder}
                     />
                 </div>
                 <div className="flex w-full h-10 items-center">

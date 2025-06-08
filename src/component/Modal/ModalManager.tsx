@@ -4,6 +4,7 @@ import SignupView from "../ViewComponent/SignupView";
 import LoginView from "../ViewComponent/LoginView";
 import ComposePost from "./ComposePost";
 import ReplyModal from "./ReplyModal";
+import ComposeTweet from "../Tweet/ComposeTweet";
 
 function ModalManager() {
   const { modalType, setModalType } = useModal();
@@ -14,7 +15,7 @@ function ModalManager() {
     <Modal setToggle={setModalType}>
       {modalType === "signup" && <SignupView setToggle={setModalType}/>}
       {modalType === "login" && <LoginView setToggle={setModalType}/>} 
-      {modalType === "posting" && <ComposePost/>} 
+      {modalType === "posting" && <ComposeTweet setToggle={setModalType}/>} 
       {modalType === "replying" && <ReplyModal setToggle={setModalType}/>}
     </Modal>
   );

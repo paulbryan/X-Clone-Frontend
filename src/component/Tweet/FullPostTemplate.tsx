@@ -96,21 +96,19 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine} : FullPostTemp
 
                 <div className={`grid px-4 grid-cols-[auto_1fr] ${fullPost && "border-b pb-3"} border-(--twitter-border) gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
                 <div className="relative w-12 flex justify-center">
-                    {/* Profile Picture */}
+
                     <div
-                        className="z-10 h-12 w-12 cursor-pointer"
+                        className="h-12 w-12 cursor-pointer"
                         onClick={() => navigate(`/profile/${post.userId}`)}
                     >
                         <ProfilePic user={postUser} />
                     </div>
 
-                    {/* Vertical Line */}
                     {showLine && (
                         <div className="absolute top-12 bottom-0 w-px bg-gray-600" />
                     )}
                         </div>
 
-                {/* RIGHT COLUMN: Content */}
                 <div className="flex flex-col w-full">
                     
                     <div className="flex flex-col">
