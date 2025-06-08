@@ -6,6 +6,7 @@ import { useUserCache } from "../../context/cache/UserCacheProvider";
 import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import LoadingIcon from "../UIComponent/LoadingIcon";
 import FullPostTemplate from "../Tweet/FullPostTemplate";
+import { AnimatePresence, motion } from "framer-motion";
 
 
 type FeedProps = {
@@ -77,11 +78,21 @@ function Feed ({postIdsArray, replyFeedParentId} : FeedProps) {
               const post = getPostFromCache(postId);
               return post && getUserFromCache(post.userId);
             }) ? (
-              <div className="flex flex-col-reverse w-full">
-                {postIdsArray.map((postId) => (
-                  <FullPostTemplate feedPost={true} key={postId} postId={postId} parentId={replyFeedParentId}/>
-                ))}
-              </div>
+              <AnimatePresence mode="popLayout">
+                <div className="flex flex-col-reverse w-full">
+                  {postIdsArray.map((postId) => (
+                    <motion.div
+                      key={postId}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
+                      exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
+                      layout
+                    >
+                      <FullPostTemplate feedPost={true} postId={postId} parentId={replyFeedParentId} />
+                    </motion.div>
+                  ))}
+                </div>
+              </AnimatePresence>
             ) : (
               <div className="flex justify-center py-2 flex-col w-full">
                 <LoadingIcon />
