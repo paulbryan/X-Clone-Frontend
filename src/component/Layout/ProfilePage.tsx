@@ -9,10 +9,10 @@ import Feed from "./Feed";
 import { useFeedContext } from "../../context/feed/FeedContext";
 
 function ProfilePage() {
-    const tabs = ["Tweets", "Liked", "Media"];
+    const tabs = ["Tweets", "Tweets & Replies", "Liked", "Media"];
     const [activeTab, setActiveTab] = useState("Tweets");
 
-    const { currentUserPostsIds, currentUserLikedIds } = useFeedContext();
+    const { currentUserPostsIds, currentUserLikedIds, currentUserPostsAndReplies } = useFeedContext();
     const { ID } = useParams();
     const pageUserID = Number(ID);
 
@@ -64,7 +64,8 @@ function ProfilePage() {
                 const posts = isOwner ? currentUserPostsIds : pageUser.posts;
                 return posts;
             case "Tweets & Replies":
-   
+                const postsAndReplies = isOwner ? currentUserPostsAndReplies : pageUser.postsAndReplies;
+                return postsAndReplies;
             case "Liked":
                 const likes = isOwner ? currentUserLikedIds : pageUser.likedPosts;
                 return likes;
@@ -81,7 +82,7 @@ function ProfilePage() {
         <div className="flex flex-col h-full w-full flex-grow overflow-y-auto">
             <ProfilePageOverview  pageUser={pageUser} setNewUser={setNewUser}/>
 
-            <div>
+            <div className="">
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
             </div>
 

@@ -19,6 +19,9 @@ type FeedContextType = {
     addToCurrentUserLikes: (id: number) => void;
     removeFromCurrentUserLikes: (id: number) => void;
     initializeCurrentUserLikes: () => void;
+
+    currentUserPostsAndReplies: number[];
+    addToCurrentUserPostsAndReplies: (id: number) => void;
   };
 
 const FeedContext = createContext<FeedContextType | undefined>(undefined);
@@ -30,6 +33,7 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
     const [currentUserPostsIds, setCurrentUserPostsIds] = useState<number[]>([]);
     const [currentUserBookmarkIds, setCurrentUserBookmarkIds] = useState<number[]>([]);
     const [currentUserLikedIds, setCurrentUserLikedIds] = useState<number[]>([]);
+    const [currentUserPostsAndReplies, setCurrentUserPostsAndReplies] = useState<number[]>([]);
 
     
 
@@ -43,6 +47,12 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
         if (currentUser) {
             setCurrentUserPostsIds((prev) => [...prev, id])
         }
+    }
+
+    function addToCurrentUserPostsAndReplies(id: number) {
+      if (currentUser) {
+        setCurrentUserPostsAndReplies((prev) => [...prev, id])
+      }
     }
 
     function addToCurrentUserBookmarks(id: number) {
@@ -108,10 +118,13 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
         if (currentUser && currentUser.posts && currentUser.posts.length > 0) {
           setCurrentUserPostsIds(currentUser.posts);
         }
+        if (currentUser && currentUser.postsAndReplies && currentUser.postsAndReplies.length > 0) {
+          setCurrentUserPostsAndReplies(currentUser.postsAndReplies)
+        }
       }, [currentUser]);
 
     return (
-      <FeedContext.Provider value={{addToCurrentUserLikes, removeFromCurrentUserLikes, initializeCurrentUserLikes, forYouFeedIds, removeCurrentUserBookmarks, addToForYouFeedIds, getForYouFeedIds, currentUserPostsIds, addToCurrentUserPosts, initializeCurrentUserBookmarks, addToCurrentUserBookmarks, currentUserBookmarkIds, currentUserLikedIds}}>
+      <FeedContext.Provider value={{addToCurrentUserPostsAndReplies, currentUserPostsAndReplies, addToCurrentUserLikes, removeFromCurrentUserLikes, initializeCurrentUserLikes, forYouFeedIds, removeCurrentUserBookmarks, addToForYouFeedIds, getForYouFeedIds, currentUserPostsIds, addToCurrentUserPosts, initializeCurrentUserBookmarks, addToCurrentUserBookmarks, currentUserBookmarkIds, currentUserLikedIds}}>
         {children}
       </FeedContext.Provider>
     );

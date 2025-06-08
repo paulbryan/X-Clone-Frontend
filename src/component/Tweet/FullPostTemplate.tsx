@@ -96,20 +96,27 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost, moda
 
     }, [post])
     
+        //TODO fix this damned padding
 
 
     return (
 
         
         <>
-
         {post && (
             <>
-            <div className={`flex flex-col ${!feedPost ? "pb-4 pt-2" : "border-b py-4"} w-full border-gray-700`}>
+            <div className={`flex flex-col ${(!feedPost || showLine) ? "pb-4 pt-2" : "border-b py-4"} w-full border-gray-700`}>
 
-            {fullPost && postId !== parentId && post.parentId && (
-                <FullPostTemplate postId={post.parentId} showLine={true} parentId={postId} />
-            )}
+            {(fullPost || feedPost) && postId !== parentId && post.parentId && (
+                <FullPostTemplate
+                    postId={post.parentId}
+                    showLine={true}
+                    parentId={postId}
+                    // prevent further nesting
+                    feedPost={false} 
+                    fullPost={false}
+                />
+                )}
 
                 <div className={`grid px-4 grid-cols-[auto_1fr] ${fullPost && "border-b pb-3"} border-(--twitter-border) gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
                 <div className="relative w-12 flex justify-center">
@@ -176,7 +183,7 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost, moda
                 </div>
 
                 {!modalReplyChild ? (
-                    <div className={`w-full ${!feedPost && "pb-3"} text-lg border-(--twitter-border)`}>
+                    <div className={`w-full ${!feedPost || !showLine && "pb-3"} text-lg border-(--twitter-border)`}>
                     <PostInteractionComponent
                         setNewPost={setNewPost}
                         postId={post.id}

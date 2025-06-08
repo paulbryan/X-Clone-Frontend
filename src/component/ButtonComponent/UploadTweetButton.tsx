@@ -16,7 +16,7 @@ function UploadTweetButton ({textInput, parentId, setNewPost, setToggle} : Uploa
 
     const {currentUser} = useCurrentUser();
     const {addToPostCache} = usePostCache();
-    const {addToForYouFeedIds, addToCurrentUserPosts} = useFeedContext();
+    const {addToForYouFeedIds, addToCurrentUserPosts, addToCurrentUserPostsAndReplies} = useFeedContext();
 
     function composeNewPost () {
 
@@ -39,11 +39,13 @@ function UploadTweetButton ({textInput, parentId, setNewPost, setToggle} : Uploa
                     addToPostCache(data[0])
                     addToPostCache(data[1])
                     setNewPost(data[1]);
+                    addToCurrentUserPostsAndReplies(data[0].id);
+
                 } else {
                     addToPostCache(data[0]);
                     addToForYouFeedIds(data[0].id);
+                    addToCurrentUserPosts(data[0].id)
                 }
-                addToCurrentUserPosts(data[0].id)
 
                 if (setToggle) {
                     setToggle(null);

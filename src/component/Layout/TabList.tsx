@@ -11,7 +11,7 @@ interface TabListProps {
 const TabList: FC<TabListProps> = ({ tabs, activeTab, setActiveTab }) => {
 
   return (
-    <div className="h-12 w-full flex">
+    <div className="h-12 w-full overflow-x-auto overflow-y-hidden whitespace-nowrap flex items-center no-scrollbar">
       {tabs.map((tab) => (
         <TabButton
           key={tab}
