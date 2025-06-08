@@ -36,6 +36,14 @@ function NotificationTemplate ({sender, notification, isTempUnseen}: Notificatio
 
     }
 
+    function navigateFromNotification () {
+            if (notification.type == "follow") {
+                navigate("/profile/"+notification.senderId)
+            } else {
+                navigate("/tweet/"+notification.referenceId)
+            }
+    }
+
     return (
         <>
         <div className={`h-fit w-full flex border-b-2 border-(--twitter-border) ${
@@ -62,11 +70,12 @@ function NotificationTemplate ({sender, notification, isTempUnseen}: Notificatio
                             <div className="font-bold"> 
                                 <DisplayNameComponent user={sender}/>
                             </div>
-                            <p> {displayMessage}</p>
+                            <p onClick={() => navigateFromNotification()}> {displayMessage}</p>
                     </div>
 
                     <div className="text-(--twitter-text) max-h-32">
-                        <p>
+                        <p onClick={() => navigateFromNotification()}>
+
                             {notification.text.slice(0, 20)}{notification.text.length > 20 ? "..." : ""}
                         </p>
                     </div>
