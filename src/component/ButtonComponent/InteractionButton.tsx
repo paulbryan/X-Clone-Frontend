@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { motion } from "framer-motion";
 
 type InteractionButtonProps = {
   children: ReactNode;
@@ -13,6 +14,7 @@ function InteractionButton({ children, checkOfIds, postId, numberList }: Interac
 
   const {currentUser} = useCurrentUser();
   const [isMarked, setIsMarked] = useState<boolean>(currentUser && checkOfIds && checkOfIds.includes(postId) ? true : false); 
+  const [previousCount, setPreviousCount] = useState(numberList.length);
 
 
 
@@ -33,12 +35,27 @@ function InteractionButton({ children, checkOfIds, postId, numberList }: Interac
 
   }, [currentUser, checkOfIds, postId])
 
+  useEffect(() => {
+    setPreviousCount(numberList.length);
+  }, [numberList.length]);
+
+  const countChanged = numberList.length !== previousCount;
+  const direction = numberList.length > previousCount ? -15 : 15;
+
   if (isMarked) {
     return (
       <div>
       <div className="h-5 flex text-(--color-main) w-16 align-middle items-center gap-3">
-        {children}
-        <p className="align-middle">{numberList.length}</p>
+      {children}
+      <motion.span
+        key={numberList.length}
+        initial={{ y: direction, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -direction, opacity: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      >
+        {numberList.length}
+      </motion.span>
       </div>
       </div>
     );
@@ -46,7 +63,15 @@ function InteractionButton({ children, checkOfIds, postId, numberList }: Interac
     return (
       <div className="h-5 flex w-16 align-middle items-center gap-3">
         {children}
-        <p className="align-middle">{numberList.length}</p>
+        <motion.span
+        key={numberList.length}
+        initial={{ y: direction, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -direction, opacity: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      >
+        {numberList.length}
+      </motion.span>
       </div>
     );
   }
