@@ -104,7 +104,7 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost} : Fu
 
         {post && (
             <>
-            <div className="flex flex-col pt-3 pb-4 w-full border-gray-700">
+            <div className={`flex flex-col ${!feedPost ? "pb-4 pt-2" : "border-b py-4"} w-full border-gray-700`}>
 
             {fullPost && postId !== parentId && post.parentId && (
                 <FullPostTemplate postId={post.parentId} showLine={true} parentId={postId} />
@@ -165,13 +165,13 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost} : Fu
                 )}
                 </div>
 
-                <div className={`grid px-4 grid-cols-[auto_1fr] ${!showLine && "border-b"} border-(--twitter-border) gap-x-3 w-full`}>
+                <div className={`grid px-4 grid-cols-[auto_1fr] ${!showLine && !feedPost && "border-b"} border-(--twitter-border) gap-x-3 w-full`}>
                 <div className="relative w-12">
                 {showLine && (
                     <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-600" />
                 )}
                 </div>
-                    <div className={`w-full pb-3 text-lg border-(--twitter-border)`}>
+                    <div className={`w-full ${!feedPost && "pb-3"} text-lg border-(--twitter-border)`}>
                     <PostInteractionComponent
                         setNewPost={setNewPost}
                         postId={post.id}
