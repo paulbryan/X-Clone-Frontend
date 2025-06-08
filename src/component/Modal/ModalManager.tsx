@@ -5,18 +5,21 @@ import LoginView from "../ViewComponent/LoginView";
 import ComposePost from "./ComposePost";
 import ReplyModal from "./ReplyModal";
 import ComposeTweet from "../Tweet/ComposeTweet";
+import { AnimatePresence } from "framer-motion";
 
 function ModalManager() {
   const { modalType, setModalType } = useModal();
 
-  if (!modalType) return null;
-
   return (
-    <Modal setToggle={setModalType}>
-      {modalType === "signup" && <SignupView setToggle={setModalType}/>}
-      {modalType === "login" && <LoginView setToggle={setModalType}/>} 
-      {modalType === "posting" && <ComposeTweet setToggle={setModalType}/>} 
-    </Modal>
+    <AnimatePresence>
+      {modalType && (
+        <Modal setToggle={setModalType}>
+          {modalType === "signup" && <SignupView setToggle={setModalType} />}
+          {modalType === "login" && <LoginView setToggle={setModalType} />} 
+          {modalType === "posting" && <ComposeTweet setToggle={setModalType} />} 
+        </Modal>
+      )}
+    </AnimatePresence>
   );
 }
 

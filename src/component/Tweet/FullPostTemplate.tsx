@@ -15,6 +15,7 @@ import ComposePost from "../Modal/ComposePost";
 import ComposeTweet from "./ComposeTweet";
 import Feed from "../Layout/Feed";
 import { useModal } from "../../context/misc/ModalProvider";
+import { motion, AnimatePresence } from "framer-motion";
 
 type FullPostTemplateProps = {
     postId: number;
@@ -46,6 +47,18 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost} : Fu
         }
 
     }
+
+    const backdropVariant = {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 }
+      };
+      
+      const modalVariant = {
+        initial: { opacity: 0, scale: 0.95 },
+        animate: { opacity: 1, scale: 1, transition: { type: "spring", bounce: 0.3 } },
+        exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } }
+      };
 
     const navigate = useNavigate();
 
@@ -184,20 +197,30 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost} : Fu
                 </div>
 
                 {modalType == "replying" && modalData == postId && (
-              <div 
+              <motion.div 
+              key="backdrop"
               className="w-full z-10 h-full top-0 pt-16 px-4 fixed backdrop-blur-sm bg-red
               flex justify-center items-start"
               onClick={() => setModalType(null)} 
+              initial="initial"
+              animate="animate"
+              variants={backdropVariant}
+              exit="exit"
                >
       
-                  <div 
-                  className="w-full h-fit"
+                  <motion.div 
+                    key="modal"
+                    className="w-full h-fit"
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    variants={modalVariant}
                   onClick={(e) => e.stopPropagation()}
                   >
                     <ComposeTweet parentId={postId} setNewPost={setNewPost} setToggle={setModalType}/>
-                  </div>
+                  </motion.div>
       
-              </div>
+              </motion.div>
             )}
 
             </>

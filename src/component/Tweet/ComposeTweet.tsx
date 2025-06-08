@@ -9,6 +9,7 @@ import type { NewPost } from "../../types/NewPost";
 import { usePostCache } from "../../context/cache/PostCacheProvider";
 import type { Post } from "../../types/Post";
 import type { ModalType } from "../../types/ModalType";
+import { motion } from "framer-motion";
 
 type ComposeTweetProps = {
     parentId?: number;
@@ -27,8 +28,15 @@ function ComposeTweet ({parentId, parentUsername, setNewPost, setToggle}: Compos
     const isModal = setToggle != null;
     const placeHolder = parentId ? "Tweet your reply" : "What's up?!"
 
+
+const fromBottom = {
+    initial: { y: 25, opacity: 0 },
+    animate: { y: 0, opacity: 1, transition: { type: "spring" } }
+  };
+
     return (
         <div className={`flex flex-col pt-4 pb-4 bg-(--background-main) w-full ${isModal ? "rounded-2xl border border-(--color-main)" : "border-b border-gray-700"}`}>
+        
         <div className="grid px-4 grid-cols-[auto_1fr] gap-x-3 w-full">
             <div className="w-12 h-12 cursor-pointer">
                 <ProfilePic user={currentUser}/>
