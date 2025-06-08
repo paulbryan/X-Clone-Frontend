@@ -8,6 +8,7 @@ import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 type MobileMainDrawerProps = {
     setDrawerOpen:Dispatch<SetStateAction<boolean>>
@@ -16,7 +17,11 @@ type MobileMainDrawerProps = {
 function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
     const {currentUser} = useCurrentUser();
-
+    const drawerVariant = {
+        initial: { x: "-100%" },
+        animate: { x: 0, transition: { type: "spring", bounce: 0.2 } },
+        exit: { x: "-100%", transition: { duration: 0.2 } }
+      };
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,9 +29,13 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
     }, [currentUser])
 
     return (
-        <div
-        onClick={() => setDrawerOpen(false)}
-        className="absolute z-20 top-0 w-full h-full backdrop-blur-sm">
+        <motion.div
+        className="absolute z-60 top-0 w-full h-full backdrop-blur-sm"
+        variants={drawerVariant}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        onClick={() => setDrawerOpen(false)}>
 
             <div
             onClick={(e) => e.stopPropagation()}
@@ -91,7 +100,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
             </div>
 
-        </div>
+        </motion.div>
     )
 
 }

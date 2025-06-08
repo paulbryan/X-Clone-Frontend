@@ -7,6 +7,7 @@ import { useState } from "react";
 import MobileMainDrawer from "../Drawer/MobileMainDrawer";
 import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import { useNavigate, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 
 function Header () {
@@ -66,11 +67,12 @@ function Header () {
                     </>
                     )}
 
-            {drawerOpen ? (
-                <MobileMainDrawer setDrawerOpen={setDrawerOpen}/>
-            ) : (
-                null
+
+            <AnimatePresence>
+            {drawerOpen && (
+                <MobileMainDrawer setDrawerOpen={setDrawerOpen} />
             )}
+            </AnimatePresence>
 
 
         </>
