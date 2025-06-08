@@ -16,7 +16,6 @@ function ModalManager() {
       {modalType === "signup" && <SignupView setToggle={setModalType}/>}
       {modalType === "login" && <LoginView setToggle={setModalType}/>} 
       {modalType === "posting" && <ComposeTweet setToggle={setModalType}/>} 
-      {modalType === "replying" && <ReplyModal setToggle={setModalType}/>}
     </Modal>
   );
 }

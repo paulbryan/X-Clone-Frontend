@@ -14,6 +14,7 @@ import InputFormField from "../InputComponent/InputFormField";
 import ComposePost from "../Modal/ComposePost";
 import ComposeTweet from "./ComposeTweet";
 import Feed from "../Layout/Feed";
+import { useModal } from "../../context/misc/ModalProvider";
 
 type FullPostTemplateProps = {
     postId: number;
@@ -35,6 +36,7 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine} : FullPostTemp
     const [inputValue, setInputValue] = useState("");
 
     const [isMainPost, setIsMainPost] = useState(false);
+    const {modalType, modalData, setModalType} = useModal();
 
     function setNewPost(post: Post) {
 
@@ -96,7 +98,6 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine} : FullPostTemp
 
                 <div className={`grid px-4 grid-cols-[auto_1fr] ${fullPost && "border-b pb-3"} border-(--twitter-border) gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
                 <div className="relative w-12 flex justify-center">
-
                     <div
                         className="h-12 w-12 cursor-pointer"
                         onClick={() => navigate(`/profile/${post.userId}`)}
@@ -180,8 +181,28 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine} : FullPostTemp
 
 
                 </div>
+
+                {modalType == "replying" && modalData == postId && (
+              <div 
+              className="w-full z-10 h-full top-0 pt-16 px-4 fixed backdrop-blur-sm bg-red
+              flex justify-center items-start"
+              onClick={() => setModalType(null)} 
+               >
+      
+                  <div 
+                  className="w-full h-fit"
+                  onClick={(e) => e.stopPropagation()}
+                  >
+                    <ComposeTweet parentId={postId} setNewPost={setNewPost} setToggle={setModalType}/>
+                  </div>
+      
+              </div>
+            )}
+
             </>
         )}
+
+        
 
 
         </>

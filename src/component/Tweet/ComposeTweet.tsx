@@ -45,7 +45,7 @@ function ComposeTweet ({parentId, parentUsername, setNewPost, setToggle}: Compos
                         <MdOutlineGif className="text-4xl"/>
                     </div>
                     <div className="w-full h-full justify-end flex items-center">
-                        <UploadTweetButton textInput = {textInput} parentId={parentId} setNewPost={setNewPost}/>
+                        <UploadTweetButton setToggle={setToggle} textInput = {textInput} parentId={parentId} setNewPost={setNewPost}/>
                     </div>
                 </div>
             </div>

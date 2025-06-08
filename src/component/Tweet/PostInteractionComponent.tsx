@@ -8,6 +8,8 @@ import { usePostCache } from "../../context/cache/PostCacheProvider";
 import type { ModalType } from "../../types/ModalType";
 import { useModal } from "../../context/misc/ModalProvider";
 import type { Post } from "../../types/Post";
+import ComposeTweet from "./ComposeTweet";
+import Modal from "../Modal/Modal";
 
 type PostInteractionComponentProps = {
     postId: number;
@@ -22,7 +24,7 @@ function PostInteractionComponent ({postId, likeList, bookmarkList, setNewPost, 
     const {currentUser} = useCurrentUser();
     const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks, currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes} = useFeedContext();
     const { addToPostCache} = usePostCache(); 
-    const {setModalType} = useModal();
+    const {setModalType, modalType, setModalData, modalData} = useModal();
 
     function handleBookmark() {         
         if (!currentUser) return;
@@ -81,7 +83,10 @@ function PostInteractionComponent ({postId, likeList, bookmarkList, setNewPost, 
             <div className="h-5 mt-3 text-(--twitter-text) w-full flex items-center align-middle justify-between">
 
                 <InteractionButton postId={postId} numberList={replyList}>
-                    <FaRegComment onClick={() => setModalType("replying")}/>
+                    <FaRegComment onClick={() => {
+                      setModalType("replying")
+                      setModalData(postId)
+                    }}/>
                 </InteractionButton>
 
                 <InteractionButton postId={postId} numberList={[]}>
@@ -97,6 +102,7 @@ function PostInteractionComponent ({postId, likeList, bookmarkList, setNewPost, 
                 </InteractionButton>
 
             </div>
+
         </>
 
     )

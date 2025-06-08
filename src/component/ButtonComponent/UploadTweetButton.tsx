@@ -3,14 +3,16 @@ import type { Post } from "../../types/Post";
 import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import { useFeedContext } from "../../context/feed/FeedContext";
 import { usePostCache } from "../../context/cache/PostCacheProvider";
+import type { ModalType } from "../../types/ModalType";
 
 type UploadTweetButtonProps = {
     textInput: string;
     parentId?: number;
     setNewPost?: (post: Post) => void;
+    setToggle?: (modalType: ModalType) => void;
 }
 
-function UploadTweetButton ({textInput, parentId, setNewPost} : UploadTweetButtonProps) {
+function UploadTweetButton ({textInput, parentId, setNewPost, setToggle} : UploadTweetButtonProps) {
 
     const {currentUser} = useCurrentUser();
     const {addToPostCache} = usePostCache();
@@ -42,6 +44,11 @@ function UploadTweetButton ({textInput, parentId, setNewPost} : UploadTweetButto
                     addToForYouFeedIds(data[0].id);
                 }
                 addToCurrentUserPosts(data[0].id)
+
+                if (setToggle) {
+                    setToggle(null);
+                }
+
               });
 
         }
