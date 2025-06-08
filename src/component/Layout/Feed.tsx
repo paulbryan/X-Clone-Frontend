@@ -10,7 +10,7 @@ import FullPostTemplate from "../Tweet/FullPostTemplate";
 
 type FeedProps = {
     postIdsArray?: number[];
-    replyFeedParentId: number;
+    replyFeedParentId?: number;
 }
 
 function Feed ({postIdsArray, replyFeedParentId} : FeedProps) {
@@ -79,7 +79,7 @@ function Feed ({postIdsArray, replyFeedParentId} : FeedProps) {
             }) ? (
               <div className="flex flex-col-reverse w-full">
                 {postIdsArray.map((postId) => (
-                  <FullPostTemplate key={postId} postId={postId} parentId={replyFeedParentId}/>
+                  <FullPostTemplate feedPost={true} key={postId} postId={postId} parentId={replyFeedParentId}/>
                 ))}
               </div>
             ) : (

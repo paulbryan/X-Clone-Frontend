@@ -63,6 +63,8 @@ function ProfilePage() {
             case "Tweets":
                 const posts = isOwner ? currentUserPostsIds : pageUser.posts;
                 return posts;
+            case "Tweets & Replies":
+   
             case "Liked":
                 const likes = isOwner ? currentUserLikedIds : pageUser.likedPosts;
                 return likes;

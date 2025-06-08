@@ -21,9 +21,10 @@ type FullPostTemplateProps = {
     parentId?: number;
     fullPost?: boolean;
     showLine?: boolean;
+    feedPost?: boolean;
 }
 
-function FullPostTemplate ({postId, parentId, fullPost, showLine} : FullPostTemplateProps) {
+function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost} : FullPostTemplateProps) {
 
     const {getUserFromCache, getOrFetchUserById} = useUserCache();
     const {getOrFetchPostById, getPostFromCache} = usePostCache();
@@ -92,9 +93,9 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine} : FullPostTemp
             <>
             <div className="flex flex-col pt-3 pb-4 w-full border-gray-700">
 
-                {fullPost && (post.parentId) && (
-                    <FullPostTemplate postId={post.parentId} showLine={true}/>
-                )}
+            {fullPost && postId !== parentId && post.parentId && (
+                <FullPostTemplate postId={post.parentId} showLine={true} parentId={postId} />
+            )}
 
                 <div className={`grid px-4 grid-cols-[auto_1fr] ${fullPost && "border-b pb-3"} border-(--twitter-border) gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
                 <div className="relative w-12 flex justify-center">
@@ -127,7 +128,7 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine} : FullPostTemp
                       </>  
                     )}
                     </div> 
-                    {!fullPost && (parentId || post.parentId) && (
+                    {!fullPost && (post.parentId) && (
                         <div className="text-sm text-(--twitter-text)">
                             <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
                         </div>    
@@ -139,7 +140,7 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine} : FullPostTemp
                     </div>
                     )}
                 </div>
-                {fullPost && (parentId || post.parentId) && (
+                {fullPost && (post.parentId) && (
                     <div className="text-sm col-span-2 pl-2 text-(--twitter-text)">
                         <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
                     </div>    

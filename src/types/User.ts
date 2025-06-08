@@ -9,6 +9,7 @@ export type User = {
     bio: string;
     createdAt: string;
     posts: number[],
+    postsAndReplies: number[],
     likedPosts: [],
     bookmarkedPosts: [],
     followers: number[],
