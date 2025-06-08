@@ -23,9 +23,10 @@ type FullPostTemplateProps = {
     fullPost?: boolean;
     showLine?: boolean;
     feedPost?: boolean;
+    modalReplyChild?: boolean;
 }
 
-function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost} : FullPostTemplateProps) {
+function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost, modalReplyChild} : FullPostTemplateProps) {
 
     const {getUserFromCache, getOrFetchUserById} = useUserCache();
     const {getOrFetchPostById, getPostFromCache} = usePostCache();
@@ -165,12 +166,16 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost} : Fu
                 )}
                 </div>
 
+
                 <div className={`grid px-4 grid-cols-[auto_1fr] ${!showLine && !feedPost && "border-b"} border-(--twitter-border) gap-x-3 w-full`}>
                 <div className="relative w-12">
                 {showLine && (
                     <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-600" />
                 )}
+                
                 </div>
+
+                {!modalReplyChild ? (
                     <div className={`w-full ${!feedPost && "pb-3"} text-lg border-(--twitter-border)`}>
                     <PostInteractionComponent
                         setNewPost={setNewPost}
@@ -180,6 +185,12 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost} : Fu
                         replyList={post.replies}
                     />
                     </div> 
+                ) : (
+                    <div className="text-(--twitter-text)">
+                        <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
+                    </div>    
+                )}
+
                 </div>
 
 
@@ -196,7 +207,7 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost} : Fu
 
                 </div>
 
-                {modalType == "replying" && modalData == postId && (
+                {modalType == "replying" && modalData == postId && !modalReplyChild && (
               <motion.div 
               key="backdrop"
               className="w-full z-10 h-full top-0 pt-16 px-4 fixed backdrop-blur-sm bg-red
@@ -217,7 +228,7 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost} : Fu
                     variants={modalVariant}
                   onClick={(e) => e.stopPropagation()}
                   >
-                    <ComposeTweet parentId={postId} setNewPost={setNewPost} setToggle={setModalType}/>
+                    <ComposeTweet parentId={postId} setNewPost={setNewPost} showParentPreview={true} setToggle={setModalType}/>
                   </motion.div>
       
               </motion.div>
