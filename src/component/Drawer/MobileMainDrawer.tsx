@@ -18,9 +18,17 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
     const {currentUser} = useCurrentUser();
     const drawerVariant = {
-        initial: { x: "-100%" },
-        animate: { x: 0, transition: { type: "spring", bounce: 0.2 } },
-        exit: { x: "-100%", transition: { duration: 0.2 } }
+        initial: { x: "-100%", opacity: 0 },
+        animate: {
+          x: 0,
+          opacity: 1,
+          transition: { type: "spring", stiffness: 300, damping: 30 }
+        },
+        exit: {
+          x: "-100%",
+          opacity: 0,
+          transition: { duration: 0.2, ease: "easeInOut" }
+        }
       };
     const navigate = useNavigate();
 
@@ -39,7 +47,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
             <div
             onClick={(e) => e.stopPropagation()}
-            className="w-5/6 p-4 border-r flex flex-col border-(--twitter-border) h-full bg-(--background-main)">
+            className="w-2/3 min-w-[280px] max-w-[85vw] p-4 border-r flex flex-col border-(--twitter-border) h-full bg-(--background-main)">
                 
                 <div className="w-full h-fit ">
                     <div onClick={() => navigate(`/profile/${currentUser?.id}`)} className="w-12 h-12">
