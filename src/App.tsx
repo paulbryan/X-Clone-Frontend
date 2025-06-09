@@ -16,6 +16,7 @@ import BookmarkPage from './component/Layout/BookmarkPage';
 import NotificationPage from './component/Layout/NotificationPage';
 import { PageUserProvider } from './context/currentUser/PageUserContext';
 import FullPost from './component/Tweet/FullPost';
+import { HeaderContentProvider } from './context/misc/HeaderContentProvider';
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <UserCacheProvider>
         <PostCacheProvider>
         <FeedProvider>
+          <HeaderContentProvider>
         <ModalManager />
 
         <div className="overscroll-y-contain w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
@@ -89,6 +91,7 @@ function App() {
           </div>
 
         </div>
+        </HeaderContentProvider>
         </FeedProvider>
         </PostCacheProvider>
         </UserCacheProvider>

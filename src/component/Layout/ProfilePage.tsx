@@ -87,7 +87,7 @@ function ProfilePage() {
             </div>
 
             <div className="mb-14">
-                <Feed key={activeTab} postIdsArray={postIdsToRender} />
+                <Feed showAsMainPost={true} key={activeTab} postIdsArray={postIdsToRender} />
             </div>        
         </div>
     );

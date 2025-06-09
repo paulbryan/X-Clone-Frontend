@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import type { Dispatch, SetStateAction } from "react";
+import { motion } from "framer-motion";
 
 interface TabButtonProps {
   tab: string;
@@ -8,6 +9,7 @@ interface TabButtonProps {
 }
 
 const TabButton: FC<TabButtonProps> = ({ tab, setActiveTab, activeTab }) => {
+  
   return (
     <div onClick={() => setActiveTab(tab)}
       className={

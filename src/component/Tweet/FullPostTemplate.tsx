@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import type { Post } from "../../types/Post";
 import type { User } from "../../types/User";
 import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
@@ -16,6 +16,7 @@ import ComposeTweet from "./ComposeTweet";
 import Feed from "../Layout/Feed";
 import { useModal } from "../../context/misc/ModalProvider";
 import { motion, AnimatePresence } from "framer-motion";
+import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
 
 type FullPostTemplateProps = {
     postId: number;
@@ -24,9 +25,10 @@ type FullPostTemplateProps = {
     showLine?: boolean;
     feedPost?: boolean;
     modalReplyChild?: boolean;
+    mainPost?: boolean;
 }
 
-function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost, modalReplyChild} : FullPostTemplateProps) {
+function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feedPost, modalReplyChild} : FullPostTemplateProps) {
 
     const {getUserFromCache, getOrFetchUserById} = useUserCache();
     const {getOrFetchPostById, getPostFromCache} = usePostCache();
@@ -40,6 +42,21 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost, moda
 
     const [isMainPost, setIsMainPost] = useState(false);
     const {modalType, modalData, setModalType} = useModal();
+
+    const {setHeaderContent} = useContext(HeaderContentContext);
+
+    useEffect(() => {
+        if (fullPost) {
+            if (parentId) {
+                console.log("Setting to thread")
+                setHeaderContent(<p>Thread</p>)
+            } else {
+                console.log("Setting to tweet")
+                setHeaderContent(<p>Tweet</p>)
+            }
+        }
+    }, [postId, parentId])
+
 
     function setNewPost(post: Post) {
 
@@ -99,26 +116,30 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost, moda
         //TODO fix this damned padding
 
 
+
+
+        //postInteraction == !modal
+
+
     return (
 
         
         <>
         {post && (
             <>
-            <div className={`flex flex-col ${(!feedPost || showLine) ? "pb-4 pt-2" : "border-b py-4"} w-full border-gray-700`}>
+            {/* check this out do i need border //TODO*/}
+            <div className={`flex flex-col w-full border-gray-700 ${!showLine || (!mainPost && fullPost) ? "border-b pb-1" : ""}`}>
 
-            {(fullPost || feedPost) && postId !== parentId && post.parentId && (
+
+            {mainPost && post.parentId && (
                 <FullPostTemplate
                     postId={post.parentId}
                     showLine={true}
                     parentId={postId}
-                    // prevent further nesting
-                    feedPost={false} 
-                    fullPost={false}
                 />
                 )}
 
-                <div className={`grid px-4 grid-cols-[auto_1fr] ${fullPost && "border-b pb-3"} border-(--twitter-border) gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
+                <div className={`grid px-4 pt-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
                 <div className="relative w-12 flex justify-center">
                     <div
                         className="h-12 w-12 cursor-pointer"
@@ -171,20 +192,21 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost, moda
                     <p className="">{post.text}</p>
                     </div> 
                 )}
-                </div>
 
+                {showLine ? (
+                    <div className="relative w-12">
+                        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-600" />
+                    </div>
 
-                <div className={`grid px-4 grid-cols-[auto_1fr] ${!showLine && !feedPost && "border-b"} border-(--twitter-border) gap-x-3 w-full`}>
-                <div className="relative w-12">
-                {showLine && (
-                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-600" />
+                ) : (
+                    <div>
+                    </div>
                 )}
                 
-                </div>
-
                 {!modalReplyChild ? (
-                    <div className={`w-full ${!feedPost || !showLine && "pb-3"} text-lg border-(--twitter-border)`}>
+                    <div className={`w-full  text-lg border-(--twitter-border)`}>
                     <PostInteractionComponent
+                        showPadding={mainPost && fullPost && true}
                         setNewPost={setNewPost}
                         postId={post.id}
                         likeList={post.likedBy}
@@ -198,21 +220,25 @@ function FullPostTemplate ({postId, parentId, fullPost, showLine, feedPost, moda
                     </div>    
                 )}
 
+
+
                 </div>
 
+
+
+
+
+
+
+
+                </div>
 
                 {fullPost && (
                     <>
                     <ComposeTweet parentId={postId} parentUsername={postUser?.username} setNewPost={setNewPost}/>
-                    <Feed replyFeedParentId={postId} postIdsArray={post.replies}/>
+                    <Feed replyFeedParentId={postId} postIdsArray={post.replies} showAsMainPost={false}/>
                     </>
                )}
-
-
-
-
-
-                </div>
 
                 {modalType == "replying" && modalData == postId && !modalReplyChild && (
               <motion.div 

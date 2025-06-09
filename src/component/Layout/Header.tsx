@@ -3,11 +3,13 @@ import ProfilePic from "../UserInfo/ProfilePic";
 import { FaArrowLeft } from "react-icons/fa";
 
 import { useModal } from "../../context/misc/ModalProvider";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MobileMainDrawer from "../Drawer/MobileMainDrawer";
 import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
+import { head } from "framer-motion/client";
 
 
 function Header () {
@@ -17,8 +19,13 @@ function Header () {
     const { setModalType } = useModal();
     const navigate = useNavigate();
     const location = useLocation();
+    const {headerContent} = useContext(HeaderContentContext);
 
     const isHome = location.pathname === "/";
+
+    useEffect(() => {
+        console.log("HC IS " + headerContent)
+    }, [headerContent])
 
     return (
 
@@ -33,17 +40,28 @@ function Header () {
                         <ProfilePic user={currentUser}/>
                     </div>
                     ) : !isHome && (
+
                         <div 
                         className="w-12 h-12 flex items-center justify-center text-xl"
                         onClick={() => navigate(-1)}>
                         <FaArrowLeft />
                         </div>
                     )}
+                    {headerContent && (
+                        <div className="text-xl font-semibold pl-2 flex items-center h-full ">
+                        {headerContent}
+                        </div>
+                    )}
                 </div>
 
-                <div className="h-full w-full flex relative items-center justify-center">
-                    <FaXTwitter onClick={() => navigate("/")} className="text-2xl"/>
+                {!headerContent ? (
+                <div className="h-full w-full flex relative items-center justify-center text-xl font-bold">
+                    <FaXTwitter onClick={() => navigate("/")} className="text-2xl"/>          
                 </div>
+                ) : (
+                    <div className="w-full">
+                    </div>    
+                )}
 
                 <div className="h-full w-full flex relative items-center justify-end">
                 </div>

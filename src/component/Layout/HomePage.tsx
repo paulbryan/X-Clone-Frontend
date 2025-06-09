@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MainFeed from "./Feed";
 import TabList from "./TabList";
 import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import Feed from "./Feed";
 import { useFeedContext } from "../../context/feed/FeedContext";
+import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
 
 function HomePage () {
 
@@ -11,6 +12,11 @@ function HomePage () {
     const [activeTab, setActiveTab] = useState("For You");
     const {currentUser} = useCurrentUser();
     const {forYouFeedIds, getForYouFeedIds} = useFeedContext();
+    const {setHeaderContent} = useContext(HeaderContentContext);
+
+    useEffect(() => {
+        setHeaderContent(null);
+    }, [])
 
     return (
 

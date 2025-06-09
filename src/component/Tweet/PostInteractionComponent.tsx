@@ -17,9 +17,10 @@ type PostInteractionComponentProps = {
     bookmarkList: number[];
     replyList: number[];
     setNewPost: (post: Post) => void;
+    showPadding?: boolean;
 }
 
-function PostInteractionComponent ({postId, likeList, bookmarkList, setNewPost, replyList} : PostInteractionComponentProps) {
+function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList, setNewPost, replyList} : PostInteractionComponentProps) {
 
     const {currentUser} = useCurrentUser();
     const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks, currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes} = useFeedContext();
@@ -80,7 +81,7 @@ function PostInteractionComponent ({postId, likeList, bookmarkList, setNewPost, 
     return (
 
         <>
-            <div className="h-5 mt-3 text-(--twitter-text) w-full flex items-center align-middle justify-between">
+            <div className={`h-10 text-(--twitter-text) w-full flex items-center align-middle justify-between ${showPadding ? "py-2" : ""}`}>
 
                 <InteractionButton postId={postId} numberList={replyList}>
                     <FaRegComment onClick={() => {
