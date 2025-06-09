@@ -10,6 +10,7 @@ import { useModal } from "../../context/misc/ModalProvider";
 import type { Post } from "../../types/Post";
 import ComposeTweet from "./ComposeTweet";
 import Modal from "../Modal/Modal";
+import toast, { Toaster } from 'react-hot-toast';
 
 type PostInteractionComponentProps = {
     postId: number;
@@ -26,6 +27,10 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
     const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks, currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes} = useFeedContext();
     const { addToPostCache} = usePostCache(); 
     const {setModalType, modalType, setModalData, modalData} = useModal();
+
+    const notifyBookmarkSuccess = () => toast('Bookmark removed');
+    const notifyBookmarkAdded = () => toast('Bookmark added');
+
 
     function handleBookmark() {         
         if (!currentUser) return;
@@ -47,9 +52,13 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
           .then((updatedPost: Post) => {
             addToPostCache(updatedPost);
             setNewPost(updatedPost);
-            isBookmarked
-              ? removeCurrentUserBookmarks(postId)
-              : addToCurrentUserBookmarks(postId);
+            if (isBookmarked) {
+              removeCurrentUserBookmarks(postId)
+              notifyBookmarkAdded();
+            } else {
+              addToCurrentUserBookmarks(postId);
+              notifyBookmarkSuccess();
+            }
           })
           .catch(err => console.error("Failed to update bookmark", err));
       }
@@ -103,6 +112,7 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
                 </InteractionButton>
 
             </div>
+
 
         </>
 

@@ -17,10 +17,20 @@ import NotificationPage from './component/Layout/NotificationPage';
 import { PageUserProvider } from './context/currentUser/PageUserContext';
 import FullPost from './component/Tweet/FullPost';
 import { HeaderContentProvider } from './context/misc/HeaderContentProvider';
+import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
 
 
 
 function App() {
+
+  const toastOptions: DefaultToastOptions = {
+    style: {
+      color: 'white',
+      borderRadius: '4px',
+      backgroundColor: 'var(--color-main)'
+    },
+    success: { duration: 4000 }
+  };
 
 
   return (
@@ -84,6 +94,11 @@ function App() {
 
 
         </Routes>
+        <Toaster
+        position='bottom-center'
+        toastOptions={toastOptions}
+        containerClassName='mb-12 xs:mb-0'
+        />
         </div>
 
           <div className=''>

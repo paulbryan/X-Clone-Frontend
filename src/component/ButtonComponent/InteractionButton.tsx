@@ -70,7 +70,13 @@ function InteractionButton({ children, checkOfIds, postId, numberList }: Interac
         exit={{ y: -direction, opacity: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
-        {numberList.length}
+        {numberList.length > 0 ? (
+          <>
+          {numberList.length}
+          </>
+        ) : (
+          ""
+        )}
       </motion.span>
       </div>
     );
