@@ -43,7 +43,7 @@ const fromBottom = {
             <FullPostTemplate postId={parentId} modalReplyChild={true} showLine={true}/>
         )}
 
-        <div className="grid px-4 grid-cols-[auto_1fr] gap-x-3 w-full">
+        <div className={`grid px-4 grid-cols-[auto_1fr] gap-x-3 w-full ${parentId && showParentPreview ? "py-2" : ""}`}>
             <div className="w-12 h-12 cursor-pointer">
                 <ProfilePic user={currentUser}/>
             </div>
