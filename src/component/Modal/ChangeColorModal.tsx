@@ -111,7 +111,7 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
             </div>
             <div className="w-full h-fit flex justify-center items-center py-2">
             <div className="w-1/2 flex justify-center items-center border border-(--color-main) h-10 rounded-2xl font-bold text-xl">
-                <p>Done</p>
+                <p onClick={() => setToggle(null)}>Done</p>
             </div>
             </div>
 
