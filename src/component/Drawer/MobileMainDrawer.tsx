@@ -89,7 +89,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                         <CiBookmark/>
                     </DrawerNavigationPair>
 
-                    <DrawerNavigationPair name={"About"} setDrawerOpen={setDrawerOpen}>
+                    <DrawerNavigationPair name={"About"} routePath="/about" setDrawerOpen={setDrawerOpen}>
                         <CiCircleQuestion/>
                     </DrawerNavigationPair>
 

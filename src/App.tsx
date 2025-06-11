@@ -18,6 +18,7 @@ import { PageUserProvider } from './context/currentUser/PageUserContext';
 import FullPost from './component/Tweet/FullPost';
 import { HeaderContentProvider } from './context/misc/HeaderContentProvider';
 import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
+import AboutPage from './component/Layout/AboutPage';
 
 
 
@@ -88,6 +89,13 @@ function App() {
         path="notifications"
         element={
           <NotificationPage/>
+        }
+        />
+
+        <Route
+        path="about"
+        element={
+          <AboutPage/>
         }
         />
 
