@@ -23,7 +23,7 @@ type ModalProps = {
     return (
     <motion.div
       key="backdrop"
-      className="w-full z-20 h-full top-0 pt-16 px-4 fixed backdrop-blur-sm flex justify-center items-start bg-black/40"
+      className="w-full z-10 h-full top-0 pt-16 px-4 fixed backdrop-blur-sm flex justify-center items-start bg-black/40"
       initial="initial"
       animate="animate"
       exit="exit"

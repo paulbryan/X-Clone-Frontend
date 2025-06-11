@@ -7,10 +7,11 @@ type InteractionButtonProps = {
   checkOfIds?: number[]; 
   postId: number;
   numberList: number[];
+  buttonColor: string;
 
 };
 
-function InteractionButton({ children, checkOfIds, postId, numberList }: InteractionButtonProps) {
+function InteractionButton({ children, checkOfIds, postId, numberList, buttonColor }: InteractionButtonProps) {
 
   const {currentUser} = useCurrentUser();
   const [isMarked, setIsMarked] = useState<boolean>(currentUser && checkOfIds && checkOfIds.includes(postId) ? true : false); 
@@ -45,7 +46,7 @@ function InteractionButton({ children, checkOfIds, postId, numberList }: Interac
   if (isMarked) {
     return (
       <div>
-      <div className="h-5 flex text-(--color-main) w-16 align-middle items-center gap-3">
+      <div className={`h-5 flex text-${buttonColor} w-16 align-middle items-center gap-3`}>
       {children}
       <motion.span
         key={numberList.length}

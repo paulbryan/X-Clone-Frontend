@@ -1,5 +1,5 @@
-import { FaRegComment, FaRegHeart, FaRegBookmark } from "react-icons/fa";
-import { FaRepeat } from "react-icons/fa6";
+import { FaRegComment, FaRegHeart, FaRegBookmark, FaHeart } from "react-icons/fa";
+import { FaBookmark, FaRepeat } from "react-icons/fa6";
 import InteractionButton from "../ButtonComponent/InteractionButton";
 import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import { useFeedContext } from "../../context/feed/FeedContext";
@@ -92,23 +92,39 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
         <>
             <div className={`h-10 text-(--twitter-text) w-full flex items-center align-middle justify-between ${showPadding ? "py-2" : ""}`}>
 
-                <InteractionButton postId={postId} numberList={replyList}>
+                <InteractionButton buttonColor="(--color-main)" postId={postId} numberList={replyList}>
                     <FaRegComment onClick={() => {
                       setModalType("replying")
                       setModalData(postId)
                     }}/>
                 </InteractionButton>
 
-                <InteractionButton postId={postId} numberList={[]}>
+                <InteractionButton buttonColor="green-300" postId={postId} numberList={[]}>
                     <FaRepeat/>
                 </InteractionButton>
 
-                <InteractionButton postId={postId} checkOfIds={currentUserLikedIds} numberList={likeList}>
-                    <FaRegHeart onClick={() => handleLike()}/>
+                <InteractionButton buttonColor="(--twitter-red)" postId={postId} checkOfIds={currentUserLikedIds} numberList={likeList}>
+                    {currentUserLikedIds.includes(postId) ? (
+                      <>
+                      <FaHeart onClick={() => handleLike()}/>
+                      </>
+                    ) : (
+                      <>
+                      <FaRegHeart onClick={() => handleLike()}/>
+                      </>
+                    )}
                 </InteractionButton>
 
-                <InteractionButton postId={postId} checkOfIds={currentUserBookmarkIds} numberList={bookmarkList}>
-                    <FaRegBookmark onClick={() => handleBookmark()}/>
+                <InteractionButton buttonColor="(--twitter-blue)" postId={postId} checkOfIds={currentUserBookmarkIds} numberList={bookmarkList}>
+                  {currentUserBookmarkIds.includes(postId) ? (
+                      <>
+                      <FaBookmark onClick={() => handleBookmark()}/>
+                      </>
+                    ) : (
+                      <>
+                      <FaRegBookmark onClick={() => handleBookmark()}/>
+                      </>
+                    )}
                 </InteractionButton>
 
             </div>

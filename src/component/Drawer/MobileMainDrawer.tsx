@@ -41,7 +41,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
     return (
         <motion.div
-        className="absolute z-10 top-0 w-full h-full backdrop-blur-sm"
+        className="absolute z-8 top-0 w-full h-full backdrop-blur-sm"
         variants={drawerVariant}
         initial="initial"
         animate="animate"
