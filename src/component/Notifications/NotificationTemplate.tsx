@@ -50,14 +50,14 @@ function NotificationTemplate ({sender, notification, isTempUnseen}: Notificatio
             isTempUnseen ? 'bg-(--twitter-text)/20' : ' '
         }`}>
 
-        <div className="w-14 h-fit flex justify-center text-2xl pt-4 text-center">
+        <div className="w-18 h-fit flex justify-center text-3xl pt-4 text-center">
             <NotificationTypeIcon notificationType={notification.type}/>
         </div>
 
         <div className="flex flex-col w-full h-fit pr-4 pt-3">
 
             <div className="w-full h-fit">
-            <div className="flex w-12 mr-2">
+            <div className="flex w-12 pb-1">
                 <div className="w-10 h-10" onClick={() => navigate(`/profile/${notification.senderId}`)}>
                     <ProfilePic user={sender}/>
                 </div>
