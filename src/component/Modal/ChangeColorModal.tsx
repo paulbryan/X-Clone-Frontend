@@ -86,6 +86,9 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
             </div>
 
 
+            <div className="w-full flex flex-col gap-4">
+
+
             <div className="w-full flex flex-col gap-1">
                 <p className="text-(--twitter-text) font-bold">Color</p>    
                 <div className="w-full flex items-center justify-around h-20 bg-(--twitter-border)/40 rounded-2xl">
@@ -106,8 +109,13 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
                 <BackgroundSetterButton color="var(--dim-background)" currentColor={currentBackGround} setCurrentBackground={setBackground} />
                 </div>
             </div>
+            <div className="w-full h-fit flex justify-center items-center py-2">
+            <div className="w-1/2 flex justify-center items-center border border-(--color-main) h-10 rounded-2xl font-bold text-xl">
+                <p>Done</p>
+            </div>
+            </div>
 
-
+            </div>
         </div>
 
     )

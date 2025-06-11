@@ -57,7 +57,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                         <ProfilePic user={currentUser}/>
                     </div>
                     <div className="text-(--twitter-text)">
-                        <div className="text-(--text-main) text-xl">
+                        <div className="text-(--text-main) text-xl font-bold">
                             <DisplayNameComponent user={currentUser}/>
                         </div>
                     <UsernameComponent user={currentUser}/>
@@ -71,7 +71,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
                 </div>
 
-                <div className="flex w-full h-fit flex-col">
+                <div className="flex w-full h-fit flex-col py-2">
 
                     <DrawerNavigationPair name={"Home"} routePath="/" setDrawerOpen={setDrawerOpen}>
                         <CiHome/>
@@ -97,10 +97,6 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                         <DrawerNavigationPair name={"Set Theme"} >
                             <CiPickerHalf/>
                         </DrawerNavigationPair>
-                    </div>
-
-                    <div className="flex flex-col w-full px-2" >
-                        <TextSetter/>
                     </div>
 
                     <DrawerNavigationPair name={"Log Out"} setDrawerOpen={setDrawerOpen}>
