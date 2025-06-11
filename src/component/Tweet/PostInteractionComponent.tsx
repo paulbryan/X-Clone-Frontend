@@ -28,7 +28,7 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
     const { addToPostCache} = usePostCache(); 
     const {setModalType, modalType, setModalData, modalData} = useModal();
 
-    const notifyBookmarkSuccess = () => toast('Bookmark removed');
+    const notifyBookmarkRemoved = () => toast('Bookmark removed');
     const notifyBookmarkAdded = () => toast('Bookmark added');
 
 
@@ -54,10 +54,10 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
             setNewPost(updatedPost);
             if (isBookmarked) {
               removeCurrentUserBookmarks(postId)
-              notifyBookmarkAdded();
+              notifyBookmarkRemoved()
             } else {
               addToCurrentUserBookmarks(postId);
-              notifyBookmarkSuccess();
+              notifyBookmarkAdded();
             }
           })
           .catch(err => console.error("Failed to update bookmark", err));

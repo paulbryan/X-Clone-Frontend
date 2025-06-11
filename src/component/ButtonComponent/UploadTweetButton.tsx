@@ -4,6 +4,7 @@ import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import { useFeedContext } from "../../context/feed/FeedContext";
 import { usePostCache } from "../../context/cache/PostCacheProvider";
 import type { ModalType } from "../../types/ModalType";
+import toast from "react-hot-toast";
 
 type UploadTweetButtonProps = {
     textInput: string;
@@ -18,50 +19,71 @@ function UploadTweetButton ({textInput, parentId, setNewPost, setToggle} : Uploa
     const {addToPostCache} = usePostCache();
     const {addToForYouFeedIds, addToCurrentUserPosts, addToCurrentUserPostsAndReplies} = useFeedContext();
 
-    function composeNewPost () {
+    const handleToastClick = () => {
+        toast.promise(
+          composeNewPost().then((data: Post[]) => {
 
-        if (currentUser && textInput.length > 1 && textInput.length < 180) {
-            
-            const newComposedPost : NewPost = {
-                userId: currentUser.id,
-                text: textInput,
-                parentId: parentId
+            setTimeout(() => {
+                
+            }, 100)
+
+            if (data.length > 1 && setNewPost) {
+              addToPostCache(data[0]);
+              addToPostCache(data[1]);
+              setNewPost(data[1]);
+              addToCurrentUserPostsAndReplies(data[0].id);
+            } else {
+              addToPostCache(data[0]);
+              addToForYouFeedIds(data[0].id);
+              addToCurrentUserPosts(data[0].id);
             }
+      
+            if (setToggle) setToggle(null);
+      
+            return data;
+          }),
+          {
+            loading: "Posting...",
+            success: "Tweet posted!",
+            error: "Failed to post tweet.",
+          },
+          {
+            position: "bottom-center",
+          }
+        );
+      };
 
-            fetch("http://localhost:8080/api/posts/createPost", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newComposedPost),
-              })
-              .then(res => res.json())
-              .then((data : Post[]) => {
-                if (data.length > 1 && setNewPost) {
-                    addToPostCache(data[0])
-                    addToPostCache(data[1])
-                    setNewPost(data[1]);
-                    addToCurrentUserPostsAndReplies(data[0].id);
 
-                } else {
-                    addToPostCache(data[0]);
-                    addToForYouFeedIds(data[0].id);
-                    addToCurrentUserPosts(data[0].id)
-                }
-
-                if (setToggle) {
-                    setToggle(null);
-                }
-
-              });
-
+      function composeNewPost(): Promise<Post[]> {
+        if (
+          !currentUser ||
+          textInput.length <= 1 ||
+          textInput.length >= 180
+        ) {
+          return Promise.reject("Invalid input");
         }
-
-    }
+      
+        const newComposedPost: NewPost = {
+          userId: currentUser.id,
+          text: textInput,
+          parentId: parentId,
+        };
+      
+        return fetch("http://localhost:8080/api/posts/createPost", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newComposedPost),
+        }).then((res) => res.json());
+      }
 
     return (
 
-        <div onClick={(() => composeNewPost())} className="w-fit px-4 font-bold text-sm flex items-center justify-center rounded-2xl h-8 bg-(--color-main)">
-            <p className="text-white">Tweet</p>
-        </div>
+    <div
+    onClick={handleToastClick}
+    className="w-fit px-4 font-bold text-sm flex items-center justify-center rounded-2xl h-8 bg-(--color-main)"
+    >
+    <p className="text-white">Tweet</p>
+    </div>
 
     )
 

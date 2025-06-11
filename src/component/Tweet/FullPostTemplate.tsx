@@ -151,7 +151,7 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
                     {showLine && (
                         <div className="absolute top-12 bottom-0 w-px bg-gray-600" />
                     )}
-                        </div>
+                </div>
 
                 <div className="flex flex-col w-full">
                     

@@ -36,6 +36,7 @@ const fromBottom = {
     animate: { y: 0, opacity: 1, transition: { type: "spring" } }
   };
 
+
     return (
         <div className={`flex flex-col pt-4 pb-4 bg-(--background-main) w-full ${isModal ? "rounded-2xl border border-(--color-main)" : "border-b border-gray-700"}`}>
         

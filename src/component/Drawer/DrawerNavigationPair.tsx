@@ -7,7 +7,7 @@ type DrawerNavigationPairProps = {
     children: ReactNode;
     name: string;
     routePath?: string;
-    setDrawerOpen: Dispatch<SetStateAction<boolean>>
+    setDrawerOpen?: Dispatch<SetStateAction<boolean>>
   };
 
 
@@ -23,7 +23,9 @@ function DrawerNavigationPair ( { children, name, routePath, setDrawerOpen }: Dr
         }
 
         setTimeout(() => {
-            setDrawerOpen(false);
+            if (setDrawerOpen) {
+                setDrawerOpen(false);
+            }
         }, 50)
 
     } 

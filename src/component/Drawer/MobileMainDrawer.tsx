@@ -9,6 +9,7 @@ import UsernameComponent from "../UserInfo/UsernameComponent";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useModal } from "../../context/misc/ModalProvider";
 
 type MobileMainDrawerProps = {
     setDrawerOpen:Dispatch<SetStateAction<boolean>>
@@ -16,6 +17,8 @@ type MobileMainDrawerProps = {
 
 function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
+
+    const {setModalType} = useModal();
     const {currentUser} = useCurrentUser();
     const drawerVariant = {
         initial: { x: "-100%", opacity: 0 },
@@ -38,7 +41,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
     return (
         <motion.div
-        className="absolute z-60 top-0 w-full h-full backdrop-blur-sm"
+        className="absolute z-10 top-0 w-full h-full backdrop-blur-sm"
         variants={drawerVariant}
         initial="initial"
         animate="animate"
@@ -90,11 +93,13 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                         <CiCircleQuestion/>
                     </DrawerNavigationPair>
 
-                    <DrawerNavigationPair name={"Set Theme"} setDrawerOpen={setDrawerOpen}>
-                        <CiPickerHalf/>
-                    </DrawerNavigationPair>
+                    <div onClick={() => setModalType("changeColor")}>
+                        <DrawerNavigationPair name={"Set Theme"} >
+                            <CiPickerHalf/>
+                        </DrawerNavigationPair>
+                    </div>
 
-                    <div className="flex flex-col w-full px-2">
+                    <div className="flex flex-col w-full px-2" >
                         <TextSetter/>
                     </div>
 
