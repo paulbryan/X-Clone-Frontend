@@ -53,8 +53,9 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
     const {setHeaderContent} = useContext(HeaderContentContext);
 
     useEffect(() => {
-        if (fullPost) {
-            if (parentId) {
+        if (fullPost && post) {
+            console.log( "Viewing post: " + JSON.stringify(post))
+            if (post.parentId) {
                 console.log("Setting to thread")
                 setHeaderContent(<p>Thread</p>)
             } else {

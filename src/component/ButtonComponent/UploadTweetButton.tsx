@@ -17,7 +17,7 @@ function UploadTweetButton ({textInput, parentId, setNewPost, setToggle} : Uploa
 
     const {currentUser} = useCurrentUser();
     const {addToPostCache} = usePostCache();
-    const {addToForYouFeedIds, addToCurrentUserPosts, addToCurrentUserPostsAndReplies} = useFeedContext();
+    const {addToForYouFeedIds, addToCurrentUserPosts, addToCurrentUserReplies} = useFeedContext();
 
     const handleToastClick = () => {
         toast.promise(
@@ -31,7 +31,7 @@ function UploadTweetButton ({textInput, parentId, setNewPost, setToggle} : Uploa
               addToPostCache(data[0]);
               addToPostCache(data[1]);
               setNewPost(data[1]);
-              addToCurrentUserPostsAndReplies(data[0].id);
+              addToCurrentUserReplies(data[0].id);
             } else {
               addToPostCache(data[0]);
               addToForYouFeedIds(data[0].id);
