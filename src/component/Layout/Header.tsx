@@ -55,16 +55,19 @@ function Header () {
                 </div>
 
                 {!headerContent ? (
+                <>
                 <div className="h-full w-full flex relative items-center justify-center text-xl font-bold">
                     <FaXTwitter onClick={() => navigate("/")} className="text-2xl"/>          
                 </div>
+                <div className="h-full w-full flex relative items-center justify-end">
+                </div>
+                </>
                 ) : (
                     <div className="w-full">
                     </div>    
                 )}
 
-                <div className="h-full w-full flex relative items-center justify-end">
-                </div>
+
 
             </div>
 

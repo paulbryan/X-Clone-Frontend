@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProfilePageOverview from "../UserInfo/ProfilePageOverview";
 import TabList from "./TabList";
 import { useParams } from "react-router-dom";
@@ -7,6 +7,7 @@ import type { User } from "../../types/User";
 import { useUserCache } from "../../context/cache/UserCacheProvider";
 import Feed from "./Feed";
 import { useFeedContext } from "../../context/feed/FeedContext";
+import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
 
 function ProfilePage() {
     const tabs = ["Tweets", "Replies", "Liked", "Media"];
@@ -18,6 +19,7 @@ function ProfilePage() {
 
     const { currentUser } = useCurrentUser();
     const { addToUserCache, getUserFromCache, fetchUsersFromServerById, userCache } = useUserCache();
+    const {setHeaderContent} = useContext(HeaderContentContext);
 
     const [pageUser, setPageUser] = useState<User | null>(null);
 
@@ -26,6 +28,13 @@ function ProfilePage() {
             determinePageUser();
         }
     }, [pageUserID]);
+
+
+    useEffect(() => {
+        if (pageUser) {
+            setHeaderContent(<div className="flex flex-col gap-0.5 justify-center w-full"><p>{pageUser.displayName}</p> <div className="flex items-center gap-1 text-sm text-(--twitter-text)"> <p>{pageUser.posts.length}</p> <p>Posts</p> </div> </div>);
+        }
+    }, [pageUser])
 
     async function determinePageUser() {
         if (currentUser && pageUserID === currentUser.id) {

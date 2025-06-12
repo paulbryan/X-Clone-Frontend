@@ -13,10 +13,13 @@ import { useNavigate } from "react-router-dom";
 import InputFormField from "../InputComponent/InputFormField";
 import ComposePost from "../Modal/ComposePost";
 import ComposeTweet from "./ComposeTweet";
+import { FaRepeat } from "react-icons/fa6";
+
 import Feed from "../Layout/Feed";
 import { useModal } from "../../context/misc/ModalProvider";
 import { motion, AnimatePresence } from "framer-motion";
 import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
+import { useFeedContext } from "../../context/feed/FeedContext";
 
 type FullPostTemplateProps = {
     postId: number;
@@ -32,6 +35,8 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
 
     const {getUserFromCache, getOrFetchUserById} = useUserCache();
     const {getOrFetchPostById, getPostFromCache} = usePostCache();
+    const {currentUser} = useCurrentUser();
+    const {currentUserRepostedIds} = useFeedContext();
     const [postUser, setPostUser] = useState<User | null>(() => {
         const post = getPostFromCache(postId);
         if (!post) return null;
@@ -42,6 +47,8 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
 
     const [isMainPost, setIsMainPost] = useState(false);
     const {modalType, modalData, setModalType} = useModal();
+
+    const retweeted = currentUserRepostedIds.includes(postId);
 
     const {setHeaderContent} = useContext(HeaderContentContext);
 
@@ -139,7 +146,22 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
                 />
                 )}
 
-                <div className={`grid px-4 pt-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
+                <div className={`grid px-4 pt-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>    
+                    
+                    {retweeted && fullPost && (
+                        <>
+                        <div>
+
+                        </div>
+                        <div className="flex h-6 items-center gap-2 text-(--twitter-text) w-full">
+                            <FaRepeat/>
+                            <p>You reposted</p>
+                        </div>
+                        
+                        </>
+                    )}
+                
+                            {/* LEFT COLUMN: Profile Pic */}
                 <div className="relative w-12 flex justify-center">
                     <div
                         className="h-12 w-12 cursor-pointer"

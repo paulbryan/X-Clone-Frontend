@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
 import NotificationFeed from "../Feed/NotificationFeed";
+import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
 
 function NotificationPage () {
 
     const {notifications, currentUser, clearRead, unreadNotifications} = useCurrentUser();
 
     const [tempUnread, setTempUnread] = useState<number[]>([]);
+    const {setHeaderContent} = useContext(HeaderContentContext);
+
+    useEffect(() => {
+        setHeaderContent("Notifications");
+    }, [])
 
     function markAllAsSeen (id: number) {
         
