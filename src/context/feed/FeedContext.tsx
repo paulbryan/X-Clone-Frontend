@@ -22,6 +22,11 @@ type FeedContextType = {
 
     currentUserReplies: number[];
     addToCurrentUserReplies: (id: number) => void;
+
+    currentUserRepostedIds: number[];
+    addToCurrentUserReposted: (id: number) => void;
+    removeFromCurrentUserReposted: (id: number) => void;
+    initializeCurrentUserRetweetIds: () => void;
   };
 
 const FeedContext = createContext<FeedContextType | undefined>(undefined);
@@ -34,6 +39,7 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
     const [currentUserBookmarkIds, setCurrentUserBookmarkIds] = useState<number[]>([]);
     const [currentUserLikedIds, setCurrentUserLikedIds] = useState<number[]>([]);
     const [currentUserReplies, setCurrentUserReplies] = useState<number[]>([]);
+    const [currentUserRepostedIds, setCurrentUserRepostedIds] = useState<number[]>([]);
 
     
 
@@ -55,6 +61,12 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
       }
     }
 
+    function addToCurrentUserReposted(id: number) {
+      if (currentUser) {
+        setCurrentUserRepostedIds((prev) => [...prev, id])
+      }
+    }
+
     function addToCurrentUserBookmarks(id: number) {
       if (currentUser) {
           setCurrentUserBookmarkIds((prev) => [...prev, id])
@@ -64,6 +76,12 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
     function removeCurrentUserBookmarks (id: number) {
       if (currentUser) {
         setCurrentUserBookmarkIds((prev) => prev.filter((bookmarkId) => bookmarkId !== id));
+      }
+    }
+
+    function removeFromCurrentUserReposted (id: number) {
+      if (currentUser) {
+        setCurrentUserRepostedIds((prev) => prev.filter((repostedId) => repostedId !== id));
       }
     }
 
@@ -88,6 +106,12 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
     function initializeCurrentUserLikes () {
       if (currentUser) {
         setCurrentUserLikedIds(currentUser.likedPosts)
+      }
+    }
+
+    function initializeCurrentUserRetweetIds () {
+      if (currentUser) {
+        setCurrentUserBookmarkIds(currentUser.retweets)
       }
     }
 
@@ -121,10 +145,13 @@ export const FeedProvider = ({ children }: { children: ReactNode }) => {
         if (currentUser && currentUser.replies && currentUser.replies.length > 0) {
           setCurrentUserReplies(currentUser.replies)
         }
+        if (currentUser && currentUser.retweets && currentUser.retweets.length > 0) {
+          setCurrentUserRepostedIds(currentUser.retweets)
+        }
       }, [currentUser]);
 
     return (
-      <FeedContext.Provider value={{addToCurrentUserReplies, currentUserReplies,  addToCurrentUserLikes, removeFromCurrentUserLikes, initializeCurrentUserLikes, forYouFeedIds, removeCurrentUserBookmarks, addToForYouFeedIds, getForYouFeedIds, currentUserPostsIds, addToCurrentUserPosts, initializeCurrentUserBookmarks, addToCurrentUserBookmarks, currentUserBookmarkIds, currentUserLikedIds}}>
+      <FeedContext.Provider value={{initializeCurrentUserRetweetIds, currentUserRepostedIds, addToCurrentUserReposted, removeFromCurrentUserReposted, addToCurrentUserReplies, currentUserReplies,  addToCurrentUserLikes, removeFromCurrentUserLikes, initializeCurrentUserLikes, forYouFeedIds, removeCurrentUserBookmarks, addToForYouFeedIds, getForYouFeedIds, currentUserPostsIds, addToCurrentUserPosts, initializeCurrentUserBookmarks, addToCurrentUserBookmarks, currentUserBookmarkIds, currentUserLikedIds}}>
         {children}
       </FeedContext.Provider>
     );

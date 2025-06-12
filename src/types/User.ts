@@ -14,5 +14,6 @@ export type User = {
     bookmarkedPosts: [],
     followers: number[],
     following: number[],
+    retweets: number[]
 
 }

@@ -17,14 +17,18 @@ type PostInteractionComponentProps = {
     likeList: number[];
     bookmarkList: number[];
     replyList: number[];
+    retweetedByList: number[];
     setNewPost: (post: Post) => void;
     showPadding?: boolean;
 }
 
-function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList, setNewPost, replyList} : PostInteractionComponentProps) {
+function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList, setNewPost, replyList, retweetedByList} : PostInteractionComponentProps) {
 
     const {currentUser} = useCurrentUser();
-    const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks, currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes} = useFeedContext();
+    const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks,
+       currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes,
+       currentUserRepostedIds, addToCurrentUserReposted, removeFromCurrentUserReposted
+      } = useFeedContext();
     const { addToPostCache} = usePostCache(); 
     const {setModalType, modalType, setModalData, modalData} = useModal();
 
@@ -87,6 +91,30 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
           .catch(err => console.error("Failed to update like", err));
       }
 
+      function handleRepost() {
+        if (!currentUser) return;
+      
+        const isRetweeted = currentUserRepostedIds.includes(postId);
+        const url = isRetweeted
+          ? "http://localhost:8080/api/retweets/deleteRetweet"
+          : "http://localhost:8080/api/retweets/newRetweet";
+      
+        fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ retweeterId: currentUser.id, referenceId: postId, type: "post" }),
+        })
+          .then(res => res.json())
+          .then((updatedPost: Post) => {
+            addToPostCache(updatedPost);
+            setNewPost(updatedPost);
+            isRetweeted
+              ? removeFromCurrentUserReposted(postId)
+              : addToCurrentUserReposted(postId);
+          })
+          .catch(err => console.error("Failed to update repost", err));
+      }
+
     return (
 
         <>
@@ -99,8 +127,8 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
                     }}/>
                 </InteractionButton>
 
-                <InteractionButton buttonColor="green-300" postId={postId} numberList={[]}>
-                    <FaRepeat/>
+                <InteractionButton buttonColor="(--twitter-green)" postId={postId} checkOfIds={currentUserRepostedIds} numberList={retweetedByList}>
+                    <FaRepeat onClick={() => handleRepost()}/>
                 </InteractionButton>
 
                 <InteractionButton buttonColor="(--twitter-red)" postId={postId} checkOfIds={currentUserLikedIds} numberList={likeList}>

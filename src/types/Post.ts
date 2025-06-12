@@ -8,5 +8,6 @@ export type Post = {
     bookmarkedBy: number[];
     parentId?: number;
     replies: number[];
+    retweetedBy: number[];
 
 }

@@ -208,6 +208,7 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
                     <PostInteractionComponent
                         showPadding={mainPost && fullPost && true}
                         setNewPost={setNewPost}
+                        retweetedByList={post.retweetedBy}
                         postId={post.id}
                         likeList={post.likedBy}
                         bookmarkList={post.bookmarkedBy}

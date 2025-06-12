@@ -16,6 +16,7 @@ function InteractionButton({ children, checkOfIds, postId, numberList, buttonCol
   const {currentUser} = useCurrentUser();
   const [isMarked, setIsMarked] = useState<boolean>(currentUser && checkOfIds && checkOfIds.includes(postId) ? true : false); 
   const [previousCount, setPreviousCount] = useState(numberList.length);
+  
 
 
 
@@ -26,8 +27,9 @@ function InteractionButton({ children, checkOfIds, postId, numberList, buttonCol
 
       console.log("Checking marked " + JSON.stringify(checkOfIds))
 
-      if (checkOfIds.includes(postId)) {
+      if (checkOfIds.includes(postId) ) {
         setIsMarked(true);
+        console.log("")
       } else {
         setIsMarked(false);
       }
