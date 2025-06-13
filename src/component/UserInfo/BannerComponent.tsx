@@ -41,7 +41,7 @@ function BannerComponent ( { userId }: BannerComponentProps ) {
         {base64 ? (
             <img className="object-cover h-full w-full" src={`data:image/jpeg;base64,${base64}`}/>
         ) : (
-            <div className="h-full w-full bg-(--twitter-text) animate-pulse"></div>
+            <div className="h-full w-full bg-gray-600 animate-pulse"></div>
         )}
         </>
     )

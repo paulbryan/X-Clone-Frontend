@@ -40,4 +40,4 @@ import {
       throw new Error("useUserMediaCache must be used within a UserMediaCacheProvider");
     }
     return context;
-  };
+  }
