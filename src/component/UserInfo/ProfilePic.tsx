@@ -38,14 +38,14 @@ function ProfilePic ({userId}: ProfilePicComponentProps) {
 
     return (
     <>
-        {userId ? (
+        {base64 ? (
             <img
             className="h-full w-full rounded-full object-cover"
             src= {`data:image/png;base64,${base64}`}
             />
         ) : (
             <div
-            className="h-full w-full rounded-full bg-(--twitter-text)"
+            className="h-full w-full rounded-full bg-(--twitter-text) animate-pulse"
             > </div>
         )}
     </>

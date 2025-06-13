@@ -54,7 +54,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                 
                 <div className="w-full h-fit ">
                     <div onClick={() => navigate(`/profile/${currentUser?.id}`)} className="w-12 h-12">
-                        <ProfilePic user={currentUser}/>
+                        <ProfilePic userId={currentUser?.id}/>
                     </div>
                     <div className="text-(--twitter-text)">
                         <div className="text-(--text-main) text-xl font-bold">
