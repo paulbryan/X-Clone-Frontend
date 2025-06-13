@@ -4,8 +4,6 @@ export type User = {
     username: string;
     email: string;
     displayName: string;
-    profilePicture: string;
-    bannerImage: string;
     bio: string;
     createdAt: string;
     posts: number[],
