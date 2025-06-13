@@ -18,6 +18,10 @@ function HomePage () {
         setHeaderContent(null);
     }, [])
 
+    useEffect(() => {
+        getForYouFeedIds()
+    }, [])
+
     return (
 
         

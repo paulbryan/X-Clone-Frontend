@@ -37,7 +37,7 @@ function Header () {
                     <div
                     onClick={() => setDrawerOpen(true)}
                     className="w-10 h-10 flex justify-center items-center">
-                        <ProfilePic user={currentUser}/>
+                        <ProfilePic userId={currentUser.id}/>
                     </div>
                     ) : !isHome && (
 

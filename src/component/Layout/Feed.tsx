@@ -18,14 +18,13 @@ type FeedProps = {
 function Feed ({postIdsArray, showAsMainPost, replyFeedParentId} : FeedProps) {
 
     const {postCache, getPostFromCache, addToPostCache, fetchPostsFromServerById} = usePostCache();
-    const {getUserFromCache, getOrFetchUserById} = useUserCache();
+    const {getUserFromCache, getOrFetchUserById, userCache} = useUserCache();
     const [batchFetched, setBatchFetched] = useState<boolean>(false);
     const [usersReady, setUsersReady] = useState(false);
 
     const [loadingBuffered, setLoadingBuffered] = useState(false);
 
     useEffect(() => {
-        console.log("FEED LOG: Has loaded users? " + batchFetched + " HAS LOADED POSTS? : " + " POSTIDSARRAY? ") 
             console.log("Buffering timeout")
             setTimeout(() => {
                 setLoadingBuffered(true);
@@ -37,44 +36,83 @@ function Feed ({postIdsArray, showAsMainPost, replyFeedParentId} : FeedProps) {
     }, [postIdsArray, postCache])
 
     
-        async function preFetchBatch() {
-        if (!postIdsArray) return;
+    async function preFetchBatch() {
+    console.log("Fetching batch")
+    console.log("Post ids array is" + postIdsArray)
+    if (!postIdsArray) return;
 
-        const notFoundPostIds = postIdsArray.filter(id => !getPostFromCache(id));
+    const notFoundPostIds = postIdsArray.filter(id => !getPostFromCache(id));
+    
+    console.log("NotfoundIds is " + notFoundPostIds)
 
-        if (notFoundPostIds.length > 0) {
-            const fetchedPosts = await fetchPostsFromServerById(notFoundPostIds);
-            fetchedPosts.forEach(addToPostCache);
+
+    if (notFoundPostIds.length > 0) {
+        const fetchedPosts = await fetchPostsFromServerById(notFoundPostIds);
+        fetchedPosts.forEach(addToPostCache);
+        console.log("Fetched posts is " + JSON.stringify(fetchedPosts))
+
+    }
+
+
+    setBatchFetched(true);
+    }
+
+    useEffect(() => {
+      if (!postIdsArray || postIdsArray.length === 0) return;
+      if (!usersReady && loadingBuffered && batchFetched) {
+        const allPostsAvailable = postIdsArray.every(id => getPostFromCache(id));
+        if (!allPostsAvailable) {
+          console.log("Delaying preloadUsers: posts not fully cached yet");
+          return;
         }
-
-        setBatchFetched(true);
-        }
-
-      useEffect(() => {
-
-        if (!postIdsArray) return;
-
+    
         const preloadUsers = async () => {
-          const neededUserIds = postIdsArray
+          const posts = postIdsArray
             .map(id => getPostFromCache(id))
-            .filter(Boolean)
-            .map(post => post!.userId)
-            .filter(userId => !getUserFromCache(userId));
-      
-          await Promise.all(neededUserIds.map(uid => getOrFetchUserById(uid)));
-      
+            .filter((p): p is Post => p !== undefined);
+    
+          const uniqueUserIds = [...new Set(posts.map(post => post.userId))];
+          const missingUserIds = uniqueUserIds.filter(uid => !getUserFromCache(uid));
+    
+          console.log("Users to fetch:", missingUserIds);
+    
+          if (missingUserIds.length === 0) {
+            setUsersReady(true);
+            return;
+          }
+    
+          await Promise.all(missingUserIds.map(uid => getOrFetchUserById(uid)));
+    
+          const allCached = uniqueUserIds.every(uid => getUserFromCache(uid));
+          if (!allCached) {
+            console.warn("Some users still missing:", uniqueUserIds.filter(uid => !getUserFromCache(uid)));
+            return;
+          }
+    
           setUsersReady(true);
         };
-      
-        if (loadingBuffered && batchFetched && postIdsArray?.every(id => getPostFromCache(id))) {
-          preloadUsers();
-        }
-      }, [loadingBuffered, batchFetched, postIdsArray]);
+    
+        preloadUsers();
+      }
+    }, [loadingBuffered, batchFetched, postIdsArray, usersReady]);
+
+
+      useEffect(() => {
+        console.log(
+          "Users ready is: " + usersReady + 
+          " batchFetched is " + batchFetched + 
+          " postIdsArray is: " + postIdsArray +
+          "loadingBuffered is: " + loadingBuffered +
+          " Post cache is: " + Array.from(postCache.entries()) + 
+          " User cache is " + Array.from(userCache.entries()) + " END"
+
+        )
+      }, [usersReady, postIdsArray, loadingBuffered, batchFetched, postCache, userCache])
 
 
       return (
         <div className="w-full">
-          {loadingBuffered && batchFetched && postIdsArray && usersReady &&
+          {loadingBuffered && batchFetched && postIdsArray &&
             postIdsArray.every(postId => {
               const post = getPostFromCache(postId);
               return post && getUserFromCache(post.userId);

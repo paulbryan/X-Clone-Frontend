@@ -168,7 +168,7 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
                         className="h-12 w-12 cursor-pointer"
                         onClick={() => navigate(`/profile/${post.userId}`)}
                     >
-                        <ProfilePic user={postUser} />
+                        <ProfilePic userId={postUser?.id} />
                     </div>
 
                     {showLine && (
@@ -259,8 +259,9 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
 
                 {fullPost && (
                     <>
+                    {currentUser && (
                     <ComposeTweet parentId={postId} parentUsername={postUser?.username} setNewPost={setNewPost}/>
-                    <Feed replyFeedParentId={postId} postIdsArray={post.replies} showAsMainPost={false}/>
+                    )}                    <Feed replyFeedParentId={postId} postIdsArray={post.replies} showAsMainPost={false}/>
                     </>
                )}
 

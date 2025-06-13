@@ -19,6 +19,7 @@ import FullPost from './component/Tweet/FullPost';
 import { HeaderContentProvider } from './context/misc/HeaderContentProvider';
 import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
 import AboutPage from './component/Layout/AboutPage';
+import { UserMediaCacheProvider } from './context/cache/UserMediaCacheProvider';
 
 
 
@@ -41,7 +42,8 @@ function App() {
         <UserCacheProvider>
         <PostCacheProvider>
         <FeedProvider>
-          <HeaderContentProvider>
+        <HeaderContentProvider>
+          <UserMediaCacheProvider>
         <ModalManager />
 
         <div className="overscroll-y-contain w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
@@ -114,6 +116,7 @@ function App() {
           </div>
 
         </div>
+        </UserMediaCacheProvider>
         </HeaderContentProvider>
         </FeedProvider>
         </PostCacheProvider>
