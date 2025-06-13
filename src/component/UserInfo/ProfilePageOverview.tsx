@@ -40,7 +40,7 @@ function ProfilePageOverview ({pageUser, setNewUser}: ProfilePageOverviewProps) 
                 <div className="w-full h-40 relative">
 
                     <div className="opacity-100 h-32 w-full">
-                        <BannerComponent user={pageUser}/>
+                        <BannerComponent userId={pageUser.id}/>
                     </div>
 
                     <div className="absolute w-20 h-20 left-5 bottom-0 rounded-full">
