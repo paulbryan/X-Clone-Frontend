@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import type { ModalType } from "../../types/ModalType";
 import FullPost from "../Tweet/FullPost";
 import ProfilePic from "../UserInfo/ProfilePic";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import CreatedAtDisplay from "../UIComponent/CreatedAtDisplay";
@@ -99,6 +99,9 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
                 <ColorCircleButton color="var(--twitter-yellow)" currentColor={currentTheme} setCurrentTheme={setTheme}/>
 
                 <ColorCircleButton color="var(--twitter-purple)" currentColor={currentTheme} setCurrentTheme={setTheme}/>
+                
+                <ColorCircleButton color="var(--twitter-green)" currentColor={currentTheme} setCurrentTheme={setTheme}/>
+                
                 </div>
             </div>
 

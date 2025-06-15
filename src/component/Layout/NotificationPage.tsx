@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import NotificationFeed from "../Feed/NotificationFeed";
 import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
 

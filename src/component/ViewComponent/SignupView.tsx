@@ -3,7 +3,7 @@ import InputFormField from '../InputComponent/InputFormField';
 import type { SignupUser } from '../../types/SignupUser';
 
 import type { ModalType } from '../../types/ModalType';
-import { useCurrentUser } from '../../context/currentUser/CurrentUserProvider';
+import { useCurrentUser } from '../../hooks/CurrentUserProvider';
 
 type SignUpViewProps = {
     setToggle: (type: ModalType) => void;

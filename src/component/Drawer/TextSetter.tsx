@@ -46,6 +46,7 @@ function TextSetter () {
 
                 <ColorCircleButton color="var(--twitter-purple)" currentColor={currentTheme} setCurrentTheme={setTheme}/>
 
+                <ColorCircleButton color="var(--twitter-green)" currentColor={currentTheme} setCurrentTheme={setTheme}/>
 
             </div>
 

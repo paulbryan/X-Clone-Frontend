@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Post } from "../../types/Post";
 import type { User } from "../../types/User";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import { usePostCache } from "../../context/cache/PostCacheProvider";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import PostInteractionComponent from "./PostInteractionComponent";

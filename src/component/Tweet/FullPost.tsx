@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import PostTemplate from "./PostTemplate";
 import ProfilePic from "../UserInfo/ProfilePic";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import { usePostCache } from "../../context/cache/PostCacheProvider";
 import { useUserCache } from "../../context/cache/UserCacheProvider";
 import type { User } from "../../types/User";

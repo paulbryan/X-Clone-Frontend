@@ -13,6 +13,7 @@ module.exports = {
         twitterRed: '#ff2c84',
         twitterYellow: '#ffd404',
         twitterPurple: '#8054fc',
+        twitterGreen: '#00ba7c'
       },
       fontFamily: {
         sans: ['Helvetica', 'Arial', 'sans-serif'],

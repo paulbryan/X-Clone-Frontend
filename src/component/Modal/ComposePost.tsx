@@ -3,7 +3,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { FaRegImage } from "react-icons/fa";
 import { MdOutlineGif } from "react-icons/md";
 import UploadTweetButton from "../ButtonComponent/UploadTweetButton";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import { useState } from "react";
 import type { NewPost } from "../../types/NewPost";
 import { usePostCache } from "../../context/cache/PostCacheProvider";

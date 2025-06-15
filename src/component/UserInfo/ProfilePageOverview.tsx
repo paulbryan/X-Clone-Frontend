@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import FollowersFollowing from "./FollowersFollowing";
 import ProfilePic from "./ProfilePic";
 import { FaRegCalendar } from "react-icons/fa6";
@@ -17,21 +17,16 @@ import { usePageUser } from "../../context/currentUser/PageUserContext";
 
 type ProfilePageOverviewProps = {
     pageUser?: User | null;
-    setNewUser: (user: User) => void;
-}
-
-function ProfilePageOverview ({pageUser, setNewUser}: ProfilePageOverviewProps) {
-
-    const {currentUser} = useCurrentUser();
-    const [isOwnPage, setIsOwnPage] = useState<boolean>(false);
-
+  };
+  
+  function ProfilePageOverview({ pageUser }: ProfilePageOverviewProps) {
+    const { currentUser } = useCurrentUser();
+    const [isOwnPage, setIsOwnPage] = useState(false);
+  
     useEffect(() => {
-        if (currentUser && pageUser && currentUser.id == pageUser.id) {
-            setIsOwnPage(true);
-        } else {
-            setIsOwnPage(false);
-        }
-    }, [pageUser, currentUser])
+      setIsOwnPage(!!(currentUser && pageUser && currentUser.id === pageUser.id));
+    }, [pageUser, currentUser]);
+  
 
     if (pageUser) {
         return (
@@ -52,7 +47,8 @@ function ProfilePageOverview ({pageUser, setNewUser}: ProfilePageOverviewProps) 
                             {isOwnPage ? (
                                 <p>Edit Profile</p>
                             ) : (
-                                <FollowButton pageUser={pageUser} setNewUser={setNewUser}/>
+                                null
+                                // <FollowButton pageUser={pageUser/>
                             )}
                         </div>
                     </div>

@@ -1,25 +1,21 @@
-import { useContext, useEffect, useState } from "react";
-import type { Post } from "../../types/Post";
-import type { User } from "../../types/User";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
-import { usePostCache } from "../../context/cache/PostCacheProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import PostInteractionComponent from "./PostInteractionComponent";
 import ProfilePic from "../UserInfo/ProfilePic";
-import { useUserCache } from "../../context/cache/UserCacheProvider";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import CreatedAtDisplay from "../UIComponent/CreatedAtDisplay";
 import { useNavigate } from "react-router-dom";
-import InputFormField from "../InputComponent/InputFormField";
-import ComposePost from "../Modal/ComposePost";
 import ComposeTweet from "./ComposeTweet";
 import { FaRepeat } from "react-icons/fa6";
-
 import Feed from "../Layout/Feed";
 import { useModal } from "../../context/misc/ModalProvider";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
 import { useFeedContext } from "../../context/feed/FeedContext";
+import { useUser } from "../../hooks/useUser";
+import React, { useContext, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { usePost } from "../../hooks/usePost";
 
 type FullPostTemplateProps = {
     postId: number;
@@ -29,50 +25,37 @@ type FullPostTemplateProps = {
     feedPost?: boolean;
     modalReplyChild?: boolean;
     mainPost?: boolean;
-}
+  };
+  
+  function FullPostTemplate({
+    mainPost,
+    postId,
+    parentId,
+    fullPost,
+    showLine,
+    feedPost,
+    modalReplyChild,
+  }: FullPostTemplateProps) {
 
-function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feedPost, modalReplyChild} : FullPostTemplateProps) {
+    const { data: post } = usePost(postId);
+  
+    const { data: postUser, isLoading: userLoading } = useUser(post?.userId ?? -1);
+    const { currentUser } = useCurrentUser();
+    const { currentUserRepostedIds } = useFeedContext();
+  
+    useEffect(() => {
+      if (fullPost && post) {
+        setHeaderContent(<p>{post.parentId ? "Thread" : "Tweet"}</p>);
+        console.log("Post in render:", post.bookmarkedBy);
+      }
+    }, [fullPost, post]);
 
-    const {getUserFromCache, getOrFetchUserById} = useUserCache();
-    const {getOrFetchPostById, getPostFromCache} = usePostCache();
-    const {currentUser} = useCurrentUser();
-    const {currentUserRepostedIds} = useFeedContext();
-    const [postUser, setPostUser] = useState<User | null>(() => {
-        const post = getPostFromCache(postId);
-        if (!post) return null;
-        return getUserFromCache(post.userId) ?? null;
-      });
-    const [post, setPost] = useState<Post | null>(() => getPostFromCache(postId) ?? null);
-    const [inputValue, setInputValue] = useState("");
 
-    const [isMainPost, setIsMainPost] = useState(false);
     const {modalType, modalData, setModalType} = useModal();
 
     const retweeted = currentUserRepostedIds.includes(postId);
 
     const {setHeaderContent} = useContext(HeaderContentContext);
-
-    useEffect(() => {
-        if (fullPost && post) {
-            console.log( "Viewing post: " + JSON.stringify(post))
-            if (post.parentId) {
-                console.log("Setting to thread")
-                setHeaderContent(<p>Thread</p>)
-            } else {
-                console.log("Setting to tweet")
-                setHeaderContent(<p>Tweet</p>)
-            }
-        }
-    }, [postId, parentId])
-
-
-    function setNewPost(post: Post) {
-
-        if (post) {
-            setPost(post);
-        }
-
-    }
 
     const backdropVariant = {
         initial: { opacity: 0 },
@@ -87,46 +70,6 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
       };
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-
-        if (post) return;
-
-        const loadPost = async () => {
-          try {
-            const fetched = await getOrFetchPostById(postId);
-            setPost(fetched);
-          } catch (err) {
-            console.error(err);
-          }
-        };
-      
-        loadPost();
-
-    }, [post])
-
-    useEffect(() => {
-
-        if (post && postUser) return;
-        if (!post) return;
-        const loadUser = async () => {
-            try {
-                const fetched = await getOrFetchUserById(post.userId);
-                setPostUser(fetched);
-            } catch (err) {
-                console.error(err);
-              }
-        }
-        loadUser();
-
-    }, [post])
-    
-        //TODO fix this damned padding
-
-
-
-
-        //postInteraction == !modal
 
 
     return (
@@ -230,7 +173,6 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
                     <div className={`w-full  text-lg border-(--twitter-border)`}>
                     <PostInteractionComponent
                         showPadding={mainPost && fullPost && true}
-                        setNewPost={setNewPost}
                         retweetedByList={post.retweetedBy}
                         postId={post.id}
                         likeList={post.likedBy}
@@ -260,7 +202,7 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
                 {fullPost && (
                     <>
                     {currentUser && (
-                    <ComposeTweet parentId={postId} parentUsername={postUser?.username} setNewPost={setNewPost}/>
+                    <ComposeTweet parentId={postId} parentUsername={postUser?.username}/>
                     )}                    <Feed replyFeedParentId={postId} postIdsArray={post.replies} showAsMainPost={false}/>
                     </>
                )}
@@ -286,7 +228,7 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
                     variants={modalVariant}
                   onClick={(e) => e.stopPropagation()}
                   >
-                    <ComposeTweet parentId={postId} setNewPost={setNewPost} showParentPreview={true} setToggle={setModalType}/>
+                    <ComposeTweet parentId={postId} showParentPreview={true} setToggle={setModalType}/>
                   </motion.div>
       
               </motion.div>
@@ -304,4 +246,4 @@ function FullPostTemplate ({mainPost, postId, parentId, fullPost, showLine, feed
 
 }
 
-export default FullPostTemplate;
+export default React.memo(FullPostTemplate);

@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { useUserCache } from "../../context/cache/UserCacheProvider";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import type { User } from "../../types/User";
 
 type handleFollowProps = {
     pageUser?: User | null;
-    setNewUser: (user: User) => void;
 };
 
-function FollowButton({ pageUser, setNewUser }: handleFollowProps) {
-    const { currentUser, addToFollowing, removeFromFollowing } = useCurrentUser();
+function FollowButton({ pageUser }: handleFollowProps) {
+    const { currentUser } = useCurrentUser();
     const { addToUserCache } = useUserCache();
     const [isFollowing, setIsFollowing] = useState(false);
 
@@ -25,44 +24,44 @@ function FollowButton({ pageUser, setNewUser }: handleFollowProps) {
 
 
     async function handleFollow() {
-        if (!currentUser || !pageUser) return;
+        // if (!currentUser || !pageUser) return;
 
-        const endpoint = isFollowing ? "unfollowUser" : "followUser";
+        // const endpoint = isFollowing ? "unfollowUser" : "followUser";
 
-        console.log("EndPoint: " + endpoint)
-        console.log("Current pageUser Followers: " + JSON.stringify(pageUser.followers))
-        console.log("Is following?: " + isFollowing)
+        // console.log("EndPoint: " + endpoint)
+        // console.log("Current pageUser Followers: " + JSON.stringify(pageUser.followers))
+        // console.log("Is following?: " + isFollowing)
 
-        try {
-            const res = await fetch(`http://localhost:8080/api/follows/${endpoint}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    followerId: currentUser.id,
-                    followedId: pageUser.id,
-                }),
-            });
+        // try {
+        //     const res = await fetch(`http://localhost:8080/api/follows/${endpoint}`, {
+        //         method: "POST",
+        //         headers: { "Content-Type": "application/json" },
+        //         body: JSON.stringify({
+        //             followerId: currentUser.id,
+        //             followedId: pageUser.id,
+        //         }),
+        //     });
 
-            if (!res.ok) throw new Error("Failed follow update");
+        //     if (!res.ok) throw new Error("Failed follow update");
 
-            const updatedUser: User = await res.json();
-            console.log("UpdatedUser Followers: " + JSON.stringify(updatedUser.followers))
+        //     const updatedUser: User = await res.json();
+        //     console.log("UpdatedUser Followers: " + JSON.stringify(updatedUser.followers))
 
-            addToUserCache(updatedUser);
+        //     addToUserCache(updatedUser);
             
-            setNewUser(updatedUser);
+        //     setNewUser(updatedUser);
 
-            if (isFollowing) {
-                removeFromFollowing(pageUser.id);
-            } else {
-                addToFollowing(pageUser.id);
-            }
+        //     if (isFollowing) {
+        //         removeFromFollowing(pageUser.id);
+        //     } else {
+        //         addToFollowing(pageUser.id);
+        //     }
 
-            console.log("Setting isFollowing to " + !isFollowing)
+        //     console.log("Setting isFollowing to " + !isFollowing)
 
-        } catch (err) {
-            console.error("Follow error:", err);
-        }
+        // } catch (err) {
+        //     console.error("Follow error:", err);
+        // }
     }
 
     if (!pageUser) return null;

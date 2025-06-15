@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import MainFeed from "./Feed";
 import TabList from "./TabList";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import Feed from "./Feed";
 import { useFeedContext } from "../../context/feed/FeedContext";
 import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";

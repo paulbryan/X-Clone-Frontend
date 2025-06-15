@@ -6,7 +6,7 @@ import {
     type ReactNode,
   } from "react";
   import type { User } from "../../types/User";
-import { useCurrentUser } from "../currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
   
   type UserCacheContextType = {
     userCache: Map<number, User>;

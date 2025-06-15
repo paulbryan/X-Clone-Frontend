@@ -1,156 +1,136 @@
 import { FaRegComment, FaRegHeart, FaRegBookmark, FaHeart } from "react-icons/fa";
 import { FaBookmark, FaRepeat } from "react-icons/fa6";
 import InteractionButton from "../ButtonComponent/InteractionButton";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
-import { useFeedContext } from "../../context/feed/FeedContext";
-import { useState } from "react";
-import { usePostCache } from "../../context/cache/PostCacheProvider";
-import type { ModalType } from "../../types/ModalType";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import { useModal } from "../../context/misc/ModalProvider";
-import type { Post } from "../../types/Post";
-import ComposeTweet from "./ComposeTweet";
-import Modal from "../Modal/Modal";
-import toast, { Toaster } from 'react-hot-toast';
-
+import { useLikePost } from "../../hooks/mutations/useLikePost";
+import { useBookmarkPost } from "../../hooks/mutations/useBookmarkPost";
+import { useRepostPost } from "../../hooks/mutations/useRepostPost";
+import toast from "react-hot-toast";
+import type { User } from "../../types/User";
+import { useQueryClient } from "@tanstack/react-query";
+import React from "react";
 type PostInteractionComponentProps = {
     postId: number;
     likeList: number[];
     bookmarkList: number[];
     replyList: number[];
     retweetedByList: number[];
-    setNewPost: (post: Post) => void;
     showPadding?: boolean;
 }
 
-function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList, setNewPost, replyList, retweetedByList} : PostInteractionComponentProps) {
+function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList, replyList, retweetedByList} : PostInteractionComponentProps) {
 
-    const {currentUser} = useCurrentUser();
-    const {currentUserBookmarkIds, addToCurrentUserBookmarks, removeCurrentUserBookmarks,
-       currentUserLikedIds, addToCurrentUserLikes, removeFromCurrentUserLikes,
-       currentUserRepostedIds, addToCurrentUserReposted, removeFromCurrentUserReposted
-      } = useFeedContext();
-    const { addToPostCache} = usePostCache(); 
-    const {setModalType, modalType, setModalData, modalData} = useModal();
+  const { currentUser } = useCurrentUser();
+  const queryClient = useQueryClient();
 
-    const notifyBookmarkRemoved = () => toast('Bookmark removed');
-    const notifyBookmarkAdded = () => toast('Bookmark added');
+  const { setModalType, setModalData } = useModal();
 
+  const isLiked = likeList.includes(currentUser?.id ?? -1);
+  const isBookmarked = bookmarkList.includes(currentUser?.id ?? -1);
+  const isRetweeted = retweetedByList.includes(currentUser?.id ?? -1);
 
-    function handleBookmark() {         
-        if (!currentUser) return;
-      
-        const isBookmarked = currentUserBookmarkIds.includes(postId);
-        const url = isBookmarked
-          ? "http://localhost:8080/api/bookmarks/deleteBookmark"
-          : "http://localhost:8080/api/bookmarks/createBookmark";
-      
-        fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            bookmarkedBy: currentUser.id,
-            bookmarkedPost: postId,
-          }),
-        })
-          .then(res => res.json())
-          .then((updatedPost: Post) => {
-            addToPostCache(updatedPost);
-            setNewPost(updatedPost);
-            if (isBookmarked) {
-              removeCurrentUserBookmarks(postId)
-              notifyBookmarkRemoved()
-            } else {
-              addToCurrentUserBookmarks(postId);
-              notifyBookmarkAdded();
-            }
-          })
-          .catch(err => console.error("Failed to update bookmark", err));
-      }
+  const likeMutation = useLikePost(postId, currentUser?.id, {
+    onUpdate: (updatedPost) => {
+      const isNowLiked = updatedPost.likedBy.includes(currentUser?.id ?? -1);
     
-    function handleLike() {
-        if (!currentUser) return;
-      
-        const isLiked = currentUserLikedIds.includes(postId);
-        const url = isLiked
-          ? "http://localhost:8080/api/likes/deleteLike"
-          : "http://localhost:8080/api/likes/createLike";
-      
-        fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ likerId: currentUser.id, likedPostId: postId }),
-        })
-          .then(res => res.json())
-          .then((updatedPost: Post) => {
-            addToPostCache(updatedPost);
-            setNewPost(updatedPost);
-            isLiked
-              ? removeFromCurrentUserLikes(postId)
-              : addToCurrentUserLikes(postId);
-          })
-          .catch(err => console.error("Failed to update like", err));
-      }
+      queryClient.setQueryData<User>(["currentUser"], (prev) => {
+        if (!prev) return prev;
+    
+        const alreadyThere = prev.likedPosts.includes(postId);
+        const likedPosts = isNowLiked
+          ? (alreadyThere ? prev.likedPosts : [...prev.likedPosts, postId])
+          : prev.likedPosts.filter(id => id !== postId);
+    
+        return { ...prev, likedPosts };
+      });
+    }
+  });
 
-      function handleRepost() {
-        if (!currentUser) return;
-      
-        const isRetweeted = currentUserRepostedIds.includes(postId);
-        const url = isRetweeted
-          ? "http://localhost:8080/api/retweets/deleteRetweet"
-          : "http://localhost:8080/api/retweets/newRetweet";
-      
-        fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ retweeterId: currentUser.id, referenceId: postId, type: "post" }),
-        })
-          .then(res => res.json())
-          .then((updatedPost: Post) => {
-            addToPostCache(updatedPost);
-            setNewPost(updatedPost);
-            isRetweeted
-              ? removeFromCurrentUserReposted(postId)
-              : addToCurrentUserReposted(postId);
-          })
-          .catch(err => console.error("Failed to update repost", err));
-      }
+  const bookmarkMutation = useBookmarkPost(postId, currentUser?.id, {
+    onUpdate: (updatedPost) => {
+      const isNowBookmarked = updatedPost.bookmarkedBy.includes(currentUser?.id ?? -1);
+      console.log("Updated user: " + JSON.stringify(currentUser))
+      console.log("Updated post: " + JSON.stringify(updatedPost))
+      console.log("IsnowBookmarked? " + isNowBookmarked) 
+      queryClient.setQueryData<User>(["currentUser"], (prev) => {
+        if (!prev) return prev;
+    
+        const alreadyThere = prev.bookmarkedPosts.includes(postId);
+        console.log("Already there? " + alreadyThere)
+        const bookmarkedPosts = isNowBookmarked
+          ? (alreadyThere ? prev.bookmarkedPosts : [...prev.bookmarkedPosts, postId])
+          : prev.bookmarkedPosts.filter(id => id !== postId);
+    
+        console.log("Bookmarked posts: " + JSON.stringify(bookmarkedPosts))
 
+        return { ...prev, bookmarkedPosts };
+      });
+    }
+  });
+
+  const repostMutation = useRepostPost(postId, currentUser?.id, {
+    onUpdate: (updatedPost) => {
+      const isNowRetweeted = updatedPost.retweetedBy.includes(currentUser?.id ?? -1);
+    
+      queryClient.setQueryData<User>(["currentUser"], (prev) => {
+        if (!prev) return prev;
+    
+        const alreadyThere = prev.retweets.includes(postId);
+        const retweetedPosts = isNowRetweeted
+          ? (alreadyThere ? prev.retweets : [...prev.retweets, postId])
+          : prev.retweets.filter(id => id !== postId);
+    
+        return { ...prev, retweetedPosts };
+      });
+    }
+  });
+
+  
     return (
 
         <>
             <div className={`h-10 text-(--twitter-text) w-full flex items-center align-middle justify-between ${showPadding ? "py-2" : ""}`}>
 
-                <InteractionButton buttonColor="(--color-main)" postId={postId} numberList={replyList}>
+                <InteractionButton buttonColor="(--color-main)"  numberList={replyList}>
                     <FaRegComment onClick={() => {
                       setModalType("replying")
                       setModalData(postId)
                     }}/>
                 </InteractionButton>
 
-                <InteractionButton buttonColor="(--twitter-green)" postId={postId} checkOfIds={currentUserRepostedIds} numberList={retweetedByList}>
-                    <FaRepeat onClick={() => handleRepost()}/>
-                </InteractionButton>
-
-                <InteractionButton buttonColor="(--twitter-red)" postId={postId} checkOfIds={currentUserLikedIds} numberList={likeList}>
-                    {currentUserLikedIds.includes(postId) ? (
+                <InteractionButton buttonColor="(--twitter-green)" numberList={retweetedByList}>
+                    {isRetweeted ? (
                       <>
-                      <FaHeart onClick={() => handleLike()}/>
+                      <FaRepeat onClick={() => repostMutation.mutate({isRetweeted})}/>
                       </>
                     ) : (
                       <>
-                      <FaRegHeart onClick={() => handleLike()}/>
+                      <FaRepeat onClick={() => repostMutation.mutate({isRetweeted})}/>
                       </>
                     )}
                 </InteractionButton>
 
-                <InteractionButton buttonColor="(--twitter-blue)" postId={postId} checkOfIds={currentUserBookmarkIds} numberList={bookmarkList}>
-                  {currentUserBookmarkIds.includes(postId) ? (
+                <InteractionButton buttonColor="(--twitter-red)"  numberList={likeList}>
+                    {isLiked ? (
                       <>
-                      <FaBookmark onClick={() => handleBookmark()}/>
+                      <FaHeart onClick={() => likeMutation.mutate({isLiked})}/>
                       </>
                     ) : (
                       <>
-                      <FaRegBookmark onClick={() => handleBookmark()}/>
+                      <FaRegHeart onClick={() => likeMutation.mutate({isLiked})}/>
+                      </>
+                    )}
+                </InteractionButton>
+
+                <InteractionButton buttonColor="(--twitter-blue)" numberList={bookmarkList}>
+                  {isBookmarked ? (
+                      <>
+                      <FaBookmark onClick={() => bookmarkMutation.mutate({isBookmarked})}/>
+                      </>
+                    ) : (
+                      <>
+                      <FaRegBookmark onClick={() => bookmarkMutation.mutate({isBookmarked})}/>
                       </>
                     )}
                 </InteractionButton>
@@ -161,6 +141,7 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
         </>
 
     )
+
 
 }
 

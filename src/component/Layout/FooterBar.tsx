@@ -5,14 +5,14 @@ import { FiMail } from "react-icons/fi";
 import ComposePostMobileButton from "../ButtonComponent/ComposePostMobileButton";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 
 
 
 function FooterBar () {
 
     const navigate = useNavigate();
-    const {currentUser, unreadNotifications} = useCurrentUser();
+    const {currentUser} = useCurrentUser();
  
     return (
 
@@ -31,7 +31,7 @@ function FooterBar () {
                             navigate("/notifications")
                         }
                     }} />
-                    {currentUser && unreadNotifications.length > 0 && (
+                    {currentUser && (
                         <div className="w-4 rounded-full h-4 absolute z-40 bg-(--color-main) top-2 right-9">  </div>
                     )}
                 </div>

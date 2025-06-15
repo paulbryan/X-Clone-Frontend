@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-
+import { AuthProvider, useAuth } from '../../context/currentUser/AuthProvider';
 import InputFormField from '../InputComponent/InputFormField';
 
 import type { ModalType } from '../../types/ModalType';
-import { useCurrentUser } from '../../context/currentUser/CurrentUserProvider';
+import { useCurrentUser } from '../../hooks/CurrentUserProvider';
 import { UserCacheProvider } from '../../context/cache/UserCacheProvider';
+import { useQueryClient } from '@tanstack/react-query';
 
 type LoginViewProps = {
     setToggle: (type: ModalType) => void;
@@ -12,51 +13,51 @@ type LoginViewProps = {
 }
 
 function LoginView ({ setToggle }: LoginViewProps) {
-
     const [usernameInput, setUserNameInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
     const [emailInput, setEmailInput] = useState("");
+  
+    const { setAuthId } = useAuth();
 
-    const {currentUser, setCurrentUser, initializeNotifications} = useCurrentUser();
-
-    function loginUser () {
-
-        const loginUser = {
-
-            username: usernameInput,
-            password: passwordInput,
-            email: emailInput
-
-        }
-
-        fetch("http://localhost:8080/api/users/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(loginUser),
-          })
-          .then(res => res.json())
-          .then(data => {
-            console.log(data.user);
-            setCurrentUser(data);
-            initializeNotifications(data.id);
-            setToggle(null)
-          });
-
-    }
-
-    function adminLoginQuick (id : number) {
-
-        fetch(`http://localhost:8080/api/users/getAdminUser?id=` + id)
-        .then(res => res.json())
-        .then(data => {
-            console.log("all good")
-            setCurrentUser(data);
-            initializeNotifications(data.id);
-            setToggle(null);
+    function loginUser() {
+      const loginUser = {
+        username: usernameInput,
+        password: passwordInput,
+        email: emailInput,
+      };
+  
+      fetch("http://localhost:8080/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginUser),
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("Login failed");
+          return res.json();
         })
-
+        .then(user => {
+          setAuthId(user.id);
+          setToggle(null);
+        })
+        .catch(err => {
+          console.error("Login error:", err);
+        });
     }
-
+  
+    function adminLoginQuick(id: number) {
+      fetch(`http://localhost:8080/api/users/getAdminUser?id=${id}`)
+        .then(res => {
+          if (!res.ok) throw new Error("Admin login failed");
+          return res.json();
+        })
+        .then(user => {
+          setAuthId(user.id); // ✅ same logic
+          setToggle(null);
+        })
+        .catch(err => {
+          console.error("Admin login error:", err);
+        });
+    }
     return (
         <div className="w-full h-full flex flex-col text-(--text-main) rounded-2xl p-4 items-center gap-4 bg-(--background-main)">
             <div>

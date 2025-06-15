@@ -8,8 +8,8 @@ export type User = {
     createdAt: string;
     posts: number[],
     replies: number[],
-    likedPosts: [],
-    bookmarkedPosts: [],
+    likedPosts: number[],
+    bookmarkedPosts: number[],
     followers: number[],
     following: number[],
     retweets: number[]

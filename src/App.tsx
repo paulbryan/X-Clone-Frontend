@@ -7,7 +7,7 @@ import HomePage from './component/Layout/HomePage';
 import ProfilePage from './component/Layout/ProfilePage';
 import { ModalProvider } from './context/misc/ModalProvider';
 import ModalManager from './component/Modal/ModalManager';
-import { CurrentUserProvider } from './context/currentUser/CurrentUserProvider';
+import { CurrentUserProvider } from './hooks/CurrentUserProvider';
 import type { User } from './types/User';
 import { UserCacheProvider } from './context/cache/UserCacheProvider';
 import { PostCacheProvider } from './context/cache/PostCacheProvider';

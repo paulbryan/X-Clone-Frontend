@@ -1,40 +1,19 @@
-import { useEffect, useState } from "react";
-import { useUserMediaCache } from "../../context/cache/UserMediaCacheProvider";
-import type { User } from "../../types/User";
+import { usePfp } from "../../hooks/usePfp";
 
 type ProfilePicComponentProps = {
-    userId?: number | null;
-  };
+  userId?: number;
+};
 
-function ProfilePic ({userId}: ProfilePicComponentProps) {
-  const { getUserMediaFromCache, addToUserMediaCache } = useUserMediaCache();
-  const cachedPic = userId ? getUserMediaFromCache(userId)?.profilePic : null;
-  const [base64, setBase64] = useState<string | null>(cachedPic ?? null);
+function ProfilePic({ userId }: ProfilePicComponentProps) {
+  const { data: base64, isLoading, isError } = usePfp(userId);
 
-
-  //TODO somehow prevent repeat calls from posts. Maybe whenever fetching users in notfound add to some pfpstofetch
-  
-  useEffect(() => {
-    if (!userId || cachedPic) return;
-
-    console.log(" Fetching pfp for " + userId)
-    fetch(`http://localhost:8080/api/users/getProfilePic?id=${userId}`)
-      .then((res) => res.text())
-      .then((data) => {
-        addToUserMediaCache(userId, {
-          ...(getUserMediaFromCache(userId) || {}),
-          profilePic: data,
-        });
-        setBase64(data);
-      })
-      .catch((err) => {
-        console.error("Error fetching profile picture:", err);
-      });
-  }, [userId, cachedPic]);
+  if (isError || !userId) {
+    return <div className="w-full h-full rounded-full bg-red-600 animate-pulse"></div>;
+  }
 
     return (
     <>
-      {base64 ? (
+      {base64 && !isLoading ? (
         <img
         className="h-full w-full rounded-full object-cover"
         src= {`data:image/png;base64,${base64}`}

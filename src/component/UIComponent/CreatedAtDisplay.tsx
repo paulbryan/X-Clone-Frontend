@@ -15,7 +15,7 @@ function CreatedAtDisplay ({createdAt, typeOfCreatedAt}: CreatedAtDisplayProps) 
 
     function parseDate(toFormat: string): string {
 
-        console.log("To format: " + toFormat)
+        // console.log("To format: " + toFormat)
 
         //2025-06-01 20:15:36
         const year = toFormat.slice(0, 4);
@@ -41,7 +41,7 @@ function CreatedAtDisplay ({createdAt, typeOfCreatedAt}: CreatedAtDisplayProps) 
     
         const monthIndex = parseInt(month, 10) - 1;
     
-        console.log("I got you a " + `${dayNum}${getSuffix(dayNum)} ${months[monthIndex]} ${year}`)
+        // console.log("I got you a " + `${dayNum}${getSuffix(dayNum)} ${months[monthIndex]} ${year}`)
         return `${dayNum}${getSuffix(dayNum)} ${months[monthIndex]} ${year}`;
     }
 

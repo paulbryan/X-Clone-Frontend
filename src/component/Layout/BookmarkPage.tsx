@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useFeedContext } from "../../context/feed/FeedContext";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import Feed from "./Feed";
 import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
 

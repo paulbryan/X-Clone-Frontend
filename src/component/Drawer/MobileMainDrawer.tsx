@@ -4,7 +4,7 @@ import {CiHome, CiUser, CiBookmark, CiBellOn, CiCircleQuestion, CiPower, CiPicke
 import DrawerNavigationPair from "./DrawerNavigationPair";
 import TextSetter from "./TextSetter";
 import { useEffect, type Dispatch, type SetStateAction } from "react";
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import { useNavigate } from "react-router-dom";

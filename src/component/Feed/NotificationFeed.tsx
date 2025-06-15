@@ -1,4 +1,4 @@
-import { useCurrentUser } from "../../context/currentUser/CurrentUserProvider"
+import { useCurrentUser } from "../../hooks/CurrentUserProvider"
 import { usePostCache } from "../../context/cache/PostCacheProvider"
 import { useUserCache } from "../../context/cache/UserCacheProvider";
 import type { Notification } from "../../types/Notification";
