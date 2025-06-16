@@ -17,12 +17,14 @@ export function ImageUploadButton({ imagesInput, setImagesInput }: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
-
+  
     const newFiles = Array.from(files).map(file => {
       return Object.assign(file, { id: crypto.randomUUID() });
     });
-
-    setImagesInput([...imagesInput, ...newFiles]);
+  
+    const merged = [...imagesInput, ...newFiles].slice(0, 4);
+  
+    setImagesInput(merged);
     e.target.value = "";
   };
 
