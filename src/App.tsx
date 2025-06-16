@@ -9,11 +9,8 @@ import { ModalProvider } from './context/misc/ModalProvider';
 import ModalManager from './component/Modal/ModalManager';
 import { CurrentUserProvider } from './hooks/CurrentUserProvider';
 import type { User } from './types/User';
-import { UserCacheProvider } from './context/cache/UserCacheProvider';
-import { PostCacheProvider } from './context/cache/PostCacheProvider';
 import BookmarkPage from './component/Layout/BookmarkPage';
 import NotificationPage from './component/Layout/NotificationPage';
-import { PageUserProvider } from './context/currentUser/PageUserContext';
 import FullPost from './component/Tweet/FullPost';
 import { HeaderContentProvider } from './context/misc/HeaderContentProvider';
 import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
@@ -37,8 +34,6 @@ function App() {
     <Router>
       <CurrentUserProvider>
         <ModalProvider>
-        <UserCacheProvider>
-        <PostCacheProvider>
         <HeaderContentProvider>
           
         <ModalManager />
@@ -114,8 +109,6 @@ function App() {
 
         </div>
         </HeaderContentProvider>
-        </PostCacheProvider>
-        </UserCacheProvider>
         </ModalProvider>
       </CurrentUserProvider>
     </Router>

@@ -2,10 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import NotificationFeed from "../Feed/NotificationFeed";
 import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
+import { useNotifications } from "../../hooks/useNotifications";
 
 function NotificationPage () {
 
-    const {notifications, currentUser, clearRead, unreadNotifications} = useCurrentUser();
+    const {currentUser} = useCurrentUser();
+    const { data: notifications = [] } = useNotifications(currentUser?.id);
 
     const [tempUnread, setTempUnread] = useState<number[]>([]);
     const {setHeaderContent} = useContext(HeaderContentContext);
