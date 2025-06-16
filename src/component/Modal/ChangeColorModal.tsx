@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import type { ModalType } from "../../types/ModalType";
-import FullPost from "../Tweet/FullPost";
 import ProfilePic from "../UserInfo/ProfilePic";
 import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import UsernameComponent from "../UserInfo/UsernameComponent";
-import CreatedAtDisplay from "../UIComponent/CreatedAtDisplay";
 import ColorCircleButton from "../ButtonComponent/ColorCircleButton";
 import { useState } from "react";
 import type { ThemeType } from "../../types/ThemeType";
@@ -63,7 +61,7 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
                         className="h-12 w-12 cursor-pointer"
                         onClick={() => navigate(`/profile/13`)}
                     >
-                        <ProfilePic user={currentUser} />
+                        <ProfilePic userId={currentUser?.id} />
                     </div>
                 </div>
                 <div className={`flex "mb-0.5 gap-2 items-center text-(--text-main) `}>

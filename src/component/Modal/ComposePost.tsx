@@ -5,9 +5,6 @@ import { MdOutlineGif } from "react-icons/md";
 import UploadTweetButton from "../ButtonComponent/UploadTweetButton";
 import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import { useState } from "react";
-import type { NewPost } from "../../types/NewPost";
-import { usePostCache } from "../../context/cache/PostCacheProvider";
-import type { Post } from "../../types/Post";
 
 type ComposePostProps = {
     parentId?: number;
@@ -23,7 +20,7 @@ function ComposePost ({parentId}: ComposePostProps) {
         <div className="w-full h-fit flex rounded-2xl px-4 py-3 bg-[var(--background-main)] border border-(--color-main)">
             
             <div className="w-10 h-10 mr-1">
-                <ProfilePic user={currentUser}/>
+                <ProfilePic userId={currentUser?.id}/>
             </div>
             <div className="flex flex-col w-full h-fit">
                 <div className="w-full h-fit flex mb-1">

@@ -5,28 +5,27 @@ import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import Feed from "./Feed";
 import { useFeedContext } from "../../context/feed/FeedContext";
 import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
+import { useForYouFeedIds } from "../../hooks/useForYouFeed";
 
 function HomePage () {
 
     const tabs = ["For You", "Following"];
     const [activeTab, setActiveTab] = useState("For You");
     const {currentUser} = useCurrentUser();
-    const {forYouFeedIds, getForYouFeedIds} = useFeedContext();
     const {setHeaderContent} = useContext(HeaderContentContext);
+
+    const { data: forYouFeedIds = [], isLoading, isError } = useForYouFeedIds();
 
     useEffect(() => {
         setHeaderContent(null);
     }, [])
 
-    useEffect(() => {
-        getForYouFeedIds()
-    }, [])
 
     return (
 
         
         <div className="h-full w-full overflow-hidden">
-            {currentUser && (
+            {currentUser && !isLoading && (
             <div>
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
             </div>

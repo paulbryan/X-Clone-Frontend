@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
 import ReactTimeAgo from 'react-time-ago'
-import { useTimeAgo } from 'react-time-ago'
 
 
 type CreatedAtDisplayProps = {
@@ -15,14 +13,10 @@ function CreatedAtDisplay ({createdAt, typeOfCreatedAt}: CreatedAtDisplayProps) 
 
     function parseDate(toFormat: string): string {
 
-        // console.log("To format: " + toFormat)
-
-        //2025-06-01 20:15:36
         const year = toFormat.slice(0, 4);
         let month = toFormat.slice(5, 7);
         let day = toFormat.slice(8, 10);
     
-        // Remove leading zero
         const dayNum = parseInt(day, 10);
     
         const getSuffix = (d: number) => {
@@ -41,7 +35,6 @@ function CreatedAtDisplay ({createdAt, typeOfCreatedAt}: CreatedAtDisplayProps) 
     
         const monthIndex = parseInt(month, 10) - 1;
     
-        // console.log("I got you a " + `${dayNum}${getSuffix(dayNum)} ${months[monthIndex]} ${year}`)
         return `${dayNum}${getSuffix(dayNum)} ${months[monthIndex]} ${year}`;
     }
 

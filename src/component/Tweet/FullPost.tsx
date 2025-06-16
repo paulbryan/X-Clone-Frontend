@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import PostTemplate from "./PostTemplate";
 import ProfilePic from "../UserInfo/ProfilePic";
 import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import { usePostCache } from "../../context/cache/PostCacheProvider";

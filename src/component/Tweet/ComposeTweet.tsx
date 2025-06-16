@@ -46,7 +46,7 @@ const fromBottom = {
 
         <div className={`grid px-4 grid-cols-[auto_1fr] gap-x-3 w-full ${parentId && showParentPreview ? "py-2" : ""}`}>
             <div className="w-12 h-12 cursor-pointer">
-                <ProfilePic user={currentUser}/>
+                <ProfilePic userId={currentUser?.id}/>
             </div>
             <div className="flex flex-col w-full h-fit">
                 <div className="w-full h-fit flex">
