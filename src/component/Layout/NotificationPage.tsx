@@ -3,31 +3,35 @@ import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import NotificationFeed from "../Feed/NotificationFeed";
 import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
 import { useNotifications } from "../../hooks/useNotifications";
+import { useMarkNotificationsAsSeen } from "../../hooks/mutations/useMarkNotificationsAsSeen";
 
 function NotificationPage () {
 
-    const {currentUser} = useCurrentUser();
+    const { currentUser } = useCurrentUser();
+    const { setHeaderContent } = useContext(HeaderContentContext);
+  
     const { data: notifications = [] } = useNotifications(currentUser?.id);
-
+    const markSeenMutation = useMarkNotificationsAsSeen();
+  
     const [tempUnread, setTempUnread] = useState<number[]>([]);
-    const {setHeaderContent} = useContext(HeaderContentContext);
-
+  
+    const unreadNotifications = notifications.filter(n => !n.seen).map(n => n.id);
+  
     useEffect(() => {
-        setHeaderContent("Notifications");
-    }, [])
-
-    function markAllAsSeen (id: number) {
-        
-        fetch(`http://localhost:8080/api/notifications/markAsSeen/${id}`);
-        clearRead();
-    }
-
+      setHeaderContent("Notifications");
+    }, []);
+  
     useEffect(() => {
-        if (notifications && notifications.length > 0 && currentUser && unreadNotifications.length > 0) {
-            setTempUnread(unreadNotifications);
-            markAllAsSeen(currentUser.id);
-        }
-    }, [notifications])
+      if (
+        notifications.length > 0 &&
+        currentUser &&
+        unreadNotifications.length > 0 &&
+        !markSeenMutation.isPending
+          ) {
+        setTempUnread(unreadNotifications);
+        markSeenMutation.mutate(currentUser.id);
+      }
+    }, [notifications]);
 
     return (
 

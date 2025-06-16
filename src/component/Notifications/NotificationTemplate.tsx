@@ -1,24 +1,23 @@
-import type { Post } from "../../types/Post"
-import type { User } from "../../types/User";
 import type { Notification } from "../../types/Notification"
 import ProfilePic from "../UserInfo/ProfilePic";
 import { useNavigate } from "react-router-dom";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
-import UsernameComponent from "../UserInfo/UsernameComponent";
 import NotificationTypeIcon from "../UIComponent/NotificationTypeIcon";
+import { useUser } from "../../hooks/useUser";
 
 type NotificationTemplateProps = {
 
-    sender?: User;
     notification: Notification;
     isTempUnseen?: boolean;
 
 }
 
-function NotificationTemplate ({sender, notification, isTempUnseen}: NotificationTemplateProps)  {
+function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplateProps)  {
 
     const navigate = useNavigate();
     const displayMessage = determineDisplayMessage();
+
+    const { data: sender } = useUser(notification.senderId ?? -1);
 
     function determineDisplayMessage (): string {
 
@@ -59,7 +58,7 @@ function NotificationTemplate ({sender, notification, isTempUnseen}: Notificatio
             <div className="w-full h-fit">
             <div className="flex w-12 pb-1">
                 <div className="w-10 h-10" onClick={() => navigate(`/profile/${notification.senderId}`)}>
-                    <ProfilePic user={sender}/>
+                    <ProfilePic userId={sender?.id}/>
                 </div>
             </div>
             </div>

@@ -4,6 +4,7 @@ import LoadingIcon from "../UIComponent/LoadingIcon";
 import NotificationTemplate from "../Notifications/NotificationTemplate";
 import type { User } from "../../types/User";
 import { useEffect, useState } from "react";
+import { useNotifications } from "../../hooks/useNotifications";
 
 type NotificationFeedProps = {
     tempUnreads?: number[];
@@ -11,9 +12,10 @@ type NotificationFeedProps = {
 
 function NotificationFeed ({tempUnreads} : NotificationFeedProps) {
 
-    const {currentUser, notifications } = useCurrentUser()
-    const {getUserFromCache, addToUserCache, fetchUsersFromServerById} = useUserCache();
+    const {currentUser } = useCurrentUser()
     const [bufferedTimeOut, setBufferedTimeout] = useState(false);
+    const { data: notifications = [] } = useNotifications(currentUser?.id);
+    const isReady = notifications && notifications.length > 0;
 
     useEffect(() => {
         setTimeout(() => {
@@ -21,45 +23,14 @@ function NotificationFeed ({tempUnreads} : NotificationFeedProps) {
         }, 200)
     }, [])
 
-    useEffect(() => {
-        if (notifications) {
-            loadUsers();
-        }
-    }, [notifications])
-    
-    async function fetchUnloadedUsers (notFoundUsers : number[]) {
-
-        const fetchedUsers: User[] = await fetchUsersFromServerById(notFoundUsers);
-        for (let i = 0; i < fetchedUsers.length; i++) {
-            addToUserCache(fetchedUsers[i]);
-        }
-
-    }
-
-        async function loadUsers() {
-        const notFoundUsers : number[] = [];
-        for (const notification of notifications) {
-            const senderId = notification.senderId;
-            const sender = getUserFromCache(senderId);
-            if (!sender) {
-                notFoundUsers.push(senderId);
-            }
-        }
-    
-        if (notFoundUsers.length > 0) {
-            await fetchUnloadedUsers(notFoundUsers);
-        }
-    }
-
     return (
         
         <div className='w-full'>
-            {bufferedTimeOut && notifications && notifications.length > 0 &&
-            notifications.every(notification => getUserFromCache(notification.senderId)) ? (
+            {isReady ? (
 
                 <div className="flex flex-col-reverse w-full">
                 {notifications.map((notification) => (
-                    <NotificationTemplate isTempUnseen={tempUnreads?.includes(notification.id)} sender={getUserFromCache(notification.senderId)} notification={notification} />
+                    <NotificationTemplate isTempUnseen={tempUnreads?.includes(notification.id)} notification={notification} />
                 ))}
                 </div>
 
