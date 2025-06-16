@@ -4,17 +4,20 @@ import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import type { ModalType } from "../../types/ModalType";
 import toast from "react-hot-toast";
 import { useCreatePost } from "../../hooks/mutations/useCreatePost";
+import type { FilesWithId } from "../../types/file";
 
 type UploadTweetButtonProps = {
   textInput: string;
   parentId?: number;
   setNewPost?: (post: Post) => void;
   setToggle?: (modalType: ModalType) => void;
+  filesWithId: FilesWithId;
 };
 
 function UploadTweetButton({
   textInput,
   parentId,
+  filesWithId,
   setToggle,
 }: UploadTweetButtonProps) {
   const { currentUser } = useCurrentUser();
@@ -28,17 +31,21 @@ function UploadTweetButton({
 
     toast.loading("Posting...");
 
-    const newPost: NewPost = {
-      userId: currentUser.id,
-      text: textInput,
-      parentId: parentId,
-    };
+    const formData = new FormData();
+    formData.append("userId", currentUser.id.toString());
+    formData.append("text", textInput);
+    if (parentId !== undefined) {
+      formData.append("parentId", parentId.toString());
+    }
 
-    createPost.mutate(newPost, {
+    filesWithId.forEach(file => {
+      formData.append("images", file);
+    });
+
+    createPost.mutate(formData, {
       onSuccess: () => {
         toast.dismiss();
         toast.success("Tweet posted!");
-
         if (setToggle) setToggle(null);
       },
       onError: () => {

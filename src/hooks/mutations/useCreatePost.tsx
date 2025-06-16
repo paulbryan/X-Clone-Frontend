@@ -1,16 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { NewPost } from "../types/NewPost";
 
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (newPost: NewPost): Promise<void> => {
+    mutationFn: async (formData: FormData): Promise<void> => {
       const res = await fetch("http://localhost:8080/api/posts/createPost", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newPost),
+        body: formData, // 👈 no need for headers — browser sets it
       });
+
       if (!res.ok) throw new Error("Failed to post");
     },
 
@@ -18,8 +17,9 @@ export const useCreatePost = () => {
       queryClient.invalidateQueries({ queryKey: ["foryoufeed"] });
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
 
-      if (variables.parentId) {
-        queryClient.invalidateQueries({ queryKey: ["post", variables.parentId] });
+      if (variables instanceof FormData && variables.get("parentId")) {
+        const parentId = variables.get("parentId");
+        queryClient.invalidateQueries({ queryKey: ["post", Number(parentId)] });
       }
     },
   });

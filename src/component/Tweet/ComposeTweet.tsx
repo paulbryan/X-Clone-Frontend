@@ -1,6 +1,5 @@
 import ProfilePic from "../UserInfo/ProfilePic";
 import TextareaAutosize from 'react-textarea-autosize';
-import { FaRegImage } from "react-icons/fa";
 import { MdOutlineGif } from "react-icons/md";
 import UploadTweetButton from "../ButtonComponent/UploadTweetButton";
 import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
@@ -28,10 +27,10 @@ function ComposeTweet ({parentId, setToggle, showParentPreview}: ComposeTweetPro
     const placeHolder = parentId ? "Tweet your reply" : "What's up?!"
 
 
-const fromBottom = {
-    initial: { y: 25, opacity: 0 },
-    animate: { y: 0, opacity: 1, transition: { type: "spring" } }
-  };
+    const fromBottom = {
+        initial: { y: 25, opacity: 0 },
+        animate: { y: 0, opacity: 1, transition: { type: "spring" } }
+    };
 
 
     return (
@@ -62,7 +61,7 @@ const fromBottom = {
                         <MdOutlineGif className="text-4xl"/>
                     </div>
                     <div className="w-full h-full justify-end flex items-center">
-                        <UploadTweetButton setToggle={setToggle} textInput = {textInput} parentId={parentId}/>
+                        <UploadTweetButton filesWithId={imagesInput} setToggle={setToggle} textInput = {textInput} parentId={parentId}/>
                     </div>
                 </div>
             </div>

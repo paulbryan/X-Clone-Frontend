@@ -9,5 +9,6 @@ export type Post = {
     parentId?: number;
     replies: number[];
     retweetedBy: number[];
+    postMedia: number[];
 
 }

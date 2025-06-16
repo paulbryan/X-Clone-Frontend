@@ -14,6 +14,7 @@ import React, { useContext, useEffect } from "react";
 import { usePost } from "../../hooks/queries/usePost";
 import { useUser } from "../../hooks/queries/useUser";
 import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
+import { ImagePreviewGrid } from "../Layout/ImagePreviewGrid";
 
 type FullPostTemplateProps = {
     postId: number;
@@ -42,6 +43,13 @@ type FullPostTemplateProps = {
         console.log("Post in render:", post.bookmarkedBy);
       }
     }, [fullPost, post]);
+
+    useEffect(() => {
+        if (post && post.id == 47) {
+            console.log("Post is: " + JSON.stringify(post))
+
+        }    
+    }, [post])
 
 
     const {modalType, modalData, setModalType} = useModal();
@@ -159,6 +167,18 @@ type FullPostTemplateProps = {
                 ) : (
                     <div>
                     </div>
+                )}
+
+                {post.postMedia?.length > 0 && (
+                    <>
+                    <div className={`${fullPost ? "col-span-2" : ""}`}>
+                    <ImagePreviewGrid mediaIds={post.postMedia}/>
+                    </div>
+
+                    <div>
+                    </div>
+
+                    </>
                 )}
                 
                 {!modalReplyChild ? (
