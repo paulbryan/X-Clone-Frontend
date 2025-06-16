@@ -1,4 +1,3 @@
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import PostInteractionComponent from "./PostInteractionComponent";
 import ProfilePic from "../UserInfo/ProfilePic";
@@ -8,20 +7,18 @@ import { useNavigate } from "react-router-dom";
 import ComposeTweet from "./ComposeTweet";
 import { FaRepeat } from "react-icons/fa6";
 import Feed from "../Layout/Feed";
-import { useModal } from "../../context/misc/ModalProvider";
+import { useModal } from "../../context/GlobalState/ModalProvider";
 import { motion } from "framer-motion";
-import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
-import { useUser } from "../../hooks/useUser";
+import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider";
 import React, { useContext, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { usePost } from "../../hooks/usePost";
+import { usePost } from "../../hooks/queries/usePost";
+import { useUser } from "../../hooks/queries/useUser";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 
 type FullPostTemplateProps = {
     postId: number;
-    parentId?: number;
     fullPost?: boolean;
     showLine?: boolean;
-    feedPost?: boolean;
     modalReplyChild?: boolean;
     mainPost?: boolean;
   };
@@ -29,16 +26,14 @@ type FullPostTemplateProps = {
   function FullPostTemplate({
     mainPost,
     postId,
-    parentId,
     fullPost,
     showLine,
-    feedPost,
     modalReplyChild,
   }: FullPostTemplateProps) {
 
     const { data: post } = usePost(postId);
   
-    const { data: postUser, isLoading: userLoading } = useUser(post?.userId ?? -1);
+    const { data: postUser } = useUser(post?.userId ?? -1);
     const { currentUser } = useCurrentUser();
   
     useEffect(() => {
@@ -84,7 +79,6 @@ type FullPostTemplateProps = {
                 <FullPostTemplate
                     postId={post.parentId}
                     showLine={true}
-                    parentId={postId}
                 />
                 )}
 
@@ -197,7 +191,7 @@ type FullPostTemplateProps = {
                     />
                     )}
                     {post.replies.length > 0 && (
-                        <Feed replyFeedParentId={postId} postIdsArray={post.replies} showAsMainPost={false}/>
+                        <Feed postIdsArray={post.replies} showAsMainPost={false}/>
 
                     )}
                     </>

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import type { ModalType } from "../../types/ModalType";
 import ProfilePic from "../UserInfo/ProfilePic";
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import ColorCircleButton from "../ButtonComponent/ColorCircleButton";

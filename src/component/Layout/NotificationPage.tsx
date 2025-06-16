@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import NotificationFeed from "../Feed/NotificationFeed";
-import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
-import { useNotifications } from "../../hooks/useNotifications";
+import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider";
+import { useNotifications } from "../../hooks/queries/useNotifications";
 import { useMarkNotificationsAsSeen } from "../../hooks/mutations/useMarkNotificationsAsSeen";
 
 function NotificationPage () {

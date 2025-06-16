@@ -1,18 +1,16 @@
-import { useEffect, useState } from 'react';
 import './App.css'
 import FooterBar from './component/Layout/FooterBar'
 import Header from './component/Layout/Header';
-import { BrowserRouter as Router, Routes, Route, useLocation, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import HomePage from './component/Layout/HomePage';
 import ProfilePage from './component/Layout/ProfilePage';
-import { ModalProvider } from './context/misc/ModalProvider';
+import { ModalProvider } from './context/GlobalState/ModalProvider';
 import ModalManager from './component/Modal/ModalManager';
-import { CurrentUserProvider } from './hooks/CurrentUserProvider';
-import type { User } from './types/User';
+import { CurrentUserProvider } from './hooks/queries/CurrentUserProvider';
 import BookmarkPage from './component/Layout/BookmarkPage';
 import NotificationPage from './component/Layout/NotificationPage';
 import FullPost from './component/Tweet/FullPost';
-import { HeaderContentProvider } from './context/misc/HeaderContentProvider';
+import { HeaderContentProvider } from './context/GlobalState/HeaderContentProvider';
 import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
 import AboutPage from './component/Layout/AboutPage';
 

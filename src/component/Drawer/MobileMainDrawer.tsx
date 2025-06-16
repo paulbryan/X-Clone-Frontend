@@ -2,14 +2,13 @@ import FollowersFollowing from "../UserInfo/FollowersFollowing";
 import ProfilePic from "../UserInfo/ProfilePic";
 import {CiHome, CiUser, CiBookmark, CiBellOn, CiCircleQuestion, CiPower, CiPickerHalf } from "react-icons/ci";
 import DrawerNavigationPair from "./DrawerNavigationPair";
-import TextSetter from "./TextSetter";
 import { useEffect, type Dispatch, type SetStateAction } from "react";
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useModal } from "../../context/misc/ModalProvider";
+import { useModal } from "../../context/GlobalState/ModalProvider";
 
 type MobileMainDrawerProps = {
     setDrawerOpen:Dispatch<SetStateAction<boolean>>

@@ -4,11 +4,10 @@ import { AnimatePresence, motion } from "framer-motion";
 
 type FeedProps = {
   postIdsArray: number[];
-  replyFeedParentId?: number;
   showAsMainPost?: boolean;
 };
 
-function Feed({ postIdsArray, showAsMainPost, replyFeedParentId }: FeedProps) {
+function Feed({ postIdsArray, showAsMainPost }: FeedProps) {
   const isReady = postIdsArray.length > 0;
 
       return (
@@ -24,7 +23,7 @@ function Feed({ postIdsArray, showAsMainPost, replyFeedParentId }: FeedProps) {
                       exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
                       layout
                     >
-                      <FullPostTemplate mainPost={showAsMainPost} feedPost={true} postId={id} parentId={replyFeedParentId} />
+                      <FullPostTemplate mainPost={showAsMainPost} postId={id} />
                     </motion.div>
                   ))}
                 </div>

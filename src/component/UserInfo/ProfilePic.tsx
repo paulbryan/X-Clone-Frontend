@@ -1,4 +1,4 @@
-import { usePfp } from "../../hooks/usePfp";
+import { usePfp } from "../../hooks/queries/usePfp";
 
 type ProfilePicComponentProps = {
   userId?: number;

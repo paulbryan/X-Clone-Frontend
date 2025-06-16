@@ -1,4 +1,4 @@
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import type { User } from "../../types/User";
 import { useFollowUser } from "../../hooks/mutations/useFollowUser";
 import { useQueryClient } from "@tanstack/react-query";

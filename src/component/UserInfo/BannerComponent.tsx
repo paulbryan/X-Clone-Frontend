@@ -1,4 +1,4 @@
-import { useBanner } from "../../hooks/useBanner";
+import { useBanner } from "../../hooks/queries/useBanner";
 
 type BannerComponentProps = {
     userId?: number;

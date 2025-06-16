@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
+import { useMemo, type ReactNode } from "react";
 import { motion } from "framer-motion";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 
 type InteractionButtonProps = {
   children: ReactNode;
@@ -13,15 +13,6 @@ function InteractionButton({ children, numberList, buttonColor }: InteractionBut
 
   const { currentUser } = useCurrentUser();
 
-  useEffect(() => {
-    if (buttonColor == "(--twitter-red)") {
-      console.log("Number list is: " + numberList)
-      console.log("Ismarked: " + isMarked)
-      console.log("Curr user reposted: " + JSON.stringify(currentUser?.retweets))
-      
-    }
-  }, [numberList])
-
   const isMarked = useMemo(() => {
     if (!currentUser) return false;
     return numberList.includes(currentUser.id);
@@ -32,7 +23,7 @@ function InteractionButton({ children, numberList, buttonColor }: InteractionBut
 
   if (isMarked) {
     return (
-      <div>
+      <div className="">
       <div className={`h-5 flex text-${buttonColor} w-16 align-middle items-center gap-3`}>
       {children}
       <motion.span

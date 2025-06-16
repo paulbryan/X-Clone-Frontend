@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Notification } from "../types/Notification";
-
+import type { Notification } from "../../types/Notification";
 export const useNotifications = (userId: number | undefined) =>
   useQuery<Notification[]>({
     queryKey: ["notifications", userId],

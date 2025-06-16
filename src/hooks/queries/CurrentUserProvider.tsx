@@ -1,11 +1,8 @@
-import { createContext, useContext, useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { createContext, useContext } from "react";
+import { useQuery } from "@tanstack/react-query";
 import type { ReactNode } from "react";
-import type { User } from "../types/User";
-import type { Notification } from "../types/Notification";
-import { useUser } from "./useUser";
-import { useAuth } from "../context/currentUser/AuthProvider";
-
+import type { User } from "../../types/User";
+import { useAuth } from "../../context/Auth/AuthProvider";
 type CurrentUserQueryContextType = {
   currentUser: User | undefined;
   isLoading: boolean;

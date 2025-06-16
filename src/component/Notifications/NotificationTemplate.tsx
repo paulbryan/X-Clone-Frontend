@@ -3,8 +3,7 @@ import ProfilePic from "../UserInfo/ProfilePic";
 import { useNavigate } from "react-router-dom";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
 import NotificationTypeIcon from "../UIComponent/NotificationTypeIcon";
-import { useUser } from "../../hooks/useUser";
-
+import { useUser } from "../../hooks/queries/useUser";
 type NotificationTemplateProps = {
 
     notification: Notification;

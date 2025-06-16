@@ -2,10 +2,10 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import ProfilePageOverview from "../UserInfo/ProfilePageOverview";
 import TabList from "./TabList";
 import { useParams } from "react-router-dom";
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import Feed from "./Feed";
-import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
-import { useUser } from "../../hooks/useUser";
+import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider";
+import { useUser } from "../../hooks/queries/useUser";
 
 function ProfilePage() {
     const tabs = ["Tweets", "Replies", "Liked", "Media"];

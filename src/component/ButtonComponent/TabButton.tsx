@@ -1,6 +1,5 @@
 import type { FC } from "react";
 import type { Dispatch, SetStateAction } from "react";
-import { motion } from "framer-motion";
 
 interface TabButtonProps {
   tab: string;

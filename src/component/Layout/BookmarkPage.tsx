@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import Feed from "./Feed";
-import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
+import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider";
 
 function BookmarkPage () {
 

@@ -1,15 +1,14 @@
 import { FaRegComment, FaRegHeart, FaRegBookmark, FaHeart } from "react-icons/fa";
 import { FaBookmark, FaRepeat } from "react-icons/fa6";
 import InteractionButton from "../ButtonComponent/InteractionButton";
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
-import { useModal } from "../../context/misc/ModalProvider";
+
+import { useModal } from "../../context/GlobalState/ModalProvider";
 import { useLikePost } from "../../hooks/mutations/useLikePost";
 import { useBookmarkPost } from "../../hooks/mutations/useBookmarkPost";
 import { useRepostPost } from "../../hooks/mutations/useRepostPost";
-import toast from "react-hot-toast";
 import type { User } from "../../types/User";
 import { useQueryClient } from "@tanstack/react-query";
-import React from "react";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 type PostInteractionComponentProps = {
     postId: number;
     likeList: number[];

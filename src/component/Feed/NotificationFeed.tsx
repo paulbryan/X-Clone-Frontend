@@ -1,11 +1,7 @@
-import { useCurrentUser } from "../../hooks/CurrentUserProvider"
-import type { Notification } from "../../types/Notification";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import LoadingIcon from "../UIComponent/LoadingIcon";
 import NotificationTemplate from "../Notifications/NotificationTemplate";
-import type { User } from "../../types/User";
-import { useEffect, useState } from "react";
-import { useNotifications } from "../../hooks/useNotifications";
-
+import { useNotifications } from "../../hooks/queries/useNotifications";
 type NotificationFeedProps = {
     tempUnreads?: number[];
 }
@@ -13,15 +9,9 @@ type NotificationFeedProps = {
 function NotificationFeed ({tempUnreads} : NotificationFeedProps) {
 
     const {currentUser } = useCurrentUser()
-    const [bufferedTimeOut, setBufferedTimeout] = useState(false);
     const { data: notifications = [] } = useNotifications(currentUser?.id);
     const isReady = notifications && notifications.length > 0;
 
-    useEffect(() => {
-        setTimeout(() => {
-            setBufferedTimeout(true)
-        }, 200)
-    }, [])
 
     return (
         

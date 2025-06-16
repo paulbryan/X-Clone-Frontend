@@ -1,6 +1,6 @@
 import { RiQuillPenLine } from "react-icons/ri";
 
-import { useModal } from "../../context/misc/ModalProvider";
+import { useModal } from "../../context/GlobalState/ModalProvider";
 
 function ComposePostMobileButton () {
 

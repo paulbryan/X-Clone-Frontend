@@ -1,7 +1,6 @@
 // hooks/usePost.ts
 import { useQuery } from "@tanstack/react-query";
-import { postBatcher } from "./batcher/postBatcher";
-
+import { postBatcher } from "../batcher/postBatcher";
 export const usePost = (id: number) =>
   useQuery({
     queryKey: ["post", id],

@@ -1,6 +1,6 @@
 import type { ReactNode} from "react";
 import type { ModalType } from "../../types/ModalType";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 type ModalProps = {
     children: ReactNode;

@@ -3,9 +3,8 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { FaRegImage } from "react-icons/fa";
 import { MdOutlineGif } from "react-icons/md";
 import UploadTweetButton from "../ButtonComponent/UploadTweetButton";
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import { useState } from "react";
-import type { Post } from "../../types/Post";
 import type { ModalType } from "../../types/ModalType";
 import FullPostTemplate from "./FullPostTemplate";
 

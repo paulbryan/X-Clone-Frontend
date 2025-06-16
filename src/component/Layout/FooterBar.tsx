@@ -3,9 +3,8 @@ import { FaHouse } from "react-icons/fa6";
 import { FaSearch, FaRegBell } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import ComposePostMobileButton from "../ButtonComponent/ComposePostMobileButton";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 
 
 

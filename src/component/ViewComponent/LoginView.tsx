@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { AuthProvider, useAuth } from '../../context/currentUser/AuthProvider';
+import { useState } from 'react';
+import { useAuth } from '../../context/Auth/AuthProvider';
 import InputFormField from '../InputComponent/InputFormField';
 
 import type { ModalType } from '../../types/ModalType';

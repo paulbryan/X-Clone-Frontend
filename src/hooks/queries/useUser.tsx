@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { User } from "../types/User";
-import { userBatcher } from "./batcher/userBatcher";
+import { userBatcher } from "../batcher/userBatcher";
 
 export const useUser = (id: number | undefined) =>
     useQuery({

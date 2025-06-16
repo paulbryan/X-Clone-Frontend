@@ -1,9 +1,9 @@
 import type { NewPost } from "../../types/NewPost";
 import type { Post } from "../../types/Post";
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
+import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import type { ModalType } from "../../types/ModalType";
 import toast from "react-hot-toast";
-import { useCreatePost } from "../../hooks/useCreatePost";
+import { useCreatePost } from "../../hooks/mutations/useCreatePost";
 
 type UploadTweetButtonProps = {
   textInput: string;

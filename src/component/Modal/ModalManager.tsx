@@ -1,9 +1,7 @@
-import { useModal } from "../../context/misc/ModalProvider";
+import { useModal } from "../../context/GlobalState/ModalProvider";
 import Modal from "./Modal";
 import SignupView from "../ViewComponent/SignupView";
 import LoginView from "../ViewComponent/LoginView";
-import ComposePost from "./ComposePost";
-import ReplyModal from "./ReplyModal";
 import ComposeTweet from "../Tweet/ComposeTweet";
 import { AnimatePresence } from "framer-motion";
 import ChangeColorModal from "./ChangeColorModal";
