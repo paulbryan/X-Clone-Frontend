@@ -7,6 +7,8 @@ type FeedProps = {
   showAsMainPost?: boolean;
 };
 
+//TODO fix isready logic
+
 function Feed({ postIdsArray, showAsMainPost }: FeedProps) {
   const isReady = postIdsArray.length > 0;
 

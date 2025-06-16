@@ -7,6 +7,9 @@ import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import { useState } from "react";
 import type { ModalType } from "../../types/ModalType";
 import FullPostTemplate from "./FullPostTemplate";
+import { ImageUploadButton } from "../ButtonComponent/ImageUploadButton";
+import { ImageGrid } from "../Layout/ImageGrid";
+import type { FilesWithId } from "../../types/file";
 
 type ComposeTweetProps = {
     parentId?: number;
@@ -20,7 +23,7 @@ function ComposeTweet ({parentId, setToggle, showParentPreview}: ComposeTweetPro
 
     const [textInput, setTextInput] = useState<string>("");
     const {currentUser} = useCurrentUser();
-
+    const [imagesInput, setImagesInput] = useState<FilesWithId>([]);
     const isModal = setToggle != null;
     const placeHolder = parentId ? "Tweet your reply" : "What's up?!"
 
@@ -48,9 +51,14 @@ const fromBottom = {
                     placeholder={placeHolder}
                     />
                 </div>
+                {imagesInput.length > 0 && (
+                <div className="w-full h-fit">
+                    <ImageGrid images={imagesInput} setImages={setImagesInput}/>
+                </div>
+                )}
                 <div className="flex w-full h-10 items-center">
                     <div className="flex gap-2 pl-2 items-center text-(--color-main) h-full w-full">
-                        <FaRegImage />
+                        <ImageUploadButton imagesInput={imagesInput} setImagesInput={setImagesInput}/>
                         <MdOutlineGif className="text-4xl"/>
                     </div>
                     <div className="w-full h-full justify-end flex items-center">
