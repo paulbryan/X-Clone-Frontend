@@ -52,7 +52,6 @@ export const useLikePost = (
     },
 
     onSuccess: (updatedPost) => {
-    //   queryClient.setQueryData(["post", postId], updatedPost);
       onUpdate?.(updatedPost);
 
       queryClient.invalidateQueries({ queryKey: ["post", postId] });

@@ -1,76 +1,50 @@
-import { useEffect, useState } from "react";
-import { useUserCache } from "../../context/cache/UserCacheProvider";
 import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import type { User } from "../../types/User";
+import { useFollowUser } from "../../hooks/mutations/useFollowUser";
+import { useQueryClient } from "@tanstack/react-query";
 
-type handleFollowProps = {
-    pageUser?: User | null;
+type FollowButtonProps = {
+  pageUser?: User | null;
 };
 
-function FollowButton({ pageUser }: handleFollowProps) {
-    const { currentUser } = useCurrentUser();
-    const { addToUserCache } = useUserCache();
-    const [isFollowing, setIsFollowing] = useState(false);
+function FollowButton({ pageUser }: FollowButtonProps) {
+  const { currentUser } = useCurrentUser();
+  const queryClient = useQueryClient();
 
-    useEffect(() => {
-        if (pageUser) {
-            console.log("page user followers is: " + JSON.stringify(pageUser.followers))
-        }
+  const isFollowing = pageUser?.followers.includes(currentUser?.id ?? -1) ?? false;
 
-        if (!currentUser || !pageUser) return setIsFollowing(false);
-        setIsFollowing(pageUser.followers.includes(currentUser.id));
-    }, [pageUser, currentUser]);
+  const followMutation = useFollowUser(currentUser?.id, pageUser?.id, {
+    onUpdate: (updatedFollowed) => {
+      const isNowFollowing = updatedFollowed.followers.includes(currentUser?.id ?? -1);
 
+      queryClient.setQueryData<User>(["currentUser"], (prev) => {
+        if (!prev) return prev;
 
+        const alreadyThere = prev.following.includes(pageUser!.id);
+        const following = isNowFollowing
+          ? (alreadyThere ? prev.following : [...prev.following, pageUser!.id])
+          : prev.following.filter(id => id !== pageUser!.id);
 
-    async function handleFollow() {
-        // if (!currentUser || !pageUser) return;
+        return { ...prev, following };
+      });
+    },
+  });
 
-        // const endpoint = isFollowing ? "unfollowUser" : "followUser";
+  const handleFollow = () => {
+    if (!currentUser || !pageUser || followMutation.isPending) return;
+    followMutation.mutate({ currentlyFollowing: isFollowing });
+  };
 
-        // console.log("EndPoint: " + endpoint)
-        // console.log("Current pageUser Followers: " + JSON.stringify(pageUser.followers))
-        // console.log("Is following?: " + isFollowing)
+  if (!pageUser) return null;
 
-        // try {
-        //     const res = await fetch(`http://localhost:8080/api/follows/${endpoint}`, {
-        //         method: "POST",
-        //         headers: { "Content-Type": "application/json" },
-        //         body: JSON.stringify({
-        //             followerId: currentUser.id,
-        //             followedId: pageUser.id,
-        //         }),
-        //     });
-
-        //     if (!res.ok) throw new Error("Failed follow update");
-
-        //     const updatedUser: User = await res.json();
-        //     console.log("UpdatedUser Followers: " + JSON.stringify(updatedUser.followers))
-
-        //     addToUserCache(updatedUser);
-            
-        //     setNewUser(updatedUser);
-
-        //     if (isFollowing) {
-        //         removeFromFollowing(pageUser.id);
-        //     } else {
-        //         addToFollowing(pageUser.id);
-        //     }
-
-        //     console.log("Setting isFollowing to " + !isFollowing)
-
-        // } catch (err) {
-        //     console.error("Follow error:", err);
-        // }
-    }
-
-    if (!pageUser) return null;
-
-    return (
-        <p onClick={handleFollow}>
-            {isFollowing ? "Following" : "Follow"}
-        </p>
-    );
+  return (
+    <p className="h-fit"
+      onClick={handleFollow}
+      style={{ cursor: followMutation.isPending ? "not-allowed" : "pointer", opacity: followMutation.isPending ? 0.5 : 1 }}
+    >
+      {isFollowing ? "Following" : "Follow"}
+    </p>
+  );
 }
 
 export default FollowButton;

@@ -45,8 +45,7 @@ type ProfilePageOverviewProps = {
                             {isOwnPage ? (
                                 <p>Edit Profile</p>
                             ) : (
-                                null
-                                // <FollowButton pageUser={pageUser/>
+                                <FollowButton pageUser={pageUser}/>
                             )}
                         </div>
                     </div>
