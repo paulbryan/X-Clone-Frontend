@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 
 export const useForYouFeedIds = () =>
@@ -7,7 +6,7 @@ export const useForYouFeedIds = () =>
     queryFn: async () => {
       const res = await fetch("http://localhost:8080/api/posts/getAllPostIds");
       if (!res.ok) throw new Error("Failed to fetch feed IDs");
-      return await res.json(); // assumed to be number[]
+      return await res.json();
     },
-    staleTime: 1000 * 60, // adjust as needed
+    staleTime: 1000 * 60,
   });

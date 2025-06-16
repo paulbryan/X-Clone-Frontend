@@ -11,7 +11,6 @@ import Feed from "../Layout/Feed";
 import { useModal } from "../../context/misc/ModalProvider";
 import { motion } from "framer-motion";
 import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
-import { useFeedContext } from "../../context/feed/FeedContext";
 import { useUser } from "../../hooks/useUser";
 import React, { useContext, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -41,7 +40,6 @@ type FullPostTemplateProps = {
   
     const { data: postUser, isLoading: userLoading } = useUser(post?.userId ?? -1);
     const { currentUser } = useCurrentUser();
-    const { currentUserRepostedIds } = useFeedContext();
   
     useEffect(() => {
       if (fullPost && post) {
@@ -53,7 +51,7 @@ type FullPostTemplateProps = {
 
     const {modalType, modalData, setModalType} = useModal();
 
-    const retweeted = currentUserRepostedIds.includes(postId);
+    const retweeted = currentUser?.retweets.includes(postId);
 
     const {setHeaderContent} = useContext(HeaderContentContext);
 
@@ -190,20 +188,18 @@ type FullPostTemplateProps = {
 
                 </div>
 
-
-
-
-
-
-
-
                 </div>
 
                 {fullPost && (
                     <>
                     {currentUser && (
-                    <ComposeTweet parentId={postId} parentUsername={postUser?.username}/>
-                    )}                    <Feed replyFeedParentId={postId} postIdsArray={post.replies} showAsMainPost={false}/>
+                    <ComposeTweet parentId={postId} parentUsername={postUser?.username}
+                    />
+                    )}
+                    {post.replies.length > 0 && (
+                        <Feed replyFeedParentId={postId} postIdsArray={post.replies} showAsMainPost={false}/>
+
+                    )}
                     </>
                )}
 

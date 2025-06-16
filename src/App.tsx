@@ -11,7 +11,6 @@ import { CurrentUserProvider } from './hooks/CurrentUserProvider';
 import type { User } from './types/User';
 import { UserCacheProvider } from './context/cache/UserCacheProvider';
 import { PostCacheProvider } from './context/cache/PostCacheProvider';
-import { FeedProvider } from './context/feed/FeedContext';
 import BookmarkPage from './component/Layout/BookmarkPage';
 import NotificationPage from './component/Layout/NotificationPage';
 import { PageUserProvider } from './context/currentUser/PageUserContext';
@@ -19,7 +18,6 @@ import FullPost from './component/Tweet/FullPost';
 import { HeaderContentProvider } from './context/misc/HeaderContentProvider';
 import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
 import AboutPage from './component/Layout/AboutPage';
-import { UserMediaCacheProvider } from './context/cache/UserMediaCacheProvider';
 
 
 
@@ -41,9 +39,8 @@ function App() {
         <ModalProvider>
         <UserCacheProvider>
         <PostCacheProvider>
-        <FeedProvider>
         <HeaderContentProvider>
-          <UserMediaCacheProvider>
+          
         <ModalManager />
 
         <div className="overscroll-y-contain w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
@@ -116,9 +113,7 @@ function App() {
           </div>
 
         </div>
-        </UserMediaCacheProvider>
         </HeaderContentProvider>
-        </FeedProvider>
         </PostCacheProvider>
         </UserCacheProvider>
         </ModalProvider>

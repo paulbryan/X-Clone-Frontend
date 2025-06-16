@@ -1,80 +1,52 @@
 import type { NewPost } from "../../types/NewPost";
 import type { Post } from "../../types/Post";
 import { useCurrentUser } from "../../hooks/CurrentUserProvider";
-import { useFeedContext } from "../../context/feed/FeedContext";
-import { usePostCache } from "../../context/cache/PostCacheProvider";
 import type { ModalType } from "../../types/ModalType";
 import toast from "react-hot-toast";
+import { useCreatePost } from "../../hooks/useCreatePost";
 
 type UploadTweetButtonProps = {
-    textInput: string;
-    parentId?: number;
-    setNewPost?: (post: Post) => void;
-    setToggle?: (modalType: ModalType) => void;
-}
+  textInput: string;
+  parentId?: number;
+  setNewPost?: (post: Post) => void;
+  setToggle?: (modalType: ModalType) => void;
+};
 
-function UploadTweetButton ({textInput, parentId, setNewPost, setToggle} : UploadTweetButtonProps) {
+function UploadTweetButton({
+  textInput,
+  parentId,
+  setToggle,
+}: UploadTweetButtonProps) {
+  const { currentUser } = useCurrentUser();
+  const createPost = useCreatePost();
 
-    const {currentUser} = useCurrentUser();
-    const {addToPostCache} = usePostCache();
-    const {addToForYouFeedIds, addToCurrentUserPosts, addToCurrentUserReplies} = useFeedContext();
+  const handleToastClick = () => {
+    if (!currentUser || textInput.length <= 1 || textInput.length >= 180) {
+      toast.error("Invalid input.");
+      return;
+    }
 
-    const handleToastClick = () => {
-        toast.promise(
-          composeNewPost().then((data: Post[]) => {
+    toast.loading("Posting...");
 
-            setTimeout(() => {
-                
-            }, 100)
+    const newPost: NewPost = {
+      userId: currentUser.id,
+      text: textInput,
+      parentId: parentId,
+    };
 
-            if (data.length > 1 && setNewPost) {
-              addToPostCache(data[0]);
-              addToPostCache(data[1]);
-              setNewPost(data[1]);
-              addToCurrentUserReplies(data[0].id);
-            } else {
-              addToPostCache(data[0]);
-              addToForYouFeedIds(data[0].id);
-              addToCurrentUserPosts(data[0].id);
-            }
-      
-            if (setToggle) setToggle(null);
-      
-            return data;
-          }),
-          {
-            loading: "Posting...",
-            success: "Tweet posted!",
-            error: "Failed to post tweet.",
-          },
-          {
-            position: "bottom-center",
-          }
-        );
-      };
+    createPost.mutate(newPost, {
+      onSuccess: () => {
+        toast.dismiss();
+        toast.success("Tweet posted!");
 
-
-      function composeNewPost(): Promise<Post[]> {
-        if (
-          !currentUser ||
-          textInput.length <= 1 ||
-          textInput.length >= 180
-        ) {
-          return Promise.reject("Invalid input");
-        }
-      
-        const newComposedPost: NewPost = {
-          userId: currentUser.id,
-          text: textInput,
-          parentId: parentId,
-        };
-      
-        return fetch("http://localhost:8080/api/posts/createPost", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newComposedPost),
-        }).then((res) => res.json());
-      }
+        if (setToggle) setToggle(null);
+      },
+      onError: () => {
+        toast.dismiss();
+        toast.error("Failed to post tweet.");
+      },
+    });
+  };
 
     return (
 

@@ -5,24 +5,19 @@ import { MdOutlineGif } from "react-icons/md";
 import UploadTweetButton from "../ButtonComponent/UploadTweetButton";
 import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import { useState } from "react";
-import type { NewPost } from "../../types/NewPost";
-import { usePostCache } from "../../context/cache/PostCacheProvider";
 import type { Post } from "../../types/Post";
 import type { ModalType } from "../../types/ModalType";
-import { motion } from "framer-motion";
 import FullPostTemplate from "./FullPostTemplate";
 
 type ComposeTweetProps = {
     parentId?: number;
-    parentUsername?: string;
-    setNewPost?: (post: Post) => void;
-    setToggle?: (modalType: ModalType) => void;
+    parentUsername?: string;    setToggle?: (modalType: ModalType) => void;
     showParentPreview?: boolean;
 }
 
 //TODO maybe add upper tweet
 
-function ComposeTweet ({parentId, parentUsername, setNewPost, setToggle, showParentPreview}: ComposeTweetProps) {
+function ComposeTweet ({parentId, setToggle, showParentPreview}: ComposeTweetProps) {
 
     const [textInput, setTextInput] = useState<string>("");
     const {currentUser} = useCurrentUser();
@@ -60,7 +55,7 @@ const fromBottom = {
                         <MdOutlineGif className="text-4xl"/>
                     </div>
                     <div className="w-full h-full justify-end flex items-center">
-                        <UploadTweetButton setToggle={setToggle} textInput = {textInput} parentId={parentId} setNewPost={setNewPost}/>
+                        <UploadTweetButton setToggle={setToggle} textInput = {textInput} parentId={parentId}/>
                     </div>
                 </div>
             </div>

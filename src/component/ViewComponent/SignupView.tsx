@@ -20,7 +20,7 @@ function SignupView ({ setToggle }: SignUpViewProps) {
     const [displayNameInput, setDisplayNameInput] = useState("");
     const [bioInput, setBioInput] = useState("");
 
-    const { currentUser, setCurrentUser, initializeNotifications } = useCurrentUser();
+    const { currentUser } = useCurrentUser();
 
     async function encodeImageToBase64(path: string): Promise<string> {
         const response = await fetch(path);
@@ -83,8 +83,7 @@ function SignupView ({ setToggle }: SignUpViewProps) {
           .then(res => res.json())
           .then(data => {
             console.log(data.user);
-            setCurrentUser(data);
-            initializeNotifications(data.id);
+
             setToggle(null)
           });
 

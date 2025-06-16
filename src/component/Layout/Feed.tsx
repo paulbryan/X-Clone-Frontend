@@ -1,7 +1,6 @@
 import LoadingIcon from "../UIComponent/LoadingIcon";
 import FullPostTemplate from "../Tweet/FullPostTemplate";
 import { AnimatePresence, motion } from "framer-motion";
-import { useFeedData } from "../../hooks/useFeedData";
 
 type FeedProps = {
   postIdsArray: number[];
