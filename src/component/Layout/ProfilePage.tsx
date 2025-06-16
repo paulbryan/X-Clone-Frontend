@@ -3,10 +3,7 @@ import ProfilePageOverview from "../UserInfo/ProfilePageOverview";
 import TabList from "./TabList";
 import { useParams } from "react-router-dom";
 import { useCurrentUser } from "../../hooks/CurrentUserProvider";
-import type { User } from "../../types/User";
-import { useUserCache } from "../../context/cache/UserCacheProvider";
 import Feed from "./Feed";
-import { useFeedContext } from "../../context/feed/FeedContext";
 import { HeaderContentContext } from "../../context/misc/HeaderContentProvider";
 import { useUser } from "../../hooks/useUser";
 
@@ -18,12 +15,10 @@ function ProfilePage() {
     const pageUserID = Number(ID);
   
     const { currentUser } = useCurrentUser();
-    const { setHeaderContent } = useContext(HeaderContentContext);
-    const { currentUserPostsIds, currentUserLikedIds, currentUserReplies } = useFeedContext();
+    const { setHeaderContent } = useContext(HeaderContentContext);  
+    const isOwner = currentUser && currentUser?.id === pageUserID;
   
-    const isOwner = currentUser?.id === pageUserID;
-  
-    const { data: pageUser, isLoading } = useUser(pageUserID);
+    const { data: pageUser } = useUser(pageUserID);
   
     useEffect(() => {
       if (pageUser) {
@@ -44,17 +39,17 @@ function ProfilePage() {
   
       switch (activeTab) {
         case "Tweets":
-          return isOwner ? currentUserPostsIds : pageUser.posts;
+          return isOwner ? currentUser.posts : pageUser.posts;
         case "Replies":
-          return isOwner ? currentUserReplies : pageUser.replies;
+          return isOwner ? currentUser.replies : pageUser.replies;
         case "Liked":
-          return isOwner ? currentUserLikedIds : pageUser.likedPosts;
+          return isOwner ? currentUser.likedPosts : pageUser.likedPosts;
         case "Media":
-          return []; // implement when media supported
+          return [];
         default:
           return [];
       }
-    }, [activeTab, pageUser, isOwner, currentUserPostsIds, currentUserLikedIds, currentUserReplies]);
+    }, [activeTab, pageUser, isOwner]);
 
     return (
         <div className="flex flex-col h-full w-full flex-grow overflow-y-auto">
