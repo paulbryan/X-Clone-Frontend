@@ -1,6 +1,4 @@
 import { useCurrentUser } from "../../hooks/CurrentUserProvider"
-import { usePostCache } from "../../context/cache/PostCacheProvider"
-import { useUserCache } from "../../context/cache/UserCacheProvider";
 import type { Notification } from "../../types/Notification";
 import LoadingIcon from "../UIComponent/LoadingIcon";
 import NotificationTemplate from "../Notifications/NotificationTemplate";

@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
-import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 import FollowersFollowing from "./FollowersFollowing";
 import ProfilePic from "./ProfilePic";
 import { FaRegCalendar } from "react-icons/fa6";
 import type { User } from "../../types/User";
 import BannerComponent from "./BannerComponent";
 import { useParams } from "react-router-dom";
-import { useUserCache } from "../../context/cache/UserCacheProvider";
 import UsernameComponent from "./UsernameComponent";
 import DisplayNameComponent from "./DisplayNameComponent";
 import BioComponent from "./BioComponent";
 import LoadingIcon from "../UIComponent/LoadingIcon";
 import CreatedAtDisplay from "../UIComponent/CreatedAtDisplay";
 import FollowButton from "../ButtonComponent/FollowButton";
-import { usePageUser } from "../../context/currentUser/PageUserContext";
+import { useCurrentUser } from "../../hooks/CurrentUserProvider";
 
 type ProfilePageOverviewProps = {
     pageUser?: User | null;

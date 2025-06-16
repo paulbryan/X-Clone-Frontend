@@ -3,9 +3,7 @@ import { AuthProvider, useAuth } from '../../context/currentUser/AuthProvider';
 import InputFormField from '../InputComponent/InputFormField';
 
 import type { ModalType } from '../../types/ModalType';
-import { useCurrentUser } from '../../hooks/CurrentUserProvider';
-import { UserCacheProvider } from '../../context/cache/UserCacheProvider';
-import { useQueryClient } from '@tanstack/react-query';
+
 
 type LoginViewProps = {
     setToggle: (type: ModalType) => void;

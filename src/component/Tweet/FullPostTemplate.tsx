@@ -90,7 +90,7 @@ type FullPostTemplateProps = {
 
                 <div className={`grid px-4 pt-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>    
                     
-                    {retweeted && fullPost && (
+                    {retweeted && fullPost && !mainPost && (
                         <>
                         <div>
 
