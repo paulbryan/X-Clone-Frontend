@@ -1,15 +1,17 @@
-import { useMemo, type ReactNode } from "react";
+import { useMemo, type MouseEvent, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
+import { HeroIcon, type IconName } from "../../types/HeroIcon";
 
 type InteractionButtonProps = {
-  children: ReactNode;
   numberList: number[];
   buttonColor: string;
+  mutationFunction:  () => void;
+  iconName: IconName;
 
 };
 
-function InteractionButton({ children, numberList, buttonColor }: InteractionButtonProps) {
+function InteractionButton({ numberList, buttonColor, mutationFunction, iconName }: InteractionButtonProps) {
 
   const { currentUser } = useCurrentUser();
 
@@ -20,46 +22,29 @@ function InteractionButton({ children, numberList, buttonColor }: InteractionBut
 
   const count = numberList.length;
 
+  const handleMutation = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    mutationFunction();
+  };
 
-  if (isMarked) {
-    return (
-      <div className="">
-      <div className={`h-5 flex text-${buttonColor} w-16 align-middle items-center gap-3`}>
-      {children}
-      <motion.span
-          key={count}
-          initial={{ y: isMarked ? -15 : 15, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: isMarked ? 15 : -15, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      >
-        {numberList.length}
-      </motion.span>
-      </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="h-5 flex w-16 align-middle items-center gap-3">
-        {children}
-        <motion.span
-          key={count}
-          initial={{ y: isMarked ? -15 : 15, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: isMarked ? 15 : -15, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      >
-        {numberList.length > 0 ? (
-          <>
-          {numberList.length}
-          </>
-        ) : (
-          ""
-        )}
-      </motion.span>
-      </div>
-    );
-  }
+  return (
+    <div className="">
+    <div className={`h-5 flex w-16 ${isMarked ? "text-" + buttonColor : ""} align-middle items-center gap-3`}>
+    <div onClick={(e) => handleMutation(e)}>
+      <HeroIcon iconName={iconName} solid={isMarked} className={`h-6 w-6`}/>
+    </div>      
+    <motion.span
+        key={count}
+        initial={{ y: isMarked ? -15 : 15, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: isMarked ? 15 : -15, opacity: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
+      {numberList.length}
+    </motion.span>
+    </div>
+    </div>
+  )
 }
 
 export default InteractionButton;

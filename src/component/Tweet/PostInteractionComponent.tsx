@@ -97,52 +97,45 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
     }
   });
 
+  const handleReplyModal = () => {
+    setModalType("replying")
+    setModalData(postId)
+  }
+
   
     return (
 
         <>
             <div className={`h-10 text-(--twitter-text) w-full flex items-center align-middle justify-between ${showPadding ? "py-2" : ""}`}>
 
-                <InteractionButton buttonColor="(--color-main)"  numberList={replyList}>
-                    <FaRegComment onClick={(e) => {
-                      e.stopPropagation()
-                      setModalType("replying")
-                      setModalData(postId)
-                    }}/>
-                </InteractionButton>
+              <InteractionButton 
+                iconName="ChatBubbleOvalLeftIcon"
+                buttonColor="(--twitter-blue)" 
+                numberList={replyList} 
+                mutationFunction={handleReplyModal}
+                />
 
-                <InteractionButton buttonColor="(--twitter-green)" numberList={retweetedByList}>
-                      <FaRepeat onClick={(e) => {
-                        e.stopPropagation()
-                        repostMutation.mutate({isRetweeted})}
-                      }/>
-                </InteractionButton>
+                <InteractionButton 
+                iconName="ArrowPathRoundedSquareIcon"
+                buttonColor="(--twitter-green)" 
+                numberList={retweetedByList} 
+                mutationFunction={() => repostMutation.mutate({ isRetweeted })}
+                />
 
-                <InteractionButton buttonColor="(--twitter-red)" numberList={likeList}>
-                    {isLiked ? (
-                      <FaHeart onClick={(e) => {
-                        e.stopPropagation()
-                        likeMutation.mutate({isLiked})}}/>
-                    ) : (
-                      <FaRegHeart onClick={(e) => {
-                        e.stopPropagation();
-                        likeMutation.mutate({isLiked})}
-                    }/>
-                    )}
-                </InteractionButton>
+                <InteractionButton 
+                iconName="HeartIcon"
+                buttonColor="(--twitter-red)" 
+                numberList={likeList} 
+                mutationFunction={() => likeMutation.mutate({ isLiked })}
+                />
 
-                <InteractionButton buttonColor="(--twitter-blue)" numberList={bookmarkList}>
-                  {isBookmarked ? (
-                      <FaBookmark onClick={(e) => {
-                        e.stopPropagation()
-                        bookmarkMutation.mutate({isBookmarked})}}/>
-                    ) : (
-                      <FaRegBookmark onClick={(e) => {
-                        e.stopPropagation()
-                        bookmarkMutation.mutate({isBookmarked})}
-                      }/>
-                    )}
-                </InteractionButton>
+              <InteractionButton 
+                iconName="BookmarkIcon"
+                buttonColor="(--twitter-blue)" 
+                numberList={bookmarkList} 
+                mutationFunction={() => bookmarkMutation.mutate({ isBookmarked })}
+                />
+
 
             </div>
 

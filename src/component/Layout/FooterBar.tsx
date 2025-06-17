@@ -26,6 +26,7 @@ function FooterBar () {
             <div className="h-14 w-full bg-(--background-main) absolute bottom-0 text-2xl text-white border-t border-t-(--twitter-border) flex items-center justify-around">
 
                 <div className="w-full h-full flex items-center justify-center">
+                    
                     <FaHouse className="hover:cursor-pointer" onClick={() => navigate("/")}/>
                 </div>
                 <div className="w-full h-full flex items-center justify-center">
@@ -37,7 +38,7 @@ function FooterBar () {
                             navigate("/notifications")
                         }
                     }} />
-                    {areUnread && (
+                    {currentUser && areUnread && (
                         <div className="w-4 rounded-full h-4 absolute z-40 bg-(--color-main) top-2 right-9">  </div>
                     )}
                 </div>
