@@ -31,9 +31,10 @@ function DrawerNavigationPair ( { children, name, routePath, setDrawerOpen }: Dr
     } 
 
     return (
-        <div className="flex h-16 text-2xl text-(--text-main) items-center gap-4">
-            <div 
-            onClick={() => handleNavigation()}
+        <div 
+        onClick={() => handleNavigation()}
+        className="flex h-16 text-2xl text-(--text-main) items-center gap-4">
+            <div
             className="text-3xl hover:cursor-pointer">
                 {children}
             </div>
