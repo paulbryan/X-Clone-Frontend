@@ -16,6 +16,7 @@ export const useLikePost = (
         ? "/api/likes/deleteLike"
         : "/api/likes/createLike";
 
+
       const res = await fetch(`http://localhost:8080${url}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -36,10 +37,15 @@ export const useLikePost = (
         ? previous.likedBy.filter(id => id !== currentUserId)
         : [...previous.likedBy, currentUserId!];
 
+        console.log("Current post Likes is: " + JSON.stringify(previous.likedBy))
+
       const optimisticPost: Post = {
         ...previous,
         likedBy: newLikedBy,
       };
+
+      console.log("Optimistic post Likes is: " + JSON.stringify(optimisticPost.likedBy))
+
 
       queryClient.setQueryData(["post", postId], optimisticPost);
       return { previous };
@@ -53,7 +59,6 @@ export const useLikePost = (
 
     onSuccess: (updatedPost) => {
       onUpdate?.(updatedPost);
-
       queryClient.invalidateQueries({ queryKey: ["post", postId] });
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     },

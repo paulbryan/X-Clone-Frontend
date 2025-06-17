@@ -1,7 +1,6 @@
 import { FaRegComment, FaRegHeart, FaRegBookmark, FaHeart } from "react-icons/fa";
 import { FaBookmark, FaRepeat } from "react-icons/fa6";
 import InteractionButton from "../ButtonComponent/InteractionButton";
-
 import { useModal } from "../../context/GlobalState/ModalProvider";
 import { useLikePost } from "../../hooks/mutations/useLikePost";
 import { useBookmarkPost } from "../../hooks/mutations/useBookmarkPost";
@@ -9,25 +8,32 @@ import { useRepostPost } from "../../hooks/mutations/useRepostPost";
 import type { User } from "../../types/User";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
+import { useEffect } from "react";
+import { usePost } from "../../hooks/queries/usePost";
 type PostInteractionComponentProps = {
     postId: number;
-    likeList: number[];
-    bookmarkList: number[];
-    replyList: number[];
-    retweetedByList: number[];
     showPadding?: boolean;
 }
 
-function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList, replyList, retweetedByList} : PostInteractionComponentProps) {
+function PostInteractionComponent ({postId, showPadding} : PostInteractionComponentProps) {
 
   const { currentUser } = useCurrentUser();
   const queryClient = useQueryClient();
 
-  const { setModalType, setModalData } = useModal();
 
-  const isLiked = likeList.includes(currentUser?.id ?? -1);
-  const isBookmarked = bookmarkList.includes(currentUser?.id ?? -1);
-  const isRetweeted = retweetedByList.includes(currentUser?.id ?? -1);
+
+  const { setModalType, setModalData } = useModal();
+  const { data: post } = usePost(postId);
+  
+  const likeList = post?.likedBy ?? [];
+  const bookmarkList = post?.bookmarkedBy ?? [];
+  const replyList = post?.replies ?? [];
+  const retweetedByList = post?.retweetedBy ?? [];
+
+  const isLiked = likeList?.includes(currentUser?.id ?? -1);
+  const isBookmarked = bookmarkList?.includes(currentUser?.id ?? -1);
+  const isRetweeted = retweetedByList?.includes(currentUser?.id ?? -1);
+
 
   const likeMutation = useLikePost(postId, currentUser?.id, {
     onUpdate: (updatedPost) => {
@@ -35,12 +41,12 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
     
       queryClient.setQueryData<User>(["currentUser"], (prev) => {
         if (!prev) return prev;
-    
+        
         const alreadyThere = prev.likedPosts.includes(postId);
         const likedPosts = isNowLiked
           ? (alreadyThere ? prev.likedPosts : [...prev.likedPosts, postId])
           : prev.likedPosts.filter(id => id !== postId);
-    
+        console.log("LikedPosts: " + likedPosts)
         return { ...prev, likedPosts };
       });
     }
@@ -67,6 +73,12 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
       });
     }
   });
+
+  useEffect(() => {
+    if (postId == 14) {
+      console.log("Curruser is now: " + currentUser)
+    }
+  }, [postId, currentUser]) 
 
   const repostMutation = useRepostPost(postId, currentUser?.id, {
     onUpdate: (updatedPost) => {
@@ -99,38 +111,22 @@ function PostInteractionComponent ({postId, showPadding, likeList, bookmarkList,
                 </InteractionButton>
 
                 <InteractionButton buttonColor="(--twitter-green)" numberList={retweetedByList}>
-                    {isRetweeted ? (
-                      <>
                       <FaRepeat onClick={() => repostMutation.mutate({isRetweeted})}/>
-                      </>
-                    ) : (
-                      <>
-                      <FaRepeat onClick={() => repostMutation.mutate({isRetweeted})}/>
-                      </>
-                    )}
                 </InteractionButton>
 
-                <InteractionButton buttonColor="(--twitter-red)"  numberList={likeList}>
+                <InteractionButton buttonColor="(--twitter-red)" numberList={likeList}>
                     {isLiked ? (
-                      <>
                       <FaHeart onClick={() => likeMutation.mutate({isLiked})}/>
-                      </>
                     ) : (
-                      <>
                       <FaRegHeart onClick={() => likeMutation.mutate({isLiked})}/>
-                      </>
                     )}
                 </InteractionButton>
 
                 <InteractionButton buttonColor="(--twitter-blue)" numberList={bookmarkList}>
                   {isBookmarked ? (
-                      <>
                       <FaBookmark onClick={() => bookmarkMutation.mutate({isBookmarked})}/>
-                      </>
                     ) : (
-                      <>
                       <FaRegBookmark onClick={() => bookmarkMutation.mutate({isBookmarked})}/>
-                      </>
                     )}
                 </InteractionButton>
 

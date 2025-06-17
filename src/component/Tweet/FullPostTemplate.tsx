@@ -185,11 +185,7 @@ type FullPostTemplateProps = {
                     <div className={`w-full  text-lg border-(--twitter-border)`}>
                     <PostInteractionComponent
                         showPadding={mainPost && fullPost && true}
-                        retweetedByList={post.retweetedBy}
                         postId={post.id}
-                        likeList={post.likedBy}
-                        bookmarkList={post.bookmarkedBy}
-                        replyList={post.replies}
                     />
                     </div> 
                 ) : (
