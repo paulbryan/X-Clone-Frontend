@@ -80,7 +80,7 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
                     <div className="text-(--twitter-text) max-h-32">
                         <p onClick={() => navigateFromNotification()}>
 
-                            {notification.text.slice(0, 20)}{notification.text.length > 20 ? "..." : ""}
+                            {notification.text.slice(0, 30)}{notification.text.length > 30 ? "..." : ""}
                         </p>
                     </div>
                 </div>
