@@ -72,6 +72,12 @@ type FullPostTemplateProps = {
 
     const navigate = useNavigate();
 
+    const navigateToPost = () => {
+        if (!fullPost) {
+            navigate("/tweet/" + postId)
+        }
+    }
+
 
     return (
 
@@ -80,7 +86,7 @@ type FullPostTemplateProps = {
         {post && (
             <>
             {/* check this out do i need border //TODO*/}
-            <div className={`flex flex-col w-full border-gray-700 ${!showLine || (!mainPost && fullPost) ? "border-b pb-1" : ""}`}>
+            <div onClick={() => navigateToPost()} className={`flex flex-col w-full border-gray-700 ${!showLine || (!mainPost && fullPost) ? "border-b pb-1" : ""}`}>
 
 
             {mainPost && post.parentId && (
@@ -90,7 +96,7 @@ type FullPostTemplateProps = {
                 />
                 )}
 
-                <div className={`grid px-4 pt-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>    
+                <div className={`grid ${!fullPost && "hover:cursor-pointer hover:bg-(--twitter-text)/20"} px-4 pt-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>    
                     
                     {retweeted && fullPost && !mainPost && (
                         <>

@@ -104,29 +104,43 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
             <div className={`h-10 text-(--twitter-text) w-full flex items-center align-middle justify-between ${showPadding ? "py-2" : ""}`}>
 
                 <InteractionButton buttonColor="(--color-main)"  numberList={replyList}>
-                    <FaRegComment onClick={() => {
+                    <FaRegComment onClick={(e) => {
+                      e.stopPropagation()
                       setModalType("replying")
                       setModalData(postId)
                     }}/>
                 </InteractionButton>
 
                 <InteractionButton buttonColor="(--twitter-green)" numberList={retweetedByList}>
-                      <FaRepeat onClick={() => repostMutation.mutate({isRetweeted})}/>
+                      <FaRepeat onClick={(e) => {
+                        e.stopPropagation()
+                        repostMutation.mutate({isRetweeted})}
+                      }/>
                 </InteractionButton>
 
                 <InteractionButton buttonColor="(--twitter-red)" numberList={likeList}>
                     {isLiked ? (
-                      <FaHeart onClick={() => likeMutation.mutate({isLiked})}/>
+                      <FaHeart onClick={(e) => {
+                        e.stopPropagation()
+                        likeMutation.mutate({isLiked})}}/>
                     ) : (
-                      <FaRegHeart onClick={() => likeMutation.mutate({isLiked})}/>
+                      <FaRegHeart onClick={(e) => {
+                        e.stopPropagation();
+                        likeMutation.mutate({isLiked})}
+                    }/>
                     )}
                 </InteractionButton>
 
                 <InteractionButton buttonColor="(--twitter-blue)" numberList={bookmarkList}>
                   {isBookmarked ? (
-                      <FaBookmark onClick={() => bookmarkMutation.mutate({isBookmarked})}/>
+                      <FaBookmark onClick={(e) => {
+                        e.stopPropagation()
+                        bookmarkMutation.mutate({isBookmarked})}}/>
                     ) : (
-                      <FaRegBookmark onClick={() => bookmarkMutation.mutate({isBookmarked})}/>
+                      <FaRegBookmark onClick={(e) => {
+                        e.stopPropagation()
+                        bookmarkMutation.mutate({isBookmarked})}
+                      }/>
                     )}
                 </InteractionButton>
 

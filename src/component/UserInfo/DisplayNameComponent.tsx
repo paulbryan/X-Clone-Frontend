@@ -1,14 +1,28 @@
+import { useNavigate } from "react-router-dom";
 import type { User } from "../../types/User";
 
 type DisplayNameComponentProps = {
     user?: User | null;
+    disableNavigation?: boolean;
   };
 
-function DisplayNameComponent ({user}:DisplayNameComponentProps) {
+function DisplayNameComponent ({user, disableNavigation}:DisplayNameComponentProps) {
+
+    const navigate = useNavigate();
+
+    const navigateToProfile = (e: React.MouseEvent<HTMLParagraphElement>): void => {
+        if (user && !disableNavigation) {
+          e.stopPropagation();
+          navigate("profile/" + user.id);
+        }
+      }
+
+      const hoverDisplay = !disableNavigation ? "hover:cursor-pointer hover:underline" : "";
+
 
     if (user && user.displayName) {
         return (
-            <p>{user.displayName}</p>
+            <p className={hoverDisplay} onClick={(e) => navigateToProfile(e)}>{user.displayName}</p>
         )
     } else if (user) {
         return null;
