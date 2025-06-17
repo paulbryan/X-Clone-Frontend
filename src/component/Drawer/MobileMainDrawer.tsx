@@ -80,7 +80,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                         <CiUser/>
                     </DrawerNavigationPair>
 
-                    <DrawerNavigationPair name={"Notifications"} setDrawerOpen={setDrawerOpen}>
+                    <DrawerNavigationPair name={"Notifications"} routePath="/notifications" setDrawerOpen={setDrawerOpen}>
                         <CiBellOn/>
                     </DrawerNavigationPair>
 
