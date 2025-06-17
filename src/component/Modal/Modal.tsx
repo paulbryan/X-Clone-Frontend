@@ -1,22 +1,11 @@
 import type { ReactNode} from "react";
 import type { ModalType } from "../../types/ModalType";
 import { motion } from "framer-motion";
+import { backdropMotionProps, modalMotionProps } from "../../lib/animations/motionAnimations";
 
 type ModalProps = {
     children: ReactNode;
     setToggle: (type: ModalType) => void;
-  };
-
-  const backdropVariant = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 }
-  };
-  
-  const modalVariant = {
-    initial: { opacity: 0, scale: 0.95 },
-    animate: { opacity: 1, scale: 1, transition: { type: "spring", bounce: 0.3 } },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } }
   };
   
   function Modal({ children, setToggle }: ModalProps) {
@@ -24,19 +13,13 @@ type ModalProps = {
     <motion.div
       key="backdrop"
       className="w-full z-10 h-full top-0 pt-16 px-4 fixed backdrop-blur-sm flex justify-center items-start bg-black/40"
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={backdropVariant}
+      {...backdropMotionProps}
       onClick={() => setToggle(null)}
     >
       <motion.div
         key="modal"
         className="w-full h-fit"
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={modalVariant}
+        {...modalMotionProps}
         onClick={(e) => e.stopPropagation()}
       >
         {children}

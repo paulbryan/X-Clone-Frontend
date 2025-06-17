@@ -28,7 +28,7 @@ function HomePage () {
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
             </div>
             )}
-            <div className="h-full flex grow w-full overflow-y-auto mb-14">
+            <div className="h-full flex grow w-full overflow-y-auto">
                 <Feed key={activeTab} postIdsArray={forYouFeedIds}/>
             </div>
         </div>
