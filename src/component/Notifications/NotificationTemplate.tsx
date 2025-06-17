@@ -22,11 +22,17 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
 
         switch (notification.type) {
 
-            case "like" : 
+            case "like" :
             return "liked your post";
             
             case "follow" :
             return "followed you";
+
+            case "repost" : 
+            return "reposted your post";
+            
+            case "reply" :
+            return "replied to your post";
 
         } 
 
