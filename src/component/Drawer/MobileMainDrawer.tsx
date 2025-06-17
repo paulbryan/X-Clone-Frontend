@@ -6,9 +6,10 @@ import { useEffect, type Dispatch, type SetStateAction } from "react";
 import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import UsernameComponent from "../UserInfo/UsernameComponent";
 import DisplayNameComponent from "../UserInfo/DisplayNameComponent";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useModal } from "../../context/GlobalState/ModalProvider";
+import { HeroIcon } from "../../types/HeroIcon";
 
 type MobileMainDrawerProps = {
     setDrawerOpen:Dispatch<SetStateAction<boolean>>
@@ -16,7 +17,7 @@ type MobileMainDrawerProps = {
 
 function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
-
+    const location = useLocation();
     const {setModalType} = useModal();
     const {currentUser} = useCurrentUser();
     const drawerVariant = {
@@ -73,33 +74,33 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                 <div className="flex w-full h-fit flex-col py-2">
 
                     <DrawerNavigationPair name={"Home"} routePath="/" setDrawerOpen={setDrawerOpen}>
-                        <CiHome/>
+                        <HeroIcon iconName="HomeIcon" className="h-7 w-7" solid={location.pathname === `/`}/>
                     </DrawerNavigationPair>
 
                     <DrawerNavigationPair name={"Profile"} routePath={`/profile/${currentUser?.id}`} setDrawerOpen={setDrawerOpen}>
-                        <CiUser/>
+                        <HeroIcon iconName="UserIcon" className="h-7 w-7" solid={location.pathname === `/profile/${currentUser?.id}`}/>
                     </DrawerNavigationPair>
 
                     <DrawerNavigationPair name={"Notifications"} routePath="/notifications" setDrawerOpen={setDrawerOpen}>
-                        <CiBellOn/>
+                        <HeroIcon iconName="BellIcon" className="h-7 w-7" solid={location.pathname === `/notifications`}/>
                     </DrawerNavigationPair>
 
                     <DrawerNavigationPair name={"Bookmarks"} routePath="/bookmarks" setDrawerOpen={setDrawerOpen}>
-                        <CiBookmark/>
+                        <HeroIcon iconName="BookmarkIcon" className="h-7 w-7" solid={location.pathname === `/bookmarks`}/>
                     </DrawerNavigationPair>
 
                     <DrawerNavigationPair name={"About"} routePath="/about" setDrawerOpen={setDrawerOpen}>
-                        <CiCircleQuestion/>
+                        <HeroIcon iconName="QuestionMarkCircleIcon" className="h-7 w-7" solid={false}/>
                     </DrawerNavigationPair>
 
                     <div onClick={() => setModalType("changeColor")}>
                         <DrawerNavigationPair name={"Set Theme"} >
-                            <CiPickerHalf/>
+                        <HeroIcon iconName="PaintBrushIcon" className="h-7 w-7" solid={false}/>
                         </DrawerNavigationPair>
                     </div>
 
                     <DrawerNavigationPair name={"Log Out"} setDrawerOpen={setDrawerOpen}>
-                        <CiPower/>
+                        <HeroIcon iconName="PowerIcon" className="h-7 w-7" solid={false}/>
                     </DrawerNavigationPair>
 
                 </div>
