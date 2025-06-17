@@ -1,4 +1,3 @@
-import type { NewPost } from "../../types/NewPost";
 import type { Post } from "../../types/Post";
 import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import type { ModalType } from "../../types/ModalType";

@@ -1,6 +1,5 @@
 import FollowersFollowing from "../UserInfo/FollowersFollowing";
 import ProfilePic from "../UserInfo/ProfilePic";
-import {CiHome, CiUser, CiBookmark, CiBellOn, CiCircleQuestion, CiPower, CiPickerHalf } from "react-icons/ci";
 import DrawerNavigationPair from "./DrawerNavigationPair";
 import { useEffect, type Dispatch, type SetStateAction } from "react";
 import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";

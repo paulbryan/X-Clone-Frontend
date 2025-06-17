@@ -1,4 +1,4 @@
-import { useMemo, type MouseEvent, type ReactNode } from "react";
+import { useMemo, type MouseEvent } from "react";
 import { motion } from "framer-motion";
 import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import { HeroIcon, type IconName } from "../../types/HeroIcon";

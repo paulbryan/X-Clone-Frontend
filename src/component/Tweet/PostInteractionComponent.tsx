@@ -1,5 +1,4 @@
-import { FaRegComment, FaRegHeart, FaRegBookmark, FaHeart } from "react-icons/fa";
-import { FaBookmark, FaRepeat } from "react-icons/fa6";
+
 import InteractionButton from "../ButtonComponent/InteractionButton";
 import { useModal } from "../../context/GlobalState/ModalProvider";
 import { useLikePost } from "../../hooks/mutations/useLikePost";
