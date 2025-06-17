@@ -21,8 +21,8 @@ function Feed({ postIdsArray, showAsMainPost }: FeedProps) {
                     <motion.div
                       key={id}
                       initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
-                      exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
+                      animate={{ opacity: 1, y: 0, transition: { duration: 1.8 } }}
+                      exit={{ opacity: 0, y: -10, transition: { duration: 0.8 } }}
                       layout
                     >
                       <FullPostTemplate mainPost={showAsMainPost} postId={id} />
