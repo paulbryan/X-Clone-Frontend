@@ -9,12 +9,10 @@ type ColorCircleButtonProps = {
 
 function ColorCircleButton ({color, currentColor, setCurrentTheme}: ColorCircleButtonProps) {
 
-
-
     return (
         <>
         {currentColor == color ? (
-            <div 
+        <div 
             style={{ backgroundColor: `${color}` }}
             className="w-12 h-12 rounded-full border border-(--twitter-text)">
 

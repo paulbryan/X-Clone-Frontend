@@ -88,14 +88,6 @@ type FullPostTemplateProps = {
             {/* check this out do i need border //TODO*/}
             <div onClick={() => navigateToPost()} className={`flex flex-col w-full border-gray-700 ${!showLine || (!mainPost && fullPost) ? "border-b pb-1" : ""}`}>
 
-
-            {mainPost && post.parentId && (
-                <FullPostTemplate
-                    postId={post.parentId}
-                    showLine={true}
-                />
-                )}
-
                 <div className={`grid ${!fullPost && "hover:cursor-pointer hover:bg-(--twitter-text)/20"} px-4 pt-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>    
                     
                     {retweeted && fullPost && !mainPost && (
@@ -205,19 +197,6 @@ type FullPostTemplateProps = {
                 </div>
 
                 </div>
-
-                {fullPost && (
-                    <>
-                    {currentUser && (
-                    <ComposeTweet parentId={postId} parentUsername={postUser?.username}
-                    />
-                    )}
-                    {post.replies.length > 0 && (
-                        <Feed postIdsArray={post.replies} showAsMainPost={false}/>
-
-                    )}
-                    </>
-               )}
 
                 {modalType == "replying" && modalData == postId && !modalReplyChild && (
               <motion.div 
