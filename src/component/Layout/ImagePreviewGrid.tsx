@@ -11,7 +11,7 @@ export function ImagePreviewGrid({ mediaIds }: { mediaIds: number[] }) {
     const gridRows = total <= 2 ? "grid-rows-1" : "grid-rows-2";
   
     return (
-      <div className={cn("w-full max-w-[400px]", gridHeightClass)}>
+      <div className={cn("w-full my-2 max-w-[400px]", gridHeightClass)}>
         <div
           className={cn(
             "grid w-full h-full gap-2 overflow-hidden rounded-2xl",

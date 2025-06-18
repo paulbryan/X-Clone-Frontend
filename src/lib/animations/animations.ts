@@ -1,16 +1,16 @@
 import type { Variants } from "framer-motion";
 
 export const fadeInUpLong: Variants = {
-  initial: { opacity: 0, y: 10 },
+  initial: { opacity: 0, y: 0 },
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 1.8 }
+    transition: { duration: 1.2 }
   },
   exit: {
     opacity: 0,
     y: -10,
-    transition: { duration: 0.8 }
+    transition: { duration: 1.2 }
   }
 };
 

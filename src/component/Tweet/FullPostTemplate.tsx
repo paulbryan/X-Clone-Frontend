@@ -90,7 +90,7 @@ type FullPostTemplateProps = {
                     
                     <div className="flex flex-col">
                     <PostUserCard postId={postId} postUserId={postUser?.id} fullPost={mainPost}/>
-                    {fullPost && (<ReplyingTo parentId={post.parentId} postUserId={postUser?.id}/>)}
+                    {/* {fullPost && (<ReplyingTo parentId={post.parentId} postUserId={postUser?.id}/>)} */}
 
                     </div> 
                     {!fullPost && (
@@ -99,11 +99,15 @@ type FullPostTemplateProps = {
                     </div>
                     )}
                 </div>
-                {!fullPost && (<ReplyingTo adjustGridCol={true} parentId={post.parentId} postUserId={postUser?.id}/>)} 
+                {mainPost && <div></div>}
+                {/* {mainPost && (<ReplyingTo adjustGridCol={true} parentId={post.parentId} postUserId={postUser?.id}/>)}  */}
                 
-                {fullPost && (
-                    <div className={`text-(--text-main) col-span-2 whitespace-pre-line break-words pl-2 text-xl my-2`}>
+                {mainPost && (
+                    <div className="pl-2 col-span-2 flex flex-col gap-2 my-2">
+                        {mainPost && (<ReplyingTo adjustGridCol={false} parentId={post.parentId} postUserId={postUser?.id}/>)}                    
+                    <div className={`text-(--text-main) col-span-2 whitespace-pre-line break-words text-xl`}>
                     <p className="">{post.text}</p>
+                    </div>
                     </div> 
                 )}
 
