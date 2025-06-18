@@ -105,7 +105,7 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
     return (
 
         <>
-            <div className={`h-10 text-(--twitter-text) w-full flex items-center align-middle justify-between ${showPadding ? "py-2" : ""}`}>
+            <div className={`h-fit text-(--twitter-text) w-full flex items-center border-(--twitter-border) py-3 align-middle ${showPadding ? " justify-around border-y my-4" : " justify-between"}`}>
 
               <InteractionButton 
                 iconName="ChatBubbleOvalLeftIcon"

@@ -37,12 +37,7 @@ type FullPostTemplateProps = {
     const { data: postUser } = useUser(post?.userId ?? -1);
     const { currentUser } = useCurrentUser();
   
-    useEffect(() => {
-      if (fullPost && post) {
-        setHeaderContent(<p>{post.parentId ? "Thread" : "Tweet"}</p>);
-        console.log("Post in render:", post.bookmarkedBy);
-      }
-    }, [fullPost, post]);
+
 
     useEffect(() => {
         if (post && post.id == 47) {
@@ -55,8 +50,6 @@ type FullPostTemplateProps = {
     const {modalType, modalData, setModalType} = useModal();
 
     const retweeted = currentUser?.retweets.includes(postId);
-
-    const {setHeaderContent} = useContext(HeaderContentContext);
 
     const navigate = useNavigate();
 
@@ -73,6 +66,7 @@ type FullPostTemplateProps = {
         <>
         {post && (
             <>
+            {/* check this out do i need border //TODO*/}
             <div onClick={() => navigateToPost()} className={`flex flex-col w-full border-gray-700 ${!showLine || (!mainPost && fullPost) ? "border-b pb-1" : ""}`}>
 
                 <div className={`grid ${!fullPost && "hover:cursor-pointer hover:bg-(--twitter-text)/20"} px-4 pt-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>    
@@ -81,6 +75,7 @@ type FullPostTemplateProps = {
                         <YouReposted reposterId={currentUser?.id}/>
                     )}
                 
+                {/* LEFT COLUMN: Profile Pic */}
                 <div className="relative w-12 flex justify-center">
                     <div className="w-12 h-12">
                         <ProfilePic userId={postUser?.id} />
@@ -127,7 +122,7 @@ type FullPostTemplateProps = {
                 )}
                 
                 {!modalReplyChild ? (
-                    <div className={`w-full  text-lg border-(--twitter-border)`}>
+                    <div className={`w-full ${mainPost ? "col-span-2" : ""}  text-lg border-(--twitter-border)`}>
                     <PostInteractionComponent
                         showPadding={mainPost && fullPost && true}
                         postId={post.id}

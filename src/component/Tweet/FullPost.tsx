@@ -4,6 +4,8 @@ import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import { usePost } from "../../hooks/queries/usePost";
 import ComposeTweet from "./ComposeTweet";
 import Feed from "../Layout/Feed";
+import { useContext, useEffect } from "react";
+import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider";
 
 function FullPost() {
   const { postId } = useParams();
@@ -15,7 +17,14 @@ function FullPost() {
   }
 
   const { data: post } = usePost(parseInt(postId));
-  
+
+  const {setHeaderContent} = useContext(HeaderContentContext);
+  useEffect(() => {
+    if (post) {
+      setHeaderContent(<p>{post.parentId ? "Thread" : "Tweet"}</p>);
+      console.log("Post in render:", post.bookmarkedBy);
+    }
+  }, [post]);
 
   return (
     <div className="flex flex-col w-full text-white">
