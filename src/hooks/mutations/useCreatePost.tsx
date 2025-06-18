@@ -19,7 +19,9 @@ export const useCreatePost = () => {
 
       if (variables instanceof FormData && variables.get("parentId")) {
         const parentId = variables.get("parentId");
-        queryClient.invalidateQueries({ queryKey: ["post", Number(parentId)] });
+        console.log("Parent id is" + parentId)
+        queryClient.invalidateQueries({ queryKey: ["post", Number(parentId)] })
+        ;
       }
     },
   });
