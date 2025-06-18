@@ -71,7 +71,7 @@ type FullPostTemplateProps = {
 
                 <div className={`grid ${!fullPost && "hover:cursor-pointer hover:bg-(--twitter-text)/20"} px-4 pt-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>    
                     
-                    {retweeted && fullPost && (
+                    {retweeted && !fullPost && (
                         <YouReposted reposterId={currentUser?.id}/>
                     )}
                 
