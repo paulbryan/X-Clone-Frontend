@@ -1,10 +1,11 @@
 import type { FC } from "react";
 import type { Dispatch, SetStateAction } from "react";
+import type { FeedType } from "../../types/FeedType";
 
 interface TabButtonProps {
-  tab: string;
+  tab: FeedType;
   activeTab: string;
-  setActiveTab: Dispatch<SetStateAction<string>>
+  setActiveTab: Dispatch<SetStateAction<FeedType>>
 }
 
 const TabButton: FC<TabButtonProps> = ({ tab, setActiveTab, activeTab }) => {

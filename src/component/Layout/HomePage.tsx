@@ -3,21 +3,29 @@ import TabList from "./TabList";
 import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import Feed from "./Feed";
 import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider";
-import { useForYouFeedIds } from "../../hooks/queries/useForYouFeed";
+import { useInfiniteFeed } from "../../hooks/queries/useInfiniteFeed";
+import type { FeedType } from "../../types/FeedType";
 
 function HomePage () {
 
-    const tabs = ["For You", "Following"];
-    const [activeTab, setActiveTab] = useState("For You");
+    const tabs : FeedType[] = ["foryou", "following"];
+    const [activeTab, setActiveTab] = useState<FeedType>("foryou");
     const {currentUser} = useCurrentUser();
     const {setHeaderContent} = useContext(HeaderContentContext);
 
-    const { data: forYouFeedIds = [], isLoading } = useForYouFeedIds();
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isLoading,
+      } = useInfiniteFeed ("foryou", currentUser?.id);
+      
+    const postIds = data?.pages.flatMap((page) => page.posts) ?? [];
 
     useEffect(() => {
         setHeaderContent(null);
     }, [])
-
 
     return (
 
@@ -29,7 +37,7 @@ function HomePage () {
             </div>
             )}
             <div className="h-full flex grow w-full overflow-y-auto">
-                <Feed key={activeTab} postIdsArray={forYouFeedIds}/>
+                <Feed fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} key={activeTab} postIdsArray={postIds}/>
             </div>
         </div>
 

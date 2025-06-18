@@ -6,10 +6,12 @@ import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import Feed from "./Feed";
 import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider";
 import { useUser } from "../../hooks/queries/useUser";
+import { useInfiniteFeed } from "../../hooks/queries/useInfiniteFeed";
+import type { FeedType } from "../../types/FeedType";
 
 function ProfilePage() {
-    const tabs = ["Tweets", "Replies", "Liked", "Media"];
-    const [activeTab, setActiveTab] = useState("Tweets");
+    const tabs : FeedType[] = ["tweets", "replies", "liked", "media"];
+    const [activeTab, setActiveTab] = useState<FeedType>("tweets");
   
     const { ID } = useParams();
     const pageUserID = Number(ID);
@@ -19,6 +21,16 @@ function ProfilePage() {
     const isOwner = currentUser && currentUser?.id === pageUserID;
   
     const { data: pageUser } = useUser(pageUserID);
+
+    const {
+      data,
+      fetchNextPage,
+      hasNextPage,
+      isFetchingNextPage,
+      isLoading,
+    } = useInfiniteFeed (activeTab, currentUser?.id);
+
+    const postIds = data?.pages.flatMap((page) => page.posts) ?? [];
   
     useEffect(() => {
       if (pageUser) {
@@ -34,22 +46,6 @@ function ProfilePage() {
       }
     }, [pageUser]);
   
-    const postIdsToRender = useMemo(() => {
-      if (!pageUser) return [];
-  
-      switch (activeTab) {
-        case "Tweets":
-          return isOwner ? currentUser.posts : pageUser.posts;
-        case "Replies":
-          return isOwner ? currentUser.replies : pageUser.replies;
-        case "Liked":
-          return isOwner ? currentUser.likedPosts : pageUser.likedPosts;
-        case "Media":
-          return [];
-        default:
-          return [];
-      }
-    }, [activeTab, pageUser, isOwner]);
 
     return (
         <div className="flex flex-col h-full w-full flex-grow overflow-y-auto">
@@ -60,7 +56,7 @@ function ProfilePage() {
             </div>
 
             <div className="mb-14">
-                <Feed showAsMainPost={false} key={activeTab} postIdsArray={postIdsToRender} />
+                <Feed showAsMainPost={false} key={activeTab} postIdsArray={postIds} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} />
             </div>        
         </div>
     );
