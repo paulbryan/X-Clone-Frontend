@@ -22,6 +22,7 @@ type FullPostTemplateProps = {
     showLine?: boolean;
     modalReplyChild?: boolean;
     mainPost?: boolean;
+    feedPost? : boolean;
   };
   
   function FullPostTemplate({
@@ -30,6 +31,7 @@ type FullPostTemplateProps = {
     fullPost,
     showLine,
     modalReplyChild,
+    feedPost
   }: FullPostTemplateProps) {
 
     const { data: post } = usePost(postId);
@@ -68,6 +70,13 @@ type FullPostTemplateProps = {
             <>
             {/* check this out do i need border //TODO*/}
             <div onClick={() => navigateToPost()} className={`flex flex-col w-full border-gray-700 ${!showLine || (!mainPost && fullPost) ? "border-b pb-1" : ""}`}>
+
+                {post.parentId && feedPost && (
+                    <FullPostTemplate
+                    postId={post.parentId}
+                    showLine={true}
+                    />
+                )}
 
                 <div className={`grid ${!fullPost && "hover:cursor-pointer hover:bg-(--twitter-text)/20"} px-4 pt-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>    
                     

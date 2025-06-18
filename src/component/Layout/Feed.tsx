@@ -13,11 +13,12 @@ type FeedProps = {
   fetchNextPage?: () => void;
   hasNextPage?: boolean;
   isFetchingNextPage?: boolean;
+  feedPost?: boolean;
 };
 
 //TODO fix isready logic
 
-function Feed({ postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetchingNextPage }: FeedProps) {
+function Feed({ postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetchingNextPage,feedPost }: FeedProps) {
   const isReady = postIdsArray.length > 0;
 
   const { ref, inView } = useInView();
@@ -30,20 +31,18 @@ function Feed({ postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetc
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  
-
       return (
         <div className="w-full flex flex-col">
           {isReady ? (
             <>
               <AnimatePresence mode="popLayout">
-                <div className="flex flex-col-reverse w-full">
-              <LoadMoreForFeed triggerRef={ref}/>
-                {postIdsArray.map((id) => (
+                <div className="flex flex-col w-full" key="feed-wrapper">
+                  {postIdsArray.map((id) => (
                     <motion.div key={id} {...fadeInFeedMotionProps}>
-                      <FullPostTemplate mainPost={showAsMainPost} postId={id} />
+                      <FullPostTemplate mainPost={showAsMainPost} postId={id} feedPost={feedPost}/>
                     </motion.div>
                   ))}
+                  <LoadMoreForFeed triggerRef={ref} />
                 </div>
               </AnimatePresence>
               </> 

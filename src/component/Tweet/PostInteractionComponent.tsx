@@ -46,17 +46,20 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
           ? (alreadyThere ? prev.likedPosts : [...prev.likedPosts, postId])
           : prev.likedPosts.filter(id => id !== postId);
         console.log("LikedPosts: " + likedPosts)
+
         return { ...prev, likedPosts };
       });
+      if (!isNowLiked) {
+        queryClient.invalidateQueries({
+          queryKey: ["feed", "liked", currentUser?.id],
+        });
+      }
     }
   });
 
   const bookmarkMutation = useBookmarkPost(postId, currentUser?.id, {
     onUpdate: (updatedPost) => {
       const isNowBookmarked = updatedPost.bookmarkedBy.includes(currentUser?.id ?? -1);
-      console.log("Updated user: " + JSON.stringify(currentUser))
-      console.log("Updated post: " + JSON.stringify(updatedPost))
-      console.log("IsnowBookmarked? " + isNowBookmarked) 
       queryClient.setQueryData<User>(["currentUser"], (prev) => {
         if (!prev) return prev;
     
@@ -70,6 +73,11 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
 
         return { ...prev, bookmarkedPosts };
       });
+      if (!isNowBookmarked) {
+        queryClient.invalidateQueries({
+          queryKey: ["feed", "bookmarks", currentUser?.id],
+        });
+      }
     }
   });
 

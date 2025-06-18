@@ -45,7 +45,7 @@ function FullPost() {
           )}
           
           {post && post.replies.length > 0 && (
-            <Feed postIdsArray={post.replies} showAsMainPost={false}/>
+            <Feed key={post.replies.length} postIdsArray={post.replies} showAsMainPost={false}/>
 
           )}
         </>

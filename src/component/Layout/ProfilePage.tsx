@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { act, useContext, useEffect, useMemo, useState } from "react";
 import ProfilePageOverview from "../UserInfo/ProfilePageOverview";
 import TabList from "./TabList";
 import { useParams } from "react-router-dom";
@@ -28,7 +28,7 @@ function ProfilePage() {
       hasNextPage,
       isFetchingNextPage,
       isLoading,
-    } = useInfiniteFeed (activeTab, currentUser?.id);
+    } = useInfiniteFeed (activeTab, pageUser?.id);
 
     const postIds = data?.pages.flatMap((page) => page.posts) ?? [];
   
@@ -56,7 +56,7 @@ function ProfilePage() {
             </div>
 
             <div className="mb-14">
-                <Feed showAsMainPost={false} key={activeTab} postIdsArray={postIds} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} />
+                <Feed showAsMainPost={false} key={activeTab} postIdsArray={postIds} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} feedPost={activeTab == "replies"}/>
             </div>        
         </div>
     );
