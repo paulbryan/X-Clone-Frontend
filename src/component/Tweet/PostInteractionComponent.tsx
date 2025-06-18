@@ -9,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import { useEffect } from "react";
 import { usePost } from "../../hooks/queries/usePost";
+import { getBookmarkOnUpdate, getLikeOnUpdate, getRepostOnUpdate } from "../../hooks/mutations/mutationhelpers/useMutationHelpers";
 type PostInteractionComponentProps = {
     postId: number;
     showPadding?: boolean;
@@ -33,53 +34,18 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
   const isBookmarked = bookmarkList?.includes(currentUser?.id ?? -1);
   const isRetweeted = retweetedByList?.includes(currentUser?.id ?? -1);
 
-
   const likeMutation = useLikePost(postId, currentUser?.id, {
-    onUpdate: (updatedPost) => {
-      const isNowLiked = updatedPost.likedBy.includes(currentUser?.id ?? -1);
-    
-      queryClient.setQueryData<User>(["currentUser"], (prev) => {
-        if (!prev) return prev;
-        
-        const alreadyThere = prev.likedPosts.includes(postId);
-        const likedPosts = isNowLiked
-          ? (alreadyThere ? prev.likedPosts : [...prev.likedPosts, postId])
-          : prev.likedPosts.filter(id => id !== postId);
-        console.log("LikedPosts: " + likedPosts)
-
-        return { ...prev, likedPosts };
-      });
-      if (!isNowLiked) {
-        queryClient.invalidateQueries({
-          queryKey: ["feed", "liked", currentUser?.id],
-        });
-      }
-    }
+    onUpdate: getLikeOnUpdate(postId, currentUser?.id, queryClient),
   });
-
+  
   const bookmarkMutation = useBookmarkPost(postId, currentUser?.id, {
-    onUpdate: (updatedPost) => {
-      const isNowBookmarked = updatedPost.bookmarkedBy.includes(currentUser?.id ?? -1);
-      queryClient.setQueryData<User>(["currentUser"], (prev) => {
-        if (!prev) return prev;
-    
-        const alreadyThere = prev.bookmarkedPosts.includes(postId);
-        console.log("Already there? " + alreadyThere)
-        const bookmarkedPosts = isNowBookmarked
-          ? (alreadyThere ? prev.bookmarkedPosts : [...prev.bookmarkedPosts, postId])
-          : prev.bookmarkedPosts.filter(id => id !== postId);
-    
-        console.log("Bookmarked posts: " + JSON.stringify(bookmarkedPosts))
-
-        return { ...prev, bookmarkedPosts };
-      });
-      if (!isNowBookmarked) {
-        queryClient.invalidateQueries({
-          queryKey: ["feed", "bookmarks", currentUser?.id],
-        });
-      }
-    }
+    onUpdate: getBookmarkOnUpdate(postId, currentUser?.id, queryClient),
   });
+
+  const repostMutation = useRepostPost(postId, currentUser?.id, {
+    onUpdate: getRepostOnUpdate(postId, currentUser?.id, queryClient),
+  });
+
 
   useEffect(() => {
     if (postId == 14) {
@@ -87,22 +53,7 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
     }
   }, [postId, currentUser]) 
 
-  const repostMutation = useRepostPost(postId, currentUser?.id, {
-    onUpdate: (updatedPost) => {
-      const isNowRetweeted = updatedPost.retweetedBy.includes(currentUser?.id ?? -1);
-    
-      queryClient.setQueryData<User>(["currentUser"], (prev) => {
-        if (!prev) return prev;
-    
-        const alreadyThere = prev.retweets.includes(postId);
-        const retweetedPosts = isNowRetweeted
-          ? (alreadyThere ? prev.retweets : [...prev.retweets, postId])
-          : prev.retweets.filter(id => id !== postId);
-    
-        return { ...prev, retweetedPosts };
-      });
-    }
-  });
+
 
   const handleReplyModal = () => {
     setModalType("replying")
