@@ -13,7 +13,7 @@ function ProfilePic({ userId, disableNavigation }: ProfilePicComponentProps) {
   const navigateToProfile = (e: React.MouseEvent<HTMLImageElement>): void => {
     if (userId && !disableNavigation) {
       e.stopPropagation();
-      navigate("profile/" + userId);
+      navigate("/profile/" + userId);
     }
   }
 

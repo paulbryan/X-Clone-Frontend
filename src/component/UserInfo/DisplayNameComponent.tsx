@@ -13,7 +13,7 @@ function DisplayNameComponent ({user, disableNavigation}:DisplayNameComponentPro
     const navigateToProfile = (e: React.MouseEvent<HTMLParagraphElement>): void => {
         if (user && !disableNavigation) {
           e.stopPropagation();
-          navigate("profile/" + user.id);
+          navigate("/profile/" + user.id);
         }
       }
 

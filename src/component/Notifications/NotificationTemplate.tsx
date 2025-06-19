@@ -42,17 +42,19 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
 
     function navigateFromNotification () {
             if (notification.type == "follow") {
-                navigate("/profile/"+notification.senderId)
+                navigate("profile/"+notification.senderId)
             } else {
-                navigate("/tweet/"+notification.referenceId)
+                navigate("tweet/"+notification.referenceId)
             }
     }
 
     return (
         <>
-        <div className={`h-fit w-full flex border-b-2 border-(--twitter-border) ${
+        <div className={`h-fit w-full flex border-b-2 hover:bg-(--twitter-text)/20 border-(--twitter-border) ${
             isTempUnseen ? 'bg-(--twitter-text)/20' : ' '
-        }`}>
+        }`}
+        onClick={() => navigateFromNotification()}
+        >
 
         <div className="w-18 h-fit flex justify-center text-3xl pt-4 text-center">
             <NotificationTypeIcon notificationType={notification.type}/>
@@ -62,7 +64,7 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
 
             <div className="w-full h-fit">
             <div className="flex w-12 pb-1">
-                <div className="w-10 h-10" onClick={() => navigate(`/profile/${notification.senderId}`)}>
+                <div className={"w-10 h-10"}>
                     <ProfilePic userId={sender?.id}/>
                 </div>
             </div>
