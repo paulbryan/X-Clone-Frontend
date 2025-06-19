@@ -6,21 +6,24 @@ import type { Post } from "../../types/Post";
 type ModalContextType = {
   modalType: ModalType;
   setModalType: (type: ModalType) => void;
-  modalData: number | null;
-  modalPostData: Post | null;
-  setModalData: (num: number) => void;
-  setModalPostData: (post: Post) => void;
+  modalData: ModalData | null;
+  setModalData: (modalData: ModalData) => void;
 };  
+
+
+type ModalData = {
+  mainId?: number;
+  auxiliaryId?: number | number[];
+};
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [modalType, setModalType] = useState<ModalType>(null);
-  const [modalPostData, setModalPostData] = useState<Post | null>(null);
-  const [modalData, setModalData] = useState<number | null>(null);
+  const [modalData, setModalData] = useState<ModalData | null>(null);
 
   return (
-    <ModalContext.Provider value={{ modalType, setModalType, modalData, modalPostData, setModalData, setModalPostData }}>
+    <ModalContext.Provider value={{ modalType, setModalType, modalData, setModalData }}>
       {children}
     </ModalContext.Provider>
   );

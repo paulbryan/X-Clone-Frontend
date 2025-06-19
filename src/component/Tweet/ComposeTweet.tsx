@@ -12,7 +12,7 @@ import type { FilesWithId } from "../../types/file";
 
 type ComposeTweetProps = {
     parentId?: number;
-    parentUsername?: string;    setToggle?: (modalType: ModalType) => void;
+    setToggle?: (modalType: ModalType) => void;
     showParentPreview?: boolean;
 }
 
