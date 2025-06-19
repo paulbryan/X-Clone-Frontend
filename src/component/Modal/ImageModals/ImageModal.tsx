@@ -33,7 +33,7 @@ type ImageModalProps = {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-    <MediaImage id={mediaList[currentIndex]} roundedClass="rounded-2xl" />
+    <MediaImage id={mediaList[currentIndex]} roundedClass="rounded-2xl" isModal={true}/>
   </motion.div>
 </AnimatePresence>
         </div>

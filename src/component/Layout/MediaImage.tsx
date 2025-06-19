@@ -1,22 +1,33 @@
 import cn from "clsx";
 import { usePostMedia } from "../../hooks/queries/UsePostMedia";
+import LoadingIcon from "../UIComponent/LoadingIcon";
 
-    export function MediaImage({
-    id,roundedClass,
-    }: {
-    id: number;
+    type MediaImageProps = {
+        id: number;
         roundedClass?: string;
-    }) {
+        isModal?: boolean;
+    }
+
+    export function MediaImage({id,roundedClass, isModal}: MediaImageProps) {
 
     const { data, isLoading } = usePostMedia(id);
-    if (isLoading || !data) return null;
 
 
     return (
-    <img
-        src={data.src}
-        alt={data.alt}
-        className={cn("w-full h-full object-cover", roundedClass)}
-    />
-    );
+        <>
+        {data && !isModal ? (
+            <img
+                src={data.src}
+                alt={data.alt}
+                className={cn("w-full h-full object-cover", roundedClass)}
+            />
+        ) : isModal ? (
+
+            <LoadingIcon className="w-12 h-12"/>
+
+        ) : (
+            null
+        )}
+        </>
+    )
     }
