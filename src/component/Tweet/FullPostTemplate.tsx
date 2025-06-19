@@ -152,27 +152,6 @@ type FullPostTemplateProps = {
 
                 </div>
 
-                {/* {modalType == "replying" && modalData == postId && !modalReplyChild && (
-              <motion.div 
-              key="backdrop"
-              className="w-full z-10 h-full top-0 pt-16 px-4 fixed backdrop-blur-sm bg-red
-              flex justify-center items-start"
-              onClick={() => setModalType(null)} 
-              {...backdropMotionProps}      
-               >
-      
-                  <motion.div 
-                    key="modal"
-                    className="w-full h-fit"
-                    {...modalMotionProps}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <ComposeTweet parentId={postId} showParentPreview={true} setToggle={setModalType}/>
-                  </motion.div>
-      
-              </motion.div>
-            )} */}
-
             </>
         )}
 

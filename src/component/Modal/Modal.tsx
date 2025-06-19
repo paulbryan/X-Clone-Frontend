@@ -1,15 +1,19 @@
-import type { ReactNode} from "react";
-import type { ModalType } from "../../types/ModalType";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 import { backdropMotionProps, modalMotionProps } from "../../lib/animations/motionAnimations";
+import type { ModalType } from "../../types/ModalType";
 
 type ModalProps = {
-    children: ReactNode;
-    setToggle: (type: ModalType) => void;
-  };
-  
-  function Modal({ children, setToggle }: ModalProps) {
-    return (
+  children: ReactNode;
+  setToggle: (type: ModalType) => void;
+};
+
+function Modal({ children, setToggle }: ModalProps) {
+  const modalRoot = document.getElementById("modal-root");
+  if (!modalRoot) return null;
+
+  return createPortal(
     <motion.div
       key="backdrop"
       className="w-full z-10 h-full top-0 pt-16 px-4 fixed backdrop-blur-sm flex justify-center items-start bg-black/40"
@@ -24,8 +28,9 @@ type ModalProps = {
       >
         {children}
       </motion.div>
-    </motion.div>
-    );
-  }
+    </motion.div>,
+    modalRoot
+  );
+}
 
 export default Modal;
