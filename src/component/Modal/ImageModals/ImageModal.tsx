@@ -3,6 +3,7 @@ import { useModal } from "../../../context/GlobalState/ModalProvider";
 import type { ModalType } from "../../../types/ModalType";
 import { MediaImage } from "../../Layout/MediaImage";
 import { HeroIcon } from "../../../types/HeroIcon";
+import { AnimatePresence, motion } from "framer-motion";
 
 type ImageModalProps = {
     setToggle: (modalType: ModalType) => void;
@@ -23,8 +24,18 @@ type ImageModalProps = {
         </div>
         )}
 
-        <div className="flex justify-center items-center w-5/6 py-2 px-4">
-          <MediaImage id={mediaList[currentIndex]} roundedClass="rounded-2xl"/>
+        <div className="flex justify-center items-center py-2 px-4">
+        <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={mediaList[currentIndex]}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+    <MediaImage id={mediaList[currentIndex]} roundedClass="rounded-2xl" />
+  </motion.div>
+</AnimatePresence>
         </div>
 
         {currentIndex < mediaList.length - 1 && (
