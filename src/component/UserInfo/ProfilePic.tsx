@@ -19,7 +19,7 @@ function ProfilePic({ userId, disableNavigation }: ProfilePicComponentProps) {
 
  
   if (isError || !userId) {
-    return <div className="w-full h-full rounded-full bg-red-600 animate-pulse"></div>;
+    return <div className="w-full h-full rounded-full bg-gray-600 animate-pulse"></div>;
   }
 
     return (

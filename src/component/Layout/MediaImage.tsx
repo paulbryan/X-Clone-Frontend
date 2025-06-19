@@ -15,18 +15,18 @@ import LoadingIcon from "../UIComponent/LoadingIcon";
 
     return (
         <>
-        {data && !isModal ? (
+        {data ? (
             <img
                 src={data.src}
                 alt={data.alt}
                 className={cn("w-full h-full object-cover", roundedClass)}
             />
-        ) : isModal ? (
+        ) : !isModal ? (
 
-            <LoadingIcon className="w-12 h-12"/>
+            <div className={cn(" bg-gray-600 animate-pulse w-full h-full object-cover", roundedClass)}></div>
 
         ) : (
-            null
+            <LoadingIcon className="w-12 h-12"/>
         )}
         </>
     )
