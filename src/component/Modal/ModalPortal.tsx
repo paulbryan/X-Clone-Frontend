@@ -1,10 +1,20 @@
+import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
-function Modal({ children }) {
+type ModalPortalProps = {
+  children: ReactNode;
+};
+
+function ModalPortal({ children }: ModalPortalProps) {
+  const modalRoot = document.getElementById("modal-root");
+  if (!modalRoot) return null;
+
   return createPortal(
     <div className="fixed top-0 left-0 w-full h-full bg-black/60 z-50">
       {children}
     </div>,
-    document.getElementById("modal-root")!
+    modalRoot
   );
 }
+
+export default ModalPortal;
