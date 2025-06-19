@@ -13,9 +13,8 @@ export function ImagePreviewGrid({ mediaIds, postId }: ImagePreviewGridProps) {
 
     const {setModalData, setModalType} = useModal();
 
-    function handlePostClick (index: number, id: number) {
-      if (!postId) return;
-      setModalData({mainId: postId, auxiliaryId: index});
+    function handlePostClick (id: number) {
+      setModalData({mainId: id, auxiliaryId: mediaIds });
       setModalType("imagepreview")
 
     }

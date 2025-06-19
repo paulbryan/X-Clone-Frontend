@@ -5,6 +5,7 @@ import LoginView from "../ViewComponent/LoginView";
 import ComposeTweet from "../Tweet/ComposeTweet";
 import { AnimatePresence } from "framer-motion";
 import ChangeColorModal from "./ChangeColorModal";
+import ImageModal from "./ImageModals/ImageModal";
 
 
 function ModalManager() {
@@ -19,6 +20,7 @@ function ModalManager() {
           {modalType === "posting" && <ComposeTweet setToggle={setModalType} />} 
           {modalType === "changeColor" && <ChangeColorModal setToggle={setModalType}/>}
           {modalType === "replying" && modalData && <ComposeTweet setToggle={setModalType} parentId={modalData.mainId} showParentPreview={true}/>}
+          {modalType === "imagepreview" && modalData && modalData.mainId && modalData.auxiliaryId && <ImageModal setToggle={setModalType} mediaId={modalData.mainId} mediaList={modalData.auxiliaryId}/>}
         </Modal>
       )}
     </AnimatePresence>

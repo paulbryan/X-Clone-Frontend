@@ -6,12 +6,10 @@ type MediaItemProps = {
   id: number;
   index: number;
   total: number;
-  handleClick?: (index: number, id: number) => void;
+  handleClick?: (id: number) => void;
 }
 
 export function MediaItem({ id, index, total, handleClick }: MediaItemProps) {
-  const { data, isLoading } = usePostMedia(id);
-  if (isLoading || !data) return null;
 
   const roundedClass =
     total === 1
@@ -24,7 +22,7 @@ export function MediaItem({ id, index, total, handleClick }: MediaItemProps) {
 
   return (
     <motion.div
-      onClick={() => handleClick ? handleClick(index, id) : null}
+      onClick={() => handleClick ? handleClick(id) : null}
       layout
       key={id}
       className="relative w-full h-full"
@@ -33,7 +31,7 @@ export function MediaItem({ id, index, total, handleClick }: MediaItemProps) {
       exit={{ opacity: 0, scale: 0.7 }}
       transition={{ duration: 0.25 }}
     >
-      <MediaImage src={data.src} alt={data.alt} roundedClass={roundedClass} />
+      <MediaImage id={id} roundedClass={roundedClass} />
     </motion.div>
   );
 }

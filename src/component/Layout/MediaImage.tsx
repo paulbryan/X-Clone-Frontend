@@ -1,19 +1,22 @@
 import cn from "clsx";
+import { usePostMedia } from "../../hooks/queries/UsePostMedia";
 
-export function MediaImage({
-  src,
-  alt,
-  roundedClass,
-}: {
-  src: string;
-  alt?: string;
-  roundedClass?: string;
-}) {
-  return (
+    export function MediaImage({
+    id,roundedClass,
+    }: {
+    id: number;
+        roundedClass?: string;
+    }) {
+
+    const { data, isLoading } = usePostMedia(id);
+    if (isLoading || !data) return null;
+
+
+    return (
     <img
-      src={src}
-      alt={alt}
-      className={cn("w-full h-full object-cover", roundedClass)}
+        src={data.src}
+        alt={data.alt}
+        className={cn("w-full h-full object-cover", roundedClass)}
     />
-  );
-}
+    );
+    }

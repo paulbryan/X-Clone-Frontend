@@ -13,7 +13,7 @@ type ModalContextType = {
 
 type ModalData = {
   mainId?: number;
-  auxiliaryId?: number | number[];
+  auxiliaryId?: number[];
 };
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
