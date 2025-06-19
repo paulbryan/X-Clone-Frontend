@@ -3,11 +3,24 @@ import { MediaItem } from "./MediaItem";
 import cn from "clsx";
 import { useModal } from "../../context/GlobalState/ModalProvider";
 
-export function ImagePreviewGrid({ mediaIds }: { mediaIds: number[] }) {
+type ImagePreviewGridProps = {
+  mediaIds: number[];
+  postId?: number;
+}
+
+export function ImagePreviewGrid({ mediaIds, postId }: ImagePreviewGridProps) {
     const total = mediaIds.length;
+
+    const {setModalData, setModalType} = useModal();
+
+    function handlePostClick (index: number, id: number) {
+      if (!postId) return;
+      setModalData({mainId: postId, auxiliaryId: index});
+      setModalType("imagepreview")
+
+    }
   
-    // 1-column images are full height square; 2-column images are half height
-    const gridHeightClass = total === 1 ? "h-36" : "h-36"; // same height, just changes layout
+    const gridHeightClass = total === 1 ? "h-36" : "h-36";
     const gridCols = total === 1 ? "grid-cols-1" : "grid-cols-2";
     const gridRows = total <= 2 ? "grid-rows-1" : "grid-rows-2";
   
@@ -24,7 +37,7 @@ export function ImagePreviewGrid({ mediaIds }: { mediaIds: number[] }) {
         >
           <AnimatePresence mode="popLayout">
             {mediaIds.map((id, index) => (
-              <MediaItem key={id} id={id} index={index} total={total} />
+              <MediaItem key={id} id={id} index={index} total={total} handleClick={handlePostClick} />
             ))}
           </AnimatePresence>
         </div>

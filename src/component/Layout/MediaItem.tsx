@@ -2,7 +2,14 @@ import { usePostMedia } from "../../hooks/queries/UsePostMedia";
 import { motion } from "framer-motion";
 import { MediaImage } from "./MediaImage";
 
-export function MediaItem({ id, index, total }: { id: number; index: number; total: number }) {
+type MediaItemProps = {
+  id: number;
+  index: number;
+  total: number;
+  handleClick?: (index: number, id: number) => void;
+}
+
+export function MediaItem({ id, index, total, handleClick }: MediaItemProps) {
   const { data, isLoading } = usePostMedia(id);
   if (isLoading || !data) return null;
 
@@ -17,6 +24,7 @@ export function MediaItem({ id, index, total }: { id: number; index: number; tot
 
   return (
     <motion.div
+      onClick={() => handleClick ? handleClick(index, id) : null}
       layout
       key={id}
       className="relative w-full h-full"
