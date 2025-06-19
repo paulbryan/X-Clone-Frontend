@@ -8,20 +8,16 @@ type ImageModalProps = {
     mediaId: number;
     mediaList: number[]
   };
-
-
-
-
-
-
   
   function ImageModal({ setToggle, mediaId, mediaList }: ImageModalProps) {
 
     const [currentIndex, setCurrentIndex] = useState(mediaList.indexOf(mediaId));
 
     return (
-      <div className="p-6 rounded-xl w-96 mx-auto mt-40">
-      <MediaImage id={mediaList[currentIndex]}/>
+      <div className="p-6 rounded-xl flex justify-center items-center w-full h-full">
+        <div className="flex justify-center items-center">
+          <MediaImage id={mediaList[currentIndex]} roundedClass="rounded-2xl"/>
+        </div>
       </div>
     );
   }

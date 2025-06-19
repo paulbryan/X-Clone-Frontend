@@ -7,16 +7,17 @@ import type { ModalType } from "../../types/ModalType";
 type ModalProps = {
   children: ReactNode;
   setToggle: (type: ModalType) => void;
+  center?: boolean;
 };
 
-function Modal({ children, setToggle }: ModalProps) {
+function Modal({ children, setToggle, center }: ModalProps) {
   const modalRoot = document.getElementById("modal-root");
   if (!modalRoot) return null;
 
   return createPortal(
     <motion.div
       key="backdrop"
-      className="w-full z-10 h-full top-0 pt-16 px-4 fixed backdrop-blur-sm flex justify-center items-start bg-black/40"
+      className={`w-dvw z-10 h-dvh top-0 px-4 fixed backdrop-blur-sm flex justify-center ${center ? "items-center" : "items-start pt-16" } bg-black/40`}
       {...backdropMotionProps}
       onClick={() => setToggle(null)}
     >

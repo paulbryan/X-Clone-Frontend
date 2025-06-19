@@ -14,7 +14,7 @@ function ModalManager() {
   return (
     <AnimatePresence>
       {modalType && (
-        <Modal setToggle={setModalType}>
+        <Modal setToggle={setModalType} center={modalType == "imagepreview" ? true : false}>
           {modalType === "signup" && <SignupView setToggle={setModalType} />}
           {modalType === "login" && <LoginView setToggle={setModalType} />} 
           {modalType === "posting" && <ComposeTweet setToggle={setModalType} />} 
