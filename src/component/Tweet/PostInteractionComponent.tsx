@@ -4,7 +4,6 @@ import { useModal } from "../../context/GlobalState/ModalProvider";
 import { useLikePost } from "../../hooks/mutations/useLikePost";
 import { useBookmarkPost } from "../../hooks/mutations/useBookmarkPost";
 import { useRepostPost } from "../../hooks/mutations/useRepostPost";
-import type { User } from "../../types/User";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCurrentUser } from "../../hooks/queries/CurrentUserProvider";
 import { useEffect } from "react";
@@ -19,8 +18,6 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
 
   const { currentUser } = useCurrentUser();
   const queryClient = useQueryClient();
-
-
 
   const { setModalType, setModalData } = useModal();
   const { data: post } = usePost(postId);
@@ -94,10 +91,7 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
                 mutationFunction={() => bookmarkMutation.mutate({ isBookmarked })}
                 />
 
-
             </div>
-
-
         </>
 
     )

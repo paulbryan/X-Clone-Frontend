@@ -19,7 +19,7 @@ function HomePage () {
         hasNextPage,
         isFetchingNextPage,
         isLoading,
-      } = useInfiniteFeed ("foryou", currentUser?.id);
+      } = useInfiniteFeed (activeTab, currentUser?.id);
       
       const postIds = useMemo(() => {
         const seen = new Set<number>();
@@ -48,7 +48,7 @@ function HomePage () {
             </div>
             )}
             <div className="h-full flex grow w-full overflow-y-auto">
-                <Feed fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} key={activeTab} postIdsArray={postIds}/>
+                <Feed fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isLoading={isLoading} isFetchingNextPage={isFetchingNextPage} key={activeTab} postIdsArray={postIds}/>
             </div>
         </div>
 

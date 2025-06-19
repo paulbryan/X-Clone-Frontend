@@ -30,7 +30,16 @@ function ProfilePage() {
       isLoading,
     } = useInfiniteFeed (activeTab, pageUser?.id);
 
-    const postIds = data?.pages.flatMap((page) => page.posts) ?? [];
+    const postIds = useMemo(() => {
+      const seen = new Set<number>();
+      return data?.pages.flatMap((page) =>
+        page.posts.filter((id) => {
+          if (seen.has(id)) return false;
+          seen.add(id);
+          return true;
+        })
+      ) ?? [];
+    }, [data]);
   
     useEffect(() => {
       if (pageUser) {
@@ -56,7 +65,7 @@ function ProfilePage() {
             </div>
 
             <div className="mb-14">
-                <Feed showAsMainPost={false} key={activeTab} postIdsArray={postIds} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} feedPost={activeTab == "replies"}/>
+                <Feed isLoading={isLoading} showAsMainPost={false} key={activeTab} postIdsArray={postIds} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} feedPost={activeTab == "replies"}/>
             </div>        
         </div>
     );

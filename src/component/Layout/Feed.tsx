@@ -18,7 +18,7 @@ type FeedProps = {
 
 //TODO fix isready logic
 
-function Feed({ postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetchingNextPage,feedPost }: FeedProps) {
+function Feed({ postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetchingNextPage,feedPost, isLoading }: FeedProps) {
   const isReady = postIdsArray.length > 0;
 
   const { ref, inView } = useInView();
@@ -33,8 +33,12 @@ function Feed({ postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetc
 
       return (
         <div className="w-full flex flex-col">
-          {isReady ? (
-            <>
+          {isLoading ? (
+            <div className="flex justify-center py-2 flex-col w-full">
+              <LoadingIcon />
+            </div>
+            ) : (
+              <>
               <AnimatePresence mode="popLayout">
                 <div className="flex flex-col w-full" key="feed-wrapper">
                   {postIdsArray.map((id) => (
@@ -42,14 +46,10 @@ function Feed({ postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetc
                       <FullPostTemplate mainPost={showAsMainPost} postId={id} feedPost={feedPost}/>
                     </motion.div>
                   ))}
-                  <LoadMoreForFeed triggerRef={ref} />
+                  <LoadMoreForFeed  triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
                 </div>
               </AnimatePresence>
               </> 
-            ) : (
-              <div className="flex justify-center py-2 flex-col w-full">
-                <LoadingIcon />
-              </div>
             )}
         </div>
       );

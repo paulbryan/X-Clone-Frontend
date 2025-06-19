@@ -13,7 +13,7 @@ export const useInfiniteFeed = (
 ) => {
   return useInfiniteQuery<FeedPage, Error, InfiniteData<FeedPage>, [string, FeedType, number?], number>({
     queryKey: ["feed", type, userId],
-    queryFn: async ({ pageParam = 999999 }) => {
+    queryFn: async ({ pageParam = 0 }) => {
       const url = new URL("http://localhost:8080/api/feed/getFeedPage");
       url.searchParams.set("type", type);
       url.searchParams.set("cursor", pageParam.toString());
@@ -29,7 +29,7 @@ export const useInfiniteFeed = (
       console.log("INFINITE PAGE RES: ", response);
       return response;
     },
-    initialPageParam: 999999,
+    initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     staleTime: 1000 * 60,
   });
