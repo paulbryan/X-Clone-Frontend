@@ -27,6 +27,12 @@ function FollowButton({ pageUser }: FollowButtonProps) {
 
         return { ...prev, following };
       });
+      if (!isNowFollowing) {
+        queryClient.invalidateQueries({
+          queryKey: ["feed", "following", currentUser?.id],
+        });
+      }
+
     },
   });
 
