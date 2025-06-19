@@ -13,7 +13,8 @@ export function ImagePreviewGrid({ mediaIds, postId }: ImagePreviewGridProps) {
 
     const {setModalData, setModalType} = useModal();
 
-    function handlePostClick (id: number) {
+    function handlePostClick (e: React.MouseEvent<HTMLDivElement>, id: number) {
+      e.stopPropagation();
       setModalData({mainId: id, auxiliaryId: mediaIds });
       setModalType("imagepreview")
 

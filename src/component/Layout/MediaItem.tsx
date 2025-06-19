@@ -6,7 +6,7 @@ type MediaItemProps = {
   id: number;
   index: number;
   total: number;
-  handleClick?: (id: number) => void;
+  handleClick?: (e: React.MouseEvent<HTMLDivElement>, id: number) => void;
 }
 
 export function MediaItem({ id, index, total, handleClick }: MediaItemProps) {
@@ -22,7 +22,7 @@ export function MediaItem({ id, index, total, handleClick }: MediaItemProps) {
 
   return (
     <motion.div
-      onClick={() => handleClick ? handleClick(id) : null}
+      onClick={(e) => handleClick ? handleClick(e, id) : null}
       layout
       key={id}
       className="relative w-full h-full"
