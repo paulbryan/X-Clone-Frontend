@@ -49,7 +49,6 @@ type FullPostTemplateProps = {
     }, [post])
 
 
-    const {modalType, modalData, setModalType} = useModal();
 
     const retweeted = currentUser?.retweets.includes(postId);
 
@@ -153,7 +152,7 @@ type FullPostTemplateProps = {
 
                 </div>
 
-                {modalType == "replying" && modalData == postId && !modalReplyChild && (
+                {/* {modalType == "replying" && modalData == postId && !modalReplyChild && (
               <motion.div 
               key="backdrop"
               className="w-full z-10 h-full top-0 pt-16 px-4 fixed backdrop-blur-sm bg-red
@@ -172,12 +171,10 @@ type FullPostTemplateProps = {
                   </motion.div>
       
               </motion.div>
-            )}
+            )} */}
 
             </>
         )}
-
-        <ModalPort
 
         
 

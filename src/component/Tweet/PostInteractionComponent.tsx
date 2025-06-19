@@ -53,8 +53,9 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
 
 
   const handleReplyModal = () => {
+    if (!postId) return;
     setModalType("replying")
-    setModalData(postId)
+    setModalData({mainId: postId})
   }
 
   

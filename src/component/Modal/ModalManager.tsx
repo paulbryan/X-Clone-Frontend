@@ -18,7 +18,7 @@ function ModalManager() {
           {modalType === "login" && <LoginView setToggle={setModalType} />} 
           {modalType === "posting" && <ComposeTweet setToggle={setModalType} />} 
           {modalType === "changeColor" && <ChangeColorModal setToggle={setModalType}/>}
-          {modalType === "replying" && modalData && <ComposeTweet setToggle={setModalType} parentId={modalData.mainId} />}
+          {modalType === "replying" && modalData && <ComposeTweet setToggle={setModalType} parentId={modalData.mainId} showParentPreview={true}/>}
         </Modal>
       )}
     </AnimatePresence>
