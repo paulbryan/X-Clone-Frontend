@@ -6,6 +6,8 @@ import { fadeInFeedMotionProps } from "../../lib/animations/motionAnimations";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { MediaFeed } from "./MediaFeed";
+import type { FeedType } from "../../types/FeedType";
+import { NoContentYet } from "../Feed/NoContentYet";
 
 type FeedProps = {
   postIdsArray: number[];
@@ -15,12 +17,13 @@ type FeedProps = {
   hasNextPage?: boolean;
   isFetchingNextPage?: boolean;
   feedPost?: boolean;
-  mediafeed?: boolean;
+  tabType?: FeedType;
+  userId?: number;
 };
 
 //TODO fix isready logic
 
-function Feed({ postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetchingNextPage,feedPost, isLoading, mediafeed }: FeedProps) {
+function Feed({userId, postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetchingNextPage,feedPost, isLoading, tabType }: FeedProps) {
   const isReady = postIdsArray.length > 0;
 
   const { ref, inView } = useInView();
@@ -43,12 +46,18 @@ function Feed({ postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetc
               <>
               <AnimatePresence mode="popLayout">
                 <div className="flex flex-col w-full" key="feed-wrapper">
+                  {postIdsArray.length > 0 ? (
+                  <>
                   {postIdsArray.map((id) => (
                     <motion.div key={id} {...fadeInFeedMotionProps}>
                       <FullPostTemplate mainPost={showAsMainPost} postId={id} feedPost={feedPost}/>
                     </motion.div>
                   ))}
                   <LoadMoreForFeed  triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
+                  </>
+                  ) : tabType != null && (
+                    <NoContentYet userId={userId} tabType={tabType}/>
+                  )}                  
                 </div>
               </AnimatePresence>
               </> 
