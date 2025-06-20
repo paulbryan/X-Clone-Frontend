@@ -16,7 +16,8 @@ module.exports = {
         twitterGreen: '#00ba7c'
       },
       fontFamily: {
-        sans: ['Helvetica', 'Arial', 'sans-serif'],
+        'twitter-chirp': ['TwitterChirp', 'sans-serif'],
+        'twitter-chirp-extended': ['TwitterChirpExtendedHeavy', 'sans-serif']
       },
     },
   },

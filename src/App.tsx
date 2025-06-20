@@ -13,7 +13,7 @@ import FullPost from './component/Tweet/FullPost';
 import { HeaderContentProvider } from './context/GlobalState/HeaderContentProvider';
 import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
 import AboutPage from './component/Layout/AboutPage';
-
+import './lib/styles/fonts.scss';
 
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
           
         <ModalManager />
 
-        <div className="overscroll-y-contain w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
+        <div className="!font-twitter-chirp overscroll-y-contain w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
 
           <div>
             <Header/>
