@@ -22,10 +22,6 @@ function Header () {
 
     const isHome = location.pathname === "/";
 
-    useEffect(() => {
-        console.log("HC IS " + headerContent)
-    }, [headerContent])
-
     return (
 
         <>

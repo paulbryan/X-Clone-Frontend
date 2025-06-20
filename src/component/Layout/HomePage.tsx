@@ -8,8 +8,8 @@ import type { FeedType } from "../../types/FeedType";
 
 function HomePage () {
 
-    const tabs : FeedType[] = ["foryou", "following"];
-    const [activeTab, setActiveTab] = useState<FeedType>("foryou");
+    const tabs : FeedType[] = ["For You", "Following"];
+    const [activeTab, setActiveTab] = useState<FeedType>("For You");
     const {currentUser} = useCurrentUser();
     const {setHeaderContent} = useContext(HeaderContentContext);
 

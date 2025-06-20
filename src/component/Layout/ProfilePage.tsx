@@ -10,8 +10,8 @@ import { useInfiniteFeed } from "../../hooks/queries/useInfiniteFeed";
 import type { FeedType } from "../../types/FeedType";
 
 function ProfilePage() {
-    const tabs : FeedType[] = ["tweets", "replies", "liked", "media"];
-    const [activeTab, setActiveTab] = useState<FeedType>("tweets");
+    const tabs : FeedType[] = ["Tweets", "Replies", "Liked", "Media"];
+    const [activeTab, setActiveTab] = useState<FeedType>("Tweets");
   
     const { ID } = useParams();
     const pageUserID = Number(ID);
@@ -65,7 +65,7 @@ function ProfilePage() {
             </div>
 
             <div className="mb-14">
-                <Feed isLoading={isLoading} showAsMainPost={false} key={activeTab} postIdsArray={postIds} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} feedPost={activeTab == "replies"}/>
+                <Feed isLoading={isLoading} showAsMainPost={false} key={activeTab} postIdsArray={postIds} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} feedPost={activeTab == "Replies"}/>
             </div>        
         </div>
     );

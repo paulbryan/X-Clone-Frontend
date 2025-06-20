@@ -1,1 +1,8 @@
-export type FeedType = "foryou" | "following" | "liked" | "tweets" | "replies" | "media" | "bookmarks";
+export type FeedType = 
+"For You" | 
+"Following" | 
+"Liked" | 
+"Tweets" | 
+"Replies" | 
+"Media" | 
+"Bookmarks";
