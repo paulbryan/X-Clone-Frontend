@@ -13,7 +13,8 @@ import FullPost from './component/Tweet/FullPost';
 import { HeaderContentProvider } from './context/GlobalState/HeaderContentProvider';
 import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
 import AboutPage from './component/Layout/AboutPage';
-import './lib/styles/fonts.scss';
+
+import { useEffect } from 'react';
 
 
 function App() {
@@ -27,6 +28,13 @@ function App() {
     success: { duration: 4000 }
   };
 
+  useEffect(() => {
+    document.fonts.ready.then(() => {
+      const isLoaded = document.fonts.check('16px "TwitterChirp"');
+      console.log('TwitterChirp loaded?', isLoaded);
+    });
+  }, [])
+
 
   return (
     <Router>
@@ -36,7 +44,7 @@ function App() {
           
         <ModalManager />
 
-        <div className="!font-twitter-chirp overscroll-y-contain w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
+        <div className="overscroll-y-contain w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
 
           <div>
             <Header/>
