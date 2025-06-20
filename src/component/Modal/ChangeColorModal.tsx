@@ -90,15 +90,15 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
             <div className="w-full flex flex-col gap-1">
                 <p className="text-(--twitter-text) font-bold">Color</p>    
                 <div className="w-full flex items-center justify-around h-20 bg-(--twitter-border)/40 rounded-2xl">
-                <ColorCircleButton color="var(--twitter-blue)" currentColor={currentTheme} setCurrentTheme={setTheme}/>
+                <ColorCircleButton color="var(--color-twitterBlue)" currentColor={currentTheme} setCurrentTheme={setTheme} />
 
-                <ColorCircleButton color="var(--twitter-red)" currentColor={currentTheme} setCurrentTheme={setTheme}/>
+                <ColorCircleButton color="var(--color-twitterRed)" currentColor={currentTheme} setCurrentTheme={setTheme} />
 
-                <ColorCircleButton color="var(--twitter-yellow)" currentColor={currentTheme} setCurrentTheme={setTheme}/>
+                <ColorCircleButton color="var(--color-twitterYellow)" currentColor={currentTheme} setCurrentTheme={setTheme} />
 
-                <ColorCircleButton color="var(--twitter-purple)" currentColor={currentTheme} setCurrentTheme={setTheme}/>
-                
-                <ColorCircleButton color="var(--twitter-green)" currentColor={currentTheme} setCurrentTheme={setTheme}/>
+                <ColorCircleButton color="var(--color-twitterPurple)" currentColor={currentTheme} setCurrentTheme={setTheme} />
+
+                <ColorCircleButton color="var(--color-twitterGreen)" currentColor={currentTheme} setCurrentTheme={setTheme} />
                 
                 </div>
             </div>
@@ -106,8 +106,17 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
             <div className="w-full flex flex-col gap-1">
                 <p className="text-(--twitter-text) font-bold">Color</p>    
                 <div className="w-full flex gap-4 px-4 items-center justify-center h-16 bg-(--twitter-border)/20 rounded-2xl">
-                <BackgroundSetterButton color="var(--twitter-black)" currentColor={currentBackGround} setCurrentBackground={setBackground} />
-                <BackgroundSetterButton color="var(--dim-background)" currentColor={currentBackGround} setCurrentBackground={setBackground} />
+                <BackgroundSetterButton
+                    color="var(--color-backgroundBlack)"
+                    currentColor={currentBackGround}
+                    setCurrentBackground={setBackground}
+                    />
+
+                    <BackgroundSetterButton
+                    color="var(--color-backgroundDim)"
+                    currentColor={currentBackGround}
+                    setCurrentBackground={setBackground}
+                    />
                 </div>
             </div>
             <div className="w-full h-fit flex justify-center items-center py-2">

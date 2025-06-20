@@ -1,1 +1,3 @@
-export type BackgroundType = "var(--twitter-black)" | "var(--dim-background)";
+export type BackgroundType =
+  | "var(--color-backgroundBlack)"
+  | "var(--color-backgroundDim)";
