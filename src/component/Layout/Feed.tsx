@@ -5,6 +5,7 @@ import { LoadMoreForFeed } from "./LoadMoreForFeed";
 import { fadeInFeedMotionProps } from "../../lib/animations/motionAnimations";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { MediaFeed } from "./MediaFeed";
 
 type FeedProps = {
   postIdsArray: number[];
@@ -14,11 +15,12 @@ type FeedProps = {
   hasNextPage?: boolean;
   isFetchingNextPage?: boolean;
   feedPost?: boolean;
+  mediafeed?: boolean;
 };
 
 //TODO fix isready logic
 
-function Feed({ postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetchingNextPage,feedPost, isLoading }: FeedProps) {
+function Feed({ postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetchingNextPage,feedPost, isLoading, mediafeed }: FeedProps) {
   const isReady = postIdsArray.length > 0;
 
   const { ref, inView } = useInView();
