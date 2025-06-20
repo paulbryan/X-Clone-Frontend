@@ -1,18 +1,18 @@
 import './App.css'
-import FooterBar from './component/Layout/FooterBar'
-import Header from './component/Layout/Header';
+import FooterBar from './components/layout/FooterBar.tsx'
+import Header from './components/layout/Header.tsx';
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import HomePage from './component/Layout/HomePage';
-import ProfilePage from './component/Layout/ProfilePage';
+import HomePage from './components/layout/pages/HomePage.tsx';
+import ProfilePage from './components/layout/pages/profile/ProfilePage.tsx';
 import { ModalProvider } from './context/GlobalState/ModalProvider';
-import ModalManager from './component/Modal/ModalManager';
-import { CurrentUserProvider } from './hooks/queries/CurrentUserProvider';
-import BookmarkPage from './component/Layout/BookmarkPage';
-import NotificationPage from './component/Layout/NotificationPage';
-import FullPost from './component/Tweet/FullPost';
+import ModalManager from './components/modal/ModalManager';
+import { CurrentUserProvider } from './context/Auth/CurrentUserProvider.tsx';
+import BookmarkPage from './components/layout/pages/BookmarkPage.tsx';
+import NotificationPage from './components/layout/pages/NotificationPage.tsx';
+import FullPost from './components/tweet/FullPost.tsx';
 import { HeaderContentProvider } from './context/GlobalState/HeaderContentProvider';
 import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
-import AboutPage from './component/Layout/AboutPage';
+import AboutPage from './components/layout/pages/AboutPage.tsx';
 
 import { useEffect } from 'react';
 

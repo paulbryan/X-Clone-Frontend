@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { User } from "../../types/User";
 
 type AuthContextType = {
     authId: number | null;
