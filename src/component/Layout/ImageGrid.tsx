@@ -54,7 +54,7 @@ export function ImageGrid({ images, setImages }: Props) {
               />
               <div
                 onClick={handleRemove(file.id)}
-                className="absolute top-1 right-1 w-6 h-6 bg-[--twitter-black]/60 rounded-full flex items-center justify-center text-white text-xs cursor-pointer hover:bg-[--twitter-black]/80 transition"
+                className="absolute top-1 right-1 w-6 h-6 bg-backgroundBlack/60 rounded-full flex items-center justify-center text-white text-xs cursor-pointer hover:bg-twitterBlack/80 transition"
               >
                 ✕
               </div>

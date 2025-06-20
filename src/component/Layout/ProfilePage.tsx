@@ -46,7 +46,7 @@ function ProfilePage() {
         setHeaderContent(
           <div className="flex flex-col gap-0.5 justify-center w-full">
             <p>{pageUser.displayName}</p>
-            <div className="flex items-center gap-1 text-sm text-(--twitter-text)">
+            <div className="flex items-center gap-1 text-sm text-twitterTextAlt">
               <p>{pageUser.posts.length}</p>
               <p>Posts</p>
             </div>

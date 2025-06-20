@@ -19,7 +19,7 @@ type ImageModalProps = {
       <div className="rounded-xl relative flex justify-center items-center w-full h-full">
 
         {currentIndex > 0 && (
-        <div onClick={() => setCurrentIndex((prev) => prev - 1)} className="absolute h-12 w-12 rounded-full hover:cursor-pointer hover:bg-(--text-main)/30 left-4 flex justify-center items-center">
+        <div onClick={() => setCurrentIndex((prev) => prev - 1)} className="absolute h-12 w-12 rounded-full hover:cursor-pointer hover:bg-twitterText/30 left-4 flex justify-center items-center">
           <HeroIcon iconName="ArrowLeftIcon" className="w-6 h-6 text-white"/>
         </div>
         )}
@@ -39,7 +39,7 @@ type ImageModalProps = {
         </div>
 
         {currentIndex < mediaList.length - 1 && (
-        <div onClick={() => setCurrentIndex((prev) => prev + 1)} className="absolute h-12 w-12 rounded-full hover:cursor-pointer hover:bg-(--text-main)/30 right-4 flex justify-center items-center">
+        <div onClick={() => setCurrentIndex((prev) => prev + 1)} className="absolute h-12 w-12 rounded-full hover:cursor-pointer hover:bg-twitterText/30 right-4 flex justify-center items-center">
           <HeroIcon iconName="ArrowRightIcon" className="w-6 h-6 text-white"/>
         </div>
         )}

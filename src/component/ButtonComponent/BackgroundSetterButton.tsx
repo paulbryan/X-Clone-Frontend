@@ -23,7 +23,7 @@ function BackgroundSetterButton ({color, currentColor, setCurrentBackground}: Ba
             <div 
             onClick={() => setCurrentBackground(color)}
             style={{ backgroundColor: `${color}` }}
-            className="h-10 w-1/2 flex justify-center items-center text-lg border rounded-xl border-(--twitter-text)">
+            className="h-10 w-1/2 flex justify-center items-center text-lg border rounded-xl border-twitterTextAlt">
                 <p className="text-white">Dim</p>
             </div>
         )}

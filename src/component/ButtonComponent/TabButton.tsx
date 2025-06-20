@@ -16,7 +16,7 @@ const TabButton: FC<TabButtonProps> = ({ tab, setActiveTab, activeTab }) => {
         "w-full h-full flex items-center justify-center " +
         (tab == activeTab
           ? "text-(--color-main) border-b-2 border-(--color-main) font-semibold"
-          : "text-gray-500 border-b border-(--twitter-border)")
+          : "text-gray-500 border-b border-twitterBorder")
       }
     >
       <p>{tab}</p>

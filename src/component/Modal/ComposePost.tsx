@@ -24,7 +24,7 @@ function ComposePost ({parentId}: ComposePostProps) {
             </div>
             <div className="flex flex-col w-full h-fit">
                 <div className="w-full h-fit flex mb-1">
-                    <TextareaAutosize value={textInput} onChange={(e) => setTextInput(e.target.value)} className="w-full min-h-16 p-1 text-white placeholder:text-(--twitter-text)"
+                    <TextareaAutosize value={textInput} onChange={(e) => setTextInput(e.target.value)} className="w-full min-h-16 p-1 text-white placeholder:text-twitterTextAlt"
                     placeholder="What's up?!"
                     />
                 </div>

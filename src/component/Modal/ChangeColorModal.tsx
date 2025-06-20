@@ -44,17 +44,17 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
 
     return (
 
-        <div className="w-full h-full flex flex-col border-(--color-main) border text-(--text-main) rounded-2xl p-4 items-center gap-4 bg-(--background-main)">
+        <div className="w-full h-full flex flex-col border-(--color-main) border text-twitterText rounded-2xl p-4 items-center gap-4 bg-(--background-main)">
         
             <div className="text-xl font-bold">
                 <h1>Customize your view</h1>
             </div>
-            <div className="text-(--twitter-text) text-center">
+            <div className="text-twitterText text-center">
                 <p>These settings affect all the Twitter accounts on this browser</p>
             </div>
 
-            <div className="h-fit w-full rounded-2xl border border-(--twitter-border)">
-                <div className={`grid px-4 py-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
+            <div className="h-fit w-full rounded-2xl border border-twitterBorder">
+                <div className={`grid px-4 py-3 grid-cols-[auto_1fr] border-twitterBorder gap-x-3 w-full`}>            {/* LEFT COLUMN: Profile Pic */}
 
                 <div className="relative w-12 flex justify-center">
                     <div
@@ -64,18 +64,18 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
                         <ProfilePic userId={currentUser?.id} />
                     </div>
                 </div>
-                <div className={`flex "mb-0.5 gap-2 items-center text-(--text-main) `}>
+                <div className={`flex "mb-0.5 gap-2 items-center text-twitterText `}>
                         <div className="font-bold">
                         <DisplayNameComponent user={currentUser}/>
                         </div>
-                    <div className="text-(--twitter-text) text-md">
+                    <div className="text-twitterTextAlt text-md">
                         <UsernameComponent user={currentUser} />
                     </div>
                 </div> 
                 <div>
 
                 </div>
-                <div className={`text-(--text-main) whitespace-pre-line break-words mb-2`}>
+                <div className={`text-twitterText whitespace-pre-line break-words mb-2`}>
                     <p>At the heart of Twitter are short messages called Tweets — just like this one — which can include photos, videos, links, text, hashtags, and mentions like <span className="text-(--color-main)">@twitter</span></p>
                 </div>
                 </div>
@@ -88,8 +88,8 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
 
 
             <div className="w-full flex flex-col gap-1">
-                <p className="text-(--twitter-text) font-bold">Color</p>    
-                <div className="w-full flex items-center justify-around h-20 bg-(--twitter-border)/40 rounded-2xl">
+                <p className="text-twitterTextAlt font-bold">Color</p>    
+                <div className="w-full flex items-center justify-around h-20 bg-twitterBorder/40 rounded-2xl">
                 <ColorCircleButton color="var(--color-twitterBlue)" currentColor={currentTheme} setCurrentTheme={setTheme} />
 
                 <ColorCircleButton color="var(--color-twitterRed)" currentColor={currentTheme} setCurrentTheme={setTheme} />
@@ -104,8 +104,8 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
             </div>
 
             <div className="w-full flex flex-col gap-1">
-                <p className="text-(--twitter-text) font-bold">Color</p>    
-                <div className="w-full flex gap-4 px-4 items-center justify-center h-16 bg-(--twitter-border)/20 rounded-2xl">
+                <p className="text-twitterTextAlt font-bold">Color</p>    
+                <div className="w-full flex gap-4 px-4 items-center justify-center h-16 bg-twitterBorder/20 rounded-2xl">
                 <BackgroundSetterButton
                     color="var(--color-backgroundBlack)"
                     currentColor={currentBackGround}

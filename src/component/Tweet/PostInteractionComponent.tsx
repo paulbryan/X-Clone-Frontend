@@ -62,32 +62,32 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
     return (
 
         <>
-            <div className={`h-fit text-(--twitter-text) w-full flex items-center border-(--twitter-border) py-3 align-middle ${showPadding ? " justify-around border-y my-4" : " justify-between"}`}>
+            <div className={`h-fit text-twitterTextAlt w-full flex items-center border-twitterBorder py-3 align-middle ${showPadding ? " justify-around border-y my-4" : " justify-between"}`}>
 
               <InteractionButton 
                 iconName="ChatBubbleOvalLeftIcon"
-                buttonColor="(--twitter-blue)" 
+                buttonColor="twitterBlue" 
                 numberList={replyList} 
                 mutationFunction={handleReplyModal}
                 />
 
                 <InteractionButton 
                 iconName="ArrowPathRoundedSquareIcon"
-                buttonColor="(--twitter-green)" 
+                buttonColor="twitterGreen" 
                 numberList={retweetedByList} 
                 mutationFunction={() => repostMutation.mutate({ isRetweeted })}
                 />
 
                 <InteractionButton 
                 iconName="HeartIcon"
-                buttonColor="(--twitter-red)" 
+                buttonColor="twitterRed" 
                 numberList={likeList} 
                 mutationFunction={() => likeMutation.mutate({ isLiked })}
                 />
 
               <InteractionButton 
                 iconName="BookmarkIcon"
-                buttonColor="(--twitter-blue)" 
+                buttonColor="twitterBlue" 
                 numberList={bookmarkList} 
                 mutationFunction={() => bookmarkMutation.mutate({ isBookmarked })}
                 />

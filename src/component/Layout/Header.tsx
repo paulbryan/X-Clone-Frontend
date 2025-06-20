@@ -29,7 +29,7 @@ function Header () {
     return (
 
         <>
-            <div className={`h-16 ${!isHome ? 'border-b border-(--twitter-border)' : ''} w-full relative flex justify-between bg-(--background-main) px-3 text-white`}>
+            <div className={`h-16 ${!isHome ? 'border-b border-twitterBorder' : ''} w-full relative flex justify-between bg-(--background-main) px-3 text-white`}>
 
                 <div className="h-full w-full flex relative items-center justify-start">
                     {currentUser && isHome ? (
@@ -75,11 +75,11 @@ function Header () {
                     <div 
                     className="flex p-3 gap-4 h-14 font-bold justify-center items-center w-full">
 
-                    <div className="p-1 rounded-2xl border-(--twitter-text) flex items-center justify-center w-full border" onClick={() => setModalType("signup")}
+                    <div className="p-1 rounded-2xl border-twitterTextAlt flex items-center justify-center w-full border" onClick={() => setModalType("signup")}
                     >
                         <p>Register</p>
                      </div>   
-                     <div className="p-1 rounded-2xl text-(--text-main) flex items-center justify-center w-full bg-(--color-main)" onClick={() => setModalType("login")}
+                     <div className="p-1 rounded-2xl text-twitterText flex items-center justify-center w-full bg-(--color-main)" onClick={() => setModalType("login")}
                     >
                         <p>Log in</p>
                      </div>  

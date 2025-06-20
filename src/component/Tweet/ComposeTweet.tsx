@@ -44,7 +44,7 @@ function ComposeTweet ({parentId, setToggle, showParentPreview}: ComposeTweetPro
             </div>
             <div className="flex flex-col w-full h-fit">
                 <div className="w-full h-fit flex">
-                    <TextareaAutosize value={textInput} onChange={(e) => setTextInput(e.target.value)} className="w-full min-h-12 p-1 text-white placeholder:text-(--twitter-text)"
+                    <TextareaAutosize value={textInput} onChange={(e) => setTextInput(e.target.value)} className="w-full min-h-12 p-1 text-white placeholder:text-twitterTextAlt"
                     placeholder={placeHolder}
                     />
                 </div>

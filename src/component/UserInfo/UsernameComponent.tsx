@@ -23,7 +23,7 @@ function UsernameComponent ({user, disableNavigation}:UsernameComponentProps) {
             <p className={hoverDisplay} onClick={(e) => navigateToProfile(e)}>@{user.username}</p>
         )
     } else {
-        return <div className="w-18 h-2 bg-(--twitter-text) rounded-l-2xl rounded-r-2xl"></div>
+        return <div className="w-18 h-2 bg-twitterTextAlt rounded-l-2xl rounded-r-2xl"></div>
     }
 
 }

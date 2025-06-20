@@ -22,7 +22,7 @@ function FooterBar () {
     return (
 
         <>
-            <div className="h-14 w-full bg-(--background-main) text-2xl text-white border-t border-t-(--twitter-border) flex items-center justify-around">
+            <div className="h-14 w-full bg-(--background-main) text-2xl text-white border-t border-t-twitterBorder flex items-center justify-around">
 
                 <div className="w-full h-full flex items-center justify-center">
                     <div onClick={() => currentUser ? navigate("/") : null}>

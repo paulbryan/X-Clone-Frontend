@@ -18,11 +18,11 @@ export function PostUserCard ({postId, postUserId, fullPost}: PostUserCardProps)
 
     return (
         <>
-        <div className={` flex ${fullPost ? "flex-col" : "mb-0.5 gap-2 items-center"}  text-(--text-main) `}>
+        <div className={` flex ${fullPost ? "flex-col" : "mb-0.5 gap-2 items-center"}  text-twitterText `}>
             <div className="font-bold">
             <DisplayNameComponent user={postUser}/>
             </div>
-        <div className="text-(--twitter-text) text-md">
+        <div className="text-twitterTextAlt text-md">
             <UsernameComponent user={postUser} />
         </div>
         {!fullPost && post && (

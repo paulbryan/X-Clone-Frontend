@@ -14,7 +14,7 @@ function InputFormField ( {setInputValue, inputValue, placeholderValue, isTextAr
     if (isTextArea) {
         return (
             <>
-                <TextareaAutosize className="w-full min-h-16 p-2 text-white border border-(--twitter-border) placeholder:text-(--twitter-text)"
+                <TextareaAutosize className="w-full min-h-16 p-2 text-white border border-twitterBorder placeholder:text-twitterTextAlt"
                     value = {inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder={placeholderValue}
@@ -27,7 +27,7 @@ function InputFormField ( {setInputValue, inputValue, placeholderValue, isTextAr
                 <input 
                 value = {inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="border focus:border-(--color-main) rounded-sm border-(--twitter-border) p-2" placeholder={placeholderValue}/>
+                className="border focus:border-(--color-main) rounded-sm border-twitterBorder p-2" placeholder={placeholderValue}/>
             </>
         ) 
     }

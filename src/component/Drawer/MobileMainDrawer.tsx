@@ -49,14 +49,14 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
             <div
             onClick={(e) => e.stopPropagation()}
-            className="w-2/3 min-w-[280px] max-w-2/3 p-4 pl-6 border-r flex flex-col border-(--twitter-border) h-full bg-(--background-main)">
+            className="w-2/3 min-w-[280px] max-w-2/3 p-4 pl-6 border-r flex flex-col border-twitterBorder h-full bg-(--background-main)">
                 
                 <div className="w-full h-fit ">
                     <div onClick={() => navigate(`/profile/${currentUser?.id}`)} className="w-12 h-12">
                         <ProfilePic userId={currentUser?.id}/>
                     </div>
-                    <div className="text-(--twitter-text)">
-                        <div className="text-(--text-main) text-xl font-bold">
+                    <div className="text-twitterTextAlt">
+                        <div className="text-twitterText text-xl font-bold">
                             <DisplayNameComponent user={currentUser}/>
                         </div>
                     <UsernameComponent user={currentUser}/>

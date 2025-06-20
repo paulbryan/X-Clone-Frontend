@@ -98,7 +98,7 @@ function SignupView ({ setToggle }: SignUpViewProps) {
 
 
     return (
-        <div className="w-full h-full flex flex-col text-(--text-main) rounded-2xl p-4 items-center gap-4 bg-(--background-main)">
+        <div className="w-full h-full flex flex-col text-twitterText rounded-2xl p-4 items-center gap-4 bg-(--background-main)">
             <div>
                 <h1 className="text-4xl text-center font-bold">Sign up to X</h1>
             </div>
@@ -130,7 +130,7 @@ function SignupView ({ setToggle }: SignUpViewProps) {
                         <p>Complete Registration</p>
                     </div>
 
-                    <p className='text-(--twitter-text)'>or</p>
+                    <p className='text-twitterTextAlt'>or</p>
 
                     <div onClick={() => setToggle("login")} className='w-full font-semibold rounded-md p-2 h-auto border flex text-center justify-center items-center border-(--color-main)'>
                         <p>Already a user? Sign in</p>

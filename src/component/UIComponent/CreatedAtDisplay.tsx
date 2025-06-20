@@ -41,11 +41,11 @@ function CreatedAtDisplay ({createdAt, typeOfCreatedAt}: CreatedAtDisplayProps) 
     return (
         <>
             {typeOfCreatedAt == "timeago" ? (
-                <div className='text-(--twitter-text)'>
+                <div className='text-twitterTextAlt'>
                 <ReactTimeAgo date={timeAgo} timeStyle={"twitter"}/>
                 </div> 
             ) :  (
-                <div className='text-(--twitter-text)'>
+                <div className='text-twitterTextAlt'>
                 <p>Joined {date}</p>
                 </div> 
             )} 

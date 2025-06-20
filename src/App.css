@@ -31,8 +31,7 @@
   --color-twitterPurple: #8054fc;
   --color-twitterGreen: #00ba7c;
   --color-twitterBlack: #000000;
-
-  --background-main: var(--twitterBlack);
+  --background-main: var(--color-backgroundBlack);
   --color-main: var(--color-twitterRed);
 
   --font-twitter: TwitterChirp;

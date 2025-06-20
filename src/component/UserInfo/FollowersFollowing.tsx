@@ -7,17 +7,17 @@ type FollowersFollowingProps = {
 function FollowersFollowing({ pageUser }: FollowersFollowingProps) {
   return (
     <>
-      <div className="flex text-(--twitter-text)">
+      <div className="flex text-twitterTextAlt">
         <p>
-          <span className="font-bold text-(--text-main)">
+          <span className="font-bold text-twitterText">
             {pageUser.followers.length}
           </span>{" "}
           Followers
         </p>
       </div>
-      <div className="flex text-(--twitter-text)">
+      <div className="flex text-twitterTextAlt">
         <p>
-          <span className="font-bold text-(--text-main)">
+          <span className="font-bold text-twitterText">
             {pageUser.following.length}
           </span>{" "}
           Following

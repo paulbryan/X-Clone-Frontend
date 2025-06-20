@@ -27,7 +27,7 @@ function DisplayNameComponent ({user, disableNavigation}:DisplayNameComponentPro
     } else if (user) {
         return null;
     } else {
-        return <div className="w-18 h-2 bg-(--twitter-text) rounded-l-2xl rounded-r-2xl"></div>
+        return <div className="w-18 h-2 bg-twitterTextAlt rounded-l-2xl rounded-r-2xl"></div>
     }
 
 }

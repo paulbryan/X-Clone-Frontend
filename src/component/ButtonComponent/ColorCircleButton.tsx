@@ -14,7 +14,7 @@ function ColorCircleButton ({color, currentColor, setCurrentTheme}: ColorCircleB
         {currentColor == color ? (
         <div 
             style={{ backgroundColor: `${color}` }}
-            className="w-12 h-12 rounded-full border border-(--twitter-text)">
+            className="w-12 h-12 rounded-full border border-twitterTextAlt">
 
             </div>
         ) : (

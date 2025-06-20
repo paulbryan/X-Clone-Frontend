@@ -77,7 +77,7 @@ type FullPostTemplateProps = {
                     />
                 )}
 
-                <div className={`grid ${!fullPost && "hover:cursor-pointer hover:bg-(--twitter-text)/20"} px-4 pt-3 grid-cols-[auto_1fr] border-(--twitter-border) gap-x-3 w-full`}>    
+                <div className={`grid ${!fullPost && "hover:cursor-pointer hover:bg-twitterTextAlt/20"} px-4 pt-3 grid-cols-[auto_1fr] border-twitterBorder gap-x-3 w-full`}>    
                     
                     {retweeted && !fullPost && (
                         <YouReposted reposterId={currentUser?.id}/>
@@ -102,7 +102,7 @@ type FullPostTemplateProps = {
 
                     </div> 
                     {!fullPost && (
-                    <div className={`text-(--text-main) whitespace-pre-line break-words mb-2`}>
+                    <div className={`text-twitterText whitespace-pre-line break-words mb-2`}>
                     <p onClick={() => navigate("/tweet/"+postId)}>{post.text}</p>
                     </div>
                     )}
@@ -113,7 +113,7 @@ type FullPostTemplateProps = {
                 {mainPost && (
                     <div className="pl-2 col-span-2 flex flex-col gap-2 my-2">
                         {mainPost && (<ReplyingTo adjustGridCol={false} parentId={post.parentId} postUserId={postUser?.id}/>)}                    
-                    <div className={`text-(--text-main) col-span-2 whitespace-pre-line break-words text-xl`}>
+                    <div className={`text-twitterText col-span-2 whitespace-pre-line break-words text-xl`}>
                     <p className="">{post.text}</p>
                     </div>
                     </div> 
@@ -134,14 +134,14 @@ type FullPostTemplateProps = {
                 )}
                 
                 {!modalReplyChild ? (
-                    <div className={`w-full ${mainPost ? "col-span-2" : ""}  text-lg border-(--twitter-border)`}>
+                    <div className={`w-full ${mainPost ? "col-span-2" : ""}  text-lg border-twitterBorder`}>
                     <PostInteractionComponent
                         showPadding={mainPost && fullPost && true}
                         postId={post.id}
                     />
                     </div> 
                 ) : (
-                    <div className="text-(--twitter-text)">
+                    <div className="text-twitterTextAlt">
                         <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
                     </div>    
                 )}

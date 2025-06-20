@@ -50,8 +50,8 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
 
     return (
         <>
-        <div className={`h-fit w-full flex border-b-2 hover:bg-(--twitter-text)/20 border-(--twitter-border) ${
-            isTempUnseen ? 'bg-(--twitter-text)/20' : ' '
+        <div className={`h-fit w-full flex border-b-2 hover:bg-twitterTextAlt/20 border-twitterBorder ${
+            isTempUnseen ? 'bg-twitterTextAlt/20' : ' '
         }`}
         onClick={() => navigateFromNotification()}
         >
@@ -79,7 +79,7 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
                             <p onClick={() => navigateFromNotification()}> {displayMessage}</p>
                     </div>
 
-                    <div className="text-(--twitter-text) max-h-32">
+                    <div className="text-twitterTextAlt max-h-32">
                         <p onClick={() => navigateFromNotification()}>
 
                             {notification.text.slice(0, 30)}{notification.text.length > 30 ? "..." : ""}

@@ -15,13 +15,13 @@ function NotificationTypeIcon ({notificationType}: NotificationTypeIconProps) {
         switch (nType) {
 
             case "like" :
-                return <HeroIcon iconName="HeartIcon" solid={true} className="text-(--twitter-red) w-7 h-7"/>
+                return <HeroIcon iconName="HeartIcon" solid={true} className="text-twitterRed w-7 h-7"/>
             case "follow" :
-                return <HeroIcon iconName="UserIcon" solid={true} className="text-(--twitter-blue) w-7 h-7"/>
+                return <HeroIcon iconName="UserIcon" solid={true} className="text-twitterBlue w-7 h-7"/>
             case "reply" :
-                return <HeroIcon iconName="ChatBubbleOvalLeftIcon" solid={true} className="text-(--twitter-blue) w-7 h-7"/>
+                return <HeroIcon iconName="ChatBubbleOvalLeftIcon" solid={true} className="text-twitterBlue w-7 h-7"/>
             case "repost" :
-                return <HeroIcon iconName="ArrowPathRoundedSquareIcon" solid={true} className="text-(--twitter-green) w-7 h-7"/>
+                return <HeroIcon iconName="ArrowPathRoundedSquareIcon" solid={true} className="text-twitterGreen w-7 h-7"/>
     
         }
 

@@ -39,7 +39,7 @@ type ProfilePageOverviewProps = {
                     </div>
 
                     <div className="w-full h-12 flex justify-end items-center px-4">
-                        <div className="w-28 h-auto flex items-center justify-center align-middle rounded-2xl border border-(--text-main) text-(--text-main)">
+                        <div className="w-28 h-auto flex items-center justify-center align-middle rounded-2xl border border-twitterText text-twitterText">
                             {isOwnPage ? (
                                 <p>Edit Profile</p>
                             ) : (
@@ -52,27 +52,27 @@ type ProfilePageOverviewProps = {
 
                 </div>
 
-                <div className="w-full h-full px-4 text-(--text-main) flex flex-col">
+                <div className="w-full h-full px-4 text-twitterText flex flex-col">
 
                     <div className="w-full h-12 mt-1 mb-3 flex flex-col">
-                        <div className="font-bold text-xl text-(--text-main)"><DisplayNameComponent user={pageUser}/></div>
-                        <div className="text-(--twitter-text)"><UsernameComponent user={pageUser}/></div>
+                        <div className="font-bold text-xl text-twitterText"><DisplayNameComponent user={pageUser}/></div>
+                        <div className="text-twitterTextAlt"><UsernameComponent user={pageUser}/></div>
                     </div>
 
                     <div className="flex w-full h-fit gap-0.5 flex-col">
 
-                        <div className="text-(--text-main)">
+                        <div className="text-twitterText">
                             <BioComponent user={pageUser}/>
                         </div>
                         
-                        <div className="h-fit w-full text-(--twitter-text)">
+                        <div className="h-fit w-full text-twitterTextAlt">
                             <div className="flex items-center gap-2">
                                 <FaRegCalendar />
                                 <CreatedAtDisplay typeOfCreatedAt="date" createdAt={pageUser.createdAt}/>
                             </div>
                         </div>
 
-                        <div className="h-fit w-full flex items-center gap-4 mb-0.5 text-(--twitter-text)">
+                        <div className="h-fit w-full flex items-center gap-4 mb-0.5 text-twitterTextAlt">
                         <FollowersFollowing pageUser={pageUser}/>
                         </div>
 

@@ -57,7 +57,7 @@ function LoginView ({ setToggle }: LoginViewProps) {
         });
     }
     return (
-        <div className="w-full h-full flex flex-col text-(--text-main) rounded-2xl p-4 items-center gap-4 bg-(--background-main)">
+        <div className="w-full h-full flex flex-col text-twitterText rounded-2xl p-4 items-center gap-4 bg-(--background-main)">
             <div>
                 <h1 className="text-4xl text-center font-bold">Log in to X</h1>
             </div>
@@ -93,7 +93,7 @@ function LoginView ({ setToggle }: LoginViewProps) {
                         <p>Sign In</p>
                     </div>
 
-                    <p className='text-(--twitter-text)'>or</p>
+                    <p className='text-twitterTextAlt'>or</p>
 
                     <div onClick={() => setToggle("signup")} className='w-full font-semibold rounded-md p-2 h-auto border flex text-center justify-center items-center border-(--color-main)'>
                         <p>Not a user? Sign up</p>
