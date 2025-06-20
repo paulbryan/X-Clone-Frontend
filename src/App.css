@@ -15,19 +15,28 @@
 }
 
 @theme {
-  --twitter-blue: #1C9BF0;
-  --twitter-border: #4C5159;
-  --twitter-text: #8b98a5;
-  --twitter-hover: #16181c;
-  --dim-background: #15202c;
-  --twitter-black: #000000;
-  --twitter-red: #ff2c84;
-  --twitter-yellow: #ffd404;
-  --twitter-purple: #8054fc;
-  --twitter-green: #00ba7c;
-  --background-main: var(--twitter-black);
-  --color-main: var(--twitter-red);
-  --text-main: #f7f9f9;
+
+
+
+  --color-twitterBorder: #4C5159;
+  --color-twitterHover: #16181c;
+
+  --color-twitterText: #f7f9f9;
+  --color-twitterTextAlt: #8b98a5;
+
+  --color-backgroundBlack: #000000;
+  --color-backgroundDim: #15202c;
+
+  --color-twitterBlue: #1C9BF0;
+  --color-twitterRed: #ff2c84;
+  --color-twitterYellow: #ffd404;
+  --color-twitterPurple: #8054fc;
+  --color-twitterGreen: #00ba7c;
+  --color-twitterBlack: #000000;
+
+  --background-main: var(--twitterBlack);
+  --color-main: var(--color-twitterRed);
+
   --font-twitter: TwitterChirp;
 }
 
