@@ -16,8 +16,6 @@ type ComposeTweetProps = {
     showParentPreview?: boolean;
 }
 
-//TODO maybe add upper tweet
-
 function ComposeTweet ({parentId, setToggle, showParentPreview}: ComposeTweetProps) {
 
     const [textInput, setTextInput] = useState<string>("");

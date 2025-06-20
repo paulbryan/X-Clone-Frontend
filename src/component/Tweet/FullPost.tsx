@@ -41,7 +41,7 @@ function FullPost() {
         <FullPostTemplate key={postId} mainPost={true} fullPost={true} postId={numericPostId} />
 
           {currentUser && (
-            <ComposeTweet parentId={post.id} parentUsername="placeholder"/>
+            <ComposeTweet parentId={post.id}/>
           )}
           
           {post && post.replies.length > 0 && (

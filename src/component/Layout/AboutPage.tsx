@@ -15,7 +15,7 @@ function AboutPage () {
             </div>
 
             <div className="w-full gap-2 flex flex-col">
-                <p className="font-bold underline text-white text-xl">What tools?</p>
+                <p className="font-bold underline text-white text-xl ">What tools?</p>
                 <p className="text-(--text-main)">On the frontend, I used React, Tailwind CSS, and Typescript. On the backend, I used Java and Sprint Boot. For the Database, i'm using MySQL.</p>
             </div>
 
