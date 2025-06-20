@@ -11,15 +11,15 @@ module.exports = {
     theme: {
     extend: {
       colors: {
-        twitterBlue: '#1C9BF0',
-        twitterBorder: '#4C5159',
-        twitterHover: '#16181c',
-        dimBackGround: '#15202c',
-        twitterBlack: '#000000',
-        twitterRed: '#ff2c84',
-        twitterYellow: '#ffd404',
-        twitterPurple: '#8054fc',
-        twitterGreen: '#00ba7c'
+        twitterBlue: 'var(--twitter-blue)',
+        twitterBorder: 'var(--twitter-border)',
+        twitterHover: 'var(--twitter-text)',
+        dimBackGround: 'var(--dim-background)',
+        twitterBlack: 'var(--twitter-black)',
+        twitterRed: 'var(--twitter-red)',
+        twitterYellow: 'var(--twitter-yellow)',
+        twitterPurple: 'var(--twitter-purple)',
+        twitterGreen: 'var(--twitter-green)'
       },
     },
   },
