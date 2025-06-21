@@ -12,8 +12,6 @@ export function NoContentYet ({tabType, userId}: NoContentYetProps) {
     const { data: user } = useUser(userId ?? -1);
 
     const lowerCaseName = user?.username;
-    const stringTab : string = tabType;
-    const lowerCaseTab = stringTab.toLocaleLowerCase;
 
     function determineTabName () {
         switch (tabType) {
@@ -29,6 +27,8 @@ export function NoContentYet ({tabType, userId}: NoContentYetProps) {
                 return "Replied to any Tweets";        
         }       
     }
+
+
 
     return (
         <div className="w-full h-full flex flex-col justify-center items-center my-4">

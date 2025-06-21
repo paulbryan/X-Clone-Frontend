@@ -23,7 +23,6 @@ type FeedProps = {
 //TODO fix isready logic
 
 function Feed({userId, postIdsArray, showAsMainPost, fetchNextPage, hasNextPage, isFetchingNextPage,feedPost, isLoading, tabType }: FeedProps) {
-  const isReady = postIdsArray.length > 0;
 
   const { ref, inView } = useInView();
 
