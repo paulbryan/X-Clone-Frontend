@@ -42,22 +42,21 @@ function Feed({userId, postIdsArray, showAsMainPost, fetchNextPage, hasNextPage,
             </div>
             ) : (
               <>
-              <AnimatePresence mode="popLayout">
+
                 <div className="flex flex-col w-full" key="feed-wrapper">
                   {postIdsArray.length > 0 ? (
-                  <>
+                      <AnimatePresence mode="popLayout">
                   {postIdsArray.map((id) => (
                     <motion.div key={id} {...fadeInFeedMotionProps}>
                       <FullPostTemplate mainPost={showAsMainPost} postId={id} feedPost={feedPost}/>
                     </motion.div>
                   ))}
                   <LoadMoreForFeed  triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
-                  </>
+                      </AnimatePresence>
                   ) : tabType != null && (
                     <NoContentYet userId={userId} tabType={tabType}/>
                   )}                  
                 </div>
-              </AnimatePresence>
               </> 
             )}
         </div>

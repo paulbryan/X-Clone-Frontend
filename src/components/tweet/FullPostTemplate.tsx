@@ -1,10 +1,6 @@
 import PostInteractionComponent from "./PostInteractionComponent.tsx";
 import ProfilePic from "../user/ProfilePic.tsx";
 import { useNavigate } from "react-router-dom";
-import ComposeTweet from "../input/ComposeTweet.tsx";
-import { useModal } from "../../context/GlobalState/ModalProvider.tsx";
-import { motion } from "framer-motion";
-import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
 import React, { useContext, useEffect } from "react";
 import { usePost } from "../../lib/hooks/queries/usePost.tsx";
 import { useUser } from "../../lib/hooks/queries/useUser.tsx";
