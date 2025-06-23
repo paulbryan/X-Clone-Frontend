@@ -4,6 +4,7 @@ import type { ModalType } from "../../lib/types/ModalType.ts";
 import toast from "react-hot-toast";
 import { useCreatePost } from "../../lib/hooks/mutations/useCreatePost.tsx";
 import type { FilesWithId } from "../../lib/types/file.ts";
+import { useQueryClient } from "@tanstack/react-query";
 
 type UploadTweetButtonProps = {
   textInput: string;
@@ -19,6 +20,7 @@ function UploadTweetButton({
   filesWithId,
   setToggle,
 }: UploadTweetButtonProps) {
+  const queryClient = useQueryClient();
   const { currentUser } = useCurrentUser();
   const createPost = useCreatePost();
 
@@ -45,6 +47,9 @@ function UploadTweetButton({
       onSuccess: () => {
         toast.dismiss();
         toast.success("Tweet posted!");
+        queryClient.invalidateQueries({
+          queryKey: ["feed", "For You", currentUser.id],
+        });
         if (setToggle) setToggle(null);
       },
       onError: () => {

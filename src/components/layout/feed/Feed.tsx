@@ -42,12 +42,11 @@ function Feed({userId, postIdsArray, showAsMainPost, fetchNextPage, hasNextPage,
             </div>
             ) : (
               <>
-
                 <div className="flex flex-col w-full" key="feed-wrapper">
                   {postIdsArray.length > 0 ? (
                       <AnimatePresence mode="popLayout">
                   {postIdsArray.map((id) => (
-                    <motion.div key={id} {...fadeInFeedMotionProps}>
+                    <motion.div key={id} {...fadeInFeedMotionProps} layout="position">
                       <FullPostTemplate mainPost={showAsMainPost} postId={id} feedPost={feedPost}/>
                     </motion.div>
                   ))}
