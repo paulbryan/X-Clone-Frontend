@@ -6,11 +6,11 @@ import UsernameComponent from "../../user/UsernameComponent.tsx";
 
 type PostUserCardProps = {
     postId: number;
-    fullPost?: boolean;
+    mainPost?: boolean;
     postUserId?: number;
 }
 
-export function PostUserCard ({postId, postUserId, fullPost}: PostUserCardProps) {
+export function PostUserCard ({postId, postUserId, mainPost}: PostUserCardProps) {
 
     const { data: post } = usePost(postId);
   
@@ -18,14 +18,15 @@ export function PostUserCard ({postId, postUserId, fullPost}: PostUserCardProps)
 
     return (
         <>
-        <div className={` flex ${fullPost ? "flex-col" : "mb-0.5 gap-2 items-center"}  text-twitterText `}>
+        {/* !MAINPOST */}
+        <div className={` flex ${mainPost ? "flex-col" : "mb-0.5 gap-2 items-center"}  text-twitterText `}>
             <div className="font-bold">
             <DisplayNameComponent user={postUser}/>
             </div>
         <div className="text-twitterTextAlt text-md">
             <UsernameComponent user={postUser} />
         </div>
-        {!fullPost && post && (
+        {!mainPost && post && (
             <>
             <p>•</p>
             <CreatedAtDisplay createdAt={post.createdAt} typeOfCreatedAt="timeago"/>
