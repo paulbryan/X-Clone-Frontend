@@ -29,7 +29,7 @@ export const useInfiniteFeed = (
       console.log("INFINITE PAGE RES: ", response);
       return response;
     },
-    initialPageParam: 0,
+    initialPageParam: (type == "For You" && userId) ? 0 : 9999,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     staleTime: 1000 * 60,
   });

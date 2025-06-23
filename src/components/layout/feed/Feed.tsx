@@ -17,12 +17,11 @@ type FeedProps = {
   isFetchingNextPage?: boolean;
   tabType?: FeedType;
   userId?: number;
-  feedPostType?: PostType
 };
 
 //TODO fix isready logic
 
-function Feed({userId, postIdsArray, feedPostType, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, tabType }: FeedProps) {
+function Feed({userId, postIdsArray, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, tabType }: FeedProps) {
 
   const { ref, inView } = useInView();
 

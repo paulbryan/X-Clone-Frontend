@@ -9,6 +9,7 @@ import FullPostTemplate from "../tweet/FullPostTemplate.tsx";
 import { ImageUploadButton } from "../ui/ImageUploadButton.tsx";
 import { ImageGrid } from "../layout/media/ImageGrid.tsx";
 import type { FilesWithId } from "../../lib/types/file.ts";
+import { ReplyingTo } from "../tweet/tweetInfo/ReplyingTo.tsx";
 
 type ComposeTweetProps = {
     parentId?: number;
@@ -30,6 +31,8 @@ function ComposeTweet ({parentId, setToggle, showParentPreview}: ComposeTweetPro
         {showParentPreview && parentId && (
             <FullPostTemplate postId={parentId} isModal={true} isParentPost={true}/>
         )}
+
+
 
         <div className={`grid px-4 grid-cols-[auto_1fr] gap-x-3 w-full ${parentId && showParentPreview ? "py-2" : ""}`}>
             <div className="w-12 h-12 cursor-pointer">

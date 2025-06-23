@@ -16,6 +16,7 @@ import type { PostType } from "../../lib/types/PostType.ts";
 import { TweetMainRow } from "./TweetLayout/TweetMainRow.tsx";
 import { ExtraMainTweetRows } from "./TweetLayout/ExtraMainTweetRows.tsx";
 import { TweetImagesRow } from "./TweetLayout/TweetImagesRow.tsx";
+import { PostInteractionRow } from "./TweetLayout/PostInteractionRow.tsx";
 
 type FullPostTemplateProps = {
     postId: number;
@@ -43,6 +44,7 @@ type FullPostTemplateProps = {
     const isReplyFeedPost = postType == "ReplyFeedPost";
     const isTweetsFeedPost = retweeted && (postType == "TweetFeedPost");
     const hasImages = post && post.postMedia?.length > 0;
+    const hasParent = post && post.parentId && (isReplyFeedPost || isMainPost) && !isParentPost;
 
     const variants: Variants = {
       initial: { opacity: 0 },
@@ -74,49 +76,31 @@ type FullPostTemplateProps = {
             >
             <div onClick={() => navigateToPost()} className={`flex flex-col w-full border-gray-700 ${!isParentPost ? "border-b" : ""}`}>
 
-                {post.parentId && (isReplyFeedPost || isMainPost) && !isParentPost && (
-                    <FullPostTemplate
-                    postId={post.parentId}
-                    isParentPost={true}
-                    />
-                )}
+                {/* SEPERATE ROW FOR POST PARENT - ONLY FOR POSTS THAT ARE REPLIES */}
+                {hasParent && post.parentId && (<FullPostTemplate postId={post.parentId} isParentPost={true}/>)}
 
-                <div className={`grid ${!isMainPost && "hover:cursor-pointer hover:bg-twitterTextAlt/20"} px-4 pt-3 grid-cols-[auto_1fr] border-twitterBorder gap-x-3 w-full`}>    
+                <div className={`grid ${!isMainPost && "hover:cursor-pointer hover:bg-twitterTextAlt/20"} px-4 ${!hasParent ? "pt-3" : ""} grid-cols-[auto_1fr] border-twitterBorder gap-x-3 w-full`}>    
                 
-                {/* SEPERATE ROW FOR YOU REPOSTED - ONLY ON "TWEETS" FEED POSTS     */}
-                {isTweetsFeedPost && (<YouReposted reposterId={currentUser?.id}/>)}
-                
-                {/* CORE ROW - SHOWS PROFILE PIC, User's names, and optionally post text */}
-                <TweetMainRow post={post} postUser={postUser} isMainPost={isMainPost} isParentPost={isParentPost}/>
+                  {/* SEPERATE ROW FOR YOU REPOSTED - ONLY ON "TWEETS" FEED POSTS     */}
+                  {isTweetsFeedPost && (<YouReposted reposterId={currentUser?.id}/>)}
+                  
+                  {/* CORE ROW - SHOWS PROFILE PIC, User's names, and optionally post text */}
+                  <TweetMainRow post={post} postUser={postUser} isMainPost={isMainPost} isParentPost={isParentPost}/>
 
-                {/* EXTRA ROW - ONLY FOR MAIN POSTS, shows post text on seperate rows */}
-                {isMainPost && <ExtraMainTweetRows post={post} postUser={postUser}/>}
+                  {/* EXTRA ROW - ONLY FOR MAIN POSTS, shows post text on seperate rows */}
+                  {isMainPost && <ExtraMainTweetRows post={post} postUser={postUser}/>}
 
-                {/* FOURTH ROW - SHOWS IMAGES */}
-                {hasImages && <TweetImagesRow post={post} isParentPost={isParentPost} isMainPost={isMainPost}/>}
-                
-                <PostLine showLine={isParentPost}/>
-                
-                {/* FIFTH ROW - SHOWS POST INTERACTIONS IF NOT A REPLY */}
-                {!isModal ? (
-                  <>
-                  <div className={`w-full ${isMainPost ? "col-span-2" : "col-start-2"}  text-lg border-twitterBorder`}>
-                    <PostInteractionComponent
-                        showPadding={isMainPost}
-                        postId={post.id}
-                    />
-                  </div> 
-                    </>
-                ) : (
-                    <div className="text-twitterTextAlt">
-                        <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
-                    </div>    
-                )}
-
-
-
+                  {/* FOURTH ROW - SHOWS IMAGES */}
+                  {hasImages && <TweetImagesRow post={post} isParentPost={isParentPost} isMainPost={isMainPost}/>}
+                          
+                  {/* FIFTH ROW - SHOWS POST INTERACTIONS IF NOT A REPLY */}
+                  {!isModal ? (
+                    <PostInteractionRow post={post} isMainPost={isMainPost} isParentPost={isParentPost}/>
+                  ) : (
+                    <ReplyingTo postUser={postUser} parentId={post.parentId} />
+                  )}
                 </div>
-                </div>
+              </div>
 
             </motion.div>
         )}

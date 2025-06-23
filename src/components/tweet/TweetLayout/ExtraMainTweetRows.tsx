@@ -11,7 +11,6 @@ export function ExtraMainTweetRows ({post, postUser}: ExtraMainTweetRowsProps ) 
 
     return (
         <>
-                <ReplyingTo adjustGridCol={true} parentId={post.parentId} postUserId={postUser?.id}/>                  
                 <div className="pl-2 col-span-2 flex flex-col gap-2 my-2 whitespace-pre-line break-words text-xl">
                 <p className="">{post.text}</p>
                 </div> 
