@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type MouseEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { HeroIcon, type IconName } from "./HeroIcon.tsx";
+import { InteractionCounter } from "./InteractionCounter.tsx";
 
 type InteractionButtonProps = {
   numberList: number[];
@@ -22,16 +23,6 @@ function InteractionButton({ numberList, buttonColor, mutationFunction, iconName
 
   const count = numberList.length;
 
-  const [prevCount, setPrevCount] = useState(numberList.length);
-  const [move, setMove] = useState(0);
-
-  useEffect(() => {
-    const newCount = numberList.length;
-    const diff = newCount > prevCount ? -15 : 15;
-    setMove(diff);
-    setPrevCount(newCount);
-  }, [numberList.length]);
-
   const handleMutation = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     mutationFunction();
@@ -43,19 +34,7 @@ function InteractionButton({ numberList, buttonColor, mutationFunction, iconName
     <div onClick={(e) => handleMutation(e)}>
       <HeroIcon iconName={iconName} solid={isMarked} className={`h-6 w-6`}/>
     </div>      
-
-        <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={numberList.length}
-          initial={{ y: move, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -move, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 600, damping: 40 }}
-          className="block text-sm"
-        >
-          {numberList.length}
-        </motion.span>
-      </AnimatePresence>
+    <InteractionCounter count={count}/>
     </div>
     </div>
   )
