@@ -11,47 +11,52 @@ import { backdropMotionProps, modalMotionProps } from "../../lib/animations/moti
 import { PostUserCard } from "./tweetInfo/PostUserCard.tsx";
 import { ReplyingTo } from "./tweetInfo/ReplyingTo.tsx";
 import { PostLine } from "./tweetInfo/PostLine.tsx";
+import { motion, type Variants } from "framer-motion";
+import type { PostType } from "../../lib/types/PostType.ts";
+import { TweetMainRow } from "./TweetLayout/TweetMainRow.tsx";
+import { ExtraMainTweetRows } from "./TweetLayout/ExtraMainTweetRows.tsx";
+import { TweetImagesRow } from "./TweetLayout/TweetImagesRow.tsx";
+import { PostInteractionRow } from "./TweetLayout/PostInteractionRow.tsx";
 
 type FullPostTemplateProps = {
     postId: number;
-    fullPost?: boolean;
-    showLine?: boolean;
-    modalReplyChild?: boolean;
-    mainPost?: boolean;
-    feedPost? : boolean;
+    isModal?: boolean;
+    isParentPost? : boolean;
+    postType?: PostType;
   };
   
   function FullPostTemplate({
-    mainPost,
     postId,
-    fullPost,
-    showLine,
-    modalReplyChild,
-    feedPost
+    isModal,
+    isParentPost,
+    postType
+
   }: FullPostTemplateProps) {
 
     const { data: post } = usePost(postId);
   
     const { data: postUser } = useUser(post?.userId ?? -1);
     const { currentUser } = useCurrentUser();
-  
-
-
-    useEffect(() => {
-        if (post && post.id == 47) {
-            console.log("Post is: " + JSON.stringify(post))
-
-        }    
-    }, [post])
-
-
 
     const retweeted = currentUser?.retweets.includes(postId);
+
+    const isMainPost = postType == "MainPost";
+    const isReplyFeedPost = postType == "ReplyFeedPost";
+    const isTweetsFeedPost = retweeted && (postType == "TweetFeedPost");
+    const hasImages = post && post.postMedia?.length > 0;
+    const hasParent = post && post.parentId && (isReplyFeedPost || isMainPost) && !isParentPost;
+
+    const variants: Variants = {
+      initial: { opacity: 0 },
+      animate: { opacity: 1, transition: { duration: 0.8 } },
+      exit: { opacity: 0, transition: { duration: 0.2 } }
+    };
+
 
     const navigate = useNavigate();
 
     const navigateToPost = () => {
-        if (!fullPost) {
+        if (!isMainPost) {
             navigate("/tweet/" + postId)
         }
     }
@@ -62,93 +67,42 @@ type FullPostTemplateProps = {
         
         <>
         {post && (
-            <>
-            {/* check this out do i need border //TODO*/}
-            <div onClick={() => navigateToPost()} className={`flex flex-col w-full border-gray-700 ${!showLine || (!mainPost && fullPost) ? "border-b pb-1" : ""}`}>
+            <motion.div
+            {...(!isModal ? { ...variants, layout: 'position' } : {})}
+            animate={{
+              ...variants.animate,
+              ...(post.parentId && !isMainPost && { transition: { duration: 0.2 } })
+            }}
+            >
+            <div onClick={() => navigateToPost()} className={`flex flex-col w-full border-gray-700 ${!isParentPost ? "border-b" : ""}`}>
 
-                {post.parentId && feedPost && (
-                    <FullPostTemplate
-                    postId={post.parentId}
-                    showLine={true}
-                    />
-                )}
+                {/* SEPERATE ROW FOR POST PARENT - ONLY FOR POSTS THAT ARE REPLIES */}
+                {hasParent && post.parentId && (<FullPostTemplate postId={post.parentId} isParentPost={true}/>)}
 
-                <div className={`grid ${!fullPost && "hover:cursor-pointer hover:bg-twitterTextAlt/20"} px-4 pt-3 grid-cols-[auto_1fr] border-twitterBorder gap-x-3 w-full`}>    
-                    
-                    {retweeted && !fullPost && (
-                        <YouReposted reposterId={currentUser?.id}/>
-                    )}
+                <div className={`grid ${!isMainPost && "hover:cursor-pointer hover:bg-twitterTextAlt/20"} px-4 ${!hasParent ? "pt-3" : ""} grid-cols-[auto_1fr] border-twitterBorder gap-x-3 w-full`}>    
                 
-                {/* LEFT COLUMN: Profile Pic */}
-                <div className="relative w-12 flex justify-center">
-                    <div className="w-12 h-12">
-                        <ProfilePic userId={postUser?.id} />
-                    </div>
-                    
-                    {showLine && (
-                        <div className="absolute top-12 bottom-0 w-px bg-gray-600" />
-                    )}
+                  {/* SEPERATE ROW FOR YOU REPOSTED - ONLY ON "TWEETS" FEED POSTS     */}
+                  {isTweetsFeedPost && (<YouReposted reposterId={currentUser?.id}/>)}
+                  
+                  {/* CORE ROW - SHOWS PROFILE PIC, User's names, and optionally post text */}
+                  <TweetMainRow post={post} postUser={postUser} isMainPost={isMainPost} isParentPost={isParentPost}/>
+
+                  {/* EXTRA ROW - ONLY FOR MAIN POSTS, shows post text on seperate rows */}
+                  {isMainPost && <ExtraMainTweetRows post={post} postUser={postUser}/>}
+
+                  {/* FOURTH ROW - SHOWS IMAGES */}
+                  {hasImages && <TweetImagesRow post={post} isParentPost={isParentPost} isMainPost={isMainPost}/>}
+                          
+                  {/* FIFTH ROW - SHOWS POST INTERACTIONS IF NOT A REPLY */}
+                  {!isModal ? (
+                    <PostInteractionRow post={post} isMainPost={isMainPost} isParentPost={isParentPost}/>
+                  ) : (
+                    <ReplyingTo postUser={postUser} parentId={post.parentId} />
+                  )}
                 </div>
+              </div>
 
-                <div className="flex flex-col w-full">
-                    
-                    <div className="flex flex-col">
-                    <PostUserCard postId={postId} postUserId={postUser?.id} fullPost={mainPost}/>
-                    {/* {fullPost && (<ReplyingTo parentId={post.parentId} postUserId={postUser?.id}/>)} */}
-
-                    </div> 
-                    {!fullPost && (
-                    <div className={`text-twitterText whitespace-pre-line break-words mb-2`}>
-                    <p onClick={() => navigate("/tweet/"+postId)}>{post.text}</p>
-                    </div>
-                    )}
-                </div>
-                {mainPost && <div></div>}
-                {/* {mainPost && (<ReplyingTo adjustGridCol={true} parentId={post.parentId} postUserId={postUser?.id}/>)}  */}
-                
-                {mainPost && (
-                    <div className="pl-2 col-span-2 flex flex-col gap-2 my-2">
-                        {mainPost && (<ReplyingTo adjustGridCol={false} parentId={post.parentId} postUserId={postUser?.id}/>)}                    
-                    <div className={`text-twitterText col-span-2 whitespace-pre-line break-words text-xl`}>
-                    <p className="">{post.text}</p>
-                    </div>
-                    </div> 
-                )}
-
-                <PostLine showLine={showLine}/>
-
-                {post.postMedia?.length > 0 && (
-                    <>
-                    <div className={`${fullPost ? "col-span-2" : "col-start-2"}`}>
-                    <ImagePreviewGrid mediaIds={post.postMedia}/>
-                    </div>
-
-                    <div>
-                    </div>
-
-                    </>
-                )}
-                
-                {!modalReplyChild ? (
-                    <div className={`w-full ${mainPost ? "col-span-2" : ""}  text-lg border-twitterBorder`}>
-                    <PostInteractionComponent
-                        showPadding={mainPost && fullPost && true}
-                        postId={post.id}
-                    />
-                    </div> 
-                ) : (
-                    <div className="text-twitterTextAlt">
-                        <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
-                    </div>    
-                )}
-
-
-
-                </div>
-
-                </div>
-
-            </>
+            </motion.div>
         )}
 
         

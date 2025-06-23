@@ -22,7 +22,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
     const drawerVariant = {
         initial: { x: "-100%", opacity: 0 },
         animate: {
-          x: -8,
+          x: 0,
           opacity: 1,
           transition: { type: "spring", stiffness: 250, damping: 25 }
         },

@@ -1,0 +1,20 @@
+import type { Post } from "../../../lib/types/Post"
+import type { User } from "../../../lib/types/User";
+import { ReplyingTo } from "../tweetInfo/ReplyingTo";
+
+type ExtraMainTweetRowsProps = {
+    post : Post;
+    postUser?: User;
+}
+
+export function ExtraMainTweetRows ({post, postUser}: ExtraMainTweetRowsProps ) {
+
+    return (
+        <>
+                <div className="pl-2 col-span-2 flex flex-col gap-2 my-2 whitespace-pre-line break-words text-xl">
+                <p className="">{post.text}</p>
+                </div> 
+        </>
+    )
+
+}

@@ -1,7 +1,8 @@
-import { useMemo, type MouseEvent } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useState, type MouseEvent } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { HeroIcon, type IconName } from "./HeroIcon.tsx";
+import { InteractionCounter } from "./InteractionCounter.tsx";
 
 type InteractionButtonProps = {
   numberList: number[];
@@ -33,15 +34,7 @@ function InteractionButton({ numberList, buttonColor, mutationFunction, iconName
     <div onClick={(e) => handleMutation(e)}>
       <HeroIcon iconName={iconName} solid={isMarked} className={`h-6 w-6`}/>
     </div>      
-    <motion.span
-        key={count}
-        initial={{ y: isMarked ? -15 : 15, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: isMarked ? 15 : -15, opacity: 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    >
-      {numberList.length}
-    </motion.span>
+    <InteractionCounter count={count}/>
     </div>
     </div>
   )

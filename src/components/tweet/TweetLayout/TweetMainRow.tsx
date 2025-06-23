@@ -1,0 +1,51 @@
+import { useNavigate } from "react-router-dom";
+import type { Post } from "../../../lib/types/Post";
+import type { User } from "../../../lib/types/User"
+import ProfilePic from "../../user/ProfilePic";
+import { PostUserCard } from "../tweetInfo/PostUserCard";
+
+type TweetMainRowProps = {
+
+    isParentPost?: boolean;
+    isMainPost?: boolean;
+    postUser?: User;
+    post: Post;
+
+}
+
+export function TweetMainRow ({isParentPost, isMainPost, postUser, post}: TweetMainRowProps) {
+
+    const navigate = useNavigate();
+    
+
+    return (
+<>
+                <div className="relative w-12 flex justify-center">
+                    <div className="w-12 h-12">
+                        <ProfilePic userId={postUser?.id} />
+                    </div>
+                    
+                    {isParentPost && (
+                        <div className="absolute top-12 bottom-0 w-px bg-gray-600" />
+                    )}
+                </div>
+
+                <div className="flex flex-col w-full">
+                    
+                    <div className="flex flex-col">
+                    <PostUserCard postId={post.id} postUserId={postUser?.id} mainPost={isMainPost}/>
+                    </div> 
+                    {/* !MainPost!!!!! */}
+                    {!isMainPost && (
+                    <div className={`text-twitterText whitespace-pre-line break-words mb-2`}>
+                    <p onClick={() => navigate("/tweet/"+post.id)}>{post.text}</p>
+                    </div>
+                    )}
+                </div>
+
+</>
+
+
+    )
+
+}

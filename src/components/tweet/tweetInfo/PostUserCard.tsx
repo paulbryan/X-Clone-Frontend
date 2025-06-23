@@ -3,14 +3,16 @@ import { useUser } from "../../../lib/hooks/queries/useUser.tsx";
 import CreatedAtDisplay from "../../ui/CreatedAtDisplay.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
+import { ReplyingTo } from "./ReplyingTo.tsx";
 
 type PostUserCardProps = {
     postId: number;
-    fullPost?: boolean;
+    mainPost?: boolean;
+    isReplyFeedPost?: boolean;
     postUserId?: number;
 }
 
-export function PostUserCard ({postId, postUserId, fullPost}: PostUserCardProps) {
+export function PostUserCard ({postId, postUserId, isReplyFeedPost, mainPost}: PostUserCardProps) {
 
     const { data: post } = usePost(postId);
   
@@ -18,14 +20,17 @@ export function PostUserCard ({postId, postUserId, fullPost}: PostUserCardProps)
 
     return (
         <>
-        <div className={` flex ${fullPost ? "flex-col" : "mb-0.5 gap-2 items-center"}  text-twitterText `}>
+        {/* !MAINPOST */}
+        <div className={` flex ${mainPost ? "flex-col" : "mb-0.5 gap-2 items-center"}  text-twitterText `}>
             <div className="font-bold">
             <DisplayNameComponent user={postUser}/>
             </div>
         <div className="text-twitterTextAlt text-md">
             <UsernameComponent user={postUser} />
         </div>
-        {!fullPost && post && (
+        {(isReplyFeedPost) && post?.parentId && <ReplyingTo adjustGridCol={false} parentId={post.parentId} postUserId={postUser?.id}/>}
+        
+        {!mainPost && post && (
             <>
             <p>•</p>
             <CreatedAtDisplay createdAt={post.createdAt} typeOfCreatedAt="timeago"/>

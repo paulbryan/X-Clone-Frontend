@@ -42,7 +42,7 @@ function HomePage () {
 
         
         <div className="h-full w-full overflow-hidden">
-            {currentUser && !isLoading && (
+            {currentUser && (
             <div>
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
             </div>

@@ -1,20 +1,20 @@
-import { useUser } from "../../../lib/hooks/queries/useUser.tsx";
+import type { User } from "../../../lib/types/User.ts";
+import { PostLine } from "./PostLine.tsx";
 
 type ReplyingToProps = {
     parentId?: number;
-    postUserId?: number;
-    adjustGridCol?: boolean;
+    postUser?: User;
 }
 
-export function ReplyingTo ({parentId, postUserId, adjustGridCol}: ReplyingToProps) {
-
-    if (!parentId) return;
-    const { data: postUser } = useUser(postUserId ?? -1);
+export function ReplyingTo ({postUser}: ReplyingToProps) {
 
     return (
-    <div className={`${adjustGridCol ? "col-start-2" : ""} text-sm text-twitterTextAlt`}>
-        <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
-    </div>    
+        <>
+        <PostLine showLine={true}/>
+        <div className={`text-sm text-twitterTextAlt`}>
+            <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
+        </div>  
+        </>  
     )
 
 }
