@@ -11,6 +11,7 @@ import { backdropMotionProps, modalMotionProps } from "../../lib/animations/moti
 import { PostUserCard } from "./tweetInfo/PostUserCard.tsx";
 import { ReplyingTo } from "./tweetInfo/ReplyingTo.tsx";
 import { PostLine } from "./tweetInfo/PostLine.tsx";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 
 type FullPostTemplateProps = {
     postId: number;
@@ -44,6 +45,12 @@ type FullPostTemplateProps = {
         }    
     }, [post])
 
+    const variants: Variants = {
+      initial: { opacity: 0 },
+      animate: { opacity: 1, transition: { duration: 0.8 } },
+      exit: { opacity: 0, transition: { duration: 0.2 } }
+    };
+
 
 
     const retweeted = currentUser?.retweets.includes(postId);
@@ -62,7 +69,13 @@ type FullPostTemplateProps = {
         
         <>
         {post && (
-            <>
+            <motion.div
+            {...(!modalReplyChild ? { ...variants, layout: 'position' } : {})}
+            animate={{
+              ...variants.animate,
+              ...(post.parentId && feedPost && { transition: { duration: 0.2 } })
+            }}
+            >
             {/* check this out do i need border //TODO*/}
             <div onClick={() => navigateToPost()} className={`flex flex-col w-full border-gray-700 ${!showLine || (!mainPost && fullPost) ? "border-b pb-1" : ""}`}>
 
@@ -148,7 +161,7 @@ type FullPostTemplateProps = {
 
                 </div>
 
-            </>
+            </motion.div>
         )}
 
         
