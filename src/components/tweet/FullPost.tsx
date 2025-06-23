@@ -31,22 +31,14 @@ function FullPost() {
 
       {post && (
         <>
-        {post.parentId && (
-            <FullPostTemplate
-              postId={post.parentId}
-              showLine={true}
-            />
-        )}
-
-        <FullPostTemplate key={postId} mainPost={true} fullPost={true} postId={numericPostId} />
+        <FullPostTemplate key={postId} postType={"MainPost"} postId={numericPostId} />
 
           {currentUser && (
             <ComposeTweet parentId={post.id}/>
           )}
           
           {post && post.replies.length > 0 && (
-            <Feed key={post.replies.length} postIdsArray={post.replies} showAsMainPost={false}/>
-
+            <Feed key={post.replies.length} postIdsArray={post.replies}/>
           )}
         </>
       )}

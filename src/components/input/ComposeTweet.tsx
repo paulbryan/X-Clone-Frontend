@@ -28,7 +28,7 @@ function ComposeTweet ({parentId, setToggle, showParentPreview}: ComposeTweetPro
         <div className={`flex flex-col pt-4 pb-4 bg-(--background-main) w-full ${isModal ? "rounded-2xl border border-(--color-main)" : "border-b border-gray-700"}`}>
         
         {showParentPreview && parentId && (
-            <FullPostTemplate postId={parentId} modalReplyChild={true} showLine={true}/>
+            <FullPostTemplate postId={parentId} isModal={true} isParentPost={true}/>
         )}
 
         <div className={`grid px-4 grid-cols-[auto_1fr] gap-x-3 w-full ${parentId && showParentPreview ? "py-2" : ""}`}>

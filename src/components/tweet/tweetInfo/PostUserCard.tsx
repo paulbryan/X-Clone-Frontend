@@ -3,14 +3,16 @@ import { useUser } from "../../../lib/hooks/queries/useUser.tsx";
 import CreatedAtDisplay from "../../ui/CreatedAtDisplay.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
+import { ReplyingTo } from "./ReplyingTo.tsx";
 
 type PostUserCardProps = {
     postId: number;
     mainPost?: boolean;
+    isReplyFeedPost?: boolean;
     postUserId?: number;
 }
 
-export function PostUserCard ({postId, postUserId, mainPost}: PostUserCardProps) {
+export function PostUserCard ({postId, postUserId, isReplyFeedPost, mainPost}: PostUserCardProps) {
 
     const { data: post } = usePost(postId);
   
@@ -26,6 +28,8 @@ export function PostUserCard ({postId, postUserId, mainPost}: PostUserCardProps)
         <div className="text-twitterTextAlt text-md">
             <UsernameComponent user={postUser} />
         </div>
+        {(isReplyFeedPost) && post?.parentId && <ReplyingTo adjustGridCol={false} parentId={post.parentId} postUserId={postUser?.id}/>}
+        
         {!mainPost && post && (
             <>
             <p>•</p>
