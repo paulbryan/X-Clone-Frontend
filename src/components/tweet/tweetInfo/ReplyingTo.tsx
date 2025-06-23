@@ -12,7 +12,7 @@ export function ReplyingTo ({parentId, postUserId, adjustGridCol}: ReplyingToPro
     const { data: postUser } = useUser(postUserId ?? -1);
 
     return (
-    <div className={`${adjustGridCol ? "col-start-2" : ""} text-sm text-twitterTextAlt`}>
+    <div className={`col-start-2 text-sm text-twitterTextAlt`}>
         <p>Replying to <span className="text-(--color-main)">@{postUser?.username}</span></p>
     </div>    
     )

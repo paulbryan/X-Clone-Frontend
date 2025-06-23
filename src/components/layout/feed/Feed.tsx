@@ -50,7 +50,8 @@ function Feed({userId, postIdsArray, showAsMainPost, fetchNextPage, hasNextPage,
                       <FullPostTemplate mainPost={showAsMainPost} postId={id} feedPost={feedPost}/>
                     </motion.div>
                   ))}
-                  <LoadMoreForFeed  triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
+                                    <LoadMoreForFeed  triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
+
                       </AnimatePresence>
                   ) : tabType != null && (
                     <NoContentYet userId={userId} tabType={tabType}/>
