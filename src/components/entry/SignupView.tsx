@@ -5,6 +5,7 @@ import type { SignupUser } from "../../lib/types/SignupUser.ts";
 import type { ModalType } from "../../lib/types/ModalType.ts";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { FaGoogle, FaXTwitter } from "react-icons/fa6";
+import { GoogleSignInButton } from "../ui/GoogleSignInButton.tsx";
 
 type SignUpViewProps = {
   setToggle: (type: ModalType) => void;
@@ -99,10 +100,7 @@ function SignupView({ setToggle }: SignUpViewProps) {
           </div>
 
 
-            <div className="w-full bg-twitterText text-twitterBlack flex items-center gap-2 justify-center h-10 rounded-full">
-              <FaGoogle />
-              <p className="font-bold">Sign up with Google</p>
-            </div>
+          <GoogleSignInButton/>
 
           <div className="w-full flex items-center text-twitterBorder">
             <div className="w-full">
