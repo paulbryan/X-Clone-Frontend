@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
 import { HeroIcon } from "../../ui/HeroIcon.tsx";
+import { createPortal } from "react-dom";
 
 type MobileMainDrawerProps = {
     setDrawerOpen:Dispatch<SetStateAction<boolean>>
@@ -38,9 +39,12 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
         console.log("curriser " + JSON.stringify(currentUser))
     }, [currentUser])
 
-    return (
+    const modalRoot = document.getElementById("modal-root");
+    if (!modalRoot) return null;
+
+    return createPortal (
         <motion.div
-        className="absolute will-change-transform z-8 top-0 w-full h-full backdrop-blur-sm"
+        className="absolute will-change-transform z-10 top-0 w-full h-full backdrop-blur-sm"
         variants={drawerVariant}
         initial="initial"
         animate="animate"
@@ -49,7 +53,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
             <div
             onClick={(e) => e.stopPropagation()}
-            className="w-2/3 min-w-[280px] max-w-2/3 p-4 pl-6 border-r flex flex-col border-twitterBorder h-full bg-(--background-main)">
+            className="w-2/3 min-w-[280px] max-w-2/3 p-4 pl-6 border-r flex flex-col border-twitterBorder h-full max-h-full overflow-y-hidden overflow-x-hidden bg-(--background-main)">
                 
                 <div className="w-full h-fit ">
                     <div onClick={() => navigate(`/profile/${currentUser?.id}`)} className="w-12 h-12">
@@ -108,7 +112,8 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
             </div>
 
-        </motion.div>
+        </motion.div>,
+        modalRoot
     )
 
 }

@@ -15,10 +15,9 @@ import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
 import AboutPage from './components/layout/pages/AboutPage.tsx';
 
 import { useEffect } from 'react';
+import ExplorePage from './components/layout/pages/ExplorePage.tsx';
 
 //TODO
-
-
 
 function App() {
 
@@ -30,13 +29,6 @@ function App() {
     },
     success: { duration: 4000 }
   };
-
-  useEffect(() => {
-    document.fonts.ready.then(() => {
-      const isLoaded = document.fonts.check('16px "TwitterChirp"');
-      console.log('TwitterChirp loaded?', isLoaded);
-    });
-  }, [])
 
 
   return (
@@ -85,6 +77,13 @@ function App() {
         path="bookmarks"
         element={
           <BookmarkPage/>
+        }
+        />
+
+        <Route
+        path="explore"
+        element={
+          <ExplorePage/>
         }
         />
 

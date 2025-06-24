@@ -1,5 +1,4 @@
 import LoadingIcon from "../../ui/LoadingIcon.tsx";
-import FullPostTemplate from "../../tweet/FullPostTemplate.tsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { LoadMoreForFeed } from "../../ui/LoadMoreForFeed.tsx";
 import { fadeInFeedMotionProps } from "../../../lib/animations/motionAnimations.ts";
@@ -8,6 +7,7 @@ import { useInView } from "react-intersection-observer";
 import type { FeedType } from "../../../lib/types/FeedType.ts";
 import { NoContentYet } from "./NoContentYet.tsx";
 import type { PostType } from "../../../lib/types/PostType.ts";
+import Tweet from "../../tweet/Tweet.tsx";
 
 type FeedProps = {
   postIdsArray: number[];
@@ -36,7 +36,7 @@ function Feed({userId, postIdsArray, fetchNextPage, hasNextPage, isFetchingNextP
   const postTypeForFeed : PostType | undefined = (tabType == "Replies" ? "ReplyFeedPost" : tabType == "Tweets" ? "TweetFeedPost" : undefined) 
 
       return (
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col ">
           {isLoading ? (
             <div className="flex justify-center py-2 flex-col w-full">
               <LoadingIcon />
@@ -48,10 +48,10 @@ function Feed({userId, postIdsArray, fetchNextPage, hasNextPage, isFetchingNextP
                       <AnimatePresence mode="popLayout">
                   {postIdsArray.map((id) => (
                     <motion.div key={id} {...fadeInFeedMotionProps} layout="position">
-                      <FullPostTemplate postId={id} postType={postTypeForFeed}/>
+                      <Tweet postId={id} postType={postTypeForFeed}/>
                     </motion.div>
                   ))}
-                                    <LoadMoreForFeed  triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
+                  <LoadMoreForFeed  triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
 
                       </AnimatePresence>
                   ) : tabType != null && (

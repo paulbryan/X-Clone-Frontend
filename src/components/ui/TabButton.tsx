@@ -13,13 +13,12 @@ const TabButton: FC<TabButtonProps> = ({ tab, setActiveTab, activeTab }) => {
   return (
     <div onClick={() => setActiveTab(tab)}
       className={
-        "w-full h-full flex items-center justify-center " +
-        (tab == activeTab
-          ? "text-(--color-main) border-b-2 border-(--color-main) font-semibold"
-          : "text-gray-500 border-b border-twitterBorder")
+        "hover:cursor-pointer hover:bg-twitterTextAlt/20 w-full h-12 flex items-center justify-center "
       }
     >
-      <p>{tab}</p>
+      <p className={`h-12 text-twitterText font-semibold flex justify-center items-center text-center ${        tab == activeTab
+          ? "border-(--color-main) border-b-2"
+          : "text-twitterTextAlt"}`}>{tab}</p>
     </div>
   );
 };

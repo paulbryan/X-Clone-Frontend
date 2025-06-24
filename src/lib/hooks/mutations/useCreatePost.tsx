@@ -7,7 +7,7 @@ export const useCreatePost = () => {
     mutationFn: async (formData: FormData): Promise<void> => {
       const res = await fetch("http://localhost:8080/api/posts/createPost", {
         method: "POST",
-        body: formData, // 👈 no need for headers — browser sets it
+        body: formData,
       });
 
       if (!res.ok) throw new Error("Failed to post");

@@ -64,7 +64,7 @@ function ProfilePage() {
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
             </div>
 
-            <div className="mb-14">
+            <div className="">
                 <Feed userId={pageUser?.id} isLoading={isLoading} key={activeTab} postIdsArray={postIds} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} tabType={activeTab}/>
             </div>        
         </div>

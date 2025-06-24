@@ -31,14 +31,14 @@ function SignupView ({ setToggle }: SignUpViewProps) {
           reader.onloadend = () => {
             const result = reader.result;
             if (typeof result === "string") {
-              const base64 = result.split(",")[1]; // Strip "data:image/jpeg;base64,"
+              const base64 = result.split(",")[1];
               resolve(base64);
             } else {
               reject("Invalid result");
             }
           };
           reader.onerror = reject;
-          reader.readAsDataURL(blob); // ✅ KEY LINE
+          reader.readAsDataURL(blob);
         });
       }
 

@@ -12,22 +12,22 @@ export function LoadMoreForFeed ({triggerRef, hasNextPage, isFetchingNextPage}: 
     const [showEnd, setShowEnd] = useState(false);
 
 
-      useEffect(() => {
+  useEffect(() => {
     if (!hasNextPage && !isFetchingNextPage) {
-      const timer = setTimeout(() => setShowEnd(true), 300); // wait a bit before showing
+      const timer = setTimeout(() => setShowEnd(true), 300);
       return () => clearTimeout(timer);
     } else {
-      setShowEnd(false); // reset if more pages arrive
+      setShowEnd(false);
     }
   }, [hasNextPage, isFetchingNextPage]);
 
     return  (
       
         <div className="w-full flex flex-col justify-center items-center h-20">
-        <div ref={triggerRef} className="h-4 w-full" />
+        <div ref={triggerRef} className="w-full h-0 pointer-events-none opacity-0" />
   
         {isFetchingNextPage && (
-          <div className="flex justify-center items-center py-2">
+          <div  className="flex justify-center items-center py-2">
             <LoadingIcon />
           </div>
         )}
