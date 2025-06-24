@@ -3,6 +3,10 @@ import { useAuth } from '../../context/Auth/AuthProvider.tsx';
 import InputFormField from '../input/InputFormField.tsx';
 
 import type { ModalType } from '../../lib/types/ModalType.ts';
+import { FaXTwitter } from 'react-icons/fa6';
+import { GoogleSignInButton } from '../ui/GoogleSignInButton.tsx';
+import { HorizontalStripedText } from '../ui/HorizontalStripedText.tsx';
+import { TermsAndConditions } from './TermsAndConditions.tsx';
 
 
 type LoginViewProps = {
@@ -57,12 +61,32 @@ function LoginView ({ setToggle }: LoginViewProps) {
         });
     }
     return (
-        <div className="w-full h-full flex flex-col text-twitterText rounded-2xl p-4 items-center gap-4 bg-(--background-main)">
-            <div>
-                <h1 className="text-4xl text-center font-bold">Log in to X</h1>
-            </div>
 
-            <div className='w-full h-20 flex items-center justify-around'>
+      <div className="w-full h-full flex flex-col border text-twitterText rounded-4xl p-8 items-center gap-6 bg-(--background-main)">
+        <FaXTwitter className="text-4xl" />
+
+        <p className="text-xl font-bold text-center">Sign in to X</p>
+
+        <GoogleSignInButton>
+          Sign in with Google
+        </GoogleSignInButton>  
+
+        <HorizontalStripedText> OR </HorizontalStripedText>
+
+        <div className="w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full">
+          <p className="">Use a temporary account</p>
+        </div>
+
+        <p className="text-md w-full font text-twitterTextAlt">
+          Don't have an account? <span className='text-(--color-main)'>Sign up</span>
+        </p>
+
+        <p className="text-md w-full font text-twitterTextAlt">
+          Are you the admin? <span onClick={() => adminLoginQuick(13)} className='text-(--color-main)'>Sign in here</span>
+        </p>
+
+
+              {/* <div className='w-full h-20 flex items-center justify-around'>
 
                 <div onClick={() => adminLoginQuick(13)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
                     <p className=' font-bold text-(--color-main)'>JOKER</p>
@@ -78,30 +102,12 @@ function LoginView ({ setToggle }: LoginViewProps) {
                 </div>
                 
 
-            </div>
+            </div> */}
+    </div>
 
 
-            <div className="flex flex-col gap-4 w-full text-xl">
-                <InputFormField inputValue={usernameInput} setInputValue={setUserNameInput} placeholderValue='Username'/>
-                <InputFormField inputValue={emailInput} setInputValue={setEmailInput} placeholderValue='Email'/>
-                <InputFormField inputValue={passwordInput} setInputValue={setPasswordInput} placeholderValue='Password'/>
-            </div>
 
-            <div className='w-full gap-2 flex flex-col justify-center items-center'>
 
-                    <div onClick={() => loginUser()} className='w-full font-semibold rounded-md p-2 h-auto border flex text-center justify-center items-center border-(--color-main)'>
-                        <p>Sign In</p>
-                    </div>
-
-                    <p className='text-twitterTextAlt'>or</p>
-
-                    <div onClick={() => setToggle("signup")} className='w-full font-semibold rounded-md p-2 h-auto border flex text-center justify-center items-center border-(--color-main)'>
-                        <p>Not a user? Sign up</p>
-                    </div>
-
-            </div>
-
-        </div>
     )
 
 }

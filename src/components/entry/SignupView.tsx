@@ -89,18 +89,20 @@ function SignupView({ setToggle }: SignUpViewProps) {
   }, [currentUser]);
 
   return (
-    <div className="w-full h-full flex flex-col border text-twitterText rounded-4xl px-4 py-8 items-center gap-6 bg-(--background-main)">
+    <div className="w-full h-full flex flex-col border text-twitterText rounded-4xl p-8 items-center gap-6 bg-(--background-main)">
       <>
         <FaXTwitter className="text-4xl" />
 
         <p className="text-xl font-bold text-center">Create an account</p>
 
-        <GoogleSignInButton />
+        <GoogleSignInButton>
+          Sign up with Google
+        </GoogleSignInButton> 
 
         <HorizontalStripedText> OR </HorizontalStripedText>
 
         <div className="w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full">
-          <p className="font-bold">Use a temporary account</p>
+          <p className="">Use a temporary account</p>
         </div>
 
         <TermsAndConditions />
