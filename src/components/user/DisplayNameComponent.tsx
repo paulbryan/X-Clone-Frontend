@@ -4,9 +4,10 @@ import type { User } from "../../lib/types/User.ts";
 type DisplayNameComponentProps = {
     user?: User | null;
     disableNavigation?: boolean;
+    customClassName?: string;
   };
 
-function DisplayNameComponent ({user, disableNavigation}:DisplayNameComponentProps) {
+function DisplayNameComponent ({user, customClassName, disableNavigation}:DisplayNameComponentProps) {
 
     const navigate = useNavigate();
 
@@ -17,12 +18,13 @@ function DisplayNameComponent ({user, disableNavigation}:DisplayNameComponentPro
         }
       }
 
+      const customClass = customClassName ? customClassName : "";
       const hoverDisplay = !disableNavigation ? "hover:cursor-pointer hover:underline" : "";
 
 
     if (user && user.displayName) {
         return (
-            <p className={hoverDisplay} onClick={(e) => navigateToProfile(e)}>{user.displayName}</p>
+            <p className={hoverDisplay + " " + customClass} onClick={(e) => navigateToProfile(e)}>{user.displayName}</p>
         )
     } else if (user) {
         return null;
