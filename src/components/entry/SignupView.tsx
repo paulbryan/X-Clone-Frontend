@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import InputFormField from "../input/InputFormField.tsx";
 import type { SignupUser } from "../../lib/types/SignupUser.ts";
 
 import type { ModalType } from "../../lib/types/ModalType.ts";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
-import { FaGoogle, FaXTwitter } from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6";
 import { GoogleSignInButton } from "../ui/GoogleSignInButton.tsx";
 import { HorizontalStripedText } from "../ui/HorizontalStripedText.tsx";
 import { TermsAndConditions } from "./TermsAndConditions.tsx";
@@ -21,9 +20,6 @@ function SignupView({ setToggle }: SignUpViewProps) {
   const [emailInput, setEmailInput] = useState("");
   const [displayNameInput, setDisplayNameInput] = useState("");
   const [bioInput, setBioInput] = useState("");
-
-  const [isOnMainCreateAccountPage, setIsOnMainCreateAccountPage] =
-    useState<boolean>(true);
 
   const { currentUser } = useCurrentUser();
 
@@ -94,43 +90,29 @@ function SignupView({ setToggle }: SignUpViewProps) {
 
   return (
     <div className="w-full h-full flex flex-col border text-twitterText rounded-4xl px-4 py-8 items-center gap-6 bg-(--background-main)">
-        <>
-          <FaXTwitter className="text-4xl" />
+      <>
+        <FaXTwitter className="text-4xl" />
 
-          <div>
-            <p className="text-xl font-bold text-center">Create an account</p>
-          </div>
+        <p className="text-xl font-bold text-center">Create an account</p>
 
+        <GoogleSignInButton />
 
-          <GoogleSignInButton/>
+        <HorizontalStripedText> OR </HorizontalStripedText>
 
-          <HorizontalStripedText>
-            OR
-          </HorizontalStripedText>
+        <div className="w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full">
+          <p className="font-bold">Use a temporary account</p>
+        </div>
 
-          <div className="w-full justify-center items-center">
-            <div
-              onClick={() => setIsOnMainCreateAccountPage(false)}
-              className="w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full"
-            >
-              <p className="font-bold">Use a temporary account</p>
-            </div>
-          </div>
+        <TermsAndConditions />
 
-          <TermsAndConditions/>
+        <p className="text-lg font-bold text-center">
+          Already have an account?
+        </p>
 
-          <div>
-            <p className="text-lg font-bold text-center">
-              Already have an account?
-            </p>
-          </div>
-
-          <div className="w-full justify-center items-center">
-            <div className="w-full bg-twitterText text-(--color-main) flex items-center gap-2 justify-center h-10 rounded-full">
-              <p>Sign in</p>
-            </div>
-          </div>
-        </>
+        <div className="w-full bg-twitterText text-(--color-main) flex items-center gap-2 justify-center h-10 rounded-full">
+          <p>Sign in</p>
+        </div>
+      </>
     </div>
   );
 }
