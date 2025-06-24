@@ -27,7 +27,7 @@ function InputFormField ( {setInputValue, inputValue, placeholderValue, isTextAr
                 <input 
                 value = {inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="border focus:border-(--color-main) rounded-sm border-twitterBorder p-2" placeholder={placeholderValue}/>
+                className="border focus:border-(--color-main) text-md rounded-sm border-twitterBorder px-2 py-4" placeholder={placeholderValue}/>
             </>
         ) 
     }
