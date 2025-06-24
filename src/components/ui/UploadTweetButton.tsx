@@ -45,11 +45,14 @@ function UploadTweetButton({
 
     createPost.mutate(formData, {
       onSuccess: () => {
+        ["For You", "Tweets, Replies"].forEach(feedType => {
+          queryClient.invalidateQueries({
+            queryKey: ["feed", feedType, currentUser.id],
+            exact: true,
+          });
+        });
         toast.dismiss();
         toast.success("Tweet posted!");
-        queryClient.invalidateQueries({
-          queryKey: ["feed", "For You", currentUser.id],
-        });
         if (setToggle) setToggle(null);
       },
       onError: () => {
