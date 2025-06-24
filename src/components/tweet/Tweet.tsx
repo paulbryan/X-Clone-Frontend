@@ -1,19 +1,10 @@
-import PostInteractionComponent from "./PostInteractionComponent.tsx";
-import ProfilePic from "../user/ProfilePic.tsx";
 import { useNavigate } from "react-router-dom";
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { usePost } from "../../lib/hooks/queries/usePost.tsx";
 import { useUser } from "../../lib/hooks/queries/useUser.tsx";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
-import { ImagePreviewGrid } from "../layout/media/ImagePreviewGrid.tsx";
 import { YouReposted } from "./tweetInfo/YouReposted.tsx";
-import {
-  backdropMotionProps,
-  modalMotionProps,
-} from "../../lib/animations/motionAnimations.ts";
-import { PostUserCard } from "./tweetInfo/PostUserCard.tsx";
 import { ReplyingTo } from "./tweetInfo/ReplyingTo.tsx";
-import { PostLine } from "./tweetInfo/PostLine.tsx";
 import { motion, type Variants } from "framer-motion";
 import type { PostType } from "../../lib/types/PostType.ts";
 import { TweetMainRow } from "./TweetLayout/TweetMainRow.tsx";

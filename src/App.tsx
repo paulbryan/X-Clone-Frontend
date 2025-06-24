@@ -18,8 +18,6 @@ import { useEffect } from 'react';
 
 //TODO
 
-
-
 function App() {
 
   const toastOptions: DefaultToastOptions = {
@@ -30,13 +28,6 @@ function App() {
     },
     success: { duration: 4000 }
   };
-
-  useEffect(() => {
-    document.fonts.ready.then(() => {
-      const isLoaded = document.fonts.check('16px "TwitterChirp"');
-      console.log('TwitterChirp loaded?', isLoaded);
-    });
-  }, [])
 
 
   return (

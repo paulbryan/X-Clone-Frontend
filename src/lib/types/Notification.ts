@@ -1,6 +1,4 @@
 import type { NotificationType } from "./NotificationType.ts";
-import type { Post } from "./Post.ts";
-import type { User } from "./User.ts";
 
 export type Notification = {
 
