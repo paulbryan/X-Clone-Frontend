@@ -49,7 +49,7 @@ function LoginView ({ setToggle }: LoginViewProps) {
           return res.json();
         })
         .then(user => {
-          setAuthId(user.id); // ✅ same logic
+          setAuthId(user.id);
           setToggle(null);
         })
         .catch(err => {

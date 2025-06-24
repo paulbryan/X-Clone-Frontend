@@ -15,6 +15,7 @@ import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
 import AboutPage from './components/layout/pages/AboutPage.tsx';
 
 import { useEffect } from 'react';
+import ExplorePage from './components/layout/pages/ExplorePage.tsx';
 
 //TODO
 
@@ -76,6 +77,13 @@ function App() {
         path="bookmarks"
         element={
           <BookmarkPage/>
+        }
+        />
+
+        <Route
+        path="explore"
+        element={
+          <ExplorePage/>
         }
         />
 
