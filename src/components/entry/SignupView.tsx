@@ -91,7 +91,6 @@ function SignupView({ setToggle }: SignUpViewProps) {
 
   return (
     <div className="w-full h-full flex flex-col border text-twitterText rounded-4xl px-4 py-8 items-center gap-6 bg-(--background-main)">
-      {isOnMainCreateAccountPage ? (
         <>
           <FaXTwitter className="text-4xl" />
 
@@ -99,12 +98,11 @@ function SignupView({ setToggle }: SignUpViewProps) {
             <p className="text-xl font-bold text-center">Create an account</p>
           </div>
 
-          <div className="w-full flex flex-col">
+
             <div className="w-full bg-twitterText text-twitterBlack flex items-center gap-2 justify-center h-10 rounded-full">
               <FaGoogle />
               <p className="font-bold">Sign up with Google</p>
             </div>
-          </div>
 
           <div className="w-full flex items-center text-twitterBorder">
             <div className="w-full">
@@ -121,7 +119,7 @@ function SignupView({ setToggle }: SignUpViewProps) {
               onClick={() => setIsOnMainCreateAccountPage(false)}
               className="w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full"
             >
-              <p className="font-bold">Create an account</p>
+              <p className="font-bold">Use a temporary account</p>
             </div>
           </div>
 
@@ -146,75 +144,6 @@ function SignupView({ setToggle }: SignUpViewProps) {
             </div>
           </div>
         </>
-      ) : (
-        <>
-          <div className="w-full text-2xl font-bold">
-            <p>Create your account</p>
-          </div>
-          <div className="w-full h-28 mb-4">
-            <div className="w-full h-24 relative">
-              <img className="h-full w-full object-cover" src={bannerInput} />
-              <input
-                className="opacity-0 z-20 absolute top-0 w-full h-full"
-                type="file"
-                onChange={onBannerImageChange}
-              />
-              <div
-                className="w-18 h-18 absolute  left-1/2 -translate-x-1/2 -translate-y-1/2"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <img
-                  className="rounded-full border-2 relative border-(--background-main)"
-                  src={profilePicInput}
-                />
-                <input
-                  className="opacity-0 z-30 rounded-full absolute top-0 w-18 h-18"
-                  type="file"
-                  onChange={onProfileImageChange}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4 w-full text-xl">
-            <InputFormField
-              inputValue={usernameInput}
-              setInputValue={setUserNameInput}
-              placeholderValue="Username"
-            />
-            <InputFormField
-              inputValue={emailInput}
-              setInputValue={setEmailInput}
-              placeholderValue="Email"
-            />
-            <InputFormField
-              inputValue={displayNameInput}
-              setInputValue={setDisplayNameInput}
-              placeholderValue="Display name"
-            />
-            <InputFormField
-              inputValue={bioInput}
-              setInputValue={setBioInput}
-              placeholderValue="About you"
-              isTextArea={true}
-            />
-            <InputFormField
-              inputValue={passwordInput}
-              setInputValue={setPasswordInput}
-              placeholderValue="Password"
-            />
-          </div>
-
-          <div className="w-full gap-2 flex flex-col justify-center items-center">
-            <div
-              onClick={() => registerUser()}
-              className="w-full font-semibold rounded-full px-2 py-4 h-auto flex text-center justify-center items-center text-twitterBlack bg-twitterText"
-            >
-              <p>Sign Up</p>
-            </div>
-          </div>
-        </>
-      )}
     </div>
   );
 }
