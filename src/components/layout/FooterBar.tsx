@@ -30,7 +30,7 @@ function FooterBar () {
                     </div>
                 </div>
                 <div className="w-full h-full flex items-center justify-center">
-                    <div>
+                    <div onClick={() => navigate("/explore")}>
                         <HeroIcon iconName="MagnifyingGlassIcon" className="w-7 h-7" solid={location.pathname === `/explore`}/>
                     </div>
                 </div>
