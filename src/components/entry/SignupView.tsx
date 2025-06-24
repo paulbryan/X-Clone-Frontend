@@ -6,6 +6,8 @@ import type { ModalType } from "../../lib/types/ModalType.ts";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { FaGoogle, FaXTwitter } from "react-icons/fa6";
 import { GoogleSignInButton } from "../ui/GoogleSignInButton.tsx";
+import { HorizontalStripedText } from "../ui/HorizontalStripedText.tsx";
+import { TermsAndConditions } from "./TermsAndConditions.tsx";
 
 type SignUpViewProps = {
   setToggle: (type: ModalType) => void;
@@ -102,15 +104,9 @@ function SignupView({ setToggle }: SignUpViewProps) {
 
           <GoogleSignInButton/>
 
-          <div className="w-full flex items-center text-twitterBorder">
-            <div className="w-full">
-              <hr />
-            </div>
-            <p className="mx-2 text-twitterTextAlt">OR</p>
-            <div className="w-full">
-              <hr />
-            </div>
-          </div>
+          <HorizontalStripedText>
+            OR
+          </HorizontalStripedText>
 
           <div className="w-full justify-center items-center">
             <div
@@ -121,14 +117,7 @@ function SignupView({ setToggle }: SignUpViewProps) {
             </div>
           </div>
 
-          <div className="text-xs text-center text-twitterTextAlt">
-            <p>
-              By signing up, you agree to the{" "}
-              <span className="text-(--color-main)">Terms of Service</span> and{" "}
-              <span className="text-(--color-main)">Privacy Policy</span>,{" "}
-              <span className="text-(--color-main)">including Cookie Use.</span>
-            </p>
-          </div>
+          <TermsAndConditions/>
 
           <div>
             <p className="text-lg font-bold text-center">
