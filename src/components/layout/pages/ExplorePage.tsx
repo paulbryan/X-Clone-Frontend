@@ -6,6 +6,9 @@ import { UserSearchResult } from "./UserSearchResult.tsx";
 import { useDebounce } from "@uidotdev/usehooks";
 import LoadingIcon from "../../ui/LoadingIcon.tsx";
 import { useInfiniteUsers } from "../../../lib/hooks/queries/useInfiniteUserFeed.tsx";
+import { AnimatePresence, motion } from "framer-motion";
+import { fadeInFeedMotionProps } from "../../../lib/animations/motionAnimations.ts";
+import { UserSearchFeed } from "../feed/UserSearchFeed.tsx";
 
 function ExplorePage () {
 
@@ -37,26 +40,15 @@ function ExplorePage () {
             <div className="w-full h-12 flex items-center justify-center">
                 <ExploreSearchBar query={input} setQuery={setInput} />
             </div>
-
-
-
             <div className="overflow-y-auto w-full h-full flex flex-col">
                 { input.length < 1 && discoverIds ? (
-                    <div className="w-full h-full flex flex-col gap-2">
-                    {discoverIds.map((userId, index) => (
-                        <UserSearchResult key={index} userId={userId}/>
-                    ))}
-                    </div>
+                    <UserSearchFeed idsToLoad={discoverIds}/>
                 ) : isLoading ? (
                     <LoadingIcon/>
                 ) : userIds && userIds.length <= 0 && !isLoading ? (
                     <p className="text-white w-full text-center font-bold text-lg">No Results</p>
                 ) : (
-                    <>
-                    {userIds.map((id : number) => (
-                        <UserSearchResult key={id} userId={id} />
-                    ))}
-                    </>   
+                    <UserSearchFeed idsToLoad={userIds}/>
                 )}
             </div>
         </div>

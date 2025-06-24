@@ -13,7 +13,7 @@ export function useInfiniteUsers() {
       if (!res.ok) throw new Error("Failed to fetch users");
 
       const result = await res.json();
-      console.log("Got user feed:", result); // ✅ this shows the real data
+      console.log("Got user feed:", result);
       return result;
     },
     getNextPageParam: (lastPage) => lastPage.nextCursor,

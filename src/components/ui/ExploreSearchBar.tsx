@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { HeroIcon } from "./HeroIcon";
 
 export function ExploreSearchBar({ query, setQuery }: { query: string, setQuery: (val: string) => void }) {

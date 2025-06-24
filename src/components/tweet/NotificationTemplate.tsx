@@ -42,15 +42,15 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
 
     function navigateFromNotification () {
             if (notification.type == "follow") {
-                navigate("profile/"+notification.senderId)
+                navigate("/profile/"+notification.senderId)
             } else {
-                navigate("tweet/"+notification.referenceId)
+                navigate("/tweet/"+notification.referenceId)
             }
     }
 
     return (
         <>
-        <div className={`h-fit w-full flex border-b-2 hover:bg-twitterTextAlt/20 border-twitterBorder ${
+        <div className={`h-fit w-full flex border-b hover:bg-twitterTextAlt/20 border-twitterBorder ${
             isTempUnseen ? 'bg-twitterTextAlt/20' : ' '
         }`}
         onClick={() => navigateFromNotification()}
