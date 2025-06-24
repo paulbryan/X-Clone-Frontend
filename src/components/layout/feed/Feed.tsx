@@ -36,7 +36,7 @@ function Feed({userId, postIdsArray, fetchNextPage, hasNextPage, isFetchingNextP
   const postTypeForFeed : PostType | undefined = (tabType == "Replies" ? "ReplyFeedPost" : tabType == "Tweets" ? "TweetFeedPost" : undefined) 
 
       return (
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col ">
           {isLoading ? (
             <div className="flex justify-center py-2 flex-col w-full">
               <LoadingIcon />
@@ -51,7 +51,7 @@ function Feed({userId, postIdsArray, fetchNextPage, hasNextPage, isFetchingNextP
                       <Tweet postId={id} postType={postTypeForFeed}/>
                     </motion.div>
                   ))}
-                                    <LoadMoreForFeed  triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
+                  <LoadMoreForFeed  triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
 
                       </AnimatePresence>
                   ) : tabType != null && (
