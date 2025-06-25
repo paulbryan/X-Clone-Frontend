@@ -4,7 +4,7 @@ import type { SignupUser } from "../../lib/types/SignupUser.ts";
 import type { ModalType } from "../../lib/types/ModalType.ts";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { FaXTwitter } from "react-icons/fa6";
-import { GoogleSignInButton } from "../ui/GoogleSignInButton.tsx";
+import { GoogleAuthButton } from "../ui/GoogleAuthButton.tsx";
 import { HorizontalStripedText } from "../ui/HorizontalStripedText.tsx";
 import { TermsAndConditions } from "./TermsAndConditions.tsx";
 
@@ -95,9 +95,9 @@ function SignupView({ setToggle }: SignUpViewProps) {
 
         <p className="text-xl font-bold text-center">Create an account</p>
 
-        <GoogleSignInButton>
+        <GoogleAuthButton setToggle={setToggle}>
           Sign up with Google
-        </GoogleSignInButton> 
+        </GoogleAuthButton> 
 
         <HorizontalStripedText> OR </HorizontalStripedText>
 

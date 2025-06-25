@@ -4,7 +4,7 @@ import InputFormField from '../input/InputFormField.tsx';
 
 import type { ModalType } from '../../lib/types/ModalType.ts';
 import { FaXTwitter } from 'react-icons/fa6';
-import { GoogleSignInButton } from '../ui/GoogleSignInButton.tsx';
+import { GoogleAuthButton } from '../ui/GoogleAuthButton.tsx';
 import { HorizontalStripedText } from '../ui/HorizontalStripedText.tsx';
 import { TermsAndConditions } from './TermsAndConditions.tsx';
 
@@ -67,9 +67,9 @@ function LoginView ({ setToggle }: LoginViewProps) {
 
         <p className="text-xl font-bold text-center">Sign in to X</p>
 
-        <GoogleSignInButton>
+        <GoogleAuthButton setToggle={setToggle}>
           Sign in with Google
-        </GoogleSignInButton>  
+        </GoogleAuthButton>  
 
         <HorizontalStripedText> OR </HorizontalStripedText>
 
@@ -85,24 +85,6 @@ function LoginView ({ setToggle }: LoginViewProps) {
           Are you the admin? <span onClick={() => adminLoginQuick(13)} className='text-(--color-main)'>Sign in here</span>
         </p>
 
-
-              {/* <div className='w-full h-20 flex items-center justify-around'>
-
-                <div onClick={() => adminLoginQuick(13)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
-                    <p className=' font-bold text-(--color-main)'>JOKER</p>
-                </div>
-                <div onClick={() => adminLoginQuick(14)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
-                    <p className=' font-bold text-(--color-main)'>STEVE</p>
-                </div>
-                <div onClick={() => adminLoginQuick(14)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
-                    <p className=' font-bold text-(--color-main)'>BILL</p>
-                </div>
-                <div onClick={() => adminLoginQuick(15)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
-                    <p className=' font-bold text-(--color-main)'>ZUCK</p>
-                </div>
-                
-
-            </div> */}
     </div>
 
 
