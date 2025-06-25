@@ -7,6 +7,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { GoogleAuthButton } from "../ui/GoogleAuthButton.tsx";
 import { HorizontalStripedText } from "../ui/HorizontalStripedText.tsx";
 import { TermsAndConditions } from "./TermsAndConditions.tsx";
+import { API_URL } from "../../constants/env.ts";
 
 type SignUpViewProps = {
   setToggle: (type: ModalType) => void;
@@ -71,7 +72,7 @@ function SignupView({ setToggle }: SignUpViewProps) {
 
     console.log("BANNER BASE64:", bannerImageBase64);
 
-    fetch("http://localhost:8080/api/users/register", {
+    fetch(`${API_URL}/api/users/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),

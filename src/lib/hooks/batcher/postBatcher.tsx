@@ -1,9 +1,10 @@
 import { create, windowScheduler } from "@yornaath/batshit";
 import type { Post } from "../../types/Post.ts";
+import { API_URL } from "../../../constants/env.ts";
 
 export const postBatcher = create<Post, number>({
   fetcher: async (ids: number[]) => {
-    const res = await fetch("http://localhost:8080/api/posts/getPosts", {
+    const res = await fetch(`${API_URL}/api/posts/getPosts`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(ids),

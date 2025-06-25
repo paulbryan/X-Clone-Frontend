@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { User } from "../../types/User.ts";
+import { API_URL } from "../../../constants/env.ts";
 
 type FollowParams = { currentlyFollowing: boolean };
 
@@ -18,7 +19,7 @@ export const useFollowUser = (
 
       const endpoint = currentlyFollowing ? "unfollowUser" : "followUser";
 
-      const res = await fetch(`http://localhost:8080/api/follows/${endpoint}`, {
+      const res = await fetch(`${API_URL}/api/follows/${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ followerId, followedId }),

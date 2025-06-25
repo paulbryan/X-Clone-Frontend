@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Notification } from "../../types/Notification.ts";
+import { API_URL } from "../../../constants/env.ts";
 export const useNotifications = (userId: number | undefined) =>
   useQuery<Notification[]>({
     queryKey: ["notifications", userId],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:8080/api/notifications/getAllNotifications/${userId}`);
+      const res = await fetch(`${API_URL}/api/notifications/getAllNotifications/${userId}`);
       if (!res.ok) throw new Error("Failed to fetch notifications");
       return await res.json();
     },

@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Post } from "../../types/Post.ts";
+import { API_URL } from "../../../constants/env.ts";
 
 export const useBookmarkPost = (
     postId: number,
@@ -16,7 +17,7 @@ export const useBookmarkPost = (
           ? "/api/bookmarks/deleteBookmark"
           : "/api/bookmarks/createBookmark";
   
-        const res = await fetch(`http://localhost:8080${url}`, {
+        const res = await fetch(`${API_URL}${url}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

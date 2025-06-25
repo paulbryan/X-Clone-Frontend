@@ -7,6 +7,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 import { GoogleAuthButton } from '../ui/GoogleAuthButton.tsx';
 import { HorizontalStripedText } from '../ui/HorizontalStripedText.tsx';
 import { TermsAndConditions } from './TermsAndConditions.tsx';
+import { API_URL } from '../../constants/env.ts';
 
 
 type LoginViewProps = {
@@ -28,7 +29,7 @@ function LoginView ({ setToggle }: LoginViewProps) {
         email: emailInput,
       };
   
-      fetch("http://localhost:8080/api/users/login", {
+      fetch(`${API_URL}/api/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginUser),
@@ -47,7 +48,7 @@ function LoginView ({ setToggle }: LoginViewProps) {
     }
   
     function adminLoginQuick(id: number) {
-      fetch(`http://localhost:8080/api/users/getAdminUser?id=${id}`)
+      fetch(`${API_URL}/api/users/getAdminUser?id=${id}`)
         .then(res => {
           if (!res.ok) throw new Error("Admin login failed");
           return res.json();

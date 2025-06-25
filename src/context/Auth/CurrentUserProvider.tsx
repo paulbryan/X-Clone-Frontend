@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import type { User } from "../../lib/types/User.ts";
 import { useAuth } from "./AuthProvider.tsx";
+import { API_URL } from "../../constants/env.ts";
 type CurrentUserQueryContextType = {
   currentUser: User | undefined;
   isLoading: boolean;
@@ -16,7 +17,7 @@ export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchCurrentUser = async (): Promise<User> => {
     console.log("[fetchCurrentUser] Starting fetch...");
-    const res = await fetch(`http://localhost:8080/api/users/getUser?id=${authId}`);
+    const res = await fetch(`${API_URL}/api/users/getUser?id=${authId}`);
     if (!res.ok) throw new Error("Failed to fetch current user");
     const user = await res.json();
     console.log("[fetchCurrentUser] Success:", user);

@@ -1,5 +1,6 @@
 import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
 import type { FeedType } from "../../types/FeedType.ts";
+import { API_URL } from "../../../constants/env.ts";
 
 type FeedPage = {
   posts: number[];
@@ -14,7 +15,7 @@ export const useInfiniteFeed = (
   return useInfiniteQuery<FeedPage, Error, InfiniteData<FeedPage>, [string, FeedType, number?], number>({
     queryKey: ["feed", type, userId],
     queryFn: async ({ pageParam = 0 }) => {
-      const url = new URL("http://localhost:8080/api/feed/getFeedPage");
+      const url = new URL(`${API_URL}/api/feed/getFeedPage`);
       url.searchParams.set("type", type);
       url.searchParams.set("cursor", pageParam.toString());
       url.searchParams.set("limit", "10");
