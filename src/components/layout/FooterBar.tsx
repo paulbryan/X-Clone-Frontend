@@ -25,7 +25,7 @@ function FooterBar () {
             <div className="h-14 w-full bg-(--background-main) text-2xl text-white border-t border-t-twitterBorder flex items-center justify-around">
 
                 <div className="w-full h-full flex items-center justify-center">
-                    <div onClick={() => currentUser ? navigate("/") : null}>
+                    <div onClick={() => navigate("/")}>
                         <HeroIcon iconName="HomeIcon" className="w-7 h-7" solid={location.pathname === `/`}/>
                     </div>
                 </div>
