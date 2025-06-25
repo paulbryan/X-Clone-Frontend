@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_URL } from "../../../constants/env";
 
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (formData: FormData): Promise<void> => {
-      const res = await fetch("http://localhost:8080/api/posts/createPost", {
+      const res = await fetch(`${API_URL}/api/posts/createPost`, {
         method: "POST",
         body: formData,
       });

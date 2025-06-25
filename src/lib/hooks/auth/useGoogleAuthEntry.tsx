@@ -1,5 +1,6 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../../../context/Auth/AuthProvider";
+import { API_URL } from "../../../constants/env";
 
 
 export function useGoogleAuthEntry() {
@@ -9,7 +10,7 @@ export function useGoogleAuthEntry() {
       flow: "implicit",
       onSuccess: async (tokenResponse) => {
         try {
-          const res = await fetch("http://localhost:8080/api/auth/google", {
+          const res = await fetch(`${API_URL}/api/auth/google`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ token: tokenResponse.access_token }),
@@ -34,4 +35,3 @@ export function useGoogleAuthEntry() {
     });
   }
 
-  

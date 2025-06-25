@@ -1,9 +1,10 @@
 import { create, windowScheduler } from "@yornaath/batshit";
 import type { User } from "../../types/User.ts";
+import { API_URL } from "../../../constants/env.ts";
 
 export const userBatcher = create<User, number>({
   fetcher: async (ids: number[]) => {
-    const res = await fetch("http://localhost:8080/api/users/getUsers", {
+    const res = await fetch(`${API_URL}/api/users/getUsers`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(ids),
