@@ -24,12 +24,6 @@ export function getLikeOnUpdate(
 
       return { ...prev, likedPosts };
     });
-
-    if (!isNowLiked) {
-      queryClient.invalidateQueries({
-        queryKey: ["feed", "liked", currentUserId],
-      });
-    }
   };
 }
 

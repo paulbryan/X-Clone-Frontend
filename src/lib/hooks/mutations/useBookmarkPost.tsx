@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Post } from "../../types/Post.ts";
 import { API_URL } from "../../../constants/env.ts";
+import { updateFirstPageFeed } from "./mutationHelpers/updateFirstPageFeed.tsx";
 
 export const useBookmarkPost = (
     postId: number,
@@ -46,6 +47,16 @@ export const useBookmarkPost = (
         };
   
         queryClient.setQueryData(["post", postId], optimisticPost);
+
+        if (currentUserId) {
+          updateFirstPageFeed({
+            queryClient,
+            action: "Bookmarks",
+            currentUserId,
+            postId,
+            isRemoving: isBookmarked,
+          })
+        }
   
         return { previous };
       },

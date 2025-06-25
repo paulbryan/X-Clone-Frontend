@@ -1,6 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, type InfiniteData } from "@tanstack/react-query";
 import type { Post } from "../../types/Post.ts";
 import { API_URL } from "../../../constants/env.ts";
+import type { FeedPage } from "../queries/useInfiniteFeed.tsx";
+import { updateFirstPageFeed } from "./mutationHelpers/updateFirstPageFeed.tsx";
 
 export const useLikePost = (
   postId: number,
@@ -33,22 +35,28 @@ export const useLikePost = (
 
       const previous = queryClient.getQueryData<Post>(["post", postId]);
       if (!previous) return { previous: null };
-
+    
       const newLikedBy = isLiked
         ? previous.likedBy.filter(id => id !== currentUserId)
         : [...previous.likedBy, currentUserId!];
-
-        console.log("Current post Likes is: " + JSON.stringify(previous.likedBy))
-
+    
       const optimisticPost: Post = {
         ...previous,
         likedBy: newLikedBy,
       };
-
-      console.log("Optimistic post Likes is: " + JSON.stringify(optimisticPost.likedBy))
-
-
+    
       queryClient.setQueryData(["post", postId], optimisticPost);
+    
+      if (currentUserId) {
+        updateFirstPageFeed({
+          queryClient,
+          action: "Liked",
+          currentUserId,
+          postId,
+          isRemoving: isLiked,
+        })
+      }
+    
       return { previous };
     },
 

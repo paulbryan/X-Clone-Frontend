@@ -2,7 +2,7 @@ import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
 import type { FeedType } from "../../types/FeedType.ts";
 import { API_URL } from "../../../constants/env.ts";
 
-type FeedPage = {
+export type FeedPage = {
   posts: number[];
   nextCursor: number | null;
 };
