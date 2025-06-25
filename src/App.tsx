@@ -13,9 +13,9 @@ import FullPost from './components/tweet/FullPost.tsx';
 import { HeaderContentProvider } from './context/GlobalState/HeaderContentProvider';
 import { Toaster, type DefaultToastOptions } from 'react-hot-toast';
 import AboutPage from './components/layout/pages/AboutPage.tsx';
-
-import { useEffect } from 'react';
 import ExplorePage from './components/layout/pages/ExplorePage.tsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GOOGLE_CLIENT_ID } from './constants/env.ts';
 
 //TODO
 
@@ -33,6 +33,7 @@ function App() {
 
   return (
     <Router>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <CurrentUserProvider>
         <ModalProvider>
         <HeaderContentProvider>
@@ -101,8 +102,6 @@ function App() {
         }
         />
 
-
-
         </Routes>
         <Toaster
         position='bottom-center'
@@ -119,6 +118,7 @@ function App() {
         </HeaderContentProvider>
         </ModalProvider>
       </CurrentUserProvider>
+      </GoogleOAuthProvider>
     </Router>
   );
 }

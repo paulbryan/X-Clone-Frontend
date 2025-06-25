@@ -3,6 +3,10 @@ import { useAuth } from '../../context/Auth/AuthProvider.tsx';
 import InputFormField from '../input/InputFormField.tsx';
 
 import type { ModalType } from '../../lib/types/ModalType.ts';
+import { FaXTwitter } from 'react-icons/fa6';
+import { GoogleAuthButton } from '../ui/GoogleAuthButton.tsx';
+import { HorizontalStripedText } from '../ui/HorizontalStripedText.tsx';
+import { TermsAndConditions } from './TermsAndConditions.tsx';
 
 
 type LoginViewProps = {
@@ -49,7 +53,7 @@ function LoginView ({ setToggle }: LoginViewProps) {
           return res.json();
         })
         .then(user => {
-          setAuthId(user.id);
+          setAuthId(user.id); // ✅ same logic
           setToggle(null);
         })
         .catch(err => {
@@ -57,51 +61,35 @@ function LoginView ({ setToggle }: LoginViewProps) {
         });
     }
     return (
-        <div className="w-full h-full flex flex-col text-twitterText rounded-2xl p-4 items-center gap-4 bg-(--background-main)">
-            <div>
-                <h1 className="text-4xl text-center font-bold">Log in to X</h1>
-            </div>
 
-            <div className='w-full h-20 flex items-center justify-around'>
+      <div className="w-full h-full flex flex-col border text-twitterText rounded-4xl p-8 items-center gap-6 bg-(--background-main)">
+        <FaXTwitter className="text-4xl" />
 
-                <div onClick={() => adminLoginQuick(13)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
-                    <p className=' font-bold text-(--color-main)'>JOKER</p>
-                </div>
-                <div onClick={() => adminLoginQuick(14)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
-                    <p className=' font-bold text-(--color-main)'>STEVE</p>
-                </div>
-                <div onClick={() => adminLoginQuick(14)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
-                    <p className=' font-bold text-(--color-main)'>BILL</p>
-                </div>
-                <div onClick={() => adminLoginQuick(15)} className='w-16 h-16 border flex items-center justify-center border-(--color-main)'>
-                    <p className=' font-bold text-(--color-main)'>ZUCK</p>
-                </div>
-                
+        <p className="text-xl font-bold text-center">Sign in to X</p>
 
-            </div>
+        <GoogleAuthButton setToggle={setToggle}>
+          Sign in with Google
+        </GoogleAuthButton>  
 
+        <HorizontalStripedText> OR </HorizontalStripedText>
 
-            <div className="flex flex-col gap-4 w-full text-xl">
-                <InputFormField inputValue={usernameInput} setInputValue={setUserNameInput} placeholderValue='Username'/>
-                <InputFormField inputValue={emailInput} setInputValue={setEmailInput} placeholderValue='Email'/>
-                <InputFormField inputValue={passwordInput} setInputValue={setPasswordInput} placeholderValue='Password'/>
-            </div>
-
-            <div className='w-full gap-2 flex flex-col justify-center items-center'>
-
-                    <div onClick={() => loginUser()} className='w-full font-semibold rounded-md p-2 h-auto border flex text-center justify-center items-center border-(--color-main)'>
-                        <p>Sign In</p>
-                    </div>
-
-                    <p className='text-twitterTextAlt'>or</p>
-
-                    <div onClick={() => setToggle("signup")} className='w-full font-semibold rounded-md p-2 h-auto border flex text-center justify-center items-center border-(--color-main)'>
-                        <p>Not a user? Sign up</p>
-                    </div>
-
-            </div>
-
+        <div className="w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full">
+          <p className="">Use a temporary account</p>
         </div>
+
+        <p className="text-md w-full font text-twitterTextAlt">
+          Don't have an account? <span className='text-(--color-main)'>Sign up</span>
+        </p>
+
+        <p className="text-md w-full font text-twitterTextAlt">
+          Are you the admin? <span onClick={() => adminLoginQuick(13)} className='text-(--color-main)'>Sign in here</span>
+        </p>
+
+    </div>
+
+
+
+
     )
 
 }

@@ -7,6 +7,9 @@ type DisplayNameComponentProps = {
     customClassName?: string;
   };
 
+  const trimText = (text: string, maxLength: number): string =>
+    text.length > maxLength ? text.slice(0, maxLength - 1).trim() + "…" : text;
+
 function DisplayNameComponent ({user, customClassName, disableNavigation}:DisplayNameComponentProps) {
 
     const navigate = useNavigate();
@@ -24,7 +27,7 @@ function DisplayNameComponent ({user, customClassName, disableNavigation}:Displa
 
     if (user && user.displayName) {
         return (
-            <p className={hoverDisplay + " " + customClass} onClick={(e) => navigateToProfile(e)}>{user.displayName}</p>
+            <p className={hoverDisplay + " " + customClass} onClick={(e) => navigateToProfile(e)}>{trimText(user.displayName, 12)}</p>
         )
     } else if (user) {
         return null;
