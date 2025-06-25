@@ -16,6 +16,7 @@ type FeedUpdateParams = {
     postId,
     isRemoving,
   }: FeedUpdateParams) {
+    
     const feedKey = ["feed", action, currentUserId];
     const previousFeed = queryClient.getQueryData<InfiniteData<FeedPage>>(feedKey);
   
