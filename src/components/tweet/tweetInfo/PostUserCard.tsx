@@ -18,17 +18,18 @@ export function PostUserCard ({postId, postUserId, isReplyFeedPost, mainPost}: P
   
     const { data: postUser } = useUser(postUserId ?? -1);
 
+    
+
     return (
         <>
         {/* !MAINPOST */}
         <div className={` flex ${mainPost ? "flex-col" : "mb-0.5 gap-2 items-center"}  text-twitterText `}>
             <div className="font-bold">
-            <DisplayNameComponent user={postUser}/>
+            <DisplayNameComponent user={postUser} truncate={!mainPost}/>
             </div>
         <div className="text-twitterTextAlt text-md">
             <UsernameComponent user={postUser} />
         </div>
-        {(isReplyFeedPost) && post?.parentId && <ReplyingTo adjustGridCol={false} parentId={post.parentId} postUserId={postUser?.id}/>}
         
         {!mainPost && post && (
             <>

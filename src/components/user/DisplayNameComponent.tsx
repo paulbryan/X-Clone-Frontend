@@ -1,18 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import type { User } from "../../lib/types/User.ts";
+import { trimText } from "../../lib/utils/TextTrimmerUtils.ts";
 
 type DisplayNameComponentProps = {
     user?: User | null;
     disableNavigation?: boolean;
     customClassName?: string;
+    truncate?: boolean;
   };
 
-  const trimText = (text: string, maxLength: number): string =>
-    text.length > maxLength ? text.slice(0, maxLength - 1).trim() + "…" : text;
 
-function DisplayNameComponent ({user, customClassName, disableNavigation}:DisplayNameComponentProps) {
+function DisplayNameComponent ({user, customClassName, disableNavigation, truncate}:DisplayNameComponentProps) {
 
     const navigate = useNavigate();
+
 
     const navigateToProfile = (e: React.MouseEvent<HTMLParagraphElement>): void => {
         if (user && !disableNavigation) {
@@ -24,10 +25,12 @@ function DisplayNameComponent ({user, customClassName, disableNavigation}:Displa
       const customClass = customClassName ? customClassName : "";
       const hoverDisplay = !disableNavigation ? "hover:cursor-pointer hover:underline" : "";
 
+      const textToDisplay = user && (truncate ? trimText(user?.displayName, 12) : user?.displayName);
+
 
     if (user && user.displayName) {
         return (
-            <p className={hoverDisplay + " " + customClass} onClick={(e) => navigateToProfile(e)}>{trimText(user.displayName, 12)}</p>
+            <p className={hoverDisplay + " " + customClass} onClick={(e) => navigateToProfile(e)}>{textToDisplay}</p>
         )
     } else if (user) {
         return null;
