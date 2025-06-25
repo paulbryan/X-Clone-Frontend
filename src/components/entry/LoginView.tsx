@@ -8,6 +8,7 @@ import { GoogleAuthButton } from '../ui/GoogleAuthButton.tsx';
 import { HorizontalStripedText } from '../ui/HorizontalStripedText.tsx';
 import { TermsAndConditions } from './TermsAndConditions.tsx';
 import { API_URL } from '../../constants/env.ts';
+import { UseTempAccountButton } from './UseTempAccountButton.tsx';
 
 
 type LoginViewProps = {
@@ -16,35 +17,26 @@ type LoginViewProps = {
 }
 
 function LoginView ({ setToggle }: LoginViewProps) {
-    const [usernameInput, setUserNameInput] = useState("");
-    const [passwordInput, setPasswordInput] = useState("");
-    const [emailInput, setEmailInput] = useState("");
   
     const { setAuthId } = useAuth();
 
-    function loginUser() {
-      const loginUser = {
-        username: usernameInput,
-        password: passwordInput,
-        email: emailInput,
-      };
-  
-      fetch(`${API_URL}/api/users/login`, {
+    function authenticateTempUser () {
+
+      fetch(`${API_URL}/api/auth/tempSignup`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginUser),
       })
-        .then(res => {
-          if (!res.ok) throw new Error("Login failed");
-          return res.json();
-        })
-        .then(user => {
-          setAuthId(user.id);
-          setToggle(null);
-        })
-        .catch(err => {
-          console.error("Login error:", err);
-        });
+      .then(res => {
+        if (!res.ok) throw new Error("Temp login failed");
+        return res.json();
+      })
+      .then(user => {
+        setAuthId(user.id);
+        setToggle(null);
+      })
+      .catch(err => {
+        console.error("Admin login error:", err);
+      });
+
     }
   
     function adminLoginQuick(id: number) {
@@ -54,7 +46,7 @@ function LoginView ({ setToggle }: LoginViewProps) {
           return res.json();
         })
         .then(user => {
-          setAuthId(user.id); // ✅ same logic
+          setAuthId(user.id);
           setToggle(null);
         })
         .catch(err => {
@@ -74,9 +66,8 @@ function LoginView ({ setToggle }: LoginViewProps) {
 
         <HorizontalStripedText> OR </HorizontalStripedText>
 
-        <div className="w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full">
-          <p className="">Use a temporary account</p>
-        </div>
+        <UseTempAccountButton setToggle={setToggle}/>
+
 
         <p className="text-md w-full font text-twitterTextAlt">
           Don't have an account? <span className='text-(--color-main)'>Sign up</span>

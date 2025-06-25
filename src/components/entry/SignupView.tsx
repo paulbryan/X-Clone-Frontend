@@ -8,19 +8,15 @@ import { GoogleAuthButton } from "../ui/GoogleAuthButton.tsx";
 import { HorizontalStripedText } from "../ui/HorizontalStripedText.tsx";
 import { TermsAndConditions } from "./TermsAndConditions.tsx";
 import { API_URL } from "../../constants/env.ts";
+import { UseTempAccountButton } from "./UseTempAccountButton.tsx";
 
 type SignUpViewProps = {
   setToggle: (type: ModalType) => void;
 };
 
 function SignupView({ setToggle }: SignUpViewProps) {
-  const [usernameInput, setUserNameInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState("");
   const [profilePicInput, setProfilePicInput] = useState("/defaultPFP.png");
   const [bannerInput, setBannerInput] = useState("/defaultBanner.jpg");
-  const [emailInput, setEmailInput] = useState("");
-  const [displayNameInput, setDisplayNameInput] = useState("");
-  const [bioInput, setBioInput] = useState("");
 
   const { currentUser } = useCurrentUser();
 
@@ -56,34 +52,6 @@ function SignupView({ setToggle }: SignUpViewProps) {
     }
   };
 
-  async function registerUser() {
-    const profilePicBase64 = await encodeImageToBase64(profilePicInput);
-    const bannerImageBase64 = await encodeImageToBase64(bannerInput);
-
-    const newUser: SignupUser = {
-      username: usernameInput,
-      password: passwordInput,
-      displayName: displayNameInput,
-      profilePicture: profilePicBase64,
-      bannerImage: bannerImageBase64,
-      bio: bioInput,
-      email: emailInput,
-    };
-
-    console.log("BANNER BASE64:", bannerImageBase64);
-
-    fetch(`${API_URL}/api/users/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.user);
-
-        setToggle(null);
-      });
-  }
 
   useEffect(() => {
     console.log("curriser " + currentUser);
@@ -102,9 +70,7 @@ function SignupView({ setToggle }: SignUpViewProps) {
 
         <HorizontalStripedText> OR </HorizontalStripedText>
 
-        <div className="w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full">
-          <p className="">Use a temporary account</p>
-        </div>
+        <UseTempAccountButton setToggle={setToggle}/>
 
         <TermsAndConditions />
 
