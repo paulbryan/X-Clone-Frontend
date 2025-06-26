@@ -58,8 +58,7 @@ function Header () {
                 </div>
                 </>
                 ) : (
-                    <div className="w-full">
-                    </div>    
+                    null
                 )}
 
 
