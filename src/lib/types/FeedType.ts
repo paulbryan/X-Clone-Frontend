@@ -5,4 +5,5 @@ export type FeedType =
 "Tweets" | 
 "Replies" | 
 "Media" | 
+"Notifications" |
 "Bookmarks";

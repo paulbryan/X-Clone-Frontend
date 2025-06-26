@@ -3,6 +3,7 @@ import LoadingIcon from "../../ui/LoadingIcon.tsx";
 import NotificationTemplate from "../../tweet/NotificationTemplate.tsx";
 import { useNotifications } from "../../../lib/hooks/queries/useNotifications.tsx";
 import { AnimatePresence, motion } from "framer-motion";
+import { NoContentYet } from "./NoContentYet.tsx";
 
 type NotificationFeedProps = {
     tempUnreads?: number[];
@@ -11,15 +12,17 @@ type NotificationFeedProps = {
 function NotificationFeed ({tempUnreads} : NotificationFeedProps) {
 
     const {currentUser } = useCurrentUser()
-    const { data: notifications = [] } = useNotifications(currentUser?.id);
-    const isReady = notifications && notifications.length > 0;
+    const { data: notifications = [], isLoading } = useNotifications(currentUser?.id);
 
 
     return (
         
         <div className='w-full'>
-            {isReady ? (
-              <AnimatePresence>
+            {!isLoading && notifications.length < 1 ? (
+                <NoContentYet customMessage={true} tabType="Notifications"/>
+            ) : !isLoading ? (
+
+                <AnimatePresence>
                 <div className="flex flex-col-reverse w-full">
                 {notifications.map((notification) => (
                 <motion.div
@@ -34,11 +37,10 @@ function NotificationFeed ({tempUnreads} : NotificationFeedProps) {
                 ))}
                 </div>
               </AnimatePresence>
-
             ) : (
-                <div className="flex justify-center py-2 flex-col w-full">
-                    <LoadingIcon />
-                </div>
+            <div className="flex justify-center py-2 flex-col w-full">
+                <LoadingIcon />
+            </div>
             )}
         </div>
 
