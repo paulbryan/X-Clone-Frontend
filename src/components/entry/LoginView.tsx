@@ -19,25 +19,6 @@ type LoginViewProps = {
 function LoginView ({ setToggle }: LoginViewProps) {
   
     const { setAuthId } = useAuth();
-
-    function authenticateTempUser () {
-
-      fetch(`${API_URL}/api/auth/tempSignup`, {
-        method: "POST",
-      })
-      .then(res => {
-        if (!res.ok) throw new Error("Temp login failed");
-        return res.json();
-      })
-      .then(user => {
-        setAuthId(user.id);
-        setToggle(null);
-      })
-      .catch(err => {
-        console.error("Admin login error:", err);
-      });
-
-    }
   
     function adminLoginQuick(id: number) {
       fetch(`${API_URL}/api/users/getAdminUser?id=${id}`)
