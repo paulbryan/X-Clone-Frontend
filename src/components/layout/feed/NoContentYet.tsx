@@ -8,11 +8,16 @@ type NoContentYetProps = {
     customMessage?: boolean;
 }
 
+export type NoContentYetMessageType = {
+    
+}
+
 export function NoContentYet ({tabType, userId, customMessage}: NoContentYetProps) {
 
     const { data: user } = useUser(userId ?? -1);
 
     const lowerCaseName = user?.username;
+
 
     function determineTabName () {
         switch (tabType) {
@@ -31,6 +36,8 @@ export function NoContentYet ({tabType, userId, customMessage}: NoContentYetProp
         }       
     }
 
+    //TODO add some kind of class or type to hold the name + message + submessage
+
 
 
     return (
@@ -46,8 +53,6 @@ export function NoContentYet ({tabType, userId, customMessage}: NoContentYetProp
                     <p className="text-twitterTextAlt text-center">Once they do, those tweets will show up here </p>
                     </>
                 )}
-
-
             </div>
 
         </div>
