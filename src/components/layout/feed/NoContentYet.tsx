@@ -25,13 +25,34 @@ export function NoContentYet ({tabType, userId, customMessage}: NoContentYetProp
             case "Media" :
                 return "Posted Media"
             case "Bookmarks" :
-                return "Bookmarked any Tweets";
+                return "Save Tweets for later";
             case "Liked" :
                 return "Liked any Tweets";
             case "Notifications" :
-                return "No notifications... yet!"    
+                return "Join the conversation"    
             case "Replies" :
                 return "Replied to any Tweets";        
+            case "Following" :
+                return "Nothing to see here - yet"    
+        }       
+    }
+
+    function determineSubMessage () {
+        switch (tabType) {
+            case "Tweets" :
+                return "Tweeted";
+            case "Media" :
+                return "Posted Media"
+            case "Bookmarks" :
+                return "Don't let the good ones fly away! Bookmark tweets to easily find them again in the future";
+            case "Liked" :
+                return "Liked any Tweets";
+            case "Notifications" :
+                return "When someone on X interacts with your content, you'll find it here"    
+            case "Replies" :
+                return "Replied to any Tweets";        
+            case "Following" :
+                return "When you follow someone, their Tweets will show up here."    
         }       
     }
 
@@ -45,11 +66,11 @@ export function NoContentYet ({tabType, userId, customMessage}: NoContentYetProp
             <div className="h-auto w-2/3 flex flex-col gap-2 justify-center items-center">
                 {customMessage ? (
                     <p className="text-twitterText text-center font-bold text-2xl">{determineTabName()}</p>
-                ) : (
+                ) : tabType && (
                     <>
                     <img className="h-auto" src={`../../../public/images/no-${tabType}.png`}/>
-                    <p className="text-twitterText text-center font-bold text-2xl"> @{lowerCaseName} hasn't {determineTabName()} </p>
-                    <p className="text-twitterTextAlt text-center">Once they do, those tweets will show up here </p>
+                    <p className="text-twitterText text-center font-bold text-2xl">{determineTabName()}</p>
+                    <p className="text-twitterTextAlt text-center">{determineSubMessage()}</p>
                     </>
                 )}
             </div>
