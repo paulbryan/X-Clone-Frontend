@@ -8,16 +8,17 @@ type DrawerNavigationPairProps = {
     name: string;
     routePath?: string;
     setDrawerOpen?: Dispatch<SetStateAction<boolean>>
+    disabled?: boolean;
   };
 
 
 
-function DrawerNavigationPair ( { children, name, routePath, setDrawerOpen }: DrawerNavigationPairProps ) {
+function DrawerNavigationPair ( { children, name, routePath, disabled, setDrawerOpen }: DrawerNavigationPairProps ) {
 
     const navigate = useNavigate();
 
     const handleNavigation = () => {
-
+        if (disabled) return;
         if (routePath) {
             navigate(routePath);
         }
@@ -33,13 +34,13 @@ function DrawerNavigationPair ( { children, name, routePath, setDrawerOpen }: Dr
     return (
         <div 
         onClick={() => handleNavigation()}
-        className="flex h-16 relative text-2xl text-twitterText items-center gap-4">
+        className={`${disabled ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} flex h-16 relative text-2xl  text-twitterText items-center gap-4`}>
             <div
-            className="text-3xl hover:cursor-pointer">
+            className="text-3xl">
                 {children}
             </div>
             <div onClick={() => handleNavigation()}>
-                <p className={`font-bold md:font-medium hover:cursor-pointer`}>{name}</p>
+                <p className={`font-bold md:font-medium`}>{name}</p>
             </div>
 
         </div>
