@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import NotificationFeed from "../feed/NotificationFeed.tsx";
 import { HeaderContentContext } from "../../../context/GlobalState/HeaderContentProvider.tsx";

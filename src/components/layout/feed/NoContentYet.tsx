@@ -1,4 +1,3 @@
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import { useUser } from "../../../lib/hooks/queries/useUser.tsx";
 import type { FeedType } from "../../../lib/types/FeedType.ts";
 

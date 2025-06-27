@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { postBatcher } from "../batcher/postBatcher.tsx";
 import { notificationBatcher } from "../batcher/notificationBatcher.tsx";
 export const useNotification = (id: number) =>
   useQuery({

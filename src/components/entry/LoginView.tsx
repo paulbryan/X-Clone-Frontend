@@ -1,12 +1,8 @@
-import { useState } from 'react';
 import { useAuth } from '../../context/Auth/AuthProvider.tsx';
-import InputFormField from '../input/InputFormField.tsx';
-
 import type { ModalType } from '../../lib/types/ModalType.ts';
 import { FaXTwitter } from 'react-icons/fa6';
 import { GoogleAuthButton } from '../ui/GoogleAuthButton.tsx';
 import { HorizontalStripedText } from '../ui/HorizontalStripedText.tsx';
-import { TermsAndConditions } from './TermsAndConditions.tsx';
 import { API_URL } from '../../constants/env.ts';
 import { UseTempAccountButton } from './UseTempAccountButton.tsx';
 

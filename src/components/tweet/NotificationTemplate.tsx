@@ -1,11 +1,9 @@
-import type { Notification } from "../../lib/types/Notification.ts"
 import ProfilePic from "../user/ProfilePic.tsx";
 import { useNavigate } from "react-router-dom";
 import DisplayNameComponent from "../user/DisplayNameComponent.tsx";
 import NotificationTypeIcon from "../ui/NotificationTypeIcon.tsx";
 import { useUser } from "../../lib/hooks/queries/useUser.tsx";
 import { useNotification } from "../../lib/hooks/queries/useNotification.tsx";
-import LoadingIcon from "../ui/LoadingIcon.tsx";
 type NotificationTemplateProps = {
 
     notificationId: number;

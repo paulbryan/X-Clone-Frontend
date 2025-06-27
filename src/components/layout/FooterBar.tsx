@@ -2,7 +2,6 @@
 import ComposePostMobileButton from "../ui/ComposePostMobileButton.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
-import { useEffect, useMemo } from "react";
 import { HeroIcon } from "../ui/HeroIcon.tsx";
 import { useUnseenNotificationIds } from "../../lib/hooks/mutations/useSeenNotifications.tsx";
 

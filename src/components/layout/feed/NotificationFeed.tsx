@@ -1,10 +1,7 @@
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import LoadingIcon from "../../ui/LoadingIcon.tsx";
 import NotificationTemplate from "../../tweet/NotificationTemplate.tsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { NoContentYet } from "./NoContentYet.tsx";
-import { useInfiniteFeed } from "../../../lib/hooks/queries/useInfiniteFeed.tsx";
-import { useMemo } from "react";
 
 type NotificationFeedProps = {
     tempUnreads?: number[];
