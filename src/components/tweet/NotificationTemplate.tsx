@@ -4,25 +4,29 @@ import { useNavigate } from "react-router-dom";
 import DisplayNameComponent from "../user/DisplayNameComponent.tsx";
 import NotificationTypeIcon from "../ui/NotificationTypeIcon.tsx";
 import { useUser } from "../../lib/hooks/queries/useUser.tsx";
+import { useNotification } from "../../lib/hooks/queries/useNotification.tsx";
+import LoadingIcon from "../ui/LoadingIcon.tsx";
 type NotificationTemplateProps = {
 
-    notification: Notification;
+    notificationId: number;
     isTempUnseen?: boolean;
 
 }
 
-function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplateProps)  {
+function NotificationTemplate ({notificationId, isTempUnseen}: NotificationTemplateProps)  {
+
 
     const navigate = useNavigate();
+    const { data: notification } = useNotification(notificationId);
     const displayMessage = determineDisplayMessage();
 
-    const { data: sender } = useUser(notification.senderId ?? -1);
+    const { data: sender } = useUser(notification?.senderId ?? -1);
 
     function determineDisplayMessage (): string {
 
-        switch (notification.type) {
+        switch (notification?.type) {
 
-            case "like" :
+            case 'like' :
             return "liked your post";
             
             case "follow" :
@@ -41,6 +45,7 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
     }
 
     function navigateFromNotification () {
+        if (!notification) return;
             if (notification.type == "follow") {
                 navigate("/profile/"+notification.senderId)
             } else {
@@ -50,6 +55,7 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
 
     return (
         <>
+        {notification && (
         <div className={`h-fit w-full flex border-b hover:bg-twitterTextAlt/20 border-twitterBorder ${
             isTempUnseen ? 'bg-twitterTextAlt/20' : ' '
         }`}
@@ -92,6 +98,7 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
         </div>
 
         </div>
+        )}
     </>
     )
 

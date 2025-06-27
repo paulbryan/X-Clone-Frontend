@@ -2,22 +2,20 @@
 import ComposePostMobileButton from "../ui/ComposePostMobileButton.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
-import { useNotifications } from "../../lib/hooks/queries/useNotifications.tsx";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { HeroIcon } from "../ui/HeroIcon.tsx";
+import { useUnseenNotificationIds } from "../../lib/hooks/mutations/useSeenNotifications.tsx";
 
 
 
 function FooterBar () {
 
+    console.log("FooterBar rendered");
+
     const navigate = useNavigate();
     const {currentUser} = useCurrentUser();
-    const { data: notifications = [] } = useNotifications(currentUser?.id);
     const location = useLocation();
-
-    const areUnread = useMemo(() => {
-    return notifications.some(notification => !notification.seen);
-    }, [notifications]);
+    const { data: unseenIds = [] } = useUnseenNotificationIds(currentUser?.id);
 
     return (
 
@@ -38,7 +36,7 @@ function FooterBar () {
                     <div onClick={() => currentUser ? navigate("/notifications") : null}>
                     <HeroIcon iconName="BellIcon" className="w-7 h-7" solid={location.pathname === `/notifications`}/>
                     </div>
-                    {currentUser && areUnread && (
+                    {currentUser && unseenIds.length > 0 && (
                         <div className="w-4 rounded-full h-4 absolute z-40 bg-(--color-main) top-2 right-9">  </div>
                     )}
                 </div>
