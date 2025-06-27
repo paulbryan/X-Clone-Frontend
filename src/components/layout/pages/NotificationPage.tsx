@@ -53,7 +53,7 @@ function NotificationPage () {
 
     return (
 
-        <div className="flex flex-col h-full w-full flex-grow scrollbar-blue overflow-y-auto">
+        <div className="flex flex-col h-full w-full flex-grow scrollbar-blue overflow-y-scroll">
 
             <div className="mb-14">
                 <NotificationFeed tempUnreads={tempUnread} isLoading={isLoading} isFetchingNextPage={isFetchingNextPage} fetchNextPage={fetchNextPage} notificationIds={notificationIds}/>

@@ -47,7 +47,7 @@ function HomePage () {
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
             </div>
             )}
-            <div className="h-full flex flex-col grow w-full scrollbar-blue overflow-y-auto">
+            <div className="h-full flex flex-col grow w-full scrollbar-blue overflow-y-scroll">
                 <Feed tabType={activeTab} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isLoading={isLoading} isFetchingNextPage={isFetchingNextPage} key={activeTab} postIdsArray={postIds}/>
             </div>
         </div>
