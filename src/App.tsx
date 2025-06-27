@@ -42,13 +42,13 @@ function App() {
           
         <ModalManager />
 
-        <div className='hidden md:flex md:w-full md:h-full bg-[var(--background-main)] md:justify-between'>
+        <div className='lg:flex lg:w-full lg:h-full bg-[var(--background-main)] lg:justify-between'>
 
         <RightDesktopLayout/>
 
-        <div className="overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
+        <div className="overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw lg:bg-none bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
 
-          <div className='md:hidden'>
+          <div className='lg:hidden'>
             <Header/>
           </div>
 
@@ -116,7 +116,7 @@ function App() {
         />
         </div>
 
-          <div className='md:hidden'>
+          <div className='lg:hidden'>
             <FooterBar/>
           </div>
 
