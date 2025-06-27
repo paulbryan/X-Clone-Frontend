@@ -20,8 +20,8 @@ function AboutPage () {
             </div>
 
             <div className="w-full gap-2 flex flex-col">
-                <p className="font-bold underline text-white text-xl">Planned Features</p>
-                <p className="text-twitterText">Apart from cleaning up the code, my current goals are to implement a more advanced and personalized feed. On the backend, i'd like to implement some kind of cache for this as well</p>
+                <p className="font-bold underline text-white text-xl">Known Issues</p>
+
             </div>
         
         </div>

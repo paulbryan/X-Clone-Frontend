@@ -16,8 +16,9 @@ import AboutPage from './components/layout/pages/AboutPage.tsx';
 import ExplorePage from './components/layout/pages/ExplorePage.tsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GOOGLE_CLIENT_ID } from './constants/env.ts';
-import { RightDesktopLayout } from './components/layout/DesktopSideLayouts/RightDesktopLayout.tsx';
 import { LeftDesktopLayout } from './components/layout/DesktopSideLayouts/LeftDesktopLayout.tsx';
+import { RightDesktopLayout } from './components/layout/DesktopSideLayouts/RightDesktopLayout.tsx';
+
 
 //TODO
 
@@ -44,7 +45,7 @@ function App() {
 
         <div className='lg:flex lg:w-full lg:h-full bg-[var(--background-main)] lg:justify-between'>
 
-        <RightDesktopLayout/>
+        <LeftDesktopLayout/>
 
         <div className="overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw lg:bg-none bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
 
@@ -122,7 +123,7 @@ function App() {
 
         </div>
 
-        <LeftDesktopLayout/>
+        <RightDesktopLayout/>
 
         </div>
         </HeaderContentProvider>

@@ -20,7 +20,7 @@ function NotificationFeed ({tempUnreads, notificationIds, isLoading, fetchNextPa
         
         <div className='w-full'>
             {!isLoading && notificationIds.length < 1 ? (
-                <NoContentYet customMessage={true} tabType="Notifications"/>
+                <NoContentYet tabType="Notifications"/>
             ) : !isLoading ? (
 
                 <AnimatePresence>

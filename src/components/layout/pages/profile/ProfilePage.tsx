@@ -57,7 +57,7 @@ function ProfilePage() {
   
 
     return (
-        <div className="flex flex-col h-full w-full flex-grow scrollbar-blue overflow-y-auto">
+        <div className="flex flex-col h-full w-full flex-grow scrollbar-blue overflow-y-scroll">
             <ProfilePageOverview  pageUser={pageUser}/>
 
             <div className="">
