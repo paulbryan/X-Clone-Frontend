@@ -1,18 +1,22 @@
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
+import { useTopFiveUsers } from "../../../lib/hooks/useTopFiveUsers";
 import SignupView from "../../entry/SignupView";
 import { TermsAndConditions } from "../../entry/TermsAndConditions";
 import { UseTempAccountButton } from "../../entry/UseTempAccountButton";
 import { GoogleAuthButton } from "../../ui/GoogleAuthButton";
 import { HorizontalStripedText } from "../../ui/HorizontalStripedText";
+import { UserSearchResult } from "../pages/UserSearchResult";
 import { AsideContainer } from "./AsideContainer";
 
 export function LeftDesktopLayout () {
 
     const { currentUser } = useCurrentUser();
 
+    const {data: topUsers} = useTopFiveUsers();
+
 
     return (
-        <div className="hidden md:pr-20 md:flex md:flex-col md:items-end py-3 md:w-2/3 bg-(--background-main)">
+        <div className="hidden lg:flex lg:flex-col gap-4 px-10 md:items-start py-3 lg:w-2/3">
 
         {!currentUser && (
             <AsideContainer>
@@ -31,6 +35,55 @@ export function LeftDesktopLayout () {
                     <TermsAndConditions/>
                 </div>
             </AsideContainer>
+        )}
+
+        {currentUser && (
+            <>
+            <AsideContainer>
+                <p className="text-xl font-bold">You might like</p>
+                <div className="w-full flex flex-col pt-4">
+                    {topUsers?.map((id) => (
+                        <UserSearchResult userId={id}/>
+                    ))}
+                </div>
+            </AsideContainer>
+
+            <AsideContainer>
+                <p className="text-xl font-bold">What's Happening?</p>
+                <div className="w-full flex flex-col gap-4 pt-4">
+                    <div className="w-full flex">
+                        <div className="w-full flex flex-col">
+                            <p className="text-twitterBorder">Trending in the Netherlands</p>
+                            <p className="font-bold">SouthAfricaAwaits</p>
+                        </div>
+                    </div>
+                    <div className="w-full flex">
+                        <div className="w-full flex flex-col">
+                            <p className="text-twitterBorder">Trending in the Netherlands</p>
+                            <p className="font-bold">Mark Rutte</p>
+                        </div>
+                    </div>
+                    <div className="w-full flex">
+                        <div className="w-full flex flex-col">
+                            <p className="text-twitterBorder">Trending in the Netherlands</p>
+                            <p className="font-bold">Bitcoin</p>
+                        </div>
+                    </div>
+                    <div className="w-full flex">
+                        <div className="w-full flex flex-col">
+                            <p className="text-twitterBorder">Trending in the Netherlands</p>
+                            <p className="font-bold">SouthAfricaAwaits</p>
+                        </div>
+                    </div>
+                    <div className="w-full flex">
+                        <div className="w-full flex flex-col">
+                            <p className="text-twitterBorder">Trending in the Netherlands</p>
+                            <p className="font-bold">SouthAfricaAwaits</p>
+                        </div>
+                    </div>
+                </div>
+            </AsideContainer>
+            </>
         )}
 
         </div>
