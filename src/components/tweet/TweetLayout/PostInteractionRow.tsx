@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import type { Post } from "../../../lib/types/Post"
 import type { User } from "../../../lib/types/User";
 import PostInteractionComponent from "../PostInteractionComponent";
@@ -11,6 +12,10 @@ type PostInteractionRowProps = {
 }
 
 export function PostInteractionRow ({post, isMainPost, isParentPost}: PostInteractionRowProps ) {
+
+    useEffect(() => {
+        console.log("Post id " + post.id + "Replies list", post.replies)
+    }, [])
 
     return (
         <>

@@ -18,6 +18,9 @@ function InteractionButton({ numberList, buttonColor, mutationFunction, iconName
 
   const isMarked = useMemo(() => {
     if (!currentUser) return false;
+    if (buttonColor == "notAColor") {
+      return false;
+    }
     return numberList.includes(currentUser.id);
   }, [currentUser, numberList]);
 
