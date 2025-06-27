@@ -39,7 +39,7 @@ function DrawerNavigationPair ( { children, name, routePath, setDrawerOpen }: Dr
                 {children}
             </div>
             <div onClick={() => handleNavigation()}>
-                <p className="font-bold hover:cursor-pointer">{name}</p>
+                <p className={`font-bold md:font-medium hover:cursor-pointer`}>{name}</p>
             </div>
 
         </div>

@@ -16,6 +16,8 @@ import AboutPage from './components/layout/pages/AboutPage.tsx';
 import ExplorePage from './components/layout/pages/ExplorePage.tsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GOOGLE_CLIENT_ID } from './constants/env.ts';
+import { RightDesktopLayout } from './components/layout/DesktopSideLayouts/RightDesktopLayout.tsx';
+import { LeftDesktopLayout } from './components/layout/DesktopSideLayouts/LeftDesktopLayout.tsx';
 
 //TODO
 
@@ -40,9 +42,13 @@ function App() {
           
         <ModalManager />
 
-        <div className="overscroll-y-contain w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
+        <div className='hidden md:flex md:w-full md:h-full bg-[var(--background-main)] md:justify-between'>
 
-          <div>
+        <RightDesktopLayout/>
+
+        <div className="overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
+
+          <div className='md:hidden'>
             <Header/>
           </div>
 
@@ -110,9 +116,13 @@ function App() {
         />
         </div>
 
-          <div className=''>
+          <div className='md:hidden'>
             <FooterBar/>
           </div>
+
+        </div>
+
+        <LeftDesktopLayout/>
 
         </div>
         </HeaderContentProvider>
