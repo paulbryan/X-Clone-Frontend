@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
 import { useTopFiveUsers } from "../../../lib/hooks/useTopFiveUsers";
 import SignupView from "../../entry/SignupView";
@@ -14,6 +15,7 @@ export function LeftDesktopLayout () {
 
     const {data: topUsers} = useTopFiveUsers();
 
+    const navigate = useNavigate();
 
     return (
         <div className="hidden lg:flex lg:flex-col gap-4 px-10 md:items-start py-3 lg:w-2/3">
@@ -40,12 +42,13 @@ export function LeftDesktopLayout () {
         {currentUser && (
             <>
             <AsideContainer>
-                <p className="text-xl font-bold">You might like</p>
+                <p className="text-xl pl-2 font-bold">You might like</p>
                 <div className="w-full flex flex-col pt-4">
                     {topUsers?.map((id) => (
                         <UserSearchResult userId={id}/>
                     ))}
                 </div>
+                <p className="pl-2 text-(--color-main)" onClick={() => navigate("/explore")}>Show more</p>
             </AsideContainer>
 
             <AsideContainer>
