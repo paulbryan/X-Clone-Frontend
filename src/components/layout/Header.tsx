@@ -25,7 +25,7 @@ function Header () {
     return (
 
         <>
-            <div className={`h-16 ${!isHome ? 'border-b border-twitterBorder' : ''} w-full relative flex justify-between bg-(--background-main) px-3 text-white`}>
+            <div className={`h-16 flex ${!isHome ? 'border-b border-twitterBorder' : 'lg:hidden'} w-full relative justify-between bg-(--background-main) px-3 text-white`}>
 
                 <div className="h-full w-full flex relative items-center justify-start">
                     {currentUser && isHome ? (
@@ -37,7 +37,7 @@ function Header () {
                     ) : !isHome && (
 
                         <div 
-                        className="w-12 h-12 flex items-center justify-center text-xl"
+                        className="w-12 h-12 flex items-center  justify-center text-xl"
                         onClick={() => navigate(-1)}>
                         <FaArrowLeft />
                         </div>
@@ -68,7 +68,7 @@ function Header () {
             {!currentUser && (
                     <>
                     <div 
-                    className="flex p-3 gap-4 h-14 font-bold justify-center items-center w-full">
+                    className="flex p-3 gap-4 lg:hidden h-14 font-bold justify-center items-center w-full">
 
                     <div className="p-1 rounded-2xl border-twitterTextAlt flex items-center justify-center w-full border" onClick={() => setModalType("signup")}
                     >

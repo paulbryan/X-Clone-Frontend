@@ -48,10 +48,10 @@ export function LeftDesktopLayout () {
                         <UserSearchResult userId={id}/>
                     ))}
                 </div>
-                <p className="pl-2 text-(--color-main)" onClick={() => navigate("/explore")}>Show more</p>
+                <p className="pl-2 text-(--color-main) hover:cursor-pointer" onClick={() => navigate("/explore")}>Show more</p>
             </AsideContainer>
 
-            <AsideContainer>
+            <AsideContainer disabled={true}>
                 <p className="text-xl font-bold">What's Happening?</p>
                 <div className="w-full flex flex-col gap-4 pt-4">
                     <div className="w-full flex">

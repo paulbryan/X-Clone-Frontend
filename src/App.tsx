@@ -48,7 +48,7 @@ function App() {
 
         <div className="overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw lg:bg-none bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
 
-          <div className='lg:hidden'>
+          <div className=''>
             <Header/>
           </div>
 
