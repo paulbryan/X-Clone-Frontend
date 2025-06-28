@@ -32,7 +32,7 @@ export function UseTempAccountButton ({setToggle}: UseTempAccountButtonProps) {
       }
 
     return (
-    <div onClick={() => authenticateTempUser()} className={`w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full`}>
+    <div onClick={() => authenticateTempUser()} className={`hover:cursor-pointer hover:bg-(--color-main)/75 w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full`}>
         <p className="">Use a temporary account</p>
       </div>
     )

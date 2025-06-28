@@ -78,7 +78,7 @@ function SignupView({ setToggle }: SignUpViewProps) {
           Already have an account?
         </p>
 
-        <div className="w-full bg-twitterText text-(--color-main) flex items-center gap-2 justify-center h-10 rounded-full">
+        <div className="w-full hover:cursor-pointer hover:bg-twitterText/75 bg-twitterText text-(--color-main) flex items-center gap-2 justify-center h-10 rounded-full">
           <p>Sign in</p>
         </div>
       </>

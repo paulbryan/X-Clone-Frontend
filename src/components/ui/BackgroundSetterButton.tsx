@@ -16,14 +16,14 @@ function BackgroundSetterButton ({color, currentColor, setCurrentBackground}: Ba
         {currentColor == color ? (
             <div 
             style={{ backgroundColor: `${color}` }}
-            className="h-10 w-1/2 flex justify-center items-center text-lg border rounded-xl border-(--color-main)">
+            className="h-10 hover:cursor-pointer w-1/2 flex justify-center items-center text-lg border rounded-xl border-(--color-main)">
                 <p className="text-white">Dim</p>
             </div>
         ) : (
             <div 
             onClick={() => setCurrentBackground(color)}
             style={{ backgroundColor: `${color}` }}
-            className="h-10 w-1/2 flex justify-center items-center text-lg border rounded-xl border-twitterTextAlt">
+            className="h-10 w-1/2 hover:cursor-pointer flex justify-center items-center text-lg border rounded-xl border-twitterTextAlt">
                 <p className="text-white">Dim</p>
             </div>
         )}

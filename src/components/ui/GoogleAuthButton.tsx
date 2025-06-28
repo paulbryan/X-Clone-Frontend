@@ -25,7 +25,7 @@ export function GoogleAuthButton ({children, setToggle}: GoogleSignInButtonProps
     return (
     <div 
     onClick={() => handleLogin()}
-    className="w-full bg-twitterText text-twitterBlack flex items-center gap-2 justify-center h-10 rounded-full">
+    className="w-full hover:cursor-pointer hover:bg-twitterText/75 bg-twitterText text-twitterBlack flex items-center gap-2 justify-center h-10 rounded-full">
         <FaGoogle />
         <p className="">{children}</p>
       </div>

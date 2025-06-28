@@ -40,6 +40,8 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
       setCurrentTheme(thType);
 
     }
+
+    //TODO add placeholder x account
     
 
     return (
@@ -120,8 +122,8 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
                 </div>
             </div>
             <div className="w-full h-fit flex justify-center items-center py-2">
-            <div className="w-1/2 flex justify-center items-center border border-(--color-main) h-10 rounded-2xl font-bold text-xl">
-                <p onClick={() => setToggle(null)}>Done</p>
+            <div onClick={() => setToggle(null)} className="w-1/2 hover:cursor-pointer flex justify-center items-center border border-(--color-main) h-10 rounded-2xl font-bold text-xl">
+                <p>Done</p>
             </div>
             </div>
 

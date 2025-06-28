@@ -6,6 +6,8 @@ type UserSearchFeedProps = {
     idsToLoad: number[]
 }
 
+//TODO add loadmore trigger
+
 export function UserSearchFeed ({idsToLoad}: UserSearchFeedProps) {
 
     return (

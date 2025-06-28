@@ -39,7 +39,7 @@ function Header () {
                         <div 
                         className="w-12 h-12 flex items-center  justify-center text-xl"
                         onClick={() => navigate(-1)}>
-                        <FaArrowLeft />
+                        <FaArrowLeft className="hover:cursor-pointer"/>
                         </div>
                     )}
                     {headerContent && (

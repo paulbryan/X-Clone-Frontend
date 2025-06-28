@@ -14,14 +14,14 @@ function ColorCircleButton ({color, currentColor, setCurrentTheme}: ColorCircleB
         {currentColor == color ? (
         <div 
             style={{ backgroundColor: `${color}` }}
-            className="w-12 h-12 rounded-full border border-twitterTextAlt">
+            className="w-12 hover:cursor-pointer h-12 rounded-full border border-twitterTextAlt">
 
             </div>
         ) : (
             <div 
             onClick={() => setCurrentTheme(color)}
             style={{ backgroundColor: `${color}` }}
-            className="w-12 h-12 rounded-full border-(--color-main)">
+            className="w-12 h-12 hover:cursor-pointer rounded-full border-(--color-main)">
 
             </div>
         )}

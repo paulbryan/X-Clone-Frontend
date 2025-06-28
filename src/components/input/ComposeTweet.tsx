@@ -31,8 +31,8 @@ function ComposeTweet({
   const clearAllInput = () => {
     setTextInput("");
     setImagesInput([]);
-  }
- 
+  };
+
   return (
     <div
       className={`flex flex-col pt-4 pb-4 bg-(--background-main) w-full ${
@@ -76,7 +76,9 @@ function ComposeTweet({
               <MdOutlineGif className="text-4xl" />
             </div>
             <div className="w-full h-full justify-end flex gap-2 items-center">
-              {textInput.length > 0 && <CharsLeftCircle charsLeft={180 - textInput.length}/>}
+              {textInput.length > 0 && (
+                <CharsLeftCircle charsLeft={180 - textInput.length} />
+              )}
               <UploadTweetButton
                 clearAllInput={clearAllInput}
                 filesWithId={imagesInput}
