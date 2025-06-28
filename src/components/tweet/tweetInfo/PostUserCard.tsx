@@ -4,7 +4,6 @@ import CreatedAtDisplay from "../../ui/CreatedAtDisplay.tsx";
 import { UserHoverWrapper } from "../../ui/UserHoverWrapper.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
-import { ReplyingTo } from "./ReplyingTo.tsx";
 
 type PostUserCardProps = {
     postId: number;

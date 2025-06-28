@@ -26,7 +26,6 @@ export function TweetMainRow ({isParentPost, isMainPost, postUser, post}: TweetM
                         <ProfilePic userId={post.userId} />
                     </div>
                 </UserHoverWrapper>
-                    
                     {isParentPost && (
                         <div className="absolute top-12 bottom-0 w-px bg-gray-600" />
                     )}
