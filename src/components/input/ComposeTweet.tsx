@@ -9,6 +9,7 @@ import { ImageUploadButton } from "../ui/ImageUploadButton.tsx";
 import { ImageGrid } from "../layout/media/ImageGrid.tsx";
 import type { FilesWithId } from "../../lib/types/file.ts";
 import Tweet from "../tweet/Tweet.tsx";
+import { CharsLeftCircle } from "../ui/CharsLeftCircle.tsx";
 
 type ComposeTweetProps = {
   parentId?: number;
@@ -74,7 +75,8 @@ function ComposeTweet({
               />
               <MdOutlineGif className="text-4xl" />
             </div>
-            <div className="w-full h-full justify-end flex items-center">
+            <div className="w-full h-full justify-end flex gap-2 items-center">
+              {textInput.length > 0 && <CharsLeftCircle charsLeft={180 - textInput.length}/>}
               <UploadTweetButton
                 clearAllInput={clearAllInput}
                 filesWithId={imagesInput}

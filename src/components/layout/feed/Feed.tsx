@@ -37,7 +37,7 @@ function Feed({userId, postIdsArray, fetchNextPage, reverseFeed, hasNextPage, is
   const postTypeForFeed : PostType | undefined = (tabType == "Replies" ? "ReplyFeedPost" : tabType == "Tweets" ? "TweetFeedPost" : undefined) 
 
       return (
-        <div className="w-full flex flex-col overflow-x-visible">
+        <div className="w-full flex flex-col">
           {isLoading ? (
             <div className="flex justify-center py-2 flex-col w-full">
               <LoadingIcon />

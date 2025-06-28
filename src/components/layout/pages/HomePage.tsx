@@ -42,7 +42,7 @@ function HomePage () {
     return (
 
         
-        <div className="h-full w-full flex flex-col overflow-x-visible lg:border-x border-twitterBorder">
+        <div className="h-full w-full flex flex-col overflow-x-wrap lg:border-x border-twitterBorder">
             {currentUser && (
             <div className="h-fit">
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
