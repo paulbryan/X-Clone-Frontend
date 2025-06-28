@@ -24,7 +24,7 @@ export function UserHoverCard({ userId }: Props) {
 
   return (
 
-    <div className="flex bg-(--background-main) border border-twitterText flex-col gap-3 p-4 bg-main-background shadow-md rounded-2xl w-72">
+    <div className="flex flex-col gap-3 p-4 bg-main-background shadow-md rounded-2xl w-full">
             <div className="w-full h-auto flex flex-col gap-1 relative">
 
             <div className="w-full flex items-center justify-between">
@@ -40,7 +40,7 @@ export function UserHoverCard({ userId }: Props) {
                 </div>
             </div>
 
-            <div className="w-full flex flex-col text-twitterText">
+            <div className="w-full pl-1 flex flex-col text-twitterText">
                 <div>
                     <DisplayNameComponent user={tooltipUser}/>
                 </div>
@@ -50,7 +50,7 @@ export function UserHoverCard({ userId }: Props) {
                     
             </div>
 
-            <div className="w-full flex gap-2">
+            <div className="w-full pl-1 flex gap-2">
               {tooltipUser && <FollowersFollowing pageUser={tooltipUser}/>}
             </div>
 

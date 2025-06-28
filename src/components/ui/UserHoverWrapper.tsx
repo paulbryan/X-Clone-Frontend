@@ -9,7 +9,7 @@ type Props = {
 
 export function UserHoverWrapper({ userId, children }: Props) {
   return (
-    <HoverCard.Root openDelay={500} closeDelay={150}>
+    <HoverCard.Root openDelay={500} closeDelay={300}>
       <HoverCard.Trigger asChild>
         {children}
       </HoverCard.Trigger>
@@ -18,7 +18,7 @@ export function UserHoverWrapper({ userId, children }: Props) {
           side="bottom"
           align="center"
           sideOffset={4}
-          className="z-50 w-72 animate-hover-card rounded-2xl bg-(--background-main) border border-twitterText shadow-[0_0_5px_1px_white]"
+          className="z-50 w-60 animate-hover-card rounded-2xl bg-(--background-main) border border-twitterText shadow-[0_0_5px_1px_white]"
           >
           <UserHoverCard userId={userId} />
         </HoverCard.Content>
