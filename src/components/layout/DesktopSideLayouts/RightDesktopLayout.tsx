@@ -57,7 +57,7 @@ export function RightDesktopLayout () {
                     <div className="w-full flex">
                         <div className="w-full flex flex-col">
                             <p className="text-twitterBorder">Trending in the Netherlands</p>
-                            <p className="font-bold">SouthAfricaAwaits</p>
+                            <p className="font-bold">Hague Summit</p>
                         </div>
                     </div>
                     <div className="w-full flex">
@@ -75,13 +75,13 @@ export function RightDesktopLayout () {
                     <div className="w-full flex">
                         <div className="w-full flex flex-col">
                             <p className="text-twitterBorder">Trending in the Netherlands</p>
-                            <p className="font-bold">SouthAfricaAwaits</p>
+                            <p className="font-bold">Donald Trump</p>
                         </div>
                     </div>
                     <div className="w-full flex">
                         <div className="w-full flex flex-col">
                             <p className="text-twitterBorder">Trending in the Netherlands</p>
-                            <p className="font-bold">SouthAfricaAwaits</p>
+                            <p className="font-bold">Elon Musk</p>
                         </div>
                     </div>
                 </div>
