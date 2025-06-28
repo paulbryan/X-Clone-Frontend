@@ -57,7 +57,7 @@ function ComposeTweet({
             />
           </div>
           {imagesInput.length > 0 && (
-            <div className="w-full h-fit">
+            <div className="w-full h-auto ">
               <ImageGrid images={imagesInput} setImages={setImagesInput} />
             </div>
           )}

@@ -16,7 +16,7 @@ export function ImageGrid({ images, setImages }: Props) {
   return (
     <div
       className={cn(
-        "grid grid-cols-2 grid-rows-2 gap-2 mt-4 rounded-2xl overflow-hidden",
+        "grid grid-cols-2 grid-rows-auto gap-2 mt-4 rounded-2xl overflow-hidden",
         images.length === 1 && "grid-cols-1 grid-rows-1",
         images.length === 3 && "grid-rows-[1fr_1fr]"
       )}
