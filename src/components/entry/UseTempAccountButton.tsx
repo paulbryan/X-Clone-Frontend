@@ -4,10 +4,9 @@ import type { ModalType } from "../../lib/types/ModalType";
 
 type UseTempAccountButtonProps = {
     setToggle?: (type: ModalType) => void;
-    invertColor?: boolean;
 }
 
-export function UseTempAccountButton ({setToggle, invertColor}: UseTempAccountButtonProps) {
+export function UseTempAccountButton ({setToggle}: UseTempAccountButtonProps) {
 
     const { setAuthId } = useAuth();
 
@@ -33,7 +32,7 @@ export function UseTempAccountButton ({setToggle, invertColor}: UseTempAccountBu
       }
 
     return (
-    <div onClick={() => authenticateTempUser()} className={`w-full ${invertColor ? "bg-twitterText text-twitterBlack font-bold" : "bg-(--color-main) text-twitterText"} flex items-center gap-2 justify-center h-10 rounded-full`}>
+    <div onClick={() => authenticateTempUser()} className={`w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full`}>
         <p className="">Use a temporary account</p>
       </div>
     )

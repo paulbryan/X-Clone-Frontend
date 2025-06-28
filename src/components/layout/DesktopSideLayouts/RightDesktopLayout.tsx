@@ -33,7 +33,7 @@ export function RightDesktopLayout () {
                     <HorizontalStripedText>
                         OR
                     </HorizontalStripedText>
-                    <UseTempAccountButton invertColor={true}/>
+                    <UseTempAccountButton/>
                     <TermsAndConditions/>
                 </div>
             </AsideContainer>
