@@ -1,6 +1,8 @@
 import type { ReactNode} from "react";
 import { useNavigate } from "react-router-dom";
 import type { Dispatch, SetStateAction } from "react";
+import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
+import { useModal } from "../../../context/GlobalState/ModalProvider";
 
 
 type DrawerNavigationPairProps = {
@@ -15,12 +17,32 @@ type DrawerNavigationPairProps = {
 
 function DrawerNavigationPair ( { children, name, routePath, disabled, setDrawerOpen }: DrawerNavigationPairProps ) {
 
+    const {setModalType} = useModal();
+
     const navigate = useNavigate();
+    const {currentUser} = useCurrentUser();
+
+    const onlyOnUserId = () => {
+        switch (name) {
+            case "Bookmarks" :
+            case "Notifications" :
+            case "Profile" :
+            return true;
+            
+            default :
+            return false;
+        }
+    }
+
+    const canNavigateAsUser = !onlyOnUserId() || currentUser
+
 
     const handleNavigation = () => {
         if (disabled) return;
-        if (routePath) {
+        if (routePath && canNavigateAsUser) {
             navigate(routePath);
+        } else {
+            setModalType("signup");
         }
 
         setTimeout(() => {
@@ -34,7 +56,7 @@ function DrawerNavigationPair ( { children, name, routePath, disabled, setDrawer
     return (
         <div 
         onClick={() => handleNavigation()}
-        className={`${disabled ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} flex h-16 relative text-2xl  text-twitterText items-center gap-4`}>
+        className={`${!disabled ? "hover:cursor-pointer" : "hover:cursor-not-allowed"} flex h-16 relative text-2xl  text-twitterText items-center gap-4`}>
             <div
             className="text-3xl">
                 {children}
