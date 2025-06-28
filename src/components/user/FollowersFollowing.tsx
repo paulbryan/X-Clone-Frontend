@@ -5,6 +5,8 @@ type FollowersFollowingProps = {
 };
 
 function FollowersFollowing({ pageUser }: FollowersFollowingProps) {
+
+
   return (
     <>
       <div className="flex text-twitterTextAlt">

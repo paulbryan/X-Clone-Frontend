@@ -2,6 +2,7 @@ import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import type { User } from "../../lib/types/User.ts";
 import { useFollowUser } from "../../lib/hooks/mutations/useFollowUser.tsx";
 import { useQueryClient } from "@tanstack/react-query";
+import { useModal } from "../../context/GlobalState/ModalProvider.tsx";
 
 type FollowButtonProps = {
   pageUser?: User | null;
@@ -11,7 +12,10 @@ function FollowButton({ pageUser }: FollowButtonProps) {
   const { currentUser } = useCurrentUser();
   const queryClient = useQueryClient();
 
+  const {setModalType} = useModal();
+
   const isFollowing = pageUser?.followers.includes(currentUser?.id ?? -1) ?? false;
+  const canFollow = !!currentUser;
 
   const followMutation = useFollowUser(currentUser?.id, pageUser?.id, {
     onUpdate: (updatedFollowed) => {
@@ -37,8 +41,12 @@ function FollowButton({ pageUser }: FollowButtonProps) {
   });
 
   const handleFollow = () => {
-    if (!currentUser || !pageUser || followMutation.isPending) return;
-    followMutation.mutate({ currentlyFollowing: isFollowing });
+    if (!pageUser || followMutation.isPending) return;
+    if (canFollow) {
+      followMutation.mutate({ currentlyFollowing: isFollowing });
+    } else {
+      setModalType("signup");
+    }
   };
 
   if (!pageUser) return null;

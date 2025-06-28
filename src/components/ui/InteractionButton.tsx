@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { HeroIcon, type IconName } from "./HeroIcon.tsx";
 import { InteractionCounter } from "./InteractionCounter.tsx";
+import { useModal } from "../../context/GlobalState/ModalProvider.tsx";
 
 type InteractionButtonProps = {
   numberList: number[];
@@ -15,6 +16,9 @@ type InteractionButtonProps = {
 function InteractionButton({ numberList, buttonColor, mutationFunction, iconName }: InteractionButtonProps) {
 
   const { currentUser } = useCurrentUser();
+  const {setModalType} = useModal();
+
+  const canInteract = !!currentUser;
 
   const isMarked = useMemo(() => {
     if (!currentUser) return false;
@@ -28,12 +32,16 @@ function InteractionButton({ numberList, buttonColor, mutationFunction, iconName
 
   const handleMutation = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    mutationFunction();
+    if (canInteract) {
+      mutationFunction();
+    } else {
+      setModalType("signup")
+    }
   };
 
   return (
     <div className="">
-    <div className={`h-5 flex w-16 ${isMarked ? "text-" + buttonColor : ""} align-middle items-center gap-3`}>
+    <div className={`h-5 flex w-16 hover:cursor-pointer ${isMarked ? "text-" + buttonColor : ""} align-middle items-center gap-3`}>
     <div onClick={(e) => handleMutation(e)}>
       <HeroIcon iconName={iconName} solid={isMarked} className={`h-6 w-6`}/>
     </div>      
