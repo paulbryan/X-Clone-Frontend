@@ -17,11 +17,12 @@ type FeedProps = {
   isFetchingNextPage?: boolean;
   tabType?: FeedType;
   userId?: number;
+  reverseFeed?: boolean;  
 };
 
 //TODO fix isready logic
 
-function Feed({userId, postIdsArray, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, tabType }: FeedProps) {
+function Feed({userId, postIdsArray, fetchNextPage, reverseFeed, hasNextPage, isFetchingNextPage, isLoading, tabType }: FeedProps) {
 
   const { ref, inView } = useInView();
 
@@ -36,14 +37,14 @@ function Feed({userId, postIdsArray, fetchNextPage, hasNextPage, isFetchingNextP
   const postTypeForFeed : PostType | undefined = (tabType == "Replies" ? "ReplyFeedPost" : tabType == "Tweets" ? "TweetFeedPost" : undefined) 
 
       return (
-        <div className="w-full flex flex-col ">
+        <div className="w-full flex flex-col overflow-x-visible">
           {isLoading ? (
             <div className="flex justify-center py-2 flex-col w-full">
               <LoadingIcon />
             </div>
             ) : (
               <>
-                <div className="flex flex-col w-full" key="feed-wrapper">
+                <div className={`flex ${reverseFeed ? "flex-col-reverse" : "flex-col"} w-full`} key="feed-wrapper">
                   {postIdsArray.length > 0 ? (
                       <AnimatePresence mode="popLayout">
                   {postIdsArray.map((id) => (
@@ -51,8 +52,9 @@ function Feed({userId, postIdsArray, fetchNextPage, hasNextPage, isFetchingNextP
                       <Tweet postId={id} postType={postTypeForFeed}/>
                     </motion.div>
                   ))}
-                  <LoadMoreForFeed  triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
-
+                  {!reverseFeed && (
+                    <LoadMoreForFeed triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
+                  )}
                       </AnimatePresence>
                   ) : tabType != null && (
                     <NoContentYet userId={userId} tabType={tabType}/>

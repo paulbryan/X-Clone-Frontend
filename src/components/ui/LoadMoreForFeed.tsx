@@ -23,19 +23,13 @@ export function LoadMoreForFeed ({triggerRef, hasNextPage, isFetchingNextPage}: 
 
     return  (
       
-        <div className="w-full flex flex-col justify-center items-center h-20">
+      <div className="w-full flex flex-col justify-center items-center h-20">
         <div ref={triggerRef} className="w-full h-0 pointer-events-none opacity-0" />
   
         {isFetchingNextPage && (
           <div  className="flex justify-center items-center py-2">
             <LoadingIcon />
           </div>
-        )}
-  
-        {showEnd && (
-          <p className="border-(--color-main) border px-6 py-2 rounded-2xl">
-            End of feed
-          </p>
         )}
       </div>
 

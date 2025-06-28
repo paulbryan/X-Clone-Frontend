@@ -1,10 +1,11 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { act, useContext, useEffect, useMemo, useState } from "react";
 import TabList from "./TabList.tsx";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import Feed from "../feed/Feed.tsx";
 import { HeaderContentContext } from "../../../context/GlobalState/HeaderContentProvider.tsx";
 import { useInfiniteFeed } from "../../../lib/hooks/queries/useInfiniteFeed.tsx";
 import type { FeedType } from "../../../lib/types/FeedType.ts";
+import ComposeTweet from "../../input/ComposeTweet.tsx";
 
 function HomePage () {
 
@@ -41,14 +42,19 @@ function HomePage () {
     return (
 
         
-        <div className="h-full w-full flex flex-col overflow-hidden">
+        <div className="h-full w-full flex flex-col overflow-x-visible lg:border-x border-twitterBorder">
             {currentUser && (
             <div className="h-fit">
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
             </div>
             )}
-            <div className="h-full flex flex-col grow w-full overflow-y-auto">
-                <Feed fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isLoading={isLoading} isFetchingNextPage={isFetchingNextPage} key={activeTab} postIdsArray={postIds}/>
+            <div className="h-full flex flex-col grow w-full scrollbar-blue overflow-y-scroll">
+                {currentUser && (
+                  <div className="hidden lg:flex lg:w-full">
+                    <ComposeTweet />
+                  </div>
+                )}
+                <Feed tabType={activeTab} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isLoading={isLoading} isFetchingNextPage={isFetchingNextPage} key={activeTab} postIdsArray={postIds}/>
             </div>
         </div>
 

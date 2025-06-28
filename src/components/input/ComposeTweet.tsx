@@ -27,6 +27,11 @@ function ComposeTweet({
   const isModal = setToggle != null;
   const placeHolder = parentId ? "Tweet your reply" : "What's up?!";
 
+  const clearAllInput = () => {
+    setTextInput("");
+    setImagesInput([]);
+  }
+ 
   return (
     <div
       className={`flex flex-col pt-4 pb-4 bg-(--background-main) w-full ${
@@ -52,12 +57,12 @@ function ComposeTweet({
             <TextareaAutosize
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
-              className="w-full min-h-12 p-1 text-white placeholder:text-twitterTextAlt"
+              className="w-full min-h-12 p-1 focus:outline-none focus:ring-0 focus:border-transparent text-white placeholder:text-twitterTextAlt"
               placeholder={placeHolder}
             />
           </div>
           {imagesInput.length > 0 && (
-            <div className="w-full h-fit">
+            <div className="w-full h-auto ">
               <ImageGrid images={imagesInput} setImages={setImagesInput} />
             </div>
           )}
@@ -71,6 +76,7 @@ function ComposeTweet({
             </div>
             <div className="w-full h-full justify-end flex items-center">
               <UploadTweetButton
+                clearAllInput={clearAllInput}
                 filesWithId={imagesInput}
                 setToggle={setToggle}
                 textInput={textInput}

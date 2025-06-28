@@ -6,7 +6,7 @@ import type { ModalType } from "../../lib/types/ModalType";
 
 type GoogleSignInButtonProps = {
     children: ReactNode;
-    setToggle: (type: ModalType) => void;
+    setToggle?: (type: ModalType) => void;
 }
 
 export function GoogleAuthButton ({children, setToggle}: GoogleSignInButtonProps) {
@@ -16,8 +16,10 @@ export function GoogleAuthButton ({children, setToggle}: GoogleSignInButtonProps
     const handleLogin = () => {
 
       login();
-      setToggle(null);
-
+      if (setToggle) {
+        setToggle(null);
+      }
+      
     }
 
     return (

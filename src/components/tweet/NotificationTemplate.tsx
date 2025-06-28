@@ -1,28 +1,31 @@
-import type { Notification } from "../../lib/types/Notification.ts"
 import ProfilePic from "../user/ProfilePic.tsx";
 import { useNavigate } from "react-router-dom";
 import DisplayNameComponent from "../user/DisplayNameComponent.tsx";
 import NotificationTypeIcon from "../ui/NotificationTypeIcon.tsx";
 import { useUser } from "../../lib/hooks/queries/useUser.tsx";
+import { useNotification } from "../../lib/hooks/queries/useNotification.tsx";
+import { UserHoverWrapper } from "../ui/UserHoverWrapper.tsx";
 type NotificationTemplateProps = {
 
-    notification: Notification;
+    notificationId: number;
     isTempUnseen?: boolean;
 
 }
 
-function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplateProps)  {
+function NotificationTemplate ({notificationId, isTempUnseen}: NotificationTemplateProps)  {
+
 
     const navigate = useNavigate();
+    const { data: notification } = useNotification(notificationId);
     const displayMessage = determineDisplayMessage();
 
-    const { data: sender } = useUser(notification.senderId ?? -1);
+    const { data: sender } = useUser(notification?.senderId ?? -1);
 
     function determineDisplayMessage (): string {
 
-        switch (notification.type) {
+        switch (notification?.type) {
 
-            case "like" :
+            case 'like' :
             return "liked your post";
             
             case "follow" :
@@ -41,6 +44,7 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
     }
 
     function navigateFromNotification () {
+        if (!notification) return;
             if (notification.type == "follow") {
                 navigate("/profile/"+notification.senderId)
             } else {
@@ -50,6 +54,7 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
 
     return (
         <>
+        {notification && (
         <div className={`h-fit w-full flex border-b hover:bg-twitterTextAlt/20 border-twitterBorder ${
             isTempUnseen ? 'bg-twitterTextAlt/20' : ' '
         }`}
@@ -64,19 +69,27 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
 
             <div className="w-full h-fit">
             <div className="flex w-12 pb-1">
-                <div className={"w-10 h-10"}>
-                    <ProfilePic userId={sender?.id}/>
-                </div>
+                {sender && (
+                <UserHoverWrapper userId={sender.id}>
+                    <div className={"w-10 h-10"}>
+                        <ProfilePic userId={sender?.id}/>
+                    </div>
+                </UserHoverWrapper>
+                )}
             </div>
             </div>
 
             <div className="pb-3 w-full h-fit">
                 <div className="w-full h-fit flex-col">
                     <div className="w-full h-5 flex gap-1 align-middle text-white mb-0.5">
-                            <div className="font-bold"> 
-                                <DisplayNameComponent user={sender}/>
-                            </div>
-                            <p onClick={() => navigateFromNotification()}> {displayMessage}</p>
+                        {sender && (
+                            <UserHoverWrapper userId={sender.id}>
+                                <div className="font-bold"> 
+                                    <DisplayNameComponent user={sender}/>
+                                </div>
+                            </UserHoverWrapper>
+                        )}
+                        <p onClick={() => navigateFromNotification()}> {displayMessage}</p>
                     </div>
 
                     <div className="text-twitterTextAlt max-h-32">
@@ -92,6 +105,7 @@ function NotificationTemplate ({notification, isTempUnseen}: NotificationTemplat
         </div>
 
         </div>
+        )}
     </>
     )
 

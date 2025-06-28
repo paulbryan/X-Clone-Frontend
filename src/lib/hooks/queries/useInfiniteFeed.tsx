@@ -30,7 +30,7 @@ export const useInfiniteFeed = (
       console.log("INFINITE PAGE RES: ", response);
       return response;
     },
-    initialPageParam: (type == "For You" && userId) ? 0 : Date.now() + 60_000,
+    initialPageParam: (!!userId && type == "For You") ? 0 : Date.now() + 60_000,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     staleTime: 1000 * 60,
   });

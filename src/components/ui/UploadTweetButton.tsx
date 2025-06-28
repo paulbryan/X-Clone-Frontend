@@ -4,10 +4,10 @@ import type { ModalType } from "../../lib/types/ModalType.ts";
 import toast from "react-hot-toast";
 import { useCreatePost } from "../../lib/hooks/mutations/useCreatePost.tsx";
 import type { FilesWithId } from "../../lib/types/file.ts";
-import { useQueryClient } from "@tanstack/react-query";
 
 type UploadTweetButtonProps = {
   textInput: string;
+  clearAllInput: () => void;
   parentId?: number;
   setNewPost?: (post: Post) => void;
   setToggle?: (modalType: ModalType) => void;
@@ -15,14 +15,18 @@ type UploadTweetButtonProps = {
 };
 
 function UploadTweetButton({
+  clearAllInput,
   textInput,
   parentId,
   filesWithId,
   setToggle,
 }: UploadTweetButtonProps) {
-  const queryClient = useQueryClient();
+
   const { currentUser } = useCurrentUser();
-  const createPost = useCreatePost();
+
+  const enableButton = textInput.length > 0;
+
+  const createPost = currentUser ? useCreatePost(currentUser.id, parentId) : undefined;
 
   const handleToastClick = () => {
     if (!currentUser || textInput.length <= 1 || textInput.length >= 180) {
@@ -43,14 +47,11 @@ function UploadTweetButton({
       formData.append("images", file);
     });
 
+    if (!createPost) return;
+
     createPost.mutate(formData, {
       onSuccess: () => {
-        ["For You", "Tweets, Replies"].forEach(feedType => {
-          queryClient.invalidateQueries({
-            queryKey: ["feed", feedType, currentUser.id],
-            exact: true,
-          });
-        });
+        clearAllInput();
         toast.dismiss();
         toast.success("Tweet posted!");
         if (setToggle) setToggle(null);
@@ -66,9 +67,9 @@ function UploadTweetButton({
 
     <div
     onClick={handleToastClick}
-    className="w-fit px-4 font-bold text-sm flex items-center justify-center rounded-2xl h-8 bg-(--color-main)"
+    className={`w-fit px-4 font-bold text-sm flex items-center justify-center rounded-2xl h-8 ${enableButton ? "bg-(--color-main) text-white hover:cursor-pointer" : "hover:cursor-not-allowed bg-(--color-main)/50"} text-twitterTextAlt`}
     >
-    <p className="text-white">Tweet</p>
+    <p className="">Tweet</p>
     </div>
 
     )

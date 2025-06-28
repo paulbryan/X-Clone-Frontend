@@ -56,7 +56,7 @@ function FullPostTemplate({
   return (
     <>
       {post && (
-        <motion.div
+        <motion.div className="overflow-x-visible"
           {...(!isModal ? { ...variants, layout: "position" } : {})}
           animate={{
             ...variants.animate,
@@ -67,7 +67,7 @@ function FullPostTemplate({
           <div
             onClick={() => navigateToPost()}
             className={`flex flex-col w-full border-gray-700 ${
-              !isParentPost ? "border-b" : ""
+              !isParentPost && !isMainPost ? "border-b" : ""
             }`}
           >
             {/* SEPERATE ROW FOR POST PARENT - ONLY FOR POSTS THAT ARE REPLIES */}

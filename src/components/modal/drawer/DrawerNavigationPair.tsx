@@ -1,6 +1,8 @@
 import type { ReactNode} from "react";
 import { useNavigate } from "react-router-dom";
 import type { Dispatch, SetStateAction } from "react";
+import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
+import { useModal } from "../../../context/GlobalState/ModalProvider";
 
 
 type DrawerNavigationPairProps = {
@@ -8,18 +10,39 @@ type DrawerNavigationPairProps = {
     name: string;
     routePath?: string;
     setDrawerOpen?: Dispatch<SetStateAction<boolean>>
+    disabled?: boolean;
   };
 
 
 
-function DrawerNavigationPair ( { children, name, routePath, setDrawerOpen }: DrawerNavigationPairProps ) {
+function DrawerNavigationPair ( { children, name, routePath, disabled, setDrawerOpen }: DrawerNavigationPairProps ) {
+
+    const {setModalType} = useModal();
 
     const navigate = useNavigate();
+    const {currentUser} = useCurrentUser();
+
+    const onlyOnUserId = () => {
+        switch (name) {
+            case "Bookmarks" :
+            case "Notifications" :
+            case "Profile" :
+            return true;
+            
+            default :
+            return false;
+        }
+    }
+
+    const canNavigateAsUser = !onlyOnUserId() || currentUser
+
 
     const handleNavigation = () => {
-
-        if (routePath) {
+        if (disabled) return;
+        if (routePath && canNavigateAsUser) {
             navigate(routePath);
+        } else {
+            setModalType("signup");
         }
 
         setTimeout(() => {
@@ -33,13 +56,13 @@ function DrawerNavigationPair ( { children, name, routePath, setDrawerOpen }: Dr
     return (
         <div 
         onClick={() => handleNavigation()}
-        className="flex h-16 text-2xl text-twitterText items-center gap-4">
+        className={`${!disabled ? "hover:cursor-pointer" : "hover:cursor-not-allowed"} flex h-16 relative text-2xl  text-twitterText items-center gap-4`}>
             <div
-            className="text-3xl hover:cursor-pointer">
+            className="text-3xl">
                 {children}
             </div>
             <div onClick={() => handleNavigation()}>
-                <p className="font-bold hover:cursor-pointer">{name}</p>
+                <p className={`font-bold md:font-medium`}>{name}</p>
             </div>
 
         </div>

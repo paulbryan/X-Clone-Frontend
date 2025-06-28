@@ -27,7 +27,7 @@ function ProfilePic({ userId, disableNavigation }: ProfilePicComponentProps) {
       {base64 && !isLoading ? (
         <img
         onClick={(e) => navigateToProfile(e)}
-        className="h-full w-full rounded-full object-cover"
+        className={`h-full w-full rounded-full object-cover ${disableNavigation ? "" : "hover:opacity-75"}`}
         src= {`data:image/png;base64,${base64}`}
         />
       ) : (

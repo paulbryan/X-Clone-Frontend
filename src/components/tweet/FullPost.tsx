@@ -26,6 +26,8 @@ function FullPost() {
     }
   }, [post]);
 
+  //TODO add some kind of 
+
   return (
     <div className="flex flex-col w-full text-white">
 
@@ -38,7 +40,7 @@ function FullPost() {
           )}
           
           {post && post.replies.length > 0 && (
-            <Feed key={post.replies.length} postIdsArray={post.replies}/>
+            <Feed key={post.replies.length} postIdsArray={post.replies} reverseFeed={true}/>
           )}
         </>
       )}

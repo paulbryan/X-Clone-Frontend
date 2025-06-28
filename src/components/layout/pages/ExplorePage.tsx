@@ -36,7 +36,7 @@ function ExplorePage () {
     }, [])
 
     return (
-        <div className="h-full w-full flex flex-col p-4 gap-4 overflow-hidden">
+        <div className="h-full w-full flex flex-col p-4 gap-4 scrollbar-blue overflow-hidden">
             <div className="w-full h-12 flex items-center justify-center">
                 <ExploreSearchBar query={input} setQuery={setInput} />
             </div>

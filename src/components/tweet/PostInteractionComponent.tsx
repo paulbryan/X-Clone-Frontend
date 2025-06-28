@@ -66,7 +66,7 @@ function PostInteractionComponent ({postId, showPadding} : PostInteractionCompon
 
               <InteractionButton 
                 iconName="ChatBubbleOvalLeftIcon"
-                buttonColor="twitterBlue" 
+                buttonColor="notAColor" 
                 numberList={replyList} 
                 mutationFunction={handleReplyModal}
                 />

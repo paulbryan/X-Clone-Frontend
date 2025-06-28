@@ -1,12 +1,8 @@
-import { useState } from 'react';
 import { useAuth } from '../../context/Auth/AuthProvider.tsx';
-import InputFormField from '../input/InputFormField.tsx';
-
 import type { ModalType } from '../../lib/types/ModalType.ts';
 import { FaXTwitter } from 'react-icons/fa6';
 import { GoogleAuthButton } from '../ui/GoogleAuthButton.tsx';
 import { HorizontalStripedText } from '../ui/HorizontalStripedText.tsx';
-import { TermsAndConditions } from './TermsAndConditions.tsx';
 import { API_URL } from '../../constants/env.ts';
 import { UseTempAccountButton } from './UseTempAccountButton.tsx';
 
@@ -19,25 +15,6 @@ type LoginViewProps = {
 function LoginView ({ setToggle }: LoginViewProps) {
   
     const { setAuthId } = useAuth();
-
-    function authenticateTempUser () {
-
-      fetch(`${API_URL}/api/auth/tempSignup`, {
-        method: "POST",
-      })
-      .then(res => {
-        if (!res.ok) throw new Error("Temp login failed");
-        return res.json();
-      })
-      .then(user => {
-        setAuthId(user.id);
-        setToggle(null);
-      })
-      .catch(err => {
-        console.error("Admin login error:", err);
-      });
-
-    }
   
     function adminLoginQuick(id: number) {
       fetch(`${API_URL}/api/users/getAdminUser?id=${id}`)

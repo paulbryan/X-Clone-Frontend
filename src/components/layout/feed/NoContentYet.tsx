@@ -1,4 +1,3 @@
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import { useUser } from "../../../lib/hooks/queries/useUser.tsx";
 import type { FeedType } from "../../../lib/types/FeedType.ts";
 
@@ -7,37 +6,80 @@ type NoContentYetProps = {
     userId?: number;
 }
 
+export type NoContentYetMessageType = {
+    
+}
+
 export function NoContentYet ({tabType, userId}: NoContentYetProps) {
 
     const { data: user } = useUser(userId ?? -1);
 
-    const lowerCaseName = user?.username;
+    const shouldShowUsername = () => {
+        switch (tabType) {
+            case "Bookmarks":
+            case "Notifications":
+            case "Following":
+            return false;
+            
+            default:
+                return true;
+        }
+    }
+
+    const displayUser = shouldShowUsername() ? ("@" + user?.username) : "";
 
     function determineTabName () {
         switch (tabType) {
             case "Tweets" :
-                return "Tweeted";
+                return "hasn't tweeted";
             case "Media" :
-                return "Posted Media"
+                return "hasn't posted any media"
             case "Bookmarks" :
-                return "Bookmarked any Tweets";
+                return "Save Tweets for later";
             case "Liked" :
-                return "Liked any Tweets";
+                return "hasn't liked any tweets";
+            case "Notifications" :
+                return "Join the conversation"    
             case "Replies" :
-                return "Replied to any Tweets";        
+                return "hasn't replied to any tweets";        
+            case "Following" :
+                return "Nothing to see here - yet"    
         }       
     }
 
+    function determineSubMessage () {
+        switch (tabType) {
+            case "Tweets" :
+                return "Once they do, you'll find those posts here";
+            case "Media" :
+                return "Once they do, you'll find those posts here"
+            case "Bookmarks" :
+                return "Don't let the good ones fly away! Bookmark tweets to easily find them again in the future";
+            case "Liked" :
+                return "Once they do, you'll find those posts here";
+            case "Notifications" :
+                return "When someone on X interacts with your content, you'll find it here"    
+            case "Replies" :
+                return "Once they do, you'll find those posts here";        
+            case "Following" :
+                return "When you follow someone, their Tweets will show up here."    
+        }       
+    }
 
 
     return (
         <div className="w-full h-full flex flex-col justify-center items-center my-4">
 
             <div className="h-auto w-2/3 flex flex-col gap-2 justify-center items-center">
-                <img className="h-auto" src={`../../../public/images/no-${tabType}.png`}/>
-                <p className="text-twitterText text-center font-bold text-2xl"> @{lowerCaseName} hasn't {determineTabName()} </p>
-                <p className="text-twitterTextAlt text-center">Once they do, those tweets will show up here </p>
-
+                {false ? (
+                    <p className="text-twitterText text-center font-bold text-2xl">{determineTabName()}</p>
+                ) : tabType && (
+                    <>
+                    <img className="h-auto" src={`../../../public/images/no-${tabType}.png`}/>
+                    <p className="text-twitterText text-center font-bold text-2xl">{determineTabName()}</p>
+                    <p className="text-twitterTextAlt text-center">{determineSubMessage()}</p>
+                    </>
+                )}
             </div>
 
         </div>

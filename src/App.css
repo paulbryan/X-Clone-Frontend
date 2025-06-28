@@ -14,6 +14,27 @@
   font-style: normal;
 }
 
+@layer utilities {
+  .scrollbar-blue {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-main) transparent; /* Firefox */
+  }
+
+  .scrollbar-blue::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+  }
+
+  .scrollbar-blue::-webkit-scrollbar-thumb {
+    background-color: var(--color-main);
+    border-radius: 4px;
+  }
+
+  .scrollbar-blue::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
 
 
 @theme {
@@ -37,6 +58,14 @@
   --color-main: var(--color-twitterBlue);
 
   --font-twitter: TwitterChirp;
+
+  --animate-hover-card: fade-in 0.2s ease-out;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
 }
 
 html, body {

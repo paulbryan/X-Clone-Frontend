@@ -3,7 +3,7 @@ import { useAuth } from "../../context/Auth/AuthProvider";
 import type { ModalType } from "../../lib/types/ModalType";
 
 type UseTempAccountButtonProps = {
-    setToggle: (type: ModalType) => void;
+    setToggle?: (type: ModalType) => void;
 }
 
 export function UseTempAccountButton ({setToggle}: UseTempAccountButtonProps) {
@@ -21,7 +21,9 @@ export function UseTempAccountButton ({setToggle}: UseTempAccountButtonProps) {
         })
         .then(user => {
           setAuthId(user.id);
-          setToggle(null);
+          if (setToggle) {
+            setToggle(null);
+          }
         })
         .catch(err => {
           console.error("Admin login error:", err);
@@ -30,7 +32,7 @@ export function UseTempAccountButton ({setToggle}: UseTempAccountButtonProps) {
       }
 
     return (
-    <div onClick={() => authenticateTempUser()} className="w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full">
+    <div onClick={() => authenticateTempUser()} className={`w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full`}>
         <p className="">Use a temporary account</p>
       </div>
     )

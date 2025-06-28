@@ -23,7 +23,7 @@ function Modal({ children, setToggle, center }: ModalProps) {
     >
       <motion.div
         key="modal"
-        className="w-full h-fit"
+        className="w-full md:w-1/3 h-fit"
         {...modalMotionProps}
         onClick={(e) => e.stopPropagation()}
       >

@@ -39,7 +39,7 @@ type ProfilePageOverviewProps = {
                     </div>
 
                     <div className="w-full h-12 flex justify-end items-center px-4">
-                        <div className="w-28 h-auto flex items-center justify-center align-middle rounded-2xl border border-twitterText text-twitterText">
+                        <div className="w-28 hover:cursor-pointer h-auto flex items-center justify-center align-middle rounded-2xl border border-twitterText text-twitterText">
                             {isOwnPage ? (
                                 <p>Edit Profile</p>
                             ) : (
