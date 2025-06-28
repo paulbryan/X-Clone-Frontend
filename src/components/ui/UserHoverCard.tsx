@@ -24,11 +24,11 @@ export function UserHoverCard({ userId }: Props) {
 
   return (
 
-    <div className="flex flex-col gap-3 p-4 bg-main-background shadow-md rounded-2xl w-full">
+    <div onClick={(e) => e.stopPropagation()} className="flex flex-col gap-3 p-4 bg-main-background shadow-md rounded-2xl w-full">
             <div className="w-full h-auto flex flex-col gap-1 relative">
 
             <div className="w-full flex items-center justify-between">
-                <div className="w-12 h-12">
+                <div className="w-12 h-12 hover:cursor-pointer">
                     <ProfilePic userId={tooltipUser?.id}/>
                 </div>
                 <div className="w-28 hover:cursor-pointer h-fit py-0.5 flex items-center justify-center align-middle rounded-2xl border border-twitterText text-twitterText">

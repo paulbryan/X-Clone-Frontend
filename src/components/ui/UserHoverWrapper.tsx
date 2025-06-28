@@ -18,7 +18,7 @@ export function UserHoverWrapper({ userId, children }: Props) {
           side="bottom"
           align="center"
           sideOffset={4}
-          className="z-50 w-60 animate-hover-card rounded-2xl bg-(--background-main) border border-twitterText shadow-[0_0_5px_1px_white]"
+          className="z-50 w-60 animate-hover-card rounded-2xl bg-(--background-main) border border-twitterBorder shadow-[0_0_5px_1px_gray]"
           >
           <UserHoverCard userId={userId} />
         </HoverCard.Content>

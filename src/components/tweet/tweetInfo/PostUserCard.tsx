@@ -1,6 +1,7 @@
 import { usePost } from "../../../lib/hooks/queries/usePost.tsx";
 import { useUser } from "../../../lib/hooks/queries/useUser.tsx";
 import CreatedAtDisplay from "../../ui/CreatedAtDisplay.tsx";
+import { UserHoverWrapper } from "../../ui/UserHoverWrapper.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
 import { ReplyingTo } from "./ReplyingTo.tsx";
@@ -24,13 +25,22 @@ export function PostUserCard ({postId, postUserId, isReplyFeedPost, mainPost}: P
         <>
         {/* !MAINPOST */}
         <div className={` flex ${mainPost ? "flex-col" : "mb-0.5 gap-2 items-center"}  text-twitterText `}>
+            {postUser && (
+            <>
+            <UserHoverWrapper userId={postUser.id}>
             <div className="font-bold">
-            <DisplayNameComponent user={postUser} truncate={!mainPost}/>
+                <DisplayNameComponent user={postUser} truncate={!mainPost}/>
             </div>
-        <div className="text-twitterTextAlt text-md">
-            <UsernameComponent user={postUser} />
-        </div>
-        
+            </UserHoverWrapper>
+            <UserHoverWrapper userId={postUser.id}>
+                <div className="text-twitterTextAlt text-md">
+                    <UsernameComponent user={postUser} />
+                </div>
+            </UserHoverWrapper>
+
+            </>
+            )}
+
         {!mainPost && post && (
             <>
             <p>•</p>

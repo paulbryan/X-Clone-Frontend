@@ -4,6 +4,7 @@ import DisplayNameComponent from "../user/DisplayNameComponent.tsx";
 import NotificationTypeIcon from "../ui/NotificationTypeIcon.tsx";
 import { useUser } from "../../lib/hooks/queries/useUser.tsx";
 import { useNotification } from "../../lib/hooks/queries/useNotification.tsx";
+import { UserHoverWrapper } from "../ui/UserHoverWrapper.tsx";
 type NotificationTemplateProps = {
 
     notificationId: number;
@@ -68,19 +69,27 @@ function NotificationTemplate ({notificationId, isTempUnseen}: NotificationTempl
 
             <div className="w-full h-fit">
             <div className="flex w-12 pb-1">
-                <div className={"w-10 h-10"}>
-                    <ProfilePic userId={sender?.id}/>
-                </div>
+                {sender && (
+                <UserHoverWrapper userId={sender.id}>
+                    <div className={"w-10 h-10"}>
+                        <ProfilePic userId={sender?.id}/>
+                    </div>
+                </UserHoverWrapper>
+                )}
             </div>
             </div>
 
             <div className="pb-3 w-full h-fit">
                 <div className="w-full h-fit flex-col">
                     <div className="w-full h-5 flex gap-1 align-middle text-white mb-0.5">
-                            <div className="font-bold"> 
-                                <DisplayNameComponent user={sender}/>
-                            </div>
-                            <p onClick={() => navigateFromNotification()}> {displayMessage}</p>
+                        {sender && (
+                            <UserHoverWrapper userId={sender.id}>
+                                <div className="font-bold"> 
+                                    <DisplayNameComponent user={sender}/>
+                                </div>
+                            </UserHoverWrapper>
+                        )}
+                        <p onClick={() => navigateFromNotification()}> {displayMessage}</p>
                     </div>
 
                     <div className="text-twitterTextAlt max-h-32">
