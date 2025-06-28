@@ -37,10 +37,9 @@ export function TweetMainRow ({isParentPost, isMainPost, postUser, post}: TweetM
                     <div className="flex flex-col">
                     <PostUserCard postId={post.id} postUserId={postUser?.id} mainPost={isMainPost}/>
                     </div> 
-                    {/* !MainPost!!!!! */}
                     {!isMainPost && (
-                    <div className={`text-twitterText whitespace-pre-line break-words mb-2`}>
-                    <p onClick={() => navigate("/tweet/"+post.id)}>{post.text}</p>
+                    <div className={`text-twitterText whitespace-pre-line w-full break-all mb-2`}>
+                    <p className="break-words break-all" onClick={() => navigate("/tweet/"+post.id)}>{post.text}</p>
                     </div>
                     )}
                 </div>

@@ -56,7 +56,7 @@ function FullPostTemplate({
   return (
     <>
       {post && (
-        <motion.div className="overflow-x-visible"
+        <motion.div className=""
           {...(!isModal ? { ...variants, layout: "position" } : {})}
           animate={{
             ...variants.animate,

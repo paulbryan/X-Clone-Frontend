@@ -24,7 +24,7 @@ function UploadTweetButton({
 
   const { currentUser } = useCurrentUser();
 
-  const enableButton = textInput.length > 0;
+  const enableButton = textInput.length > 0 && textInput.length < 181;
 
   const createPost = currentUser ? useCreatePost(currentUser.id, parentId) : undefined;
 

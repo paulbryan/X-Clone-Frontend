@@ -53,7 +53,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
             <div
             onClick={(e) => e.stopPropagation()}
-            className="w-2/3 min-w-[280px] max-w-2/3 p-4 pl-6 border-r flex flex-col border-twitterBorder h-full max-h-full overflow-y-hidden overflow-x-hidden bg-(--background-main)">
+            className="w-2/3 min-w-[280px] max-w-2/3 p-4 pl-6 border-r flex flex-col border-twitterBorder h-full max-h-full overflow-y-hidden bg-(--background-main)">
                 
                 <div className="w-full h-fit ">
                     <div onClick={() => navigate(`/profile/${currentUser?.id}`)} className="w-12 h-12">
