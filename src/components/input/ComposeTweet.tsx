@@ -27,6 +27,11 @@ function ComposeTweet({
   const isModal = setToggle != null;
   const placeHolder = parentId ? "Tweet your reply" : "What's up?!";
 
+  const clearAllInput = () => {
+    setTextInput("");
+    setImagesInput([]);
+  }
+ 
   return (
     <div
       className={`flex flex-col pt-4 pb-4 bg-(--background-main) w-full ${
@@ -71,6 +76,7 @@ function ComposeTweet({
             </div>
             <div className="w-full h-full justify-end flex items-center">
               <UploadTweetButton
+                clearAllInput={clearAllInput}
                 filesWithId={imagesInput}
                 setToggle={setToggle}
                 textInput={textInput}

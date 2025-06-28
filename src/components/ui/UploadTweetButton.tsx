@@ -7,6 +7,7 @@ import type { FilesWithId } from "../../lib/types/file.ts";
 
 type UploadTweetButtonProps = {
   textInput: string;
+  clearAllInput: () => void;
   parentId?: number;
   setNewPost?: (post: Post) => void;
   setToggle?: (modalType: ModalType) => void;
@@ -14,6 +15,7 @@ type UploadTweetButtonProps = {
 };
 
 function UploadTweetButton({
+  clearAllInput,
   textInput,
   parentId,
   filesWithId,
@@ -47,6 +49,7 @@ function UploadTweetButton({
 
     createPost.mutate(formData, {
       onSuccess: () => {
+        clearAllInput();
         toast.dismiss();
         toast.success("Tweet posted!");
         if (setToggle) setToggle(null);
