@@ -58,7 +58,7 @@ function ComposeTweet({
             <TextareaAutosize
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
-              className="w-full min-h-12 p-1 focus:outline-none focus:ring-0 focus:border-transparent text-white placeholder:text-twitterTextAlt"
+              className="w-full resize-none min-h-12 p-1 focus:outline-none focus:ring-0 focus:border-transparent text-white placeholder:text-twitterTextAlt"
               placeholder={placeHolder}
             />
           </div>
