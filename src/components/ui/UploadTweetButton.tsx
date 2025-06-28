@@ -24,6 +24,8 @@ function UploadTweetButton({
 
   const { currentUser } = useCurrentUser();
 
+  const enableButton = textInput.length > 0;
+
   const createPost = currentUser ? useCreatePost(currentUser.id, parentId) : undefined;
 
   const handleToastClick = () => {
@@ -65,9 +67,9 @@ function UploadTweetButton({
 
     <div
     onClick={handleToastClick}
-    className="w-fit px-4 font-bold text-sm flex items-center justify-center rounded-2xl h-8 bg-(--color-main)"
+    className={`w-fit px-4 font-bold text-sm flex items-center justify-center rounded-2xl h-8 ${enableButton ? "bg-(--color-main) text-white hover:cursor-pointer" : "hover:cursor-not-allowed bg-(--color-main)/50"} text-twitterTextAlt`}
     >
-    <p className="text-white">Tweet</p>
+    <p className="">Tweet</p>
     </div>
 
     )
