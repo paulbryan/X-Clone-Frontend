@@ -26,7 +26,7 @@ export function NoContentYet ({tabType, userId}: NoContentYetProps) {
         }
     }
 
-    const displayUser = shouldShowUsername() ? user?.username : "";
+    const displayUser = shouldShowUsername() ? ("@" + user?.username) : "";
 
     function determineTabName () {
         switch (tabType) {
@@ -76,7 +76,7 @@ export function NoContentYet ({tabType, userId}: NoContentYetProps) {
                 ) : tabType && (
                     <>
                     <img className="h-auto" src={`../../../public/images/no-${tabType}.png`}/>
-                    <p className="text-twitterText text-center font-bold text-2xl"> {"@" + displayUser} {determineTabName()}</p>
+                    <p className="text-twitterText text-center font-bold text-2xl">{determineTabName()}</p>
                     <p className="text-twitterTextAlt text-center">{determineSubMessage()}</p>
                     </>
                 )}
