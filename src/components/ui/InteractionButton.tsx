@@ -39,10 +39,14 @@ function InteractionButton({ numberList, buttonColor, mutationFunction, iconName
     }
   };
 
+  //TODO add hover on icon
+
   return (
     <div className="">
     <div className={`h-5 flex w-16 hover:cursor-pointer ${isMarked ? "text-" + buttonColor : ""} align-middle items-center gap-3`}>
-    <div onClick={(e) => handleMutation(e)}>
+    <div 
+    onClick={(e) => handleMutation(e)}
+    >
       <HeroIcon iconName={iconName} solid={isMarked} className={`h-6 w-6`}/>
     </div>      
     <InteractionCounter count={count}/>

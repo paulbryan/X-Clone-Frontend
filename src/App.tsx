@@ -57,7 +57,7 @@ function App() {
             <TabList/>
           </div> */}
 
-        <div className='flex-grow overflow-hidden flex flex-col'>
+        <div className='flex-grow overflow-y-hidden overflow-x-visible flex flex-col'>
         <Routes>
 
         <Route
