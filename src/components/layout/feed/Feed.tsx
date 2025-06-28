@@ -17,7 +17,7 @@ type FeedProps = {
   isFetchingNextPage?: boolean;
   tabType?: FeedType;
   userId?: number;
-  reverseFeed?: boolean;
+  reverseFeed?: boolean;  
 };
 
 //TODO fix isready logic
@@ -52,8 +52,9 @@ function Feed({userId, postIdsArray, fetchNextPage, reverseFeed, hasNextPage, is
                       <Tweet postId={id} postType={postTypeForFeed}/>
                     </motion.div>
                   ))}
-                  <LoadMoreForFeed triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
-
+                  {!reverseFeed && (
+                    <LoadMoreForFeed triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
+                  )}
                       </AnimatePresence>
                   ) : tabType != null && (
                     <NoContentYet userId={userId} tabType={tabType}/>
