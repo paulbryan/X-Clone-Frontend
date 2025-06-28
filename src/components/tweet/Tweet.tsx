@@ -67,7 +67,7 @@ function FullPostTemplate({
           <div
             onClick={() => navigateToPost()}
             className={`flex flex-col w-full border-gray-700 ${
-              !isParentPost ? "" : ""
+              !isParentPost && !isMainPost ? "border-b" : ""
             }`}
           >
             {/* SEPERATE ROW FOR POST PARENT - ONLY FOR POSTS THAT ARE REPLIES */}

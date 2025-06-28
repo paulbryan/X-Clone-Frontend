@@ -26,6 +26,8 @@ function FullPost() {
     }
   }, [post]);
 
+  //TODO add some kind of 
+
   return (
     <div className="flex flex-col w-full text-white">
 
