@@ -43,11 +43,11 @@ function App() {
           
         <ModalManager />
 
-        <div className='lg:flex lg:w-full lg:h-full bg-[var(--background-main)] lg:justify-between'>
+        <div className='lg:flex 2xl:px-80 lg:px-30 bg-[var(--background-main)] lg:justify-between'>
 
         <LeftDesktopLayout/>
 
-        <div className="overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw lg:bg-none bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
+        <div className="overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw lg:w-full lg:bg-none bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
 
           <div className=''>
             <Header/>
