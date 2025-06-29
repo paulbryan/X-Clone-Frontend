@@ -18,7 +18,13 @@ function ExplorePage () {
     const debouncedQuery = useDebounce(input, 300);
     
     const { data: userIds = [], isLoading } = useUserSearch(debouncedQuery);
-    const { data } = useInfiniteUsers();
+    const { 
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isLoading: isLoadingUsers,
+     } = useInfiniteUsers();
 
     const discoverIds = useMemo(() => {
         const seen = new Set<number>();
@@ -42,7 +48,7 @@ function ExplorePage () {
             </div>
             <div className="overflow-y-auto w-full h-full flex flex-col">
                 { input.length < 1 && discoverIds ? (
-                    <UserSearchFeed idsToLoad={discoverIds}/>
+                    <UserSearchFeed idsToLoad={discoverIds} isLoadingUsers={isLoadingUsers} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
                 ) : isLoading ? (
                     <LoadingIcon/>
                 ) : userIds && userIds.length <= 0 && !isLoading ? (

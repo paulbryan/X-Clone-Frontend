@@ -63,15 +63,15 @@ function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
                         className="h-12 w-12 cursor-pointer"
                         onClick={() => navigate(`/profile/13`)}
                     >
-                        <ProfilePic userId={currentUser?.id} />
+                        <ProfilePic showForSample={true}/>
                     </div>
                 </div>
                 <div className={`flex "mb-0.5 gap-2 items-center text-twitterText `}>
                         <div className="font-bold">
-                        <DisplayNameComponent user={currentUser}/>
+                        <DisplayNameComponent showForSample={true}/>
                         </div>
                     <div className="text-twitterTextAlt text-md">
-                        <UsernameComponent user={currentUser} />
+                        <UsernameComponent showForSample={true} />
                     </div>
                 </div> 
                 <div>

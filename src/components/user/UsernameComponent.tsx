@@ -6,8 +6,9 @@ type UsernameComponentProps = {
     user?: User | null;
     disableNavigation?: boolean;
     truncate?: boolean;
+    showForSample?: boolean;
   };
-function UsernameComponent ({user, disableNavigation, truncate}:UsernameComponentProps) {
+function UsernameComponent ({user, disableNavigation, truncate, showForSample}:UsernameComponentProps) {
 
     const navigate = useNavigate();
 
@@ -22,6 +23,9 @@ function UsernameComponent ({user, disableNavigation, truncate}:UsernameComponen
           navigate("profile/" + user.id);
         }
       }
+
+    if (showForSample) return <p>@X</p>
+  
 
     if (user) {
         return (

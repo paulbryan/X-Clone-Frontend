@@ -7,10 +7,12 @@ type DisplayNameComponentProps = {
     disableNavigation?: boolean;
     customClassName?: string;
     truncate?: boolean;
+    showForSample?: boolean;
+
   };
 
 
-function DisplayNameComponent ({user, customClassName, disableNavigation, truncate}:DisplayNameComponentProps) {
+function DisplayNameComponent ({user, customClassName, disableNavigation, truncate, showForSample}:DisplayNameComponentProps) {
 
     const navigate = useNavigate();
 
@@ -26,6 +28,9 @@ function DisplayNameComponent ({user, customClassName, disableNavigation, trunca
       const hoverDisplay = !disableNavigation ? "hover:cursor-pointer hover:underline" : "";
 
       const textToDisplay = user && (truncate ? trimText(user?.displayName, 12) : user?.displayName);
+
+      if (showForSample) return <p className={hoverDisplay + " " + customClass}>X</p>
+
 
 
     if (user && user.displayName) {
