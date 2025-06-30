@@ -22,8 +22,9 @@ export function useGoogleAuthEntry() {
           }
   
           const data = await res.json();
-          console.log("User authenticated with data: " + data);
-          setAuthId(data.id);
+          console.log("User authenticated with data: " + JSON.stringify(data));
+          localStorage.setItem("jwt", data.token);
+          setAuthId(data.user.id);
   
         } catch (err) {
           console.error("Login error:", err);

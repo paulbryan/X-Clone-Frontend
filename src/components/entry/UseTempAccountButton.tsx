@@ -19,8 +19,9 @@ export function UseTempAccountButton ({setToggle}: UseTempAccountButtonProps) {
           if (!res.ok) throw new Error("Temp login failed");
           return res.json();
         })
-        .then(user => {
-          setAuthId(user.id);
+        .then(data => {
+          localStorage.setItem("jwt", data.token);
+          setAuthId(data.user.id);
           if (setToggle) {
             setToggle(null);
           }
