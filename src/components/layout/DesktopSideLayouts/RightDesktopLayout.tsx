@@ -18,7 +18,7 @@ export function RightDesktopLayout () {
     const navigate = useNavigate();
 
     return (
-        <div className="hidden lg:flex lg:flex-col gap-4 px-10 md:items-start py-3 lg:w-2/3">
+        <div className="hidden xl:flex xl:flex-col gap-4 px-10 md:items-start py-3 xl:w-2/3">
 
         {!currentUser && (
             <AsideContainer>

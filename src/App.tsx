@@ -43,11 +43,11 @@ function App() {
           
         <ModalManager />
 
-        <div className='lg:flex 2xl:px-80 lg:px-30 bg-[var(--background-main)] lg:justify-between'>
+        <div className='xl:flex 2xl:px-80 xl:px-20 bg-[var(--background-main)] xl:justify-between'>
 
         <LeftDesktopLayout/>
 
-        <div className="overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw lg:w-full lg:bg-none bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
+        <div className="overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw xl:w-full xl:bg-none bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
 
           <div className=''>
             <Header/>
@@ -117,7 +117,7 @@ function App() {
         />
         </div>
 
-          <div className='lg:hidden'>
+          <div className='xl:hidden'>
             <FooterBar/>
           </div>
 

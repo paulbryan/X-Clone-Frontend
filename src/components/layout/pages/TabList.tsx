@@ -12,7 +12,7 @@ interface TabListProps {
 const TabList: FC<TabListProps> = ({ tabs, activeTab, setActiveTab }) => {
 
   return (
-    <div className="w-full overflow-x-auto overflow-y-hidden whitespace-nowrap lg:border-b border-twitterBorder flex items-center no-scrollbar">
+    <div className="w-full overflow-x-auto overflow-y-hidden whitespace-nowrap xl:border-b border-twitterBorder flex items-center no-scrollbar">
       {tabs.map((tab) => (
         <TabButton
           key={tab}

@@ -42,7 +42,7 @@ function HomePage () {
     return (
 
         
-        <div className="h-full w-full flex flex-col overflow-x-wrap lg:border-x border-twitterBorder">
+        <div className="h-full w-full flex flex-col overflow-x-wrap xl:border-x border-twitterBorder">
             {currentUser && (
             <div className="h-fit">
                 <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
@@ -50,7 +50,7 @@ function HomePage () {
             )}
             <div className="h-full flex flex-col grow w-full scrollbar-blue overflow-y-scroll">
                 {currentUser && (
-                  <div className="hidden lg:flex lg:w-full">
+                  <div className="hidden xl:flex xl:w-full">
                     <ComposeTweet />
                   </div>
                 )}

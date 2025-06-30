@@ -33,7 +33,7 @@ export function PostUserCard ({postId, postUserId, isReplyFeedPost, mainPost}: P
             </UserHoverWrapper>
             <UserHoverWrapper userId={postUser.id}>
                 <div className="text-twitterTextAlt text-md">
-                    <UsernameComponent user={postUser} />
+                    <UsernameComponent truncate={!mainPost} user={postUser} />
                 </div>
             </UserHoverWrapper>
 

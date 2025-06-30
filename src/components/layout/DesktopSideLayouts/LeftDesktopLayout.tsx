@@ -16,9 +16,9 @@ export function LeftDesktopLayout () {
 
 
     return (
-        <div className="hidden lg:flex justify-end lg:w-2/3 py-3">
+        <div className="hidden xl:flex justify-end xl:w-2/3 py-3">
 
-        <div className="lg:flex lg:flex-col lg:w-2/3 py-3">
+        <div className="xl:flex xl:flex-col xl:w-2/3 py-3">
 
 
             <FaXTwitter className="text-white text-4xl"/>
