@@ -4,6 +4,7 @@ import { fadeInFeedMotionProps } from "../../../lib/animations/motionAnimations"
 import { LoadMoreForFeed } from "../../ui/LoadMoreForFeed";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import LoadingIcon from "../../ui/LoadingIcon";
 
 type UserSearchFeedProps = {
   idsToLoad: number[];
@@ -35,17 +36,32 @@ export function UserSearchFeed({
   }, [inView, hasNextPage, fetchNextPage]);
 
   return (
-    <AnimatePresence mode="popLayout">
-      {idsToLoad.map((userId: number) => (
-        <motion.div key={userId} {...fadeInFeedMotionProps} layout="position">
-          <UserSearchResult userId={userId} />
-        </motion.div>
-      ))}
-      <LoadMoreForFeed
-        triggerRef={ref}
-        hasNextPage={hasNextPage}
-        isFetchingNextPage={isFetchingNextPage}
-      />
-    </AnimatePresence>
+
+    <div>
+
+      {isLoadingUsers ? (
+        <div className="flex justify-center py-2 flex-col w-full">
+          <LoadingIcon />
+        </div>
+      ) : (
+        <AnimatePresence mode="popLayout">
+        {idsToLoad.map((userId: number) => (
+          <motion.div key={userId} {...fadeInFeedMotionProps} layout="position">
+            <UserSearchResult userId={userId} />
+          </motion.div>
+        ))}
+        <LoadMoreForFeed
+          triggerRef={ref}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+        />
+      </AnimatePresence>
+      )}
+
+
+
+    </div>
+
+
   );
 }

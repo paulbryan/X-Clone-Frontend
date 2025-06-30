@@ -38,6 +38,8 @@ function ExplorePage () {
       }, [data]);
 
     useEffect(() => {
+        console.log("setting header");
+
             setHeaderContent(<p>Explore</p>);
     }, [])
 
@@ -48,7 +50,7 @@ function ExplorePage () {
             </div>
             <div className="overflow-y-auto w-full h-full flex flex-col">
                 { input.length < 1 && discoverIds ? (
-                    <UserSearchFeed idsToLoad={discoverIds} isLoadingUsers={isLoadingUsers} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
+                    <UserSearchFeed isInfinite={true} idsToLoad={discoverIds} isLoadingUsers={isLoadingUsers} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
                 ) : isLoading ? (
                     <LoadingIcon/>
                 ) : userIds && userIds.length <= 0 && !isLoading ? (

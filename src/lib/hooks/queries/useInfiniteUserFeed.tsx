@@ -9,7 +9,7 @@ type UserPage = {
 export function useInfiniteUsers() {
   return useInfiniteQuery<UserPage, Error>({
     queryKey: ["discoverUsers"],
-    queryFn: async ({ pageParam = 9999 }) => {
+    queryFn: async ({ pageParam = Date.now() + 60_000 }) => {
       const res = await fetch(`${API_URL}/api/users/getDiscoverFeed?cursor=${pageParam ?? ""}&limit=20`);
       if (!res.ok) throw new Error("Failed to fetch users");
 
@@ -18,7 +18,7 @@ export function useInfiniteUsers() {
       return result;
     },
     getNextPageParam: (lastPage) => lastPage.nextCursor,
-    initialPageParam: 9999,
+    initialPageParam: Date.now() + 60_000,
   });
 }
 
