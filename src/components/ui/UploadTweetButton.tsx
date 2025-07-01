@@ -37,7 +37,6 @@ function UploadTweetButton({
     toast.loading("Posting...");
 
     const formData = new FormData();
-    formData.append("userId", currentUser.id.toString());
     formData.append("text", textInput);
     if (parentId !== undefined) {
       formData.append("parentId", parentId.toString());

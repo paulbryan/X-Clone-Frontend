@@ -16,8 +16,15 @@ export const useCreatePost = (
 
     
     mutationFn: async (formData: FormData): Promise<number> => {
+
+      const token = localStorage.getItem("jwt");
+
+
       const res = await fetch(`${API_URL}/api/posts/createPost`, {
         method: "POST",
+        headers: {
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: formData,
       });
 

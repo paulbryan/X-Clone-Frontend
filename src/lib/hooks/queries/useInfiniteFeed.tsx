@@ -23,7 +23,12 @@ export const useInfiniteFeed = (
         url.searchParams.set("userId", userId.toString());
       }
 
-      const res = await fetch(url.toString());
+      const token = localStorage.getItem("jwt");
+      const res = await fetch(url.toString(), {
+        headers: token
+          ? { Authorization: `Bearer ${token}` }
+          : {},
+      });
       if (!res.ok) throw new Error("Failed to fetch paginated post IDs");
 
       const response = await res.json();

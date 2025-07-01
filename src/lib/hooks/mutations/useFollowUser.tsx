@@ -19,10 +19,16 @@ export const useFollowUser = (
 
       const endpoint = currentlyFollowing ? "unfollowUser" : "followUser";
 
+      const token = localStorage.getItem("jwt");
+
+
       const res = await fetch(`${API_URL}/api/follows/${endpoint}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ followerId, followedId }),
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({ followedId }),
       });
 
       if (!res.ok) throw new Error("Follow toggle failed");

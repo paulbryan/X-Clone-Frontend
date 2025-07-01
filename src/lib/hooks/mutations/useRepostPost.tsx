@@ -17,9 +17,15 @@ export const useRepostPost = (
         ? "/api/retweets/deleteRetweet"
         : "/api/retweets/newRetweet";
 
+      const token = localStorage.getItem("jwt");
+
+      //TODO add reply retweets
       const res = await fetch(`${API_URL}${url}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({
           retweeterId: currentUserId,
           referenceId: postId,

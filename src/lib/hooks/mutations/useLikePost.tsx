@@ -1,7 +1,6 @@
-import { useMutation, useQueryClient, type InfiniteData } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Post } from "../../types/Post.ts";
 import { API_URL } from "../../../constants/env.ts";
-import type { FeedPage } from "../queries/useInfiniteFeed.tsx";
 import { updateFirstPageFeed } from "./mutationHelpers/updateFirstPageFeed.tsx";
 
 export const useLikePost = (
@@ -20,10 +19,15 @@ export const useLikePost = (
         : "/api/likes/createLike";
 
 
+      const token = localStorage.getItem("jwt");
+
       const res = await fetch(`${API_URL}${url}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ likerId: currentUserId, likedPostId: postId }),
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({likedPostId: postId}),
       });
 
       if (!res.ok) throw new Error("Like toggle failed");

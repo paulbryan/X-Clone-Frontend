@@ -18,12 +18,16 @@ export const useBookmarkPost = (
           ? "/api/bookmarks/deleteBookmark"
           : "/api/bookmarks/createBookmark";
   
+        const token = localStorage.getItem("jwt");
+
         const res = await fetch(`${API_URL}${url}`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
           body: JSON.stringify({
-            bookmarkedBy: currentUserId,
-            bookmarkedPost: postId,
+            bookmarkedPost: postId, // no more bookmarkedBy
           }),
         });
   
