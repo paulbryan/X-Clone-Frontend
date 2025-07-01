@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { ModalType } from "../../../lib/types/ModalType.ts";
 import ProfilePic from "../../user/ProfilePic.tsx";
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
 import ColorCircleButton from "../../ui/ColorCircleButton.tsx";
@@ -17,7 +16,6 @@ type ChangeColorModalProps = {
 function ChangeColorModal ({setToggle}: ChangeColorModalProps) {
 
     const navigate = useNavigate();
-    const {currentUser} = useCurrentUser()
 
     const [currentTheme, setCurrentTheme] = useState<ThemeType>(getComputedStyle(document.documentElement).getPropertyValue("--color-main").trim() as ThemeType);
     const [currentBackGround, setCurrentBackground] = useState<BackgroundType>(getComputedStyle(document.documentElement).getPropertyValue("--background-main").trim() as BackgroundType);

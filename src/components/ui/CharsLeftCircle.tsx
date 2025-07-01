@@ -1,4 +1,3 @@
-import React from "react";
 
 type CharsLeftCircleProps = {
   charsLeft: number; // from 180 down

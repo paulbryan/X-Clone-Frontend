@@ -1,4 +1,3 @@
-import { usePostMedia } from "../../../lib/hooks/queries/UsePostMedia.tsx";
 import { motion } from "framer-motion";
 import { MediaImage } from "./MediaImage.tsx";
 

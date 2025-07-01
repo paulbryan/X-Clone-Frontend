@@ -12,7 +12,7 @@ type NotificationFeedProps = {
     isFetchingNextPage?: boolean;
 }
 
-function NotificationFeed ({tempUnreads, notificationIds, isLoading, fetchNextPage, isFetchingNextPage} : NotificationFeedProps) {
+function NotificationFeed ({tempUnreads, notificationIds, isLoading} : NotificationFeedProps) {
 
 
 

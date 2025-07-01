@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 import type { NotificationType } from "../../lib/types/NotificationType.ts";
-
-import { FaHeart, FaUser } from "react-icons/fa";
 import { HeroIcon } from "./HeroIcon.tsx";
 
 type NotificationTypeIconProps = {

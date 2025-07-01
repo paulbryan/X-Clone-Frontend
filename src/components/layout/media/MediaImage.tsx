@@ -10,7 +10,7 @@ import LoadingIcon from "../../ui/LoadingIcon.tsx";
 
     export function MediaImage({id,roundedClass, isModal}: MediaImageProps) {
 
-    const { data, isLoading } = usePostMedia(id);
+    const { data } = usePostMedia(id);
 
 
     return (

@@ -11,7 +11,7 @@ function NotificationPage () {
     const { currentUser } = useCurrentUser();
     const { setHeaderContent } = useContext(HeaderContentContext);
   
-    const {data: unseenIds = []} = useUnseenNotificationIds(currentUser?.id)
+    const {data: unseenIds = []} = useUnseenNotificationIds()
     const [tempUnread, setTempUnread] = useState<number[]>([]);
 
     const queryClient = useQueryClient();
@@ -19,8 +19,8 @@ function NotificationPage () {
     const setTempUnreadsAndMarkNotificationsAsSeen = () => {
       if (unseenIds && unseenIds.length > 0) {
         setTempUnread(unseenIds);
-        queryClient.invalidateQueries({ queryKey: ["unseenNotifications", currentUser?.id] })
-      }
+        queryClient.invalidateQueries({ queryKey: ["unseenNotifications"] });
+            }
     }
 
     useEffect(() => {
@@ -34,7 +34,6 @@ function NotificationPage () {
     const {
       data,
       fetchNextPage,
-      hasNextPage,
       isFetchingNextPage,
       isLoading,
     } = useInfiniteFeed ("Notifications", currentUser?.id);

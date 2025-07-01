@@ -18,7 +18,6 @@ function BookmarkPage () {
         fetchNextPage,
         hasNextPage,
         isFetchingNextPage,
-        isLoading,
       } = useInfiniteFeed ("Bookmarks", currentUser?.id);
 
       const postIds = data?.pages.flatMap((page) => page.posts) ?? [];

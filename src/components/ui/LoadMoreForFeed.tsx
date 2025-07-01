@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import LoadingIcon from "./LoadingIcon.tsx";
 
 type LoadMoreForFeedProps = {
@@ -7,19 +6,7 @@ type LoadMoreForFeedProps = {
     isFetchingNextPage?: boolean;
 }
 
-export function LoadMoreForFeed ({triggerRef, hasNextPage, isFetchingNextPage}: LoadMoreForFeedProps) {
-
-    const [showEnd, setShowEnd] = useState(false);
-
-
-  useEffect(() => {
-    if (!hasNextPage && !isFetchingNextPage) {
-      const timer = setTimeout(() => setShowEnd(true), 300);
-      return () => clearTimeout(timer);
-    } else {
-      setShowEnd(false);
-    }
-  }, [hasNextPage, isFetchingNextPage]);
+export function LoadMoreForFeed ({triggerRef, isFetchingNextPage}: LoadMoreForFeedProps) {
 
     return  (
       

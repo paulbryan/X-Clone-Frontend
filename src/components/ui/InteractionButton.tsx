@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState, type MouseEvent } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useMemo, type MouseEvent } from "react";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { HeroIcon, type IconName } from "./HeroIcon.tsx";
 import { InteractionCounter } from "./InteractionCounter.tsx";

@@ -1,4 +1,4 @@
-import { act, useContext, useEffect, useMemo, useState } from "react";
+import {  useContext, useEffect, useMemo, useState } from "react";
 import TabList from "./TabList.tsx";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import Feed from "../feed/Feed.tsx";

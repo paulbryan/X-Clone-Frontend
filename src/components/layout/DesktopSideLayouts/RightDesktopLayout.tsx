@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
 import { useTopFiveUsers } from "../../../lib/hooks/useTopFiveUsers";
-import SignupView from "../../entry/SignupView";
 import { TermsAndConditions } from "../../entry/TermsAndConditions";
 import { UseTempAccountButton } from "../../entry/UseTempAccountButton";
 import { GoogleAuthButton } from "../../ui/GoogleAuthButton";

@@ -14,7 +14,7 @@ function FooterBar () {
     const navigate = useNavigate();
     const {currentUser} = useCurrentUser();
     const location = useLocation();
-    const { data: unseenIds = [] } = useUnseenNotificationIds(currentUser?.id);
+    const { data: unseenIds = [] } = useUnseenNotificationIds();
 
     return (
 

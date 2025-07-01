@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import type { Post } from "../../../lib/types/Post"
-import type { User } from "../../../lib/types/User";
 import PostInteractionComponent from "../PostInteractionComponent";
 import { PostLine } from "../tweetInfo/PostLine";
-import { ReplyingTo } from "../tweetInfo/ReplyingTo";
 
 type PostInteractionRowProps = {
     post : Post;

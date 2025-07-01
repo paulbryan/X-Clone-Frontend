@@ -1,13 +1,12 @@
 import type { Post } from "../../../lib/types/Post"
 import type { User } from "../../../lib/types/User";
-import { ReplyingTo } from "../tweetInfo/ReplyingTo";
 
 type ExtraMainTweetRowsProps = {
     post : Post;
     postUser?: User;
 }
 
-export function ExtraMainTweetRows ({post, postUser}: ExtraMainTweetRowsProps ) {
+export function ExtraMainTweetRows ({post}: ExtraMainTweetRowsProps ) {
 
     return (
         <>

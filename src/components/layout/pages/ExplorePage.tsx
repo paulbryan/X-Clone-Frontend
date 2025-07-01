@@ -2,12 +2,10 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { HeaderContentContext } from "../../../context/GlobalState/HeaderContentProvider.tsx";
 import { ExploreSearchBar } from "../../ui/ExploreSearchBar.tsx";
 import { useUserSearch } from "../../../lib/hooks/queries/useUserSearch.tsx";
-import { UserSearchResult } from "./UserSearchResult.tsx";
 import { useDebounce } from "@uidotdev/usehooks";
 import LoadingIcon from "../../ui/LoadingIcon.tsx";
 import { useInfiniteUsers } from "../../../lib/hooks/queries/useInfiniteUserFeed.tsx";
-import { AnimatePresence, motion } from "framer-motion";
-import { fadeInFeedMotionProps } from "../../../lib/animations/motionAnimations.ts";
+
 import { UserSearchFeed } from "../feed/UserSearchFeed.tsx";
 
 function ExplorePage () {

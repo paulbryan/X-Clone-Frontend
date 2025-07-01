@@ -23,7 +23,6 @@ export function UserSearchFeed({
   hasNextPage,
   isFetchingNextPage,
   isLoadingUsers,
-  isInfinite,
 }: UserSearchFeedProps) {
   const { ref, inView } = useInView();
 

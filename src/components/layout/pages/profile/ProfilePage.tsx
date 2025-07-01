@@ -1,8 +1,7 @@
-import { act, useContext, useEffect, useMemo, useState } from "react";
+import {  useContext, useEffect, useMemo, useState } from "react";
 import ProfilePageOverview from "./ProfilePageOverview.tsx";
 import TabList from "../TabList.tsx";
 import { useParams } from "react-router-dom";
-import { useCurrentUser } from "../../../../context/Auth/CurrentUserProvider.tsx";
 import Feed from "../../feed/Feed.tsx";
 import { HeaderContentContext } from "../../../../context/GlobalState/HeaderContentProvider.tsx";
 import { useUser } from "../../../../lib/hooks/queries/useUser.tsx";
@@ -16,9 +15,7 @@ function ProfilePage() {
     const { ID } = useParams();
     const pageUserID = Number(ID);
   
-    const { currentUser } = useCurrentUser();
     const { setHeaderContent } = useContext(HeaderContentContext);  
-    const isOwner = currentUser && currentUser?.id === pageUserID;
   
     const { data: pageUser } = useUser(pageUserID);
 

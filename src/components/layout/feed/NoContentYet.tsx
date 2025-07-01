@@ -1,4 +1,3 @@
-import { useUser } from "../../../lib/hooks/queries/useUser.tsx";
 import type { FeedType } from "../../../lib/types/FeedType.ts";
 
 type NoContentYetProps = {
@@ -10,23 +9,23 @@ export type NoContentYetMessageType = {
     
 }
 
-export function NoContentYet ({tabType, userId}: NoContentYetProps) {
+export function NoContentYet ({tabType}: NoContentYetProps) {
 
-    const { data: user } = useUser(userId ?? -1);
+    // const { data: user } = useUser(userId ?? -1);
 
-    const shouldShowUsername = () => {
-        switch (tabType) {
-            case "Bookmarks":
-            case "Notifications":
-            case "Following":
-            return false;
+    // const shouldShowUsername = () => {
+    //     switch (tabType) {
+    //         case "Bookmarks":
+    //         case "Notifications":
+    //         case "Following":
+    //         return false;
             
-            default:
-                return true;
-        }
-    }
+    //         default:
+    //             return true;
+    //     }
+    // }
 
-    const displayUser = shouldShowUsername() ? ("@" + user?.username) : "";
+    // const displayUser = shouldShowUsername() ? ("@" + user?.username) : "";
 
     function determineTabName () {
         switch (tabType) {
@@ -75,7 +74,7 @@ export function NoContentYet ({tabType, userId}: NoContentYetProps) {
                     <p className="text-twitterText text-center font-bold text-2xl">{determineTabName()}</p>
                 ) : tabType && (
                     <>
-                    <img className="h-auto" src={`../../../public/images/no-${tabType}.png`}/>
+                    <img className="h-auto" src={`/images/no-${tabType}.png`}/>
                     <p className="text-twitterText text-center font-bold text-2xl">{determineTabName()}</p>
                     <p className="text-twitterTextAlt text-center">{determineSubMessage()}</p>
                     </>

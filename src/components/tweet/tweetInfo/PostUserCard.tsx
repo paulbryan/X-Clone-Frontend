@@ -12,7 +12,7 @@ type PostUserCardProps = {
     postUserId?: number;
 }
 
-export function PostUserCard ({postId, postUserId, isReplyFeedPost, mainPost}: PostUserCardProps) {
+export function PostUserCard ({postId, postUserId, mainPost}: PostUserCardProps) {
 
     const { data: post } = usePost(postId);
   

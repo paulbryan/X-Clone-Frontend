@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
 import type { ModalType } from "../../../lib/types/ModalType.ts";
 import { MediaImage } from "../../layout/media/MediaImage.tsx";
 import { HeroIcon } from "../../ui/HeroIcon.tsx";
@@ -11,7 +10,7 @@ type ImageModalProps = {
     mediaList: number[]
   };
   
-  function ImageModal({ setToggle, mediaId, mediaList }: ImageModalProps) {
+  function ImageModal({ mediaId, mediaList }: ImageModalProps) {
 
     const [currentIndex, setCurrentIndex] = useState(mediaList.indexOf(mediaId));
 

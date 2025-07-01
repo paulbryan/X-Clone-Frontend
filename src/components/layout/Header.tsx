@@ -3,7 +3,7 @@ import ProfilePic from "../user/ProfilePic.tsx";
 import { FaArrowLeft } from "react-icons/fa";
 
 import { useModal } from "../../context/GlobalState/ModalProvider.tsx";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import MobileMainDrawer from "../modal/drawer/MobileMainDrawer.tsx";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { useNavigate, useLocation } from "react-router-dom";

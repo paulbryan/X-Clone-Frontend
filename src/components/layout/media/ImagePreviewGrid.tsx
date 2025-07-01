@@ -8,7 +8,7 @@ type ImagePreviewGridProps = {
   postId?: number;
 }
 
-export function ImagePreviewGrid({ mediaIds, postId }: ImagePreviewGridProps) {
+export function ImagePreviewGrid({ mediaIds }: ImagePreviewGridProps) {
     const total = mediaIds.length;
 
     const {setModalData, setModalType} = useModal();
