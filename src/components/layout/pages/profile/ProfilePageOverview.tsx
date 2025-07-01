@@ -35,7 +35,7 @@ type ProfilePageOverviewProps = {
                     </div>
 
                     <div className="absolute w-20 h-20 left-5 bottom-0 rounded-full">
-                        <ProfilePic userId={pageUser.id}/>
+                        <ProfilePic disableNavigation={true} userId={pageUser.id}/>
                     </div>
 
                     <div className="w-full h-12 flex justify-end items-center px-4">

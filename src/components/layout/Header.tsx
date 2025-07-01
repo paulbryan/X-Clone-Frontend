@@ -25,7 +25,7 @@ function Header () {
     return (
 
         <>
-            <div className={`h-16 flex ${!isHome ? 'border-b border-twitterBorder' : 'xl:hidden'} w-full relative justify-between bg-(--background-main) px-3 text-white`}>
+            <div className={`h-16 flex ${!isHome ? 'border-b' : 'xl:hidden'} w-full xl:border-x border-twitterBorder relative justify-between bg-(--background-main) px-3 text-white`}>
 
                 <div className="h-full w-full flex relative items-center justify-start">
                     {currentUser && isHome ? (

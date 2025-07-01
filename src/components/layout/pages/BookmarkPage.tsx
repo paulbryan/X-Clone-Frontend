@@ -26,7 +26,7 @@ function BookmarkPage () {
 
         <div className="h-full w-full overflow-hidden">
             {currentUser && (
-        <div className="h-full flex grow w-full overflow-y-scroll scrollbar-blue">
+        <div className="h-full flex grow w-full overflow-y-scroll scrollbar-blue xl:border-x border-twitterBorder">
             <Feed tabType="Bookmarks" postIdsArray={postIds} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
         </div>
             )}

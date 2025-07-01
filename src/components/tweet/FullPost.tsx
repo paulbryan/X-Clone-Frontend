@@ -26,10 +26,9 @@ function FullPost() {
     }
   }, [post]);
 
-  //TODO add some kind of 
-
+//make this a page?
   return (
-    <div className="flex flex-col w-full text-white">
+    <div className="flex flex-col h-full w-full grow scrollbar-blue overflow-y-scroll text-white xl:border-x border-twitterBorder">
 
       {post && (
         <>

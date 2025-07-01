@@ -22,7 +22,7 @@ function ProfilePic({ userId, disableNavigation, showForSample }: ProfilePicComp
   if (showForSample) return (
     <img
     onClick={(e) => navigateToProfile(e)}
-    className={`h-full w-full rounded-full object-cover ${disableNavigation ? "" : "hover:opacity-75"}`}
+    className={`h-full w-full rounded-full object-cover ${disableNavigation ? "" : "4opacity-75"}`}
     src= {`https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg`}
     />
   )
