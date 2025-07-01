@@ -4,12 +4,19 @@ import { API_URL } from "../../constants/env";
 type AuthContextType = {
     authId: number | null;
     setAuthId: (num: number) => void;
+    logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authId, setAuthId] = useState<number | null>(null);
+
+  const logout = () => {
+    localStorage.removeItem("jwt");
+    setAuthId(null);
+    window.location.reload();
+  };
   
   useEffect(() => {
     const checkToken = async () => {
@@ -40,7 +47,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ authId, setAuthId }}>
+    <AuthContext.Provider value={{ authId, setAuthId, logout }}>
       {children}
     </AuthContext.Provider>
   );

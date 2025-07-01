@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { Dispatch, SetStateAction } from "react";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
 import { useModal } from "../../../context/GlobalState/ModalProvider";
+import { useAuth } from "../../../context/Auth/AuthProvider";
 
 
 type DrawerNavigationPairProps = {
@@ -18,7 +19,7 @@ type DrawerNavigationPairProps = {
 function DrawerNavigationPair ( { children, name, routePath, disabled, setDrawerOpen }: DrawerNavigationPairProps ) {
 
     const {setModalType} = useModal();
-
+    const {logout} = useAuth();
     const navigate = useNavigate();
     const {currentUser} = useCurrentUser();
 
@@ -39,7 +40,10 @@ function DrawerNavigationPair ( { children, name, routePath, disabled, setDrawer
 
     const handleNavigation = () => {
         if (disabled) return;
-        if (routePath && canNavigateAsUser) {
+
+        if (name == "Log Out" && canNavigateAsUser) {
+            logout();
+        } else if (routePath && canNavigateAsUser) {
             navigate(routePath);
         } else {
             setModalType("signup");
