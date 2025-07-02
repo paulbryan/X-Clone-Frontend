@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { usePfp } from "../../lib/hooks/queries/usePfp.tsx";
+import { useUser } from "../../lib/hooks/queries/useUser.tsx";
 
 type ProfilePicComponentProps = {
   userId?: number;
@@ -8,7 +8,7 @@ type ProfilePicComponentProps = {
 };
 
 function ProfilePic({ userId, disableNavigation, showForSample }: ProfilePicComponentProps) {
-  const { data: base64, isLoading, isError } = usePfp(userId);
+  const { data: user } = useUser(userId);
   
 
   const navigate = useNavigate();
@@ -27,17 +27,17 @@ function ProfilePic({ userId, disableNavigation, showForSample }: ProfilePicComp
     />
   )
 
-  if (isError || !userId) {
+  if (!userId) {
     return <div className="w-full h-full rounded-full bg-gray-600 animate-pulse"></div>;
   }
 
     return (
     <>
-      {base64 && !isLoading ? (
+      {user ? (
         <img
         onClick={(e) => navigateToProfile(e)}
         className={`h-full w-full rounded-full object-cover ${disableNavigation ? "" : "hover:opacity-75"}`}
-        src= {`data:image/png;base64,${base64}`}
+        src= {user.profilePictureUrl}
         />
       ) : (
         <div className="w-full h-full rounded-full bg-gray-600 animate-pulse"></div>

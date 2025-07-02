@@ -1,5 +1,4 @@
 import cn from "clsx";
-import { usePostMedia } from "../../../lib/hooks/queries/UsePostMedia.tsx";
 import LoadingIcon from "../../ui/LoadingIcon.tsx";
 
     type MediaImageProps = {

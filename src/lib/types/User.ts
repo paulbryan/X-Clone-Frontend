@@ -13,5 +13,7 @@ export type User = {
     followers: number[],
     following: number[],
     retweets: number[]
+    profilePictureUrl: string;
+    bannerImageUrl: string;
 
 }
