@@ -25,15 +25,17 @@ type FeedUpdateParams = {
     const newPages = [...previousFeed.pages];
     const firstPage = newPages[0];
   
+
     const updatedFirstPage: FeedPage = {
       ...firstPage,
       posts: isRemoving
         ? firstPage.posts.filter(id => id !== postId)
         : [postId, ...firstPage.posts],
     };
-  
+      
     newPages[0] = updatedFirstPage;
-  
+
+
     queryClient.setQueryData<InfiniteData<FeedPage>>(feedKey, {
       ...previousFeed,
       pages: newPages,

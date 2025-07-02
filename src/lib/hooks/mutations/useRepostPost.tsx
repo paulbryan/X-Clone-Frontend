@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Post } from "../../types/Post.ts";
 import { API_URL } from "../../../constants/env.ts";
+import { updateFirstPageFeed } from "./mutationHelpers/updateFirstPageFeed.tsx";
 
 export const useRepostPost = (
   postId: number,
@@ -53,6 +54,17 @@ export const useRepostPost = (
       };
 
       queryClient.setQueryData(["post", postId], optimisticPost);
+
+      if (currentUserId && optimisticPost?.userId !== currentUserId) {
+        updateFirstPageFeed({
+          queryClient,
+          action: "Tweets",
+          currentUserId,
+          postId: postId,
+          isRemoving: isRetweeted,
+        });
+      }
+
       return { previous };
     },
 
@@ -63,6 +75,7 @@ export const useRepostPost = (
     },
 
     onSuccess: (updatedPost: Post) => {
+
       onUpdate?.(updatedPost);
       queryClient.invalidateQueries({queryKey: ["post", postId]})      
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
