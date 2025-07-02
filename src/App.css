@@ -73,7 +73,7 @@ html, body {
   padding: 0;
   overflow-x: hidden;
   overflow-y: hidden;
-  width: 100vw;
+  width: 100dvw;
   overscroll-behavior: contain;
   font-family: TwitterChirp;
 }

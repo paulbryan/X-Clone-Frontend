@@ -12,10 +12,10 @@ function UsernameComponent ({user, disableNavigation, truncate, showForSample}:U
 
     const navigate = useNavigate();
 
-    const textToDisplay = user && (truncate ? trimText(user?.username, 12) : user?.username);
+    const textToDisplay = user?.username;
 
 
-    const hoverDisplay = !disableNavigation ? "hover:cursor-pointer" : "";
+    const hoverDisplay = !disableNavigation ? "hover:cursor-pointer truncate" : "truncate ";
 
     const navigateToProfile = (e: React.MouseEvent<HTMLParagraphElement>): void => {
         if (user && !disableNavigation) {

@@ -25,9 +25,9 @@ function DisplayNameComponent ({user, customClassName, disableNavigation, trunca
       }
 
       const customClass = customClassName ? customClassName : "";
-      const hoverDisplay = !disableNavigation ? "hover:cursor-pointer hover:underline" : "";
+      const hoverDisplay = !disableNavigation ? " hover:cursor-pointer truncate hover:underline " : "truncate";
 
-      const textToDisplay = user && (truncate ? trimText(user?.displayName, 12) : user?.displayName);
+      const textToDisplay = user?.displayName;
 
       if (showForSample) return <p className={hoverDisplay + " " + customClass}>X</p>
 
@@ -40,7 +40,7 @@ function DisplayNameComponent ({user, customClassName, disableNavigation, trunca
     } else if (user) {
         return null;
     } else {
-        return <div className="w-18 h-2 bg-twitterTextAlt rounded-l-2xl rounded-r-2xl"></div>
+        return <div className="w-18 h-2 bg-twitterTextAlt truncate rounded-l-2xl rounded-r-2xl"></div>
     }
 
 }

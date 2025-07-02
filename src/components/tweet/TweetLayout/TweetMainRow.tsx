@@ -31,7 +31,7 @@ export function TweetMainRow ({isParentPost, isMainPost, postUser, post}: TweetM
                     )}
                 </div>
 
-                <div className="flex flex-col w-full">
+                <div className="flex overflow-x-hidden flex-col">
                     
                     <div className="flex flex-col">
                     <PostUserCard postId={post.id} postUserId={postUser?.id} mainPost={isMainPost}/>
