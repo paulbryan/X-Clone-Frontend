@@ -64,6 +64,7 @@ export const useFollowUser = (
     onSuccess: (updatedFollowed) => {
       onUpdate?.(updatedFollowed);
 
+      queryClient.invalidateQueries({queryKey: ["feed", "Following", followerId]})
       queryClient.invalidateQueries({ queryKey: ["user", followedId] });
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     },
