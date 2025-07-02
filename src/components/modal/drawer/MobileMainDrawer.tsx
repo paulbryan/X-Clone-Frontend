@@ -96,6 +96,16 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                         <HeroIcon iconName="QuestionMarkCircleIcon" className="h-7 w-7" solid={false}/>
                     </DrawerNavigationPair>
 
+                    <a
+                    href="https://github.com/jokerhutt"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-16 relative text-2xl  text-twitterText items-center gap-4 hover:cursor-pointer"
+                    >
+                    <HeroIcon iconName="CodeBracketSquareIcon" className="h-7 w-7" solid={false} />
+                    <span className="font-bold md:font-medium">GitHub</span>
+                    </a>
+
                     <div onClick={() => setModalType("changeColor")}>
                         <DrawerNavigationPair name={"Set Theme"} >
                         <HeroIcon iconName="PaintBrushIcon" className="h-7 w-7" solid={false}/>
