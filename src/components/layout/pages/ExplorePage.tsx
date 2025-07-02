@@ -36,8 +36,6 @@ function ExplorePage () {
       }, [data]);
 
     useEffect(() => {
-        console.log("setting header");
-
             setHeaderContent(<p>Explore</p>);
     }, [])
 

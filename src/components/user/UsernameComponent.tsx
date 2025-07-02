@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import type { User } from "../../lib/types/User.ts";
-import { trimText } from "../../lib/utils/TextTrimmerUtils.ts";
 
 type UsernameComponentProps = {
     user?: User | null;
@@ -8,7 +7,7 @@ type UsernameComponentProps = {
     truncate?: boolean;
     showForSample?: boolean;
   };
-function UsernameComponent ({user, disableNavigation, truncate, showForSample}:UsernameComponentProps) {
+function UsernameComponent ({user, disableNavigation, showForSample}:UsernameComponentProps) {
 
     const navigate = useNavigate();
 

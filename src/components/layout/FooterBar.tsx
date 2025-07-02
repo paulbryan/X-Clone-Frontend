@@ -9,8 +9,6 @@ import { useUnseenNotificationIds } from "../../lib/hooks/mutations/useSeenNotif
 
 function FooterBar () {
 
-    console.log("FooterBar rendered");
-
     const navigate = useNavigate();
     const {currentUser} = useCurrentUser();
     const location = useLocation();

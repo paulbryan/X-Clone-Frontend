@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { MediaImage } from "./MediaImage.tsx";
 import type { PostMedia } from "../../../lib/types/PostMedia.ts";
-import { useEffect } from "react";
 
 type MediaItemProps = {
   media: PostMedia;
@@ -11,10 +10,6 @@ type MediaItemProps = {
 }
 
 export function MediaItem({ media, index, total, handleClick }: MediaItemProps) {
-
-  useEffect(() => {
-    console.log("media is: " + JSON.stringify(media))
-  }, [media] )
 
   const roundedClass =
     total === 1

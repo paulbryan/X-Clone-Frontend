@@ -35,10 +35,6 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
       };
     const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log("curriser " + JSON.stringify(currentUser))
-    }, [currentUser])
-
     const modalRoot = document.getElementById("modal-root");
     if (!modalRoot) return null;
 
