@@ -38,12 +38,17 @@ function InteractionButton({ numberList, buttonColor, mutationFunction, iconName
     }
   };
 
+  const hoverBg = "hover:bg-" + "twitterRed" + "/10";
+
+  console.log(hoverBg);
+
   //TODO add hover on icon
 
   return (
     <div className="">
     <div className={`h-5 flex w-16 hover:cursor-pointer ${isMarked ? "text-" + buttonColor : ""} align-middle items-center gap-3`}>
     <div 
+    className={`group p-2 rounded-full hover:bg-blue-500/10 focus-visible:ring-2 transition`}
     onClick={(e) => handleMutation(e)}
     >
       <HeroIcon iconName={iconName} solid={isMarked} className={`h-6 w-6`}/>
