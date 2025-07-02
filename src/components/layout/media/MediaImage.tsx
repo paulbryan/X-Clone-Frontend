@@ -3,22 +3,18 @@ import { usePostMedia } from "../../../lib/hooks/queries/UsePostMedia.tsx";
 import LoadingIcon from "../../ui/LoadingIcon.tsx";
 
     type MediaImageProps = {
-        id: number;
+        url: string;
         roundedClass?: string;
         isModal?: boolean;
     }
 
-    export function MediaImage({id,roundedClass, isModal}: MediaImageProps) {
-
-    const { data } = usePostMedia(id);
-
+    export function MediaImage({url,roundedClass, isModal}: MediaImageProps) {
 
     return (
         <>
-        {data ? (
+        {url ? (
             <img
-                src={data.src}
-                alt={data.alt}
+                src={url}
                 className={cn("w-full h-full object-cover", roundedClass)}
             />
         ) : !isModal ? (

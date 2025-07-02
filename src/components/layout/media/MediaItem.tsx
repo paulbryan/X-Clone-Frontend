@@ -1,14 +1,20 @@
 import { motion } from "framer-motion";
 import { MediaImage } from "./MediaImage.tsx";
+import type { PostMedia } from "../../../lib/types/PostMedia.ts";
+import { useEffect } from "react";
 
 type MediaItemProps = {
-  id: number;
+  media: PostMedia;
   index: number;
   total: number;
   handleClick?: (e: React.MouseEvent<HTMLDivElement>, id: number) => void;
 }
 
-export function MediaItem({ id, index, total, handleClick }: MediaItemProps) {
+export function MediaItem({ media, index, total, handleClick }: MediaItemProps) {
+
+  useEffect(() => {
+    console.log("media is: " + JSON.stringify(media))
+  }, [media] )
 
   const roundedClass =
     total === 1
@@ -21,16 +27,16 @@ export function MediaItem({ id, index, total, handleClick }: MediaItemProps) {
 
   return (
     <motion.div
-      onClick={(e) => handleClick ? handleClick(e, id) : null}
+      onClick={(e) => handleClick ? handleClick(e, media.id) : null}
       layout
-      key={id}
+      key={media.id}
       className="relative w-full h-full"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.7 }}
       transition={{ duration: 0.25 }}
     >
-      <MediaImage id={id} roundedClass={roundedClass} />
+      <MediaImage url={media.url} roundedClass={roundedClass} />
     </motion.div>
   );
 }

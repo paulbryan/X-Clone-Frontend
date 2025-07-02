@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import type {ReactNode} from "react";
 import type { ModalType } from "../../lib/types/ModalType";
+import type { PostMedia } from "../../lib/types/PostMedia";
 
 type ModalContextType = {
   modalType: ModalType;
@@ -12,7 +13,7 @@ type ModalContextType = {
 
 type ModalData = {
   mainId?: number;
-  auxiliaryId?: number[];
+  auxiliaryId?: PostMedia[];
 };
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);

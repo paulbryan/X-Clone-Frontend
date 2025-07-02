@@ -14,7 +14,7 @@ export function TweetImagesRow ({post, isParentPost, isMainPost}: TweetImagesRow
         <>
             {isParentPost && <PostLine showLine={isParentPost}/>}
             <div className={`${isMainPost ? "col-span-2" : "col-start-2"}`}>
-                <ImagePreviewGrid mediaIds={post.postMedia}/>
+                <ImagePreviewGrid media={post.postMedia}/>
             </div>
         </>
     )

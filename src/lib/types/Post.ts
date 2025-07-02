@@ -1,3 +1,5 @@
+import type { PostMedia } from "./PostMedia";
+
 export type Post = {
 
     id: number;
@@ -9,6 +11,6 @@ export type Post = {
     parentId?: number;
     replies: number[];
     retweetedBy: number[];
-    postMedia: number[];
+    postMedia: PostMedia[];
 
 }

@@ -3,16 +3,19 @@ import type { ModalType } from "../../../lib/types/ModalType.ts";
 import { MediaImage } from "../../layout/media/MediaImage.tsx";
 import { HeroIcon } from "../../ui/HeroIcon.tsx";
 import { AnimatePresence, motion } from "framer-motion";
+import type { PostMedia } from "../../../lib/types/PostMedia.ts";
 
 type ImageModalProps = {
     setToggle: (modalType: ModalType) => void;
     mediaId: number;
-    mediaList: number[]
+    mediaList: PostMedia[]
   };
   
   function ImageModal({ mediaId, mediaList }: ImageModalProps) {
 
-    const [currentIndex, setCurrentIndex] = useState(mediaList.indexOf(mediaId));
+    const [currentIndex, setCurrentIndex] = useState(
+      mediaList.findIndex((media) => media.id === mediaId)
+    );
 
     return (
       <div className="rounded-xl relative flex justify-center items-center w-full h-full">
@@ -26,13 +29,13 @@ type ImageModalProps = {
         <div className="flex justify-center items-center py-2 px-4">
         <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          key={mediaList[currentIndex]}
+          key={mediaList[currentIndex].id}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-    <MediaImage id={mediaList[currentIndex]} roundedClass="rounded-2xl" isModal={true}/>
+    <MediaImage url={mediaList[currentIndex].url} roundedClass="rounded-2xl" isModal={true}/>
   </motion.div>
 </AnimatePresence>
         </div>

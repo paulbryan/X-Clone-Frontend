@@ -2,20 +2,21 @@ import { AnimatePresence } from "framer-motion";
 import { MediaItem } from "./MediaItem.tsx";
 import cn from "clsx";
 import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
+import type { PostMedia } from "../../../lib/types/PostMedia.ts";
 
 type ImagePreviewGridProps = {
-  mediaIds: number[];
+  media: PostMedia[];
   postId?: number;
 }
 
-export function ImagePreviewGrid({ mediaIds }: ImagePreviewGridProps) {
-    const total = mediaIds.length;
+export function ImagePreviewGrid({ media }: ImagePreviewGridProps) {
+    const total = media.length;
 
     const {setModalData, setModalType} = useModal();
 
     function handlePostClick (e: React.MouseEvent<HTMLDivElement>, id: number) {
       e.stopPropagation();
-      setModalData({mainId: id, auxiliaryId: mediaIds });
+      setModalData({mainId: id, auxiliaryId: media});
       setModalType("imagepreview")
 
     }
@@ -36,8 +37,8 @@ export function ImagePreviewGrid({ mediaIds }: ImagePreviewGridProps) {
           )}
         >
           <AnimatePresence mode="popLayout">
-            {mediaIds.map((id, index) => (
-              <MediaItem key={id} id={id} index={index} total={total} handleClick={handlePostClick} />
+            {media.map((m, index) => (
+              <MediaItem key={m.id} media={m} index={index} total={total} handleClick={handlePostClick} />
             ))}
           </AnimatePresence>
         </div>
