@@ -6,4 +6,5 @@ export type FeedType =
 "Replies" | 
 "Media" | 
 "Notifications" |
+"About" |
 "Bookmarks";
