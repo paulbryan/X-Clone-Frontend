@@ -34,7 +34,7 @@ function FooterBar () {
                     <HeroIcon iconName="BellIcon" className="w-7 h-7" solid={location.pathname === `/notifications`}/>
                     </div>
                     {currentUser && unseenIds.length > 0 && (
-                        <div className="w-4 rounded-full h-4 absolute z-40 bg-(--color-main) top-2 right-9">  </div>
+                        <div className="w-4 rounded-full h-4 absolute z-10 bg-(--color-main) top-2 right-9">  </div>
                     )}
                 </div>
                 <div className="w-full h-full flex items-center justify-center">

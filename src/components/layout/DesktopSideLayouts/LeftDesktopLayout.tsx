@@ -36,7 +36,7 @@ export function LeftDesktopLayout () {
                 <DrawerNavigationPair name={"Notifications"} routePath="/notifications">
                     <HeroIcon iconName="BellIcon" className="h-7 w-7" solid={location.pathname === `/notifications`}/>
                     {currentUser && unseenIds.length > 0 && (
-                        <div className="w-4 rounded-full h-4 absolute left-3 z-40 bg-(--color-main) top-3 right-9">  </div>
+                        <div className="w-4 rounded-full h-4 absolute left-3 z-10 bg-(--color-main) top-3 right-9">  </div>
                     )}
                 </DrawerNavigationPair>
 
