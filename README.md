@@ -8,7 +8,7 @@
 ---
 
 ## Preview 🎬
-https://github.com/user-attachments/assets/eb6a6bc9-7149-48f0-bd7d-0c7a96ca3e12
+https://github.com/user-attachments/assets/9b2b7c0f-52e6-447c-b05a-eafd9c52883f
 
 ## About Me
 
