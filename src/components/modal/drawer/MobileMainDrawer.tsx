@@ -1,7 +1,7 @@
 import FollowersFollowing from "../../user/FollowersFollowing.tsx";
 import ProfilePic from "../../user/ProfilePic.tsx";
 import DrawerNavigationPair from "./DrawerNavigationPair.tsx";
-import { useEffect, type Dispatch, type SetStateAction } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
