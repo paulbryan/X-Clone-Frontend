@@ -1,6 +1,6 @@
 <br />
 
-![Image](https://github.com/user-attachments/assets/7e7a4473-4b21-4f90-950c-955c577ec8b8)
+![Image](https://github.com/user-attachments/assets/81fa949b-1719-4cc4-860a-189a7fbf0d72)
 
 <p align="center">
   Twitter clone built with ReactJS, Typescript, Tailwind CSS, and Java Spring boot on the backend.
@@ -8,7 +8,7 @@
 ---
 
 ## Preview 🎬
-https://github.com/user-attachments/assets/3a4449bd-d804-4483-91be-78181378ada0
+https://github.com/user-attachments/assets/eb6a6bc9-7149-48f0-bd7d-0c7a96ca3e12
 
 ## About Me
 
