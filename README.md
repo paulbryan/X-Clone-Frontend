@@ -1,55 +1,51 @@
-# React + TypeScript + Vite
+<br />
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Image](https://github.com/user-attachments/assets/7e7a4473-4b21-4f90-950c-955c577ec8b8)
 
-Currently, two official plugins are available:
+<p align="center">
+  Twitter clone built with ReactJS, Typescript, Tailwind CSS, and Java Spring boot on the backend.
+</p>
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Preview 🎬
+https://github.com/user-attachments/assets/3a4449bd-d804-4483-91be-78181378ada0
 
-## Expanding the ESLint configuration
+## About Me
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+I'm a 21-year-old International Studies student based in the Netherlands, currently teaching myself programming alongside my degree. I created this project to improve my understanding of building, deploying, and maintaining a complete web application.  
+I'm open to feedback, collaboration, or new opportunities. Feel free to reach out at **thejokerhut@gmail.com**.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Key Features 🎯
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Google OAuth login** with secure JWT authentication  
+- **Image & video uploads** with preview support and cloud storage  
+- **“For You” feed** powered by a custom ranking algorithm (EdgeRank-inspired)  
+- **Client-side caching** with TanStack Query for fast performance  
+- **Infinite scrolling** with smooth pagination on all feeds  
+- **Live user search** with autosuggest and profile linking  
+- **Notifications system** with unseen indicators  
+- **Bookmark and Retweet** support  
+- **Light/Dark mode** and persistent user theme preferences  
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
-# NewXCloneFrontend
+---
+
+## Stack
+
+**Frontend**  
+→ React, TypeScript, TanStack Query, Tailwind CSS  
+
+**Backend**  
+→ Java with Spring Boot  
+
+**Database**  
+→ MySQL (Google Cloud SQL)  
+
+**Hosting & Deployment**  
+- Netlify (Frontend)  
+- Google Cloud VM with Docker (Backend)  
+- Google Cloud SQL (Database)  
+- Google Cloud Storage (Media uploads)  
+
+---
