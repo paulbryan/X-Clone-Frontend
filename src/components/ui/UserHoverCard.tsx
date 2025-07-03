@@ -35,7 +35,9 @@ export function UserHoverCard({ userId }: Props) {
                     {isOwnPage ? (
                         <p>Edit Profile</p>
                     ) : (
-                        <FollowButton pageUser={tooltipUser}/>
+                        <FollowButton pageUser={tooltipUser}>
+                            {tooltipUser?.followers.includes(currentUser?.id ?? -1) ? <p>Unfollow</p> : <p>Follow</p> }
+                         </FollowButton> 
                     )}
                 </div>
             </div>

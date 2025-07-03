@@ -6,26 +6,29 @@ import { HeroIcon } from "../HeroIcon";
 import { BsPinAngle } from "react-icons/bs";
 import { CustomDropdownItem } from "./CustomDropdownItem";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../../lib/hooks/queries/useUser";
+import FollowButton from "../FollowButton";
 
 type DropdownMenuContentProps = {
     postId: number;
     mainPost?: boolean;
+    closeMenu: () => void;
 }
 
-export function DropdownMenuContent ({postId, mainPost}: DropdownMenuContentProps) {
+export function DropdownMenuContent ({postId, mainPost, closeMenu}: DropdownMenuContentProps) {
 
 
     const {currentUser} = useCurrentUser();
     const {data: post} = usePost(postId);
     const isOwnPost = post?.userId == currentUser?.id;
-
+    const {data: pageUser} = useUser(post?.userId);
     if (!post || !currentUser) return null;
     const deletePost = useDeletePost(currentUser.id, post.parentId)
     const navigate = useNavigate();
 
     const handleDeletePost = () => {
         deletePost?.mutate(postId);
-
+        closeMenu();
         if (mainPost) {
             const isInternalReferrer = document.referrer.startsWith(window.location.origin);
             if (isInternalReferrer) {
@@ -34,7 +37,6 @@ export function DropdownMenuContent ({postId, mainPost}: DropdownMenuContentProp
                 navigate("/");
               }
         }
-
     }
 
     const pinToProfile = () => {
@@ -43,7 +45,7 @@ export function DropdownMenuContent ({postId, mainPost}: DropdownMenuContentProp
 
     return (
         <DropdownMenu.Content
-          className="z-50 min-w-46 rounded-md bg-(--background-main) border border-twitterBorder shadow-[0_0_5px_1px_gray] p-1"
+          className="z-50 min-w-46 animate-hover-card rounded-md bg-(--background-main) border border-twitterBorder shadow-[0_0_5px_1px_gray] p-1"
           sideOffset={5}
           align="end"
         >
@@ -57,9 +59,14 @@ export function DropdownMenuContent ({postId, mainPost}: DropdownMenuContentProp
         </CustomDropdownItem>
         </>
           ) : (
-        <CustomDropdownItem customClassName="text-twitterText" text={`follow @grumpykoala`} handleDropdownMutation={handleDeletePost}>     
-            <HeroIcon iconName="UserPlusIcon" className="h-4 w-4"/>
-        </CustomDropdownItem>
+        <DropdownMenu.Item className="text-twitterText px-3 py-2 text-sm focus:outline-none focus-visible:outline-none items-center gap-2 flex hover:bg-twitterTextAlt/20 rounded cursor-pointer">
+            <FollowButton pageUser={pageUser} closeModal={closeMenu}>
+            <div className="flex items-center gap-2">
+                <HeroIcon iconName="UserPlusIcon" className="h-4 w-4"/>
+                {pageUser?.followers.includes(currentUser.id) ? <p>unfollow @{pageUser.username}</p> : <p>follow @{pageUser?.username}</p>}
+            </div>
+            </FollowButton>
+        </DropdownMenu.Item>
           )}  
         </DropdownMenu.Content>
     )

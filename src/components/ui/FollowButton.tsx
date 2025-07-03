@@ -3,12 +3,16 @@ import type { User } from "../../lib/types/User.ts";
 import { useFollowUser } from "../../lib/hooks/mutations/useFollowUser.tsx";
 import { useQueryClient } from "@tanstack/react-query";
 import { useModal } from "../../context/GlobalState/ModalProvider.tsx";
+import type { ReactNode } from "react";
 
 type FollowButtonProps = {
   pageUser?: User | null;
+  children: ReactNode;
+  closeModal?: () => void;
+
 };
 
-function FollowButton({ pageUser }: FollowButtonProps) {
+function FollowButton({ pageUser, children, closeModal }: FollowButtonProps) {
   const { currentUser } = useCurrentUser();
   const queryClient = useQueryClient();
 
@@ -44,6 +48,9 @@ function FollowButton({ pageUser }: FollowButtonProps) {
     if (!pageUser || followMutation.isPending) return;
     if (canFollow) {
       followMutation.mutate({ currentlyFollowing: isFollowing });
+      if (closeModal) {
+        closeModal();
+      }
     } else {
       setModalType("signup");
     }
@@ -52,12 +59,15 @@ function FollowButton({ pageUser }: FollowButtonProps) {
   if (!pageUser) return null;
 
   return (
-    <p className="h-fit"
-      onClick={handleFollow}
+    <div className="h-fit"
+      onClick={(e) => {
+        e.stopPropagation();
+        handleFollow()
+      }}
       style={{ cursor: followMutation.isPending ? "not-allowed" : "pointer", opacity: followMutation.isPending ? 0.5 : 1 }}
     >
-      {isFollowing ? "Following" : "Follow"}
-    </p>
+      {children}
+    </div>
   );
 }
 

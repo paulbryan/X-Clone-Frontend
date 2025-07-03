@@ -2,6 +2,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { HeroIcon } from "./HeroIcon";
 import cn from "clsx";
 import { DropdownMenuContent } from "./dropdown/DropDownMenuContent";
+import { useState } from "react";
 
 type DropdownMenuEllipsisProps = {
   postId: number;
@@ -11,8 +12,11 @@ type DropdownMenuEllipsisProps = {
 
 export function DropdownMenuEllipsis({postId, mainPost}: DropdownMenuEllipsisProps) {
 
+  const [open, setOpen] = useState(false);
+
+
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root open={open} onOpenChange={setOpen}>
       <DropdownMenu.Trigger asChild>
       <button
             className={cn(
@@ -28,7 +32,7 @@ export function DropdownMenuEllipsis({postId, mainPost}: DropdownMenuEllipsisPro
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenuContent mainPost={mainPost} postId={postId}/>
+        <DropdownMenuContent mainPost={mainPost} postId={postId} closeMenu={() => setOpen(false)}/>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
   );
