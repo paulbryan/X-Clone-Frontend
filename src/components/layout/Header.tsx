@@ -38,7 +38,15 @@ function Header () {
 
                         <div 
                         className="w-12 h-12 flex items-center  justify-center text-xl"
-                        onClick={() => navigate(-1)}>
+                        onClick={() => {
+                            const isInternalReferrer = document.referrer.startsWith(window.location.origin);
+
+                            if (isInternalReferrer) {
+                              navigate(-1);
+                            } else {
+                              navigate("/");
+                            }
+                        }}>
                         <FaArrowLeft className="hover:cursor-pointer"/>
                         </div>
                     )}
