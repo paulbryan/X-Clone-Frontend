@@ -87,6 +87,7 @@ function FullPostTemplate({
 
               {/* CORE ROW - SHOWS PROFILE PIC, User's names, and optionally post text */}
               <TweetMainRow
+                isModal={isModal}
                 post={post}
                 postUser={postUser}
                 isMainPost={isMainPost}

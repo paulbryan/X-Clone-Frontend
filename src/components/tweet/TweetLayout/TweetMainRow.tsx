@@ -10,10 +10,11 @@ type TweetMainRowProps = {
     isMainPost?: boolean;
     postUser?: User;
     post: Post;
+    isModal?: boolean;
 
 }
 
-export function TweetMainRow ({isParentPost, isMainPost, postUser, post}: TweetMainRowProps) {
+export function TweetMainRow ({isParentPost, isMainPost, postUser, post, isModal}: TweetMainRowProps) {
 
     const navigate = useNavigate();
     
@@ -34,7 +35,7 @@ export function TweetMainRow ({isParentPost, isMainPost, postUser, post}: TweetM
                 <div className="flex overflow-x-hidden flex-col">
                     
                     <div className="flex flex-col">
-                    <PostUserCard postId={post.id} postUserId={postUser?.id} mainPost={isMainPost}/>
+                    <PostUserCard postId={post.id} isModal={isModal} postUserId={postUser?.id} mainPost={isMainPost}/>
                     </div> 
                     {!isMainPost && (
                     <div className={`text-twitterText whitespace-pre-line w-full break-words mb-2`}>

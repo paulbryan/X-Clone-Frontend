@@ -1,6 +1,7 @@
 import { usePost } from "../../../lib/hooks/queries/usePost.tsx";
 import { useUser } from "../../../lib/hooks/queries/useUser.tsx";
 import CreatedAtDisplay from "../../ui/CreatedAtDisplay.tsx";
+import { DropdownMenuEllipsis } from "../../ui/DropdownMenuEllipsis.tsx";
 import { UserHoverWrapper } from "../../ui/UserHoverWrapper.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
@@ -10,9 +11,10 @@ type PostUserCardProps = {
     mainPost?: boolean;
     isReplyFeedPost?: boolean;
     postUserId?: number;
+    isModal?: boolean;
 }
 
-export function PostUserCard ({postId, postUserId, mainPost}: PostUserCardProps) {
+export function PostUserCard ({postId, postUserId, mainPost, isModal}: PostUserCardProps) {
 
     const { data: post } = usePost(postId);
   
@@ -26,6 +28,8 @@ export function PostUserCard ({postId, postUserId, mainPost}: PostUserCardProps)
             } text-twitterText w-full`}
           >
             {postUser && (
+            <div className="flex w-full items-center justify-between">
+
               <div className="flex items-center gap-1 w-full min-w-0 overflow-hidden">
                 <UserHoverWrapper userId={postUser.id}>
                   <div className="font-bold truncate min-w-0">
@@ -46,8 +50,19 @@ export function PostUserCard ({postId, postUserId, mainPost}: PostUserCardProps)
                       typeOfCreatedAt="timeago"
                     />
                   </div>
-                )}
+                )}   
               </div>
+
+              {!isModal &&             
+              <div className="flex-shrink-0 pl-2">
+                <DropdownMenuEllipsis postId={postId} mainPost={mainPost}/>
+              </div>
+            }
+
+              </div>
+
+                
+
             )}
           </div>
         </>
