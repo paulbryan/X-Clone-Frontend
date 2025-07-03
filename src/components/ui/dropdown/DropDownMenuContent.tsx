@@ -42,8 +42,6 @@ export function DropdownMenuContent ({postId, mainPost}: DropdownMenuContentProp
     }
 
     return (
-
-
         <DropdownMenu.Content
           className="z-50 min-w-46 rounded-md bg-(--background-main) border border-twitterBorder shadow-[0_0_5px_1px_gray] p-1"
           sideOffset={5}
