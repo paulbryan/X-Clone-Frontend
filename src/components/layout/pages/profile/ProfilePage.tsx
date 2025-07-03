@@ -7,6 +7,7 @@ import { HeaderContentContext } from "../../../../context/GlobalState/HeaderCont
 import { useUser } from "../../../../lib/hooks/queries/useUser.tsx";
 import { useInfiniteFeed } from "../../../../lib/hooks/queries/useInfiniteFeed.tsx";
 import type { FeedType } from "../../../../lib/types/FeedType.ts";
+import Tweet from "../../../tweet/Tweet.tsx";
 
 function ProfilePage() {
     const tabs : FeedType[] = ["Tweets", "Replies", "Liked", "Media"];
@@ -62,6 +63,7 @@ function ProfilePage() {
             </div>
 
             <div className="">
+                {(activeTab == "Tweets" && pageUser?.pinnedPostId != null) && <Tweet postType="TweetFeedPost" postId={pageUser.pinnedPostId} isPinned={true}/>}
                 <Feed userId={pageUser?.id} isLoading={isLoading} key={activeTab} postIdsArray={postIds} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} tabType={activeTab}/>
             </div>        
         </div>

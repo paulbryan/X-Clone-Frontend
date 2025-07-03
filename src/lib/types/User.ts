@@ -15,5 +15,6 @@ export type User = {
     retweets: number[]
     profilePictureUrl: string;
     bannerImageUrl: string;
+    pinnedPostId: number | null;
 
 }

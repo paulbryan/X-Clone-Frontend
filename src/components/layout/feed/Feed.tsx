@@ -48,6 +48,8 @@ function Feed({userId, postIdsArray, fetchNextPage, reverseFeed, hasNextPage, is
                   {postIdsArray.length > 0 ? (
                       <AnimatePresence mode="popLayout">
                   {postIdsArray.map((id) => (
+
+                    
                     <motion.div key={id} {...fadeInFeedMotionProps} layout="position">
                       <Tweet postId={id} postType={postTypeForFeed}/>
                     </motion.div>

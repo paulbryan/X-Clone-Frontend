@@ -11,12 +11,14 @@ import { TweetMainRow } from "./TweetLayout/TweetMainRow.tsx";
 import { ExtraMainTweetRows } from "./TweetLayout/ExtraMainTweetRows.tsx";
 import { TweetImagesRow } from "./TweetLayout/TweetImagesRow.tsx";
 import { PostInteractionRow } from "./TweetLayout/PostInteractionRow.tsx";
+import { Pinned } from "./tweetInfo/Pinned.tsx";
 
 type FullPostTemplateProps = {
   postId: number;
   isModal?: boolean;
   isParentPost?: boolean;
   postType?: PostType;
+  isPinned?: boolean;
 };
 
 function FullPostTemplate({
@@ -24,8 +26,10 @@ function FullPostTemplate({
   isModal,
   isParentPost,
   postType,
+  isPinned,
 }: FullPostTemplateProps) {
   const { data: post } = usePost(postId);
+
 
   const { data: postUser } = useUser(post?.userId ?? -1);
   const { currentUser } = useCurrentUser();
@@ -34,7 +38,7 @@ function FullPostTemplate({
 
   const isMainPost = postType == "MainPost";
   const isReplyFeedPost = postType == "ReplyFeedPost";
-  const isTweetsFeedPost = retweeted && postType == "TweetFeedPost";
+  const isTweetsFeedPost = (retweeted || isPinned) && postType == "TweetFeedPost";
   const hasImages = post && post.postMedia?.length > 0;
   const hasParent =
     post && post.parentId && (isReplyFeedPost || isMainPost) && !isParentPost;
@@ -83,8 +87,8 @@ function FullPostTemplate({
               } grid-cols-[auto_1fr] hover:cursor-pointer border-twitterBorder gap-x-3 w-full`}
             >
               {/* SEPERATE ROW FOR YOU REPOSTED - ONLY ON "TWEETS" FEED POSTS     */}
-              {isTweetsFeedPost && <YouReposted reposterId={currentUser?.id} />}
-
+              {isTweetsFeedPost && (!isPinned ? <YouReposted reposterId={currentUser?.id} /> : <Pinned/>)}
+              
               {/* CORE ROW - SHOWS PROFILE PIC, User's names, and optionally post text */}
               <TweetMainRow
                 isModal={isModal}
