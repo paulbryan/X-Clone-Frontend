@@ -68,7 +68,7 @@ export function LeftDesktopLayout () {
                 </a>
 
                 <DrawerNavigationPair name={"Profile"} routePath={`/profile/${currentUser?.id}`}>
-                    <HeroIcon iconName="UserIcon" className="h-7 w-7" solid={false}/>
+                    <HeroIcon iconName="UserIcon" className="h-7 w-7" solid={location.pathname === `/profile/${currentUser?.id}`}/>
                 </DrawerNavigationPair>
 
                 <div onClick={() => setModalType("changeColor")}>
