@@ -20,7 +20,7 @@ export const useCreatePost = (
       const token = localStorage.getItem("jwt");
 
 
-      const res = await fetch(`${API_URL}/api/posts/createPost`, {
+      const res = await fetch(`${API_URL}/api/posts/create`, {
         method: "POST",
         headers: {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),

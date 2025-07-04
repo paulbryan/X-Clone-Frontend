@@ -4,7 +4,7 @@ import { API_URL } from "../../../constants/env.ts";
 
 export const userBatcher = create<User, number>({
   fetcher: async (ids: number[]) => {
-    const res = await fetch(`${API_URL}/api/users/getUsers`, {
+    const res = await fetch(`${API_URL}/api/users/get-users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(ids),

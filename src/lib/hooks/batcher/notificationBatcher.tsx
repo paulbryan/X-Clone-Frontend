@@ -4,7 +4,7 @@ import type { Notification } from "../../types/Notification.ts";
 
 export const notificationBatcher = create<Notification, number>({
   fetcher: async (ids: number[]) => {
-    const res = await fetch(`${API_URL}/api/notifications/getNotifications`, {
+    const res = await fetch(`${API_URL}/api/notifications/get-notifications`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(ids),

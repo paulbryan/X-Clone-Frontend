@@ -15,8 +15,8 @@ export const useBookmarkPost = (
     return useMutation({
       mutationFn: async ({ isBookmarked }: { isBookmarked: boolean }) => {
         const url = isBookmarked
-          ? "/api/bookmarks/deleteBookmark"
-          : "/api/bookmarks/createBookmark";
+          ? "/api/bookmarks/delete"
+          : "/api/bookmarks/create";
   
         const token = localStorage.getItem("jwt");
 

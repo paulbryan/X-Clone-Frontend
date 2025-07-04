@@ -15,8 +15,8 @@ export const useRepostPost = (
   return useMutation({
     mutationFn: async ({ isRetweeted }: { isRetweeted: boolean }) => {
       const url = isRetweeted
-        ? "/api/retweets/deleteRetweet"
-        : "/api/retweets/newRetweet";
+        ? "/api/retweets/delete"
+        : "/api/retweets/create";
 
       const token = localStorage.getItem("jwt");
 

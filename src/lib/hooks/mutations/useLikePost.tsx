@@ -15,8 +15,8 @@ export const useLikePost = (
   return useMutation({
     mutationFn: async ({ isLiked }: { isLiked: boolean }) => {
       const url = isLiked
-        ? "/api/likes/deleteLike"
-        : "/api/likes/createLike";
+        ? "/api/likes/delete"
+        : "/api/likes/create";
 
 
       const token = localStorage.getItem("jwt");

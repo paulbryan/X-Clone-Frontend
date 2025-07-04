@@ -17,7 +17,7 @@ export const useFollowUser = (
     mutationFn: async ({ currentlyFollowing }: FollowParams): Promise<User> => {
       if (followerId == null || followedId == null) throw new Error("Missing user IDs");
 
-      const endpoint = currentlyFollowing ? "unfollowUser" : "followUser";
+      const endpoint = currentlyFollowing ? "unfollow" : "follow";
 
       const token = localStorage.getItem("jwt");
 

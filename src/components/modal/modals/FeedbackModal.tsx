@@ -20,7 +20,7 @@ export function FeedbackModal() {
         };
       
         try {
-          const res = await fetch(`${API_URL}/api/feedback/addFeedback`, {
+          const res = await fetch(`${API_URL}/api/feedback/add-feedback`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

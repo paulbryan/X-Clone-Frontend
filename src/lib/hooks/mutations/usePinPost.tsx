@@ -12,7 +12,7 @@ export const usePinPost = (
   
     return useMutation({
       mutationFn: async ({ isPinned }: { isPinned: boolean }) => {
-        const endpoint = isPinned ? "/api/posts/unpinPost" : "/api/posts/pinPost";
+        const endpoint = isPinned ? "/api/posts/unpin" : "/api/posts/pin";
         const token = localStorage.getItem("jwt");
   
         const res = await fetch(`${API_URL}${endpoint}?postId=${postId}`, {

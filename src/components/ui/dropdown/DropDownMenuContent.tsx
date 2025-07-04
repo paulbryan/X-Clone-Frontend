@@ -3,7 +3,6 @@ import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
 import { usePost } from "../../../lib/hooks/queries/usePost";
 import { useDeletePost } from "../../../lib/hooks/mutations/useDeletePost";
 import { HeroIcon } from "../HeroIcon";
-import { BsPinAngle } from "react-icons/bs";
 import { CustomDropdownItem } from "./CustomDropdownItem";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../../lib/hooks/queries/useUser";

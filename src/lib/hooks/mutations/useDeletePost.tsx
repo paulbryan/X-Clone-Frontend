@@ -14,7 +14,7 @@ export const useDeletePost = (
     mutationFn: async (postId: number): Promise<number> => {
       const token = localStorage.getItem("jwt");
       console.log("Deleting post");
-      const res = await fetch(`${API_URL}/api/posts/deletePost`, {
+      const res = await fetch(`${API_URL}/api/posts/delete`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

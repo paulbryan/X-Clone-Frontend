@@ -6,7 +6,7 @@ export function useUserSearch(query: string) {
     queryKey: ["userSearch", query],
     queryFn: async () => {
       if (!query) return [];
-      const res = await fetch(`${API_URL}/api/users/searchUsers?q=${encodeURIComponent(query)}`);
+      const res = await fetch(`${API_URL}/api/users/search?q=${encodeURIComponent(query)}`);
       if (!res.ok) throw new Error("Failed to fetch");
       return res.json();
     },

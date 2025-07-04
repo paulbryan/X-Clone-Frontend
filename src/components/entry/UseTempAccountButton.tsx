@@ -12,7 +12,7 @@ export function UseTempAccountButton ({setToggle}: UseTempAccountButtonProps) {
 
     function authenticateTempUser () {
 
-        fetch(`${API_URL}/api/auth/tempSignup`, {
+        fetch(`${API_URL}/api/auth/demo-signup`, {
           method: "POST",
         })
         .then(res => {

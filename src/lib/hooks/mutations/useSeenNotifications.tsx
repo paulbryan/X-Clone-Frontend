@@ -5,7 +5,7 @@ export const useUnseenNotificationIds = () => {
   return useQuery<number[]>({
     queryKey: ["unseenNotifications"],
     queryFn: async () => {
-        const res = await fetch(`${API_URL}/api/notifications/unseenIds`, {
+        const res = await fetch(`${API_URL}/api/notifications/get-unseen`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`
           }
