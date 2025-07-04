@@ -51,7 +51,7 @@ function Feed({userId, postIdsArray, fetchNextPage, reverseFeed, hasNextPage, is
 
                     
                     <motion.div key={id} {...fadeInFeedMotionProps} layout="position">
-                      <Tweet postId={id} postType={postTypeForFeed}/>
+                      <Tweet repostUserId={tabType == "Tweets" ? userId : undefined} postId={id} postType={postTypeForFeed}/>
                     </motion.div>
                   ))}
                   {!reverseFeed && (

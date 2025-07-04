@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import { usePost } from "../../lib/hooks/queries/usePost.tsx";
 import { useUser } from "../../lib/hooks/queries/useUser.tsx";
-import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { YouReposted } from "./tweetInfo/YouReposted.tsx";
 import { ReplyingTo } from "./tweetInfo/ReplyingTo.tsx";
 import { motion, type Variants } from "framer-motion";
@@ -19,6 +18,7 @@ type FullPostTemplateProps = {
   isParentPost?: boolean;
   postType?: PostType;
   isPinned?: boolean;
+  repostUserId?: number;
 };
 
 function FullPostTemplate({
@@ -27,18 +27,21 @@ function FullPostTemplate({
   isParentPost,
   postType,
   isPinned,
+  repostUserId,
 }: FullPostTemplateProps) {
   const { data: post } = usePost(postId);
 
 
   const { data: postUser } = useUser(post?.userId ?? -1);
-  const { currentUser } = useCurrentUser();
 
-  const retweeted = currentUser?.retweets.includes(postId);
+  const {data: repostUser} = useUser(repostUserId ?? -1)
+
+  const retweeted = repostUser && repostUser?.retweets.includes(postId);
 
   const isMainPost = postType == "MainPost";
   const isReplyFeedPost = postType == "ReplyFeedPost";
-  const isTweetsFeedPost = (retweeted || isPinned) && postType == "TweetFeedPost";
+  const isTweetsFeedPost = retweeted && !isPinned && postType  == "TweetFeedPost";
+  const isPinnedFeedPost = isPinned && postType  == "TweetFeedPost";
   const hasImages = post && post.postMedia?.length > 0;
   const hasParent =
     post && post.parentId && (isReplyFeedPost || isMainPost) && !isParentPost;
@@ -87,7 +90,8 @@ function FullPostTemplate({
               } grid-cols-[auto_1fr] hover:cursor-pointer border-twitterBorder gap-x-3 w-full`}
             >
               {/* SEPERATE ROW FOR YOU REPOSTED - ONLY ON "TWEETS" FEED POSTS     */}
-              {isTweetsFeedPost && (!isPinned ? <YouReposted reposterId={currentUser?.id} /> : <Pinned/>)}
+              {isTweetsFeedPost && !isPinned && <YouReposted reposter={repostUser} />}
+              {isPinnedFeedPost && <Pinned />}
               
               {/* CORE ROW - SHOWS PROFILE PIC, User's names, and optionally post text */}
               <TweetMainRow

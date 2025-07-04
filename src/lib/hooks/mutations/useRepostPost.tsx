@@ -79,6 +79,8 @@ export const useRepostPost = (
       onUpdate?.(updatedPost);
       queryClient.invalidateQueries({queryKey: ["post", postId]})      
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
+      queryClient.invalidateQueries({ queryKey: ["user", currentUserId]});
+
     },
   });
 };

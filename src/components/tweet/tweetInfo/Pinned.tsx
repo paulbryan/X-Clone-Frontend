@@ -1,4 +1,3 @@
-import { HeroIcon } from "../../ui/HeroIcon.tsx";
 import { BsPinFill } from "react-icons/bs";
 
 export function Pinned () {

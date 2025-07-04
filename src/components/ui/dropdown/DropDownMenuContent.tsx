@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../../../lib/hooks/queries/useUser";
 import FollowButton from "../FollowButton";
 import { usePinPost } from "../../../lib/hooks/mutations/usePinPost";
+import { RiUnpinLine } from "react-icons/ri";
+import { RiPushpinLine } from "react-icons/ri";
 
 type DropdownMenuContentProps = {
     postId: number;
@@ -28,6 +30,8 @@ export function DropdownMenuContent ({postId, mainPost, closeMenu}: DropdownMenu
     const pinPost = usePinPost(postId);
     const navigate = useNavigate();
 
+    const isPinned = currentUser.pinnedPostId == postId;
+
     const handleDeletePost = () => {
         deletePost?.mutate(postId);
         closeMenu();
@@ -42,7 +46,6 @@ export function DropdownMenuContent ({postId, mainPost, closeMenu}: DropdownMenu
     }
 
     const pinToProfile = () => {
-        const isPinned = currentUser.pinnedPostId == postId;
         pinPost.mutate({isPinned})
     }
 
@@ -57,8 +60,8 @@ export function DropdownMenuContent ({postId, mainPost, closeMenu}: DropdownMenu
         <CustomDropdownItem customClassName="text-red-500" text="Delete" handleDropdownMutation={handleDeletePost}>     
             <HeroIcon iconName="TrashIcon" className="h-4 w-4"/>
         </CustomDropdownItem>
-        <CustomDropdownItem customClassName="text-twitterText" text="Pin to your profile" handleDropdownMutation={pinToProfile}>     
-            <BsPinAngle className="text-md"/>
+        <CustomDropdownItem customClassName="text-twitterText" text={`${isPinned ? "Unpin from" : "Pin to"} your profile`} handleDropdownMutation={pinToProfile}>     
+            {isPinned ? <RiUnpinLine className="text-md"/> : <RiPushpinLine className="text-md"/>            }
         </CustomDropdownItem>
         </>
           ) : (
