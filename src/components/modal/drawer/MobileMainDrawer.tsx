@@ -49,7 +49,7 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
 
             <div
             onClick={(e) => e.stopPropagation()}
-            className="w-2/3 min-w-[280px] max-w-2/3 p-4 pl-6 border-r flex flex-col border-twitterBorder h-full max-h-full overflow-y-hidden bg-(--background-main)">
+            className="w-2/3 min-w-[280px] max-w-2/3 p-4 pl-6 border-r flex flex-col border-twitterBorder h-full max-h-full overflow-y-scroll scrollbar-blue bg-(--background-main)">
                 
                 <div className="w-full h-fit ">
                     <div onClick={() => navigate(`/profile/${currentUser?.id}`)} className="w-12 h-12">
@@ -87,6 +87,11 @@ function MobileMainDrawer ( {setDrawerOpen}: MobileMainDrawerProps ) {
                     <DrawerNavigationPair name={"Bookmarks"} routePath="/bookmarks" setDrawerOpen={setDrawerOpen}>
                         <HeroIcon iconName="BookmarkIcon" className="h-7 w-7" solid={location.pathname === `/bookmarks`}/>
                     </DrawerNavigationPair>
+
+                    <div onClick={() => setModalType("feedback")} className={`hover:cursor-pointer flex h-16 relative text-2xl  text-twitterText items-center gap-4`}>
+                        <HeroIcon iconName="ChatBubbleBottomCenterTextIcon" className="h-7 w-7" solid={location.pathname === `/profile/${currentUser?.id}`}/>
+                        <p className={`font-bold md:font-medium`}>Feedback</p>
+                    </div>
 
                     <DrawerNavigationPair name={"About"} routePath="/about" setDrawerOpen={setDrawerOpen}>
                         <HeroIcon iconName="QuestionMarkCircleIcon" className="h-7 w-7" solid={false}/>
