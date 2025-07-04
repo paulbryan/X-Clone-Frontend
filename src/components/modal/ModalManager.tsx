@@ -6,6 +6,7 @@ import ComposeTweet from "../input/ComposeTweet.tsx";
 import { AnimatePresence } from "framer-motion";
 import ChangeColorModal from "./modals/ChangeColorModal.tsx";
 import ImageModal from "./modals/ImageModal.tsx";
+import { FeedbackModal } from "./modals/FeedbackModal.tsx";
 
 
 function ModalManager() {
@@ -21,6 +22,7 @@ function ModalManager() {
           {modalType === "changeColor" && <ChangeColorModal setToggle={setModalType}/>}
           {modalType === "replying" && modalData && <ComposeTweet setToggle={setModalType} parentId={modalData.mainId} showParentPreview={true}/>}
           {modalType === "imagepreview" && modalData && modalData.mainId && modalData.auxiliaryId && <ImageModal setToggle={setModalType} mediaId={modalData.mainId} mediaList={modalData.auxiliaryId}/>}
+          {modalType === "feedback" && <FeedbackModal/>}
         </Modal>
       )}
     </AnimatePresence>

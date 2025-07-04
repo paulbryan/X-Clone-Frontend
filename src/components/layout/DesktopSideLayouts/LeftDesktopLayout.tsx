@@ -23,7 +23,7 @@ export function LeftDesktopLayout () {
 
             <FaXTwitter className="text-white text-4xl"/>
             
-            <div className="flex w-full h-fit flex-col gap-2 py-2">
+            <div className="flex w-full h-fit flex-col py-2">
 
                 <DrawerNavigationPair name={"Home"} routePath="/">
                     <HeroIcon iconName="HomeIcon" className="h-7 w-7" solid={location.pathname === `/`}/>
@@ -48,8 +48,13 @@ export function LeftDesktopLayout () {
                     <HeroIcon iconName="EnvelopeIcon" className="h-7 w-7"/>
                 </DrawerNavigationPair>
 
+                <div onClick={() => setModalType("feedback")} className={`hover:cursor-pointer flex h-16 relative text-2xl  text-twitterText items-center gap-4`}>
+                    <HeroIcon iconName="ChatBubbleBottomCenterTextIcon" className="h-7 w-7" solid={false}/>
+                    <p className={`font-bold md:font-medium`}>Feedback</p>
+                </div>
+
                 <DrawerNavigationPair name={"About"} routePath="/about">
-                    <HeroIcon iconName="QuestionMarkCircleIcon" className="h-7 w-7" solid={false}/>
+                    <HeroIcon iconName="QuestionMarkCircleIcon" className="h-7 w-7" solid={location.pathname === "/about"}/>
                 </DrawerNavigationPair>
 
                 <a
@@ -63,7 +68,7 @@ export function LeftDesktopLayout () {
                 </a>
 
                 <DrawerNavigationPair name={"Profile"} routePath={`/profile/${currentUser?.id}`}>
-                    <HeroIcon iconName="UserIcon" className="h-7 w-7" solid={location.pathname === `/profile/${currentUser?.id}`}/>
+                    <HeroIcon iconName="UserIcon" className="h-7 w-7" solid={false}/>
                 </DrawerNavigationPair>
 
                 <div onClick={() => setModalType("changeColor")}>
