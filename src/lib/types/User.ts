@@ -16,5 +16,6 @@ export type User = {
     profilePictureUrl: string;
     bannerImageUrl: string;
     pinnedPostId: number | null;
+    verified: boolean;
 
 }

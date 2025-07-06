@@ -34,7 +34,7 @@ export function TweetMainRow ({isParentPost, isMainPost, postUser, post, isModal
 
                 <div className="flex overflow-x-hidden flex-col">
                     
-                    <div className="flex flex-col">
+                    <div className="flex flex-col h-fit">
                     <PostUserCard postId={post.id} isModal={isModal} postUserId={postUser?.id} mainPost={isMainPost}/>
                     </div> 
                     {!isMainPost && (

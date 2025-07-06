@@ -15,7 +15,6 @@ function DisplayNameComponent ({user, customClassName, disableNavigation, showFo
 
     const navigate = useNavigate();
 
-
     const navigateToProfile = (e: React.MouseEvent<HTMLParagraphElement>): void => {
         if (user && !disableNavigation) {
           e.stopPropagation();
