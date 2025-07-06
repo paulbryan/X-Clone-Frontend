@@ -7,36 +7,42 @@ import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
 
 type PostUserCardProps = {
-    postId: number;
-    mainPost?: boolean;
-    isReplyFeedPost?: boolean;
-    postUserId?: number;
-    isModal?: boolean;
-}
+  postId: number;
+  mainPost?: boolean;
+  isReplyFeedPost?: boolean;
+  postUserId?: number;
+  isModal?: boolean;
+};
 
-export function PostUserCard ({postId, postUserId, mainPost, isModal}: PostUserCardProps) {
+export function PostUserCard({
+  postId,
+  postUserId,
+  mainPost,
+  isModal,
+}: PostUserCardProps) {
+  const { data: post } = usePost(postId);
 
-    const { data: post } = usePost(postId);
-  
-    const { data: postUser } = useUser(postUserId ?? -1);
+  const { data: postUser } = useUser(postUserId ?? -1);
 
-    const verified = postUser?.verified;
+  const verified = postUser?.verified;
 
-    return (
-        <>
-          <div
-            className={`flex ${
-              mainPost ? "flex-col" : "justify-between"
-            } text-twitterText w-full`}
-          >
-            {postUser && (
-            <div className="flex w-full justify-between">
-
-              <div className="flex gap-1 w-full min-w-0 h-fit overflow-hidden">
-                <UserHoverWrapper userId={postUser.id}>
+  return (
+    <>
+      <div
+        className={`flex ${
+          mainPost ? "flex-col" : "justify-between"
+        } text-twitterText w-full`}
+      >
+        {postUser && (
+          <div className="flex w-full justify-between">
+            <div className="flex gap-1 w-full min-w-0 h-fit overflow-hidden">
+              <UserHoverWrapper userId={postUser.id}>
                 <div className="flex gap-1 min-w-0 h-fit items-center">
                   <div className="font-bold truncate min-w-0">
-                    <DisplayNameComponent user={postUser} truncate={!mainPost} />
+                    <DisplayNameComponent
+                      user={postUser}
+                      truncate={!mainPost}
+                    />
                   </div>
 
                   {verified && (
@@ -47,37 +53,32 @@ export function PostUserCard ({postId, postUserId, mainPost, isModal}: PostUserC
                     />
                   )}
                 </div>
-                </UserHoverWrapper>
-                <UserHoverWrapper userId={postUser.id}>
-                  <div className="text-twitterTextAlt text-md truncate min-w-0">
-                    <UsernameComponent truncate={!mainPost} user={postUser} />
-                  </div>
-                </UserHoverWrapper>
-      
-                {!mainPost && post && (
-                  <div className="flex-shrink-0 pt-0.5 text-twitterTextAlt text-sm whitespace-nowrap flex gap-1">
-                    <p>•</p>
-                    <CreatedAtDisplay
-                      createdAt={post.createdAt}
-                      typeOfCreatedAt="timeago"
-                    />
-                  </div>
-                )}   
-              </div>
+              </UserHoverWrapper>
+              <UserHoverWrapper userId={postUser.id}>
+                <div className="text-twitterTextAlt text-md truncate min-w-0">
+                  <UsernameComponent truncate={!mainPost} user={postUser} />
+                </div>
+              </UserHoverWrapper>
 
-              {!isModal &&             
+              {!mainPost && post && (
+                <div className="flex-shrink-0 pt-0.5 text-twitterTextAlt text-sm whitespace-nowrap flex gap-1">
+                  <p>•</p>
+                  <CreatedAtDisplay
+                    createdAt={post.createdAt}
+                    typeOfCreatedAt="timeago"
+                  />
+                </div>
+              )}
+            </div>
+
+            {!isModal && (
               <div className="flex-shrink-0 pl-2">
-                <DropdownMenuEllipsis postId={postId} mainPost={mainPost}/>
+                <DropdownMenuEllipsis postId={postId} mainPost={mainPost} />
               </div>
-            }
-
-              </div>
-
-                
-
             )}
           </div>
-        </>
-      );
-
+        )}
+      </div>
+    </>
+  );
 }

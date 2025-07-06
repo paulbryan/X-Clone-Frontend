@@ -18,7 +18,7 @@ function FullPost() {
 
   const { data: post } = usePost(parseInt(postId));
 
-  const {setHeaderContent} = useContext(HeaderContentContext);
+  const { setHeaderContent } = useContext(HeaderContentContext);
   useEffect(() => {
     if (post) {
       setHeaderContent(<p>{post.parentId ? "Thread" : "Tweet"}</p>);
@@ -26,24 +26,24 @@ function FullPost() {
     }
   }, [post]);
 
-//make this a page?
+  //make this a page?
   return (
     <div className="flex flex-col h-full w-full grow scrollbar-blue overflow-y-scroll text-white xl:border-x border-twitterBorder">
-
       {post && (
         <>
-        <Tweet key={postId} postType={"MainPost"} postId={numericPostId} />
+          <Tweet key={postId} postType={"MainPost"} postId={numericPostId} />
 
-          {currentUser && (
-            <ComposeTweet parentId={post.id}/>
-          )}
-          
+          {currentUser && <ComposeTweet parentId={post.id} />}
+
           {post && post.replies.length > 0 && (
-            <Feed key={post.replies.length} postIdsArray={post.replies} reverseFeed={true}/>
+            <Feed
+              key={post.replies.length}
+              postIdsArray={post.replies}
+              reverseFeed={true}
+            />
           )}
         </>
       )}
-
     </div>
   );
 }

@@ -7,27 +7,25 @@ import type { PostMedia } from "../../../lib/types/PostMedia.ts";
 type ImagePreviewGridProps = {
   media: PostMedia[];
   postId?: number;
-}
+};
 
 export function ImagePreviewGrid({ media }: ImagePreviewGridProps) {
-    const total = media.length;
+  const total = media.length;
 
-    const {setModalData, setModalType} = useModal();
+  const { setModalData, setModalType } = useModal();
 
-    function handlePostClick (e: React.MouseEvent<HTMLDivElement>, id: number) {
-      e.stopPropagation();
-      setModalData({mainId: id, auxiliaryId: media});
-      setModalType("imagepreview")
+  function handlePostClick(e: React.MouseEvent<HTMLDivElement>, id: number) {
+    e.stopPropagation();
+    setModalData({ mainId: id, auxiliaryId: media });
+    setModalType("imagepreview");
+  }
 
-    }
-  
-    const gridHeightClass = total === 1 ? "h-36" : "h-36";
-    const gridCols = total === 1 ? "grid-cols-2" : "grid-cols-2";
-    const gridRows = total <= 2 ? "grid-rows-1" : "grid-rows-2";
-  
+  const gridHeightClass = total === 1 ? "h-36" : "h-36";
+  const gridCols = total === 1 ? "grid-cols-2" : "grid-cols-2";
+  const gridRows = total <= 2 ? "grid-rows-1" : "grid-rows-2";
 
-    return (
-      <>
+  return (
+    <>
       <div className={cn("w-full my-2 max-w-[400px]", gridHeightClass)}>
         <div
           className={cn(
@@ -38,13 +36,17 @@ export function ImagePreviewGrid({ media }: ImagePreviewGridProps) {
         >
           <AnimatePresence mode="popLayout">
             {media.map((m, index) => (
-              <MediaItem key={m.id} media={m} index={index} total={total} handleClick={handlePostClick} />
+              <MediaItem
+                key={m.id}
+                media={m}
+                index={index}
+                total={total}
+                handleClick={handlePostClick}
+              />
             ))}
           </AnimatePresence>
         </div>
       </div>
-    
-
-      </>
-    );
-  }
+    </>
+  );
+}

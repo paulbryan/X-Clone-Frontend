@@ -1,7 +1,10 @@
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
-import { backdropMotionProps, modalMotionProps } from "../../lib/animations/motionAnimations.ts";
+import {
+  backdropMotionProps,
+  modalMotionProps,
+} from "../../lib/animations/motionAnimations.ts";
 import type { ModalType } from "../../lib/types/ModalType.ts";
 
 type ModalProps = {
@@ -17,7 +20,9 @@ function Modal({ children, setToggle, center }: ModalProps) {
   return createPortal(
     <motion.div
       key="backdrop"
-      className={`w-dvw z-10 h-dvh top-0 px-4 fixed backdrop-blur-sm flex justify-center ${center ? "items-center" : "items-start pt-16" } bg-black/40`}
+      className={`w-dvw z-10 h-dvh top-0 px-4 fixed backdrop-blur-sm flex justify-center ${
+        center ? "items-center" : "items-start pt-16"
+      } bg-black/40`}
       {...backdropMotionProps}
       onClick={() => setToggle(null)}
     >

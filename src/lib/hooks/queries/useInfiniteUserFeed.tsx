@@ -10,7 +10,9 @@ export function useInfiniteUsers() {
   return useInfiniteQuery<UserPage, Error>({
     queryKey: ["discoverUsers"],
     queryFn: async ({ pageParam = Date.now() + 60_000 }) => {
-      const res = await fetch(`${API_URL}/api/users/get-discover?cursor=${pageParam ?? ""}&limit=20`);
+      const res = await fetch(
+        `${API_URL}/api/users/get-discover?cursor=${pageParam ?? ""}&limit=20`
+      );
       if (!res.ok) throw new Error("Failed to fetch users");
 
       const result = await res.json();
@@ -21,5 +23,3 @@ export function useInfiniteUsers() {
     initialPageParam: Date.now() + 60_000,
   });
 }
-
-

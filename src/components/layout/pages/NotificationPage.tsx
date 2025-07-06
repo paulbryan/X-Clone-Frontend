@@ -6,62 +6,59 @@ import { useInfiniteFeed } from "../../../lib/hooks/queries/useInfiniteFeed.tsx"
 import { useUnseenNotificationIds } from "../../../lib/hooks/mutations/useSeenNotifications.tsx";
 import { useQueryClient } from "@tanstack/react-query";
 
-function NotificationPage () {
+function NotificationPage() {
+  const { currentUser } = useCurrentUser();
+  const { setHeaderContent } = useContext(HeaderContentContext);
 
-    const { currentUser } = useCurrentUser();
-    const { setHeaderContent } = useContext(HeaderContentContext);
-  
-    const {data: unseenIds = []} = useUnseenNotificationIds()
-    const [tempUnread, setTempUnread] = useState<number[]>([]);
+  const { data: unseenIds = [] } = useUnseenNotificationIds();
+  const [tempUnread, setTempUnread] = useState<number[]>([]);
 
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-    const setTempUnreadsAndMarkNotificationsAsSeen = () => {
-      if (unseenIds && unseenIds.length > 0) {
-        setTempUnread(unseenIds);
-        queryClient.invalidateQueries({ queryKey: ["unseenNotifications"] });
-            }
+  const setTempUnreadsAndMarkNotificationsAsSeen = () => {
+    if (unseenIds && unseenIds.length > 0) {
+      setTempUnread(unseenIds);
+      queryClient.invalidateQueries({ queryKey: ["unseenNotifications"] });
     }
+  };
 
-    useEffect(() => {
-      setTempUnreadsAndMarkNotificationsAsSeen()
-    }, [unseenIds])
+  useEffect(() => {
+    setTempUnreadsAndMarkNotificationsAsSeen();
+  }, [unseenIds]);
 
-    useEffect(() => {
-      setHeaderContent("Notifications");
-    }, []);
+  useEffect(() => {
+    setHeaderContent("Notifications");
+  }, []);
 
-    const {
-      data,
-      fetchNextPage,
-      isFetchingNextPage,
-      isLoading,
-    } = useInfiniteFeed ("Notifications", currentUser?.id);
+  const { data, fetchNextPage, isFetchingNextPage, isLoading } =
+    useInfiniteFeed("Notifications", currentUser?.id);
 
-    const notificationIds = useMemo(() => {
-      const seen = new Set<number>();
-      return data?.pages.flatMap((page) =>
+  const notificationIds = useMemo(() => {
+    const seen = new Set<number>();
+    return (
+      data?.pages.flatMap((page) =>
         page.posts.filter((id) => {
           if (seen.has(id)) return false;
           seen.add(id);
           return true;
         })
-      ) ?? [];
-    }, [data]);
+      ) ?? []
+    );
+  }, [data]);
 
-
-    return (
-
-        <div className="flex flex-col h-full w-full flex-grow xl:border-x border-twitterBorder scrollbar-blue overflow-y-scroll">
-
-            <div className="mb-14">
-                <NotificationFeed tempUnreads={tempUnread} isLoading={isLoading} isFetchingNextPage={isFetchingNextPage} fetchNextPage={fetchNextPage} notificationIds={notificationIds}/>
-            </div>
-
-        </div>
-
-    )
-
+  return (
+    <div className="flex flex-col h-full w-full flex-grow xl:border-x border-twitterBorder scrollbar-blue overflow-y-scroll">
+      <div className="mb-14">
+        <NotificationFeed
+          tempUnreads={tempUnread}
+          isLoading={isLoading}
+          isFetchingNextPage={isFetchingNextPage}
+          fetchNextPage={fetchNextPage}
+          notificationIds={notificationIds}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default NotificationPage;

@@ -7,20 +7,18 @@ type FollowParams = { currentlyFollowing: boolean };
 export const useFollowUser = (
   followerId: number | undefined,
   followedId: number | undefined,
-  {
-    onUpdate,
-  }: { onUpdate?: (updatedFollowed: User) => void } = {}
+  { onUpdate }: { onUpdate?: (updatedFollowed: User) => void } = {}
 ) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async ({ currentlyFollowing }: FollowParams): Promise<User> => {
-      if (followerId == null || followedId == null) throw new Error("Missing user IDs");
+      if (followerId == null || followedId == null)
+        throw new Error("Missing user IDs");
 
       const endpoint = currentlyFollowing ? "unfollow" : "follow";
 
       const token = localStorage.getItem("jwt");
-
 
       const res = await fetch(`${API_URL}/api/follows/${endpoint}`, {
         method: "POST",
@@ -43,7 +41,7 @@ export const useFollowUser = (
       if (!previous) return { previous: null };
 
       const newFollowers = currentlyFollowing
-        ? previous.followers.filter(id => id !== followerId)
+        ? previous.followers.filter((id) => id !== followerId)
         : [...previous.followers, followerId!];
 
       const optimisticFollowed: User = {
@@ -64,7 +62,9 @@ export const useFollowUser = (
     onSuccess: (updatedFollowed) => {
       onUpdate?.(updatedFollowed);
 
-      queryClient.invalidateQueries({queryKey: ["feed", "Following", followerId]})
+      queryClient.invalidateQueries({
+        queryKey: ["feed", "Following", followerId],
+      });
       queryClient.invalidateQueries({ queryKey: ["user", followedId] });
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     },

@@ -3,41 +3,52 @@ import type { NotificationType } from "../../lib/types/NotificationType.ts";
 import { HeroIcon } from "./HeroIcon.tsx";
 
 type NotificationTypeIconProps = {
-    notificationType: NotificationType;
-}
+  notificationType: NotificationType;
+};
 
-function NotificationTypeIcon ({notificationType}: NotificationTypeIconProps) {
-
-    function decideIcon (nType: NotificationType) :ReactNode {
-
-        switch (nType) {
-
-            case "like" :
-                return <HeroIcon iconName="HeartIcon" solid={true} className="text-twitterRed w-7 h-7"/>
-            case "follow" :
-                return <HeroIcon iconName="UserIcon" solid={true} className="text-twitterBlue w-7 h-7"/>
-            case "reply" :
-                return <HeroIcon iconName="ChatBubbleOvalLeftIcon" solid={true} className="text-twitterBlue w-7 h-7"/>
-            case "repost" :
-                return <HeroIcon iconName="ArrowPathRoundedSquareIcon" solid={true} className="text-twitterGreen w-7 h-7"/>
-    
-        }
-
-        return null;
-
+function NotificationTypeIcon({ notificationType }: NotificationTypeIconProps) {
+  function decideIcon(nType: NotificationType): ReactNode {
+    switch (nType) {
+      case "like":
+        return (
+          <HeroIcon
+            iconName="HeartIcon"
+            solid={true}
+            className="text-twitterRed w-7 h-7"
+          />
+        );
+      case "follow":
+        return (
+          <HeroIcon
+            iconName="UserIcon"
+            solid={true}
+            className="text-twitterBlue w-7 h-7"
+          />
+        );
+      case "reply":
+        return (
+          <HeroIcon
+            iconName="ChatBubbleOvalLeftIcon"
+            solid={true}
+            className="text-twitterBlue w-7 h-7"
+          />
+        );
+      case "repost":
+        return (
+          <HeroIcon
+            iconName="ArrowPathRoundedSquareIcon"
+            solid={true}
+            className="text-twitterGreen w-7 h-7"
+          />
+        );
     }
 
-    const icon = decideIcon(notificationType);
+    return null;
+  }
 
-    return (
+  const icon = decideIcon(notificationType);
 
-        <>
-            {icon}
-        </>
-
-    )
-
-
+  return <>{icon}</>;
 }
 
 export default NotificationTypeIcon;

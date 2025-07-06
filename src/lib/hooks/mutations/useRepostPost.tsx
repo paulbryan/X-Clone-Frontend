@@ -6,17 +6,13 @@ import { updateFirstPageFeed } from "./mutationHelpers/updateFirstPageFeed.tsx";
 export const useRepostPost = (
   postId: number,
   currentUserId: number | undefined,
-  {
-    onUpdate,
-  }: { onUpdate?: (updatedPost: Post) => void } = {}
+  { onUpdate }: { onUpdate?: (updatedPost: Post) => void } = {}
 ) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async ({ isRetweeted }: { isRetweeted: boolean }) => {
-      const url = isRetweeted
-        ? "/api/retweets/delete"
-        : "/api/retweets/create";
+      const url = isRetweeted ? "/api/retweets/delete" : "/api/retweets/create";
 
       const token = localStorage.getItem("jwt");
 
@@ -75,12 +71,10 @@ export const useRepostPost = (
     },
 
     onSuccess: (updatedPost: Post) => {
-
       onUpdate?.(updatedPost);
-      queryClient.invalidateQueries({queryKey: ["post", postId]})      
+      queryClient.invalidateQueries({ queryKey: ["post", postId] });
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
-      queryClient.invalidateQueries({ queryKey: ["user", currentUserId]});
-
+      queryClient.invalidateQueries({ queryKey: ["user", currentUserId] });
     },
   });
 };

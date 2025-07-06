@@ -17,7 +17,7 @@
 @layer utilities {
   .scrollbar-blue {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-main) transparent; /* Firefox */
+    scrollbar-color: var(--color-main) transparent;
   }
 
   .scrollbar-blue::-webkit-scrollbar {

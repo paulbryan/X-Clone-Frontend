@@ -9,7 +9,7 @@ type Props = {
 
 export function ImageGrid({ images, setImages }: Props) {
   const handleRemove = (targetId: string) => () => {
-    const newImages = images.filter(image => image.id !== targetId);
+    const newImages = images.filter((image) => image.id !== targetId);
     setImages(newImages);
   };
 
@@ -41,14 +41,21 @@ export function ImageGrid({ images, setImages }: Props) {
                 className={cn(
                   "w-full h-full object-cover",
                   images.length === 1 && "rounded-2xl",
-                  images.length === 2 && ["rounded-l-2xl", "rounded-r-2xl"][index],
-                  images.length === 3 && [
-                    "row-span-2 rounded-l-2xl",
-                    "rounded-tr-2xl",
-                    "rounded-br-2xl"
-                  ][index],
+                  images.length === 2 &&
+                    ["rounded-l-2xl", "rounded-r-2xl"][index],
+                  images.length === 3 &&
+                    [
+                      "row-span-2 rounded-l-2xl",
+                      "rounded-tr-2xl",
+                      "rounded-br-2xl",
+                    ][index],
                   images.length === 4 &&
-                    ["rounded-tl-2xl", "rounded-tr-2xl", "rounded-bl-2xl", "rounded-br-2xl"][index]
+                    [
+                      "rounded-tl-2xl",
+                      "rounded-tr-2xl",
+                      "rounded-bl-2xl",
+                      "rounded-br-2xl",
+                    ][index]
                 )}
                 onLoad={() => URL.revokeObjectURL(url)}
               />

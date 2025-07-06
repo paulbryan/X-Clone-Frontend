@@ -1,10 +1,16 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { API_URL } from "../../constants/env";
 
 type AuthContextType = {
-    authId: number | null;
-    setAuthId: (num: number) => void;
-    logout: () => void;
+  authId: number | null;
+  setAuthId: (num: number) => void;
+  logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,24 +23,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuthId(null);
     window.location.reload();
   };
-  
+
   useEffect(() => {
     const checkToken = async () => {
       const token = localStorage.getItem("jwt");
       if (!token) return;
-  
+
       try {
         const res = await fetch(`${API_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-  
+
         if (!res.ok) {
           localStorage.removeItem("jwt");
           return;
         }
-  
+
         const user = await res.json();
         setAuthId(user.id);
       } catch (err) {
@@ -42,7 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.removeItem("jwt");
       }
     };
-  
+
     checkToken();
   }, []);
 

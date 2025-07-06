@@ -9,10 +9,11 @@ type CurrentUserQueryContextType = {
   isLoading: boolean;
 };
 
-const CurrentUserContext = createContext<CurrentUserQueryContextType | undefined>(undefined);
+const CurrentUserContext = createContext<
+  CurrentUserQueryContextType | undefined
+>(undefined);
 
 export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
-
   const { authId } = useAuth();
 
   const fetchCurrentUser = async (): Promise<User> => {
@@ -42,8 +43,7 @@ export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
 
 export const useCurrentUser = () => {
   const context = useContext(CurrentUserContext);
-  if (!context) throw new Error("useCurrentUser must be used within a CurrentUserProvider");
+  if (!context)
+    throw new Error("useCurrentUser must be used within a CurrentUserProvider");
   return context;
 };
-
-

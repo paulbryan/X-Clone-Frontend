@@ -2,16 +2,16 @@ import type { User } from "../../../lib/types/User";
 import { HeroIcon } from "../../ui/HeroIcon";
 
 type YouRepostedProps = {
-    reposter: User;
-}
+  reposter: User;
+};
 
-export function YouReposted ({reposter} : YouRepostedProps) {
-    return (
+export function YouReposted({ reposter }: YouRepostedProps) {
+  return (
     <>
-        <div className="flex h-6 col-start-2 items-center gap-2 text-twitterTextAlt w-full">
-        <HeroIcon iconName="ArrowPathRoundedSquareIcon" className="h-4 w-4"/>
+      <div className="flex h-6 col-start-2 items-center gap-2 text-twitterTextAlt w-full">
+        <HeroIcon iconName="ArrowPathRoundedSquareIcon" className="h-4 w-4" />
         <p className="text-sm">{reposter.username} Reposted</p>
-        </div>
-    </>    
-    )
+      </div>
+    </>
+  );
 }

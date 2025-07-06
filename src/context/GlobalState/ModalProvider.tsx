@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import type {ReactNode} from "react";
+import type { ReactNode } from "react";
 import type { ModalType } from "../../lib/types/ModalType";
 import type { PostMedia } from "../../lib/types/PostMedia";
 
@@ -8,8 +8,7 @@ type ModalContextType = {
   setModalType: (type: ModalType) => void;
   modalData: ModalData | null;
   setModalData: (modalData: ModalData) => void;
-};  
-
+};
 
 type ModalData = {
   mainId?: number;
@@ -23,7 +22,9 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [modalData, setModalData] = useState<ModalData | null>(null);
 
   return (
-    <ModalContext.Provider value={{ modalType, setModalType, modalData, setModalData }}>
+    <ModalContext.Provider
+      value={{ modalType, setModalType, modalData, setModalData }}
+    >
       {children}
     </ModalContext.Provider>
   );

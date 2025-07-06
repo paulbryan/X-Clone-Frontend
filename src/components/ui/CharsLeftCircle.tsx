@@ -1,8 +1,8 @@
 
 type CharsLeftCircleProps = {
-  charsLeft: number; // from 180 down
-  radius?: number;   // customize size
-  stroke?: number;   // thickness
+  charsLeft: number;
+  radius?: number;
+  stroke?: number;
 };
 
 export function CharsLeftCircle({ charsLeft, radius = 9, stroke = 1.5 }: CharsLeftCircleProps) {

@@ -6,110 +6,102 @@ import { useUser } from "../../lib/hooks/queries/useUser.tsx";
 import { useNotification } from "../../lib/hooks/queries/useNotification.tsx";
 import { UserHoverWrapper } from "../ui/UserHoverWrapper.tsx";
 type NotificationTemplateProps = {
+  notificationId: number;
+  isTempUnseen?: boolean;
+};
 
-    notificationId: number;
-    isTempUnseen?: boolean;
+function NotificationTemplate({
+  notificationId,
+  isTempUnseen,
+}: NotificationTemplateProps) {
+  const navigate = useNavigate();
+  const { data: notification } = useNotification(notificationId);
+  const displayMessage = determineDisplayMessage();
 
-}
+  const { data: sender } = useUser(notification?.senderId ?? -1);
 
-function NotificationTemplate ({notificationId, isTempUnseen}: NotificationTemplateProps)  {
+  function determineDisplayMessage(): string {
+    switch (notification?.type) {
+      case "like":
+        return "liked your post";
 
+      case "follow":
+        return "followed you";
 
-    const navigate = useNavigate();
-    const { data: notification } = useNotification(notificationId);
-    const displayMessage = determineDisplayMessage();
+      case "repost":
+        return "reposted your post";
 
-    const { data: sender } = useUser(notification?.senderId ?? -1);
-
-    function determineDisplayMessage (): string {
-
-        switch (notification?.type) {
-
-            case 'like' :
-            return "liked your post";
-            
-            case "follow" :
-            return "followed you";
-
-            case "repost" : 
-            return "reposted your post";
-            
-            case "reply" :
-            return "replied to your post";
-
-        } 
-
-        return "";
-
+      case "reply":
+        return "replied to your post";
     }
 
-    function navigateFromNotification () {
-        if (!notification) return;
-            if (notification.type == "follow") {
-                navigate("/profile/"+notification.senderId)
-            } else {
-                navigate("/tweet/"+notification.referenceId)
-            }
-    }
+    return "";
+  }
 
-    return (
-        <>
-        {notification && (
-        <div className={`h-fit w-full flex border-b hover:bg-twitterTextAlt/20 border-twitterBorder ${
-            isTempUnseen ? 'bg-twitterTextAlt/20' : ' '
-        }`}
-        onClick={() => navigateFromNotification()}
+  function navigateFromNotification() {
+    if (!notification) return;
+    if (notification.type == "follow") {
+      navigate("/profile/" + notification.senderId);
+    } else {
+      navigate("/tweet/" + notification.referenceId);
+    }
+  }
+
+  return (
+    <>
+      {notification && (
+        <div
+          className={`h-fit w-full flex border-b hover:bg-twitterTextAlt/20 border-twitterBorder ${
+            isTempUnseen ? "bg-twitterTextAlt/20" : " "
+          }`}
+          onClick={() => navigateFromNotification()}
         >
+          <div className="w-18 h-fit flex justify-center text-3xl pt-4 text-center">
+            <NotificationTypeIcon notificationType={notification.type} />
+          </div>
 
-        <div className="w-18 h-fit flex justify-center text-3xl pt-4 text-center">
-            <NotificationTypeIcon notificationType={notification.type}/>
-        </div>
-
-        <div className="flex flex-col w-full h-fit pr-4 pt-3">
-
+          <div className="flex flex-col w-full h-fit pr-4 pt-3">
             <div className="w-full h-fit">
-            <div className="flex w-12 pb-1">
+              <div className="flex w-12 pb-1">
                 {sender && (
-                <UserHoverWrapper userId={sender.id}>
+                  <UserHoverWrapper userId={sender.id}>
                     <div className={"w-10 h-10"}>
-                        <ProfilePic userId={sender?.id}/>
+                      <ProfilePic userId={sender?.id} />
                     </div>
-                </UserHoverWrapper>
+                  </UserHoverWrapper>
                 )}
-            </div>
+              </div>
             </div>
 
             <div className="pb-3 w-full h-fit">
-                <div className="w-full h-fit flex-col">
-                    <div className="w-full h-5 flex gap-1 align-middle text-white mb-0.5">
-                        {sender && (
-                            <UserHoverWrapper userId={sender.id}>
-                                <div className="font-bold"> 
-                                    <DisplayNameComponent user={sender}/>
-                                </div>
-                            </UserHoverWrapper>
-                        )}
-                        <p onClick={() => navigateFromNotification()}> {displayMessage}</p>
-                    </div>
-
-                    <div className="text-twitterTextAlt max-h-32">
-                        <p onClick={() => navigateFromNotification()}>
-
-                            {notification.text.slice(0, 30)}{notification.text.length > 30 ? "..." : ""}
-                        </p>
-                    </div>
+              <div className="w-full h-fit flex-col">
+                <div className="w-full h-5 flex gap-1 align-middle text-white mb-0.5">
+                  {sender && (
+                    <UserHoverWrapper userId={sender.id}>
+                      <div className="font-bold">
+                        <DisplayNameComponent user={sender} />
+                      </div>
+                    </UserHoverWrapper>
+                  )}
+                  <p onClick={() => navigateFromNotification()}>
+                    {" "}
+                    {displayMessage}
+                  </p>
                 </div>
 
+                <div className="text-twitterTextAlt max-h-32">
+                  <p onClick={() => navigateFromNotification()}>
+                    {notification.text.slice(0, 30)}
+                    {notification.text.length > 30 ? "..." : ""}
+                  </p>
+                </div>
+              </div>
             </div>
-
+          </div>
         </div>
-
-        </div>
-        )}
+      )}
     </>
-    )
-
-
+  );
 }
 
 export default NotificationTemplate;

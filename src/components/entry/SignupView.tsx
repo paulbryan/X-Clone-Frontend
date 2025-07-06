@@ -1,5 +1,3 @@
-
-
 import type { ModalType } from "../../lib/types/ModalType.ts";
 import { FaXTwitter } from "react-icons/fa6";
 import { GoogleAuthButton } from "../ui/GoogleAuthButton.tsx";
@@ -12,40 +10,6 @@ type SignUpViewProps = {
 };
 
 function SignupView({ setToggle }: SignUpViewProps) {
-
-
-  // async function encodeImageToBase64(path: string): Promise<string> {
-  //   const response = await fetch(path);
-  //   const blob = await response.blob();
-
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       const result = reader.result;
-  //       if (typeof result === "string") {
-  //         const base64 = result.split(",")[1];
-  //         resolve(base64);
-  //       } else {
-  //         reject("Invalid result");
-  //       }
-  //     };
-  //     reader.onerror = reject;
-  //     reader.readAsDataURL(blob);
-  //   });
-  // }
-
-  // const onProfileImageChange = (event: any) => {
-  //   if (event.target.files && event.target.files[0]) {
-  //     setProfilePicInput(URL.createObjectURL(event.target.files[0]));
-  //   }
-  // };
-
-  // const onBannerImageChange = (event: any) => {
-  //   if (event.target.files && event.target.files[0]) {
-  //     setBannerInput(URL.createObjectURL(event.target.files[0]));
-  //   }
-  // };
-
   return (
     <div className="w-full h-full flex flex-col border text-twitterText rounded-4xl p-8 items-center gap-6 bg-(--background-main)">
       <>
@@ -55,11 +19,11 @@ function SignupView({ setToggle }: SignUpViewProps) {
 
         <GoogleAuthButton setToggle={setToggle}>
           Sign up with Google
-        </GoogleAuthButton> 
+        </GoogleAuthButton>
 
         <HorizontalStripedText> OR </HorizontalStripedText>
 
-        <UseTempAccountButton setToggle={setToggle}/>
+        <UseTempAccountButton setToggle={setToggle} />
 
         <TermsAndConditions />
 

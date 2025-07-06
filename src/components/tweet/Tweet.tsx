@@ -31,17 +31,17 @@ function FullPostTemplate({
 }: FullPostTemplateProps) {
   const { data: post } = usePost(postId);
 
-
   const { data: postUser } = useUser(post?.userId ?? -1);
 
-  const {data: repostUser} = useUser(repostUserId ?? -1)
+  const { data: repostUser } = useUser(repostUserId ?? -1);
 
   const retweeted = repostUser && repostUser?.retweets.includes(postId);
 
   const isMainPost = postType == "MainPost";
   const isReplyFeedPost = postType == "ReplyFeedPost";
-  const isTweetsFeedPost = retweeted && !isPinned && postType  == "TweetFeedPost";
-  const isPinnedFeedPost = isPinned && postType  == "TweetFeedPost";
+  const isTweetsFeedPost =
+    retweeted && !isPinned && postType == "TweetFeedPost";
+  const isPinnedFeedPost = isPinned && postType == "TweetFeedPost";
   const hasImages = post && post.postMedia?.length > 0;
   const hasParent =
     post && post.parentId && (isReplyFeedPost || isMainPost) && !isParentPost;
@@ -63,7 +63,8 @@ function FullPostTemplate({
   return (
     <>
       {post && (
-        <motion.div className=""
+        <motion.div
+          className=""
           {...(!isModal ? { ...variants, layout: "position" } : {})}
           animate={{
             ...variants.animate,
@@ -90,9 +91,11 @@ function FullPostTemplate({
               } grid-cols-[auto_1fr] hover:cursor-pointer border-twitterBorder gap-x-3 w-full`}
             >
               {/* SEPERATE ROW FOR YOU REPOSTED - ONLY ON "TWEETS" FEED POSTS     */}
-              {isTweetsFeedPost && !isPinned && <YouReposted reposter={repostUser} />}
+              {isTweetsFeedPost && !isPinned && (
+                <YouReposted reposter={repostUser} />
+              )}
               {isPinnedFeedPost && <Pinned />}
-              
+
               {/* CORE ROW - SHOWS PROFILE PIC, User's names, and optionally post text */}
               <TweetMainRow
                 isModal={isModal}

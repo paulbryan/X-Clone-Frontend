@@ -9,29 +9,33 @@ type FollowButtonProps = {
   pageUser?: User | null;
   children: ReactNode;
   closeModal?: () => void;
-
 };
 
 function FollowButton({ pageUser, children, closeModal }: FollowButtonProps) {
   const { currentUser } = useCurrentUser();
   const queryClient = useQueryClient();
 
-  const {setModalType} = useModal();
+  const { setModalType } = useModal();
 
-  const isFollowing = pageUser?.followers.includes(currentUser?.id ?? -1) ?? false;
+  const isFollowing =
+    pageUser?.followers.includes(currentUser?.id ?? -1) ?? false;
   const canFollow = !!currentUser;
 
   const followMutation = useFollowUser(currentUser?.id, pageUser?.id, {
     onUpdate: (updatedFollowed) => {
-      const isNowFollowing = updatedFollowed.followers.includes(currentUser?.id ?? -1);
+      const isNowFollowing = updatedFollowed.followers.includes(
+        currentUser?.id ?? -1
+      );
 
       queryClient.setQueryData<User>(["currentUser"], (prev) => {
         if (!prev) return prev;
 
         const alreadyThere = prev.following.includes(pageUser!.id);
         const following = isNowFollowing
-          ? (alreadyThere ? prev.following : [...prev.following, pageUser!.id])
-          : prev.following.filter(id => id !== pageUser!.id);
+          ? alreadyThere
+            ? prev.following
+            : [...prev.following, pageUser!.id]
+          : prev.following.filter((id) => id !== pageUser!.id);
 
         return { ...prev, following };
       });
@@ -40,7 +44,6 @@ function FollowButton({ pageUser, children, closeModal }: FollowButtonProps) {
           queryKey: ["feed", "following", currentUser?.id],
         });
       }
-
     },
   });
 
@@ -59,12 +62,16 @@ function FollowButton({ pageUser, children, closeModal }: FollowButtonProps) {
   if (!pageUser) return null;
 
   return (
-    <div className="h-fit"
+    <div
+      className="h-fit"
       onClick={(e) => {
         e.stopPropagation();
-        handleFollow()
+        handleFollow();
       }}
-      style={{ cursor: followMutation.isPending ? "not-allowed" : "pointer", opacity: followMutation.isPending ? 0.5 : 1 }}
+      style={{
+        cursor: followMutation.isPending ? "not-allowed" : "pointer",
+        opacity: followMutation.isPending ? 0.5 : 1,
+      }}
     >
       {children}
     </div>

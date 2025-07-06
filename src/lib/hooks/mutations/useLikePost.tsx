@@ -6,18 +6,13 @@ import { updateFirstPageFeed } from "./mutationHelpers/updateFirstPageFeed.tsx";
 export const useLikePost = (
   postId: number,
   currentUserId: number | undefined,
-  {
-    onUpdate,
-  }: { onUpdate?: (updatedPost: Post) => void } = {}
+  { onUpdate }: { onUpdate?: (updatedPost: Post) => void } = {}
 ) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async ({ isLiked }: { isLiked: boolean }) => {
-      const url = isLiked
-        ? "/api/likes/delete"
-        : "/api/likes/create";
-
+      const url = isLiked ? "/api/likes/delete" : "/api/likes/create";
 
       const token = localStorage.getItem("jwt");
 
@@ -27,7 +22,7 @@ export const useLikePost = (
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
-        body: JSON.stringify({likedPostId: postId}),
+        body: JSON.stringify({ likedPostId: postId }),
       });
 
       if (!res.ok) throw new Error("Like toggle failed");
@@ -39,18 +34,18 @@ export const useLikePost = (
 
       const previous = queryClient.getQueryData<Post>(["post", postId]);
       if (!previous) return { previous: null };
-    
+
       const newLikedBy = isLiked
-        ? previous.likedBy.filter(id => id !== currentUserId)
+        ? previous.likedBy.filter((id) => id !== currentUserId)
         : [...previous.likedBy, currentUserId!];
-    
+
       const optimisticPost: Post = {
         ...previous,
         likedBy: newLikedBy,
       };
-    
+
       queryClient.setQueryData(["post", postId], optimisticPost);
-    
+
       if (currentUserId) {
         updateFirstPageFeed({
           queryClient,
@@ -58,9 +53,9 @@ export const useLikePost = (
           currentUserId,
           postId,
           isRemoving: isLiked,
-        })
+        });
       }
-    
+
       return { previous };
     },
 

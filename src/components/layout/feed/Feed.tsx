@@ -17,13 +17,19 @@ type FeedProps = {
   isFetchingNextPage?: boolean;
   tabType?: FeedType;
   userId?: number;
-  reverseFeed?: boolean;  
+  reverseFeed?: boolean;
 };
 
-//TODO fix isready logic
-
-function Feed({userId, postIdsArray, fetchNextPage, reverseFeed, hasNextPage, isFetchingNextPage, isLoading, tabType }: FeedProps) {
-
+function Feed({
+  userId,
+  postIdsArray,
+  fetchNextPage,
+  reverseFeed,
+  hasNextPage,
+  isFetchingNextPage,
+  isLoading,
+  tabType,
+}: FeedProps) {
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -34,39 +40,60 @@ function Feed({userId, postIdsArray, fetchNextPage, reverseFeed, hasNextPage, is
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  const postTypeForFeed : PostType | undefined = (tabType == "Replies" ? "ReplyFeedPost" : tabType == "Tweets" ? "TweetFeedPost" : undefined) 
+  const postTypeForFeed: PostType | undefined =
+    tabType == "Replies"
+      ? "ReplyFeedPost"
+      : tabType == "Tweets"
+      ? "TweetFeedPost"
+      : undefined;
 
-      return (
-        <div className="w-full flex flex-col">
-          {isLoading ? (
-            <div className="flex justify-center py-2 flex-col w-full">
-              <LoadingIcon />
-            </div>
-            ) : (
-              <>
-                <div className={`flex ${reverseFeed ? "flex-col-reverse" : "flex-col"} w-full`} key="feed-wrapper">
-                  {postIdsArray.length > 0 ? (
-                      <AnimatePresence mode="popLayout">
-                  {postIdsArray.map((id) => (
-
-                    
-                    <motion.div key={id} {...fadeInFeedMotionProps} layout="position">
-                      <Tweet repostUserId={tabType == "Tweets" ? userId : undefined} postId={id} postType={postTypeForFeed}/>
-                    </motion.div>
-                  ))}
-                  {!reverseFeed && (
-                    <LoadMoreForFeed triggerRef={ref} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}/>
-                  )}
-                      </AnimatePresence>
-                  ) : tabType != null && (
-                    <NoContentYet userId={userId} tabType={tabType}/>
-                  )}                  
-                </div>
-              </> 
-            )}
+  return (
+    <div className="w-full flex flex-col">
+      {isLoading ? (
+        <div className="flex justify-center py-2 flex-col w-full">
+          <LoadingIcon />
         </div>
-      );
-
+      ) : (
+        <>
+          <div
+            className={`flex ${
+              reverseFeed ? "flex-col-reverse" : "flex-col"
+            } w-full`}
+            key="feed-wrapper"
+          >
+            {postIdsArray.length > 0 ? (
+              <AnimatePresence mode="popLayout">
+                {postIdsArray.map((id) => (
+                  <motion.div
+                    key={id}
+                    {...fadeInFeedMotionProps}
+                    layout="position"
+                  >
+                    <Tweet
+                      repostUserId={tabType == "Tweets" ? userId : undefined}
+                      postId={id}
+                      postType={postTypeForFeed}
+                    />
+                  </motion.div>
+                ))}
+                {!reverseFeed && (
+                  <LoadMoreForFeed
+                    triggerRef={ref}
+                    hasNextPage={hasNextPage}
+                    isFetchingNextPage={isFetchingNextPage}
+                  />
+                )}
+              </AnimatePresence>
+            ) : (
+              tabType != null && (
+                <NoContentYet userId={userId} tabType={tabType} />
+              )
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  );
 }
 
 export default Feed;

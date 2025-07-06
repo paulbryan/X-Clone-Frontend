@@ -7,15 +7,18 @@ import { useModal } from "../../context/GlobalState/ModalProvider.tsx";
 type InteractionButtonProps = {
   numberList: number[];
   buttonColor: string;
-  mutationFunction:  () => void;
+  mutationFunction: () => void;
   iconName: IconName;
-
 };
 
-function InteractionButton({ numberList, buttonColor, mutationFunction, iconName }: InteractionButtonProps) {
-
+function InteractionButton({
+  numberList,
+  buttonColor,
+  mutationFunction,
+  iconName,
+}: InteractionButtonProps) {
   const { currentUser } = useCurrentUser();
-  const {setModalType} = useModal();
+  const { setModalType } = useModal();
 
   const canInteract = !!currentUser;
 
@@ -34,7 +37,7 @@ function InteractionButton({ numberList, buttonColor, mutationFunction, iconName
     if (canInteract) {
       mutationFunction();
     } else {
-      setModalType("signup")
+      setModalType("signup");
     }
   };
 
@@ -42,21 +45,27 @@ function InteractionButton({ numberList, buttonColor, mutationFunction, iconName
 
   console.log(hoverBg);
 
-  //TODO add hover on icon
-
   return (
     <div className="">
-    <div className={`h-5 flex w-16 hover:cursor-pointer ${isMarked ? "text-" + buttonColor : ""} align-middle items-center gap-3`}>
-    <div 
-    className={`group p-2 rounded-full hover:bg-blue-500/10 focus-visible:ring-2 transition`}
-    onClick={(e) => handleMutation(e)}
-    >
-      <HeroIcon iconName={iconName} solid={isMarked} className={`h-6 w-6`}/>
-    </div>      
-    <InteractionCounter count={count}/>
+      <div
+        className={`h-5 flex w-16 hover:cursor-pointer ${
+          isMarked ? "text-" + buttonColor : ""
+        } align-middle items-center gap-3`}
+      >
+        <div
+          className={`group p-2 rounded-full hover:bg-blue-500/10 focus-visible:ring-2 transition`}
+          onClick={(e) => handleMutation(e)}
+        >
+          <HeroIcon
+            iconName={iconName}
+            solid={isMarked}
+            className={`h-6 w-6`}
+          />
+        </div>
+        <InteractionCounter count={count} />
+      </div>
     </div>
-    </div>
-  )
+  );
 }
 
 export default InteractionButton;
