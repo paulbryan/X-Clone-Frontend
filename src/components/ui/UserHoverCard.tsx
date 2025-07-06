@@ -6,6 +6,7 @@ import FollowButton from "./FollowButton";
 import DisplayNameComponent from "../user/DisplayNameComponent";
 import UsernameComponent from "../user/UsernameComponent";
 import FollowersFollowing from "../user/FollowersFollowing";
+import { useModal } from "../../context/GlobalState/ModalProvider";
 
 
 type Props = {
@@ -17,6 +18,7 @@ export function UserHoverCard({ userId }: Props) {
 
   const [isOwnPage, setIsOwnPage] = useState(false);
   const { currentUser } = useCurrentUser();
+  const {setModalType} = useModal()
 
   useEffect(() => {
     setIsOwnPage(!!(currentUser && tooltipUser && currentUser.id === tooltipUser.id));
@@ -33,7 +35,7 @@ export function UserHoverCard({ userId }: Props) {
                 </div>
                 <div className="w-28 hover:cursor-pointer h-fit py-0.5 flex items-center justify-center align-middle rounded-2xl border border-twitterText text-twitterText">
                     {isOwnPage ? (
-                        <p>Edit Profile</p>
+                        <p onClick={() => setModalType("createAccount")}>Edit Profile</p>
                     ) : (
                         <FollowButton pageUser={tooltipUser}>
                             {tooltipUser?.followers.includes(currentUser?.id ?? -1) ? <p>Unfollow</p> : <p>Follow</p> }

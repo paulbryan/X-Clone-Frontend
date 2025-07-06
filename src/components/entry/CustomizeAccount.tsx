@@ -47,9 +47,7 @@ function CustomizeAccount ({ setToggle, currentUser }: CustomizeAccountProps) {
           setToggle(null);
         },
       });
-
-      setToggle(null);  
-
+      
     }
 
     return (
@@ -91,8 +89,8 @@ function CustomizeAccount ({ setToggle, currentUser }: CustomizeAccountProps) {
       onChange={(e) => {
         const file = e.target.files?.[0];
         if (file) {
-          setPfpFile(file);                                // Save actual file for uploading
-          setInputPfp(URL.createObjectURL(file));          // Set preview URL for <img />
+          setPfpFile(file);
+          setInputPfp(URL.createObjectURL(file));
         }
       }}
       className='absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer rounded-full'
