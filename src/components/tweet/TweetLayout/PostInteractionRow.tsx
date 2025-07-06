@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import type { Post } from "../../../lib/types/Post";
+import type { Post } from "../../../types/Post";
 import PostInteractionComponent from "../PostInteractionComponent";
 import { PostLine } from "../tweetInfo/PostLine";
 

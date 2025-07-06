@@ -1,4 +1,4 @@
-import type { Post } from "../../../lib/types/Post";
+import type { Post } from "../../../types/Post";
 import { ImagePreviewGrid } from "../../layout/media/ImagePreviewGrid";
 import { PostLine } from "../tweetInfo/PostLine";
 

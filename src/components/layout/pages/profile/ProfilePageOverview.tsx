@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import FollowersFollowing from "../../../user/FollowersFollowing.tsx";
 import ProfilePic from "../../../user/ProfilePic.tsx";
 import { FaRegCalendar } from "react-icons/fa6";
-import type { User } from "../../../../lib/types/User.ts";
+import type { User } from "../../../../types/User.ts";
 import BannerComponent from "../../../user/BannerComponent.tsx";
 import UsernameComponent from "../../../user/UsernameComponent.tsx";
 import DisplayNameComponent from "../../../user/DisplayNameComponent.tsx";
 import BioComponent from "../../../user/BioComponent.tsx";
-import LoadingIcon from "../../../ui/LoadingIcon.tsx";
+import LoadingIcon from "../../../ui/icons/LoadingIcon.tsx";
 import CreatedAtDisplay from "../../../ui/CreatedAtDisplay.tsx";
-import FollowButton from "../../../ui/FollowButton.tsx";
+import FollowButton from "../../../ui/buttons/FollowButton.tsx";
 import { useCurrentUser } from "../../../../context/Auth/CurrentUserProvider.tsx";
 import { useModal } from "../../../../context/GlobalState/ModalProvider.tsx";
 type ProfilePageOverviewProps = {

@@ -1,9 +1,9 @@
-import type { ModalType } from "../../lib/types/ModalType.ts";
+import type { ModalType } from "../../types/ModalType.ts";
 import { FaXTwitter } from "react-icons/fa6";
-import { GoogleAuthButton } from "../ui/GoogleAuthButton.tsx";
+import { GoogleAuthButton } from "../ui/buttons/GoogleAuthButton.tsx";
 import { HorizontalStripedText } from "../ui/HorizontalStripedText.tsx";
 import { TermsAndConditions } from "./TermsAndConditions.tsx";
-import { UseTempAccountButton } from "./UseTempAccountButton.tsx";
+import { UseTempAccountButton } from "../ui/buttons/UseTempAccountButton.tsx";
 
 type SignUpViewProps = {
   setToggle: (type: ModalType) => void;

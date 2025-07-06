@@ -1,4 +1,4 @@
-import { useUser } from "../../lib/hooks/queries/useUser.tsx";
+import { useUser } from "../../hooks/queries/useUser.tsx";
 
 type BannerComponentProps = {
   userId?: number;

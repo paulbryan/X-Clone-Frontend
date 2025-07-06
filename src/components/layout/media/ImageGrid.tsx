@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import cn from "clsx";
-import type { FilesWithId } from "../../../lib/types/file.ts";
+import type { FilesWithId } from "../../../types/file.ts";
 
 type Props = {
   images: FilesWithId;

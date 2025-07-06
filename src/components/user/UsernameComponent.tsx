@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import type { User } from "../../lib/types/User.ts";
+import type { User } from "../../types/User.ts";
 
 type UsernameComponentProps = {
   user?: User | null;

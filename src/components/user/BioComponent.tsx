@@ -1,4 +1,4 @@
-import type { User } from "../../lib/types/User.ts";
+import type { User } from "../../types/User.ts";
 
 type BioComponentProps = {
   user?: User | null;

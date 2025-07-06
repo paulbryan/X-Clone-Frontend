@@ -1,4 +1,4 @@
-import type { Post } from "../../../lib/types/Post.ts";
+import type { Post } from "../../../types/Post.ts";
 
 type PostTextComponentProps = {
   post?: Post | null;

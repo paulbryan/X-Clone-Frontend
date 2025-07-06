@@ -2,7 +2,7 @@ import { AnimatePresence } from "framer-motion";
 import { MediaItem } from "./MediaItem.tsx";
 import cn from "clsx";
 import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
-import type { PostMedia } from "../../../lib/types/PostMedia.ts";
+import type { PostMedia } from "../../../types/PostMedia.ts";
 
 type ImagePreviewGridProps = {
   media: PostMedia[];

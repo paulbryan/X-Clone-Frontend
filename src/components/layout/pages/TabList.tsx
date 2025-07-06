@@ -1,7 +1,7 @@
 import type { FC } from "react";
-import TabButton from "../../ui/TabButton.tsx";
+import TabButton from "../../ui/buttons/TabButton.tsx";
 import type { Dispatch, SetStateAction } from "react";
-import type { FeedType } from "../../../lib/types/FeedType.ts";
+import type { FeedType } from "../../../types/FeedType.ts";
 
 interface TabListProps {
   tabs: FeedType[];

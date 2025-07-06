@@ -1,10 +1,10 @@
 import ProfilePic from "../user/ProfilePic.tsx";
 import { useNavigate } from "react-router-dom";
 import DisplayNameComponent from "../user/DisplayNameComponent.tsx";
-import NotificationTypeIcon from "../ui/NotificationTypeIcon.tsx";
-import { useUser } from "../../lib/hooks/queries/useUser.tsx";
-import { useNotification } from "../../lib/hooks/queries/useNotification.tsx";
-import { UserHoverWrapper } from "../ui/UserHoverWrapper.tsx";
+import NotificationTypeIcon from "../ui/icons/NotificationTypeIcon.tsx";
+import { useUser } from "../../hooks/queries/useUser.tsx";
+import { useNotification } from "../../hooks/queries/useNotification.tsx";
+import { UserHoverWrapper } from "../modal/hover_card/UserHoverWrapper.tsx";
 type NotificationTemplateProps = {
   notificationId: number;
   isTempUnseen?: boolean;

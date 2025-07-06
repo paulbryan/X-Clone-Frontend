@@ -1,4 +1,4 @@
-import type { User } from "../../../lib/types/User.ts";
+import type { User } from "../../../types/User.ts";
 import { PostLine } from "./PostLine.tsx";
 
 type ReplyingToProps = {

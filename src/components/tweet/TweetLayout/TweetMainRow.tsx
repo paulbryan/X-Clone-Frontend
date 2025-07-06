@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import type { Post } from "../../../lib/types/Post";
-import type { User } from "../../../lib/types/User";
+import type { Post } from "../../../types/Post";
+import type { User } from "../../../types/User";
 import ProfilePic from "../../user/ProfilePic";
 import { PostUserCard } from "../tweetInfo/PostUserCard";
-import { UserHoverWrapper } from "../../ui/UserHoverWrapper";
+import { UserHoverWrapper } from "../../modal/hover_card/UserHoverWrapper.tsx";
 type TweetMainRowProps = {
   isParentPost?: boolean;
   isMainPost?: boolean;

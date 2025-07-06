@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
-import type { ModalType } from "../../lib/types/ModalType";
-import type { PostMedia } from "../../lib/types/PostMedia";
+import type { ModalType } from "../../types/ModalType";
+import type { PostMedia } from "../../types/PostMedia";
 
 type ModalContextType = {
   modalType: ModalType;

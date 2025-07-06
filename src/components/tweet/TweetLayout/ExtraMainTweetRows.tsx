@@ -1,5 +1,5 @@
-import type { Post } from "../../../lib/types/Post";
-import type { User } from "../../../lib/types/User";
+import type { Post } from "../../../types/Post";
+import type { User } from "../../../types/User";
 
 type ExtraMainTweetRowsProps = {
   post: Post;

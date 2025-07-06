@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
-import { useTopFiveUsers } from "../../../lib/hooks/useTopFiveUsers";
+import { useTopFiveUsers } from "../../../hooks/queries/useTopFiveUsers.tsx";
 import { TermsAndConditions } from "../../entry/TermsAndConditions";
-import { UseTempAccountButton } from "../../entry/UseTempAccountButton";
-import { GoogleAuthButton } from "../../ui/GoogleAuthButton";
+import { UseTempAccountButton } from "../../ui/buttons/UseTempAccountButton.tsx";
+import { GoogleAuthButton } from "../../ui/buttons/GoogleAuthButton.tsx";
 import { HorizontalStripedText } from "../../ui/HorizontalStripedText";
 import { UserSearchResult } from "../pages/UserSearchResult";
 import { AsideContainer } from "./AsideContainer";

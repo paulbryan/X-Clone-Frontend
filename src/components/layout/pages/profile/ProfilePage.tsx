@@ -2,11 +2,11 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import ProfilePageOverview from "./ProfilePageOverview.tsx";
 import TabList from "../TabList.tsx";
 import { useParams } from "react-router-dom";
-import Feed from "../../feed/Feed.tsx";
+import Feed from "../../../feed/Feed.tsx";
 import { HeaderContentContext } from "../../../../context/GlobalState/HeaderContentProvider.tsx";
-import { useUser } from "../../../../lib/hooks/queries/useUser.tsx";
-import { useInfiniteFeed } from "../../../../lib/hooks/queries/useInfiniteFeed.tsx";
-import type { FeedType } from "../../../../lib/types/FeedType.ts";
+import { useUser } from "../../../../hooks/queries/useUser.tsx";
+import { useInfiniteFeed } from "../../../../hooks/queries/useInfiniteFeed.tsx";
+import type { FeedType } from "../../../../types/FeedType.ts";
 import Tweet from "../../../tweet/Tweet.tsx";
 
 function ProfilePage() {

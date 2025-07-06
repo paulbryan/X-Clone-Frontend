@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { ReactNode } from "react";
-import type { User } from "../../lib/types/User.ts";
+import type { User } from "../../types/User.ts";
 import { useAuth } from "./AuthProvider.tsx";
 import { API_URL } from "../../constants/env.ts";
 type CurrentUserQueryContextType = {

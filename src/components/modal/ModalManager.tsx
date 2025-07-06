@@ -7,7 +7,7 @@ import { AnimatePresence } from "framer-motion";
 import ChangeColorModal from "./modals/ChangeColorModal.tsx";
 import ImageModal from "./modals/ImageModal.tsx";
 import { FeedbackModal } from "./modals/FeedbackModal.tsx";
-import CustomizeAccount from "../entry/CustomizeAccount.tsx";
+import CustomizeAccount from "../input/CustomizeAccount.tsx";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 
 

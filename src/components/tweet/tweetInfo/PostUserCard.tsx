@@ -1,8 +1,8 @@
-import { usePost } from "../../../lib/hooks/queries/usePost.tsx";
-import { useUser } from "../../../lib/hooks/queries/useUser.tsx";
+import { usePost } from "../../../hooks/queries/usePost.tsx";
+import { useUser } from "../../../hooks/queries/useUser.tsx";
 import CreatedAtDisplay from "../../ui/CreatedAtDisplay.tsx";
-import { DropdownMenuEllipsis } from "../../ui/DropdownMenuEllipsis.tsx";
-import { UserHoverWrapper } from "../../ui/UserHoverWrapper.tsx";
+import { DropdownMenuEllipsis } from "../../modal/dropdown/DropdownMenuEllipsis.tsx";
+import { UserHoverWrapper } from "../../modal/hover_card/UserHoverWrapper.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
 

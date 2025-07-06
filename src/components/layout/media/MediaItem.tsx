@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { MediaImage } from "./MediaImage.tsx";
-import type { PostMedia } from "../../../lib/types/PostMedia.ts";
+import type { PostMedia } from "../../../types/PostMedia.ts";
 
 type MediaItemProps = {
   media: PostMedia;

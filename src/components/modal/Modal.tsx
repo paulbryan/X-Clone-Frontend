@@ -4,8 +4,8 @@ import type { ReactNode } from "react";
 import {
   backdropMotionProps,
   modalMotionProps,
-} from "../../lib/animations/motionAnimations.ts";
-import type { ModalType } from "../../lib/types/ModalType.ts";
+} from "../../animations/motionAnimations.ts";
+import type { ModalType } from "../../types/ModalType.ts";
 
 type ModalProps = {
   children: ReactNode;

@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
-import { usePost } from "../../lib/hooks/queries/usePost.tsx";
+import { usePost } from "../../hooks/queries/usePost.tsx";
 import ComposeTweet from "../input/ComposeTweet.tsx";
-import Feed from "../layout/feed/Feed.tsx";
+import Feed from "../feed/Feed.tsx";
 import { useContext, useEffect } from "react";
 import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
 import Tweet from "./Tweet.tsx";

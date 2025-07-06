@@ -1,9 +1,9 @@
 import { useState } from "react";
-import type { ModalType } from "../../../lib/types/ModalType.ts";
+import type { ModalType } from "../../../types/ModalType.ts";
 import { MediaImage } from "../../layout/media/MediaImage.tsx";
-import { HeroIcon } from "../../ui/HeroIcon.tsx";
+import { HeroIcon } from "../../ui/icons/HeroIcon.tsx";
 import { AnimatePresence, motion } from "framer-motion";
-import type { PostMedia } from "../../../lib/types/PostMedia.ts";
+import type { PostMedia } from "../../../types/PostMedia.ts";
 
 type ImageModalProps = {
     setToggle: (modalType: ModalType) => void;

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../lib/hooks/queries/useUser.tsx";
+import { useUser } from "../../hooks/queries/useUser.tsx";
 
 type ProfilePicComponentProps = {
   userId?: number;

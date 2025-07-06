@@ -1,9 +1,9 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
-import NotificationFeed from "../feed/NotificationFeed.tsx";
+import NotificationFeed from "../../feed/NotificationFeed.tsx";
 import { HeaderContentContext } from "../../../context/GlobalState/HeaderContentProvider.tsx";
-import { useInfiniteFeed } from "../../../lib/hooks/queries/useInfiniteFeed.tsx";
-import { useUnseenNotificationIds } from "../../../lib/hooks/mutations/useSeenNotifications.tsx";
+import { useInfiniteFeed } from "../../../hooks/queries/useInfiniteFeed.tsx";
+import { useUnseenNotificationIds } from "../../../hooks/mutations/useSeenNotifications.tsx";
 import { useQueryClient } from "@tanstack/react-query";
 
 function NotificationPage() {

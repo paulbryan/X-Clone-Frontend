@@ -1,17 +1,17 @@
-import InteractionButton from "../ui/InteractionButton.tsx";
+import InteractionButton from "../ui/buttons/InteractionButton.tsx";
 import { useModal } from "../../context/GlobalState/ModalProvider.tsx";
-import { useLikePost } from "../../lib/hooks/mutations/useLikePost.tsx";
-import { useBookmarkPost } from "../../lib/hooks/mutations/useBookmarkPost.tsx";
-import { useRepostPost } from "../../lib/hooks/mutations/useRepostPost.tsx";
+import { useLikePost } from "../../hooks/mutations/useLikePost.tsx";
+import { useBookmarkPost } from "../../hooks/mutations/useBookmarkPost.tsx";
+import { useRepostPost } from "../../hooks/mutations/useRepostPost.tsx";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { useEffect } from "react";
-import { usePost } from "../../lib/hooks/queries/usePost.tsx";
+import { usePost } from "../../hooks/queries/usePost.tsx";
 import {
   getBookmarkOnUpdate,
   getLikeOnUpdate,
   getRepostOnUpdate,
-} from "../../lib/hooks/mutations/mutationHelpers/useMutationHelpers.tsx";
+} from "../../hooks/mutations/mutationHelpers/useMutationHelpers.tsx";
 type PostInteractionComponentProps = {
   postId: number;
   showPadding?: boolean;

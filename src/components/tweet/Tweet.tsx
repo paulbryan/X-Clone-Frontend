@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { usePost } from "../../lib/hooks/queries/usePost.tsx";
-import { useUser } from "../../lib/hooks/queries/useUser.tsx";
+import { usePost } from "../../hooks/queries/usePost.tsx";
+import { useUser } from "../../hooks/queries/useUser.tsx";
 import { YouReposted } from "./tweetInfo/YouReposted.tsx";
 import { ReplyingTo } from "./tweetInfo/ReplyingTo.tsx";
 import { motion, type Variants } from "framer-motion";
-import type { PostType } from "../../lib/types/PostType.ts";
+import type { PostType } from "../../types/PostType.ts";
 import { TweetMainRow } from "./TweetLayout/TweetMainRow.tsx";
 import { ExtraMainTweetRows } from "./TweetLayout/ExtraMainTweetRows.tsx";
 import { TweetImagesRow } from "./TweetLayout/TweetImagesRow.tsx";

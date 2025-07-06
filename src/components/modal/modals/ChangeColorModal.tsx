@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import type { ModalType } from "../../../lib/types/ModalType.ts";
+import type { ModalType } from "../../../types/ModalType.ts";
 import ProfilePic from "../../user/ProfilePic.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
-import ColorCircleButton from "../../ui/ColorCircleButton.tsx";
+import ColorCircleButton from "../../ui/buttons/ColorCircleButton.tsx";
 import { useState } from "react";
-import type { ThemeType } from "../../../lib/types/ThemeType.ts";
-import type { BackgroundType } from "../../../lib/types/BackgroundType.ts";
-import BackgroundSetterButton from "../../ui/BackgroundSetterButton.tsx";
+import type { ThemeType } from "../../../types/ThemeType.ts";
+import type { BackgroundType } from "../../../types/BackgroundType.ts";
+import BackgroundSetterButton from "../../ui/buttons/BackgroundSetterButton.tsx";
 
 type ChangeColorModalProps = {
   setToggle: (modalType: ModalType) => void;

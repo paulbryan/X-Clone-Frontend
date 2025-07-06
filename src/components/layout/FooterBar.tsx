@@ -1,8 +1,8 @@
-import ComposePostMobileButton from "../ui/ComposePostMobileButton.tsx";
+import ComposePostMobileButton from "../ui/buttons/ComposePostMobileButton.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
-import { HeroIcon } from "../ui/HeroIcon.tsx";
-import { useUnseenNotificationIds } from "../../lib/hooks/mutations/useSeenNotifications.tsx";
+import { HeroIcon } from "../ui/icons/HeroIcon.tsx";
+import { useUnseenNotificationIds } from "../../hooks/mutations/useSeenNotifications.tsx";
 
 function FooterBar() {
   const navigate = useNavigate();

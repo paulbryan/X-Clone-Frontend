@@ -1,5 +1,5 @@
-import type { User } from "../../../lib/types/User";
-import { HeroIcon } from "../../ui/HeroIcon";
+import type { User } from "../../../types/User";
+import { HeroIcon } from "../../ui/icons/HeroIcon.tsx";
 
 type YouRepostedProps = {
   reposter: User;
