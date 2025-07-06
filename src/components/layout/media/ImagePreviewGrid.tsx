@@ -22,7 +22,7 @@ export function ImagePreviewGrid({ media }: ImagePreviewGridProps) {
     }
   
     const gridHeightClass = total === 1 ? "h-36" : "h-36";
-    const gridCols = total === 1 ? "grid-cols-1" : "grid-cols-2";
+    const gridCols = total === 1 ? "grid-cols-2" : "grid-cols-2";
     const gridRows = total <= 2 ? "grid-rows-1" : "grid-rows-2";
   
 
