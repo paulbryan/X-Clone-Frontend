@@ -7,10 +7,13 @@ import { AnimatePresence } from "framer-motion";
 import ChangeColorModal from "./modals/ChangeColorModal.tsx";
 import ImageModal from "./modals/ImageModal.tsx";
 import { FeedbackModal } from "./modals/FeedbackModal.tsx";
+import CustomizeAccount from "../entry/CustomizeAccount.tsx";
+import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 
 
 function ModalManager() {
   const { modalType, setModalType, modalData } = useModal();
+  const {currentUser} = useCurrentUser();
 
   return (
     <AnimatePresence>
@@ -23,6 +26,7 @@ function ModalManager() {
           {modalType === "replying" && modalData && <ComposeTweet setToggle={setModalType} parentId={modalData.mainId} showParentPreview={true}/>}
           {modalType === "imagepreview" && modalData && modalData.mainId && modalData.auxiliaryId && <ImageModal setToggle={setModalType} mediaId={modalData.mainId} mediaList={modalData.auxiliaryId}/>}
           {modalType === "feedback" && <FeedbackModal/>}
+          {modalType === "createAccount" && currentUser && <CustomizeAccount setToggle={setModalType} currentUser={currentUser}/>}
         </Modal>
       )}
     </AnimatePresence>

@@ -11,6 +11,7 @@ import LoadingIcon from "../../../ui/LoadingIcon.tsx";
 import CreatedAtDisplay from "../../../ui/CreatedAtDisplay.tsx";
 import FollowButton from "../../../ui/FollowButton.tsx";
 import { useCurrentUser } from "../../../../context/Auth/CurrentUserProvider.tsx";
+import { useModal } from "../../../../context/GlobalState/ModalProvider.tsx";
 type ProfilePageOverviewProps = {
     pageUser?: User | null;
   };
@@ -18,6 +19,7 @@ type ProfilePageOverviewProps = {
   function ProfilePageOverview({ pageUser }: ProfilePageOverviewProps) {
     const { currentUser } = useCurrentUser();
     const [isOwnPage, setIsOwnPage] = useState(false);
+    const {setModalType} = useModal();
   
     useEffect(() => {
       setIsOwnPage(!!(currentUser && pageUser && currentUser.id === pageUser.id));
@@ -41,7 +43,7 @@ type ProfilePageOverviewProps = {
                     <div className="w-full h-12 flex justify-end items-center px-4">
                         <div className="w-28 hover:cursor-pointer h-auto flex items-center justify-center align-middle rounded-2xl border border-twitterText text-twitterText">
                             {isOwnPage ? (
-                                <p>Edit Profile</p>
+                                <p onClick={() => setModalType("createAccount")}>Edit Profile</p>
                             ) : (
                                 <FollowButton pageUser={pageUser}>
                                     {pageUser?.followers.includes(currentUser?.id ?? -1) ? <p>Unfollow</p> : <p>Follow</p> }
