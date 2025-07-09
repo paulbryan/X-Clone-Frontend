@@ -37,10 +37,10 @@ function App() {
             <HeaderContentProvider>
               <ModalManager />
 
-              <div className="xl:flex 2xl:px-80 xl:px-20 bg-[var(--background-main)] xl:justify-between">
+              <div className="xl:flex 2xl:px-60 xl:px-20 bg-[var(--background-main)] xl:justify-between">
                 <LeftDesktopLayout />
 
-                <div className="overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw xl:w-full xl:bg-none bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
+                <div className="xl:mt-3 overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw xl:w-full xl:bg-none bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
                   <div className="">
                     <Header />
                   </div>

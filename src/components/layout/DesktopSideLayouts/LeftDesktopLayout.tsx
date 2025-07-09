@@ -13,11 +13,13 @@ export function LeftDesktopLayout() {
   const { data: unseenIds = [] } = useUnseenNotificationIds();
 
   return (
-    <div className="hidden xl:flex justify-end xl:w-2/3 py-3">
-      <div className="xl:flex xl:flex-col xl:w-2/3 py-3">
-        <FaXTwitter className="text-white text-4xl" />
+      <div className= "hidden xl:flex items-end xl:flex-col xl:px-15 2xl:px-20 xl:w-2/3 py-3">
+        <div className="flex h-fit flex-col py-2">
 
-        <div className="flex w-full h-fit flex-col py-2">
+          <div className="flex justify-start mb-4">
+            <FaXTwitter className="text-white text-4xl" />
+          </div>
+
           <DrawerNavigationPair name={"Home"} routePath="/">
             <HeroIcon
               iconName="HomeIcon"
@@ -64,7 +66,7 @@ export function LeftDesktopLayout() {
 
           <div
             onClick={() => setModalType("feedback")}
-            className={`hover:cursor-pointer flex h-16 relative text-2xl  text-twitterText items-center gap-4`}
+            className={`hover:cursor-pointer w-fit flex h-16 relative text-2xl  text-twitterText items-center gap-4`}
           >
             <HeroIcon
               iconName="ChatBubbleBottomCenterTextIcon"
@@ -86,7 +88,7 @@ export function LeftDesktopLayout() {
             href="https://github.com/jokerhutt"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-16 relative text-2xl  text-twitterText items-center gap-4 hover:cursor-pointer"
+            className="flex w-fit h-16 relative text-2xl  text-twitterText items-center gap-4 hover:cursor-pointer"
           >
             <HeroIcon
               iconName="CodeBracketSquareIcon"
@@ -122,6 +124,5 @@ export function LeftDesktopLayout() {
           </DrawerNavigationPair>
         </div>
       </div>
-    </div>
   );
 }

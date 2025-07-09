@@ -62,7 +62,7 @@ function DrawerNavigationPair({
       onClick={() => handleNavigation()}
       className={`${
         !disabled ? "hover:cursor-pointer" : "hover:cursor-not-allowed"
-      } flex h-16 relative text-2xl  text-twitterText items-center gap-4`}
+      } flex h-16 w-fit relative text-2xl  text-twitterText items-center gap-4`}
     >
       <div className="text-3xl">{children}</div>
       <div onClick={() => handleNavigation()}>
