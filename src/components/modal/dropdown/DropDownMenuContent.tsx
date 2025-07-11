@@ -26,12 +26,12 @@ export function DropdownMenuContent({
   const { data: post } = usePost(postId);
   const isOwnPost = post?.userId == currentUser?.id;
   const { data: pageUser } = useUser(post?.userId);
-  if (!post || !currentUser) return null;
-  const deletePost = useDeletePost(currentUser.id, post.parentId);
+  if (!post) return null;
+  const deletePost = useDeletePost(currentUser?.id, post.parentId);
   const pinPost = usePinPost(postId);
   const navigate = useNavigate();
 
-  const isPinned = currentUser.pinnedPostId == postId;
+  const isPinned = currentUser?.pinnedPostId == postId;
 
   const handleDeletePost = () => {
     deletePost?.mutate(postId);
@@ -84,7 +84,7 @@ export function DropdownMenuContent({
           <FollowButton pageUser={pageUser} closeModal={closeMenu}>
             <div className="flex items-center gap-2">
               <HeroIcon iconName="UserPlusIcon" className="h-4 w-4" />
-              {pageUser?.followers.includes(currentUser.id) ? (
+              {currentUser && pageUser?.followers.includes(currentUser.id) ? (
                 <p>unfollow @{pageUser.username}</p>
               ) : (
                 <p>follow @{pageUser?.username}</p>

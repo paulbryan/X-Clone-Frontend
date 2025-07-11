@@ -55,6 +55,9 @@ function FollowButton({ pageUser, children, closeModal }: FollowButtonProps) {
         closeModal();
       }
     } else {
+      if (closeModal) {
+        closeModal()
+      }
       setModalType("signup");
     }
   };
