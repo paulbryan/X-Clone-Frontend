@@ -10,6 +10,8 @@ import { ImageGrid } from "../layout/media/ImageGrid.tsx";
 import type { FilesWithId } from "../../types/file.ts";
 import Tweet from "../tweet/Tweet.tsx";
 import { CharsLeftCircle } from "../ui/CharsLeftCircle.tsx";
+import { FaListUl } from "react-icons/fa";
+import { ComposePoll } from "./ComposePoll.tsx";
 
 type ComposeTweetProps = {
   parentId?: number;
@@ -27,6 +29,8 @@ function ComposeTweet({
   const [imagesInput, setImagesInput] = useState<FilesWithId>([]);
   const isModal = setToggle != null;
   const placeHolder = parentId ? "Tweet your reply" : "What's up?!";
+  const [isPoll, setIsPoll] = useState(false)
+
 
   const clearAllInput = () => {
     setTextInput("");
@@ -62,11 +66,18 @@ function ComposeTweet({
               placeholder={placeHolder}
             />
           </div>
-          {imagesInput.length > 0 && (
+          {isPoll ? (
+            <div className="w-full h-auto ">
+              <ComposePoll/>
+            </div>
+          ) : imagesInput.length > 0 && !isPoll && (
             <div className="w-full h-auto ">
               <ImageGrid images={imagesInput} setImages={setImagesInput} />
             </div>
-          )}
+          )
+          }
+
+
           <div className="flex w-full h-10 items-center">
             <div className="flex gap-2 pl-2 items-center text-(--color-main) h-full w-full">
               <ImageUploadButton
@@ -74,6 +85,7 @@ function ComposeTweet({
                 setImagesInput={setImagesInput}
               />
               <MdOutlineGif className="text-4xl" />
+              <FaListUl onClick={() => setIsPoll(!isPoll)} className="text-sm hover:cursor-pointer" />
             </div>
             <div className="w-full h-full justify-end flex gap-2 items-center">
               {textInput.length > 0 && (
