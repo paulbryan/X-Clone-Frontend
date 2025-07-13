@@ -30,6 +30,7 @@ function ComposeTweet({
   const isModal = setToggle != null;
   const placeHolder = parentId ? "Tweet your reply" : "What's up?!";
   const [isPoll, setIsPoll] = useState(false)
+  const [pollChoices, setPollChoices] = useState<string[]>(["", ""])
 
 
   const clearAllInput = () => {
@@ -68,7 +69,7 @@ function ComposeTweet({
           </div>
           {isPoll ? (
             <div className="w-full h-auto ">
-              <ComposePoll/>
+              <ComposePoll setIsPoll={setIsPoll} pollChoices={pollChoices} setPollChoices={setPollChoices}/>
             </div>
           ) : imagesInput.length > 0 && !isPoll && (
             <div className="w-full h-auto ">

@@ -12,5 +12,6 @@ export type Post = {
     replies: number[];
     retweetedBy: number[];
     postMedia: PostMedia[];
+    pollId?: number;
 
 }
