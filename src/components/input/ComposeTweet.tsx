@@ -95,6 +95,8 @@ function ComposeTweet({
               <UploadTweetButton
                 clearAllInput={clearAllInput}
                 filesWithId={imagesInput}
+                isPoll={isPoll}
+                pollChoices={pollChoices}
                 setToggle={setToggle}
                 textInput={textInput}
                 parentId={parentId}

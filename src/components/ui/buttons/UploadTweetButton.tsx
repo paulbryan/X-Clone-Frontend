@@ -12,6 +12,8 @@ type UploadTweetButtonProps = {
   setNewPost?: (post: Post) => void;
   setToggle?: (modalType: ModalType) => void;
   filesWithId: FilesWithId;
+  isPoll: boolean;
+  pollChoices: string[]
 };
 
 function UploadTweetButton({
@@ -20,6 +22,8 @@ function UploadTweetButton({
   parentId,
   filesWithId,
   setToggle,
+  isPoll,
+  pollChoices
 }: UploadTweetButtonProps) {
   const { currentUser } = useCurrentUser();
 
@@ -41,6 +45,12 @@ function UploadTweetButton({
     formData.append("text", textInput);
     if (parentId !== undefined) {
       formData.append("parentId", parentId.toString());
+    }
+
+    if (isPoll) {
+      pollChoices.forEach(choice => {
+        formData.append("pollChoices", choice);
+      });
     }
 
     filesWithId.forEach((file) => {

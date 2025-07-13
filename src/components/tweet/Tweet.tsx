@@ -111,12 +111,15 @@ function FullPostTemplate({
               )}
 
               {/* FOURTH ROW - SHOWS IMAGES */}
-              {hasImages && (
+              {hasImages ? (
                 <TweetImagesRow
                   post={post}
                   isParentPost={isParentPost}
                   isMainPost={isMainPost}
                 />
+              ) : post.pollId && (
+                <div className="w-20">
+                </div>
               )}
 
               {/* FIFTH ROW - SHOWS POST INTERACTIONS IF NOT A REPLY */}

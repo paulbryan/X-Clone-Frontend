@@ -1,27 +1,14 @@
 import { HeroIcon } from "../ui/icons/HeroIcon";
 
-type ComposePollProps = {
+type PollProps = {
 
-  pollChoices: string[],
-  setPollChoices: React.Dispatch<React.SetStateAction<string[]>>;
-  setIsPoll: React.Dispatch<React.SetStateAction<boolean>>;
+    pollId: number;
 
 }
 
-export function ComposePoll ({setIsPoll, pollChoices, setPollChoices}: ComposePollProps) {
+export function Poll ({pollId}: PollProps) {
 
-
-    const handleChoiceChange = (index: number, value: string) => {
-      const updated = [...pollChoices];
-      updated[index] = value;
-      setPollChoices(updated);
-    };
-
-    const addChoice = () => {
-      setPollChoices((prev) => [...prev, ""])
-    }
-    
-    const canAddChoice = (index: number) : boolean => pollChoices.length < 4 && index == pollChoices.length - 1;
+    const {data: pollChoices} = 
 
     return (
         <div className="w-full h-full flex flex-col gap-2 px-4 pt-4 border border-twitterBorder rounded-2xl mb-4">
@@ -36,7 +23,6 @@ export function ComposePoll ({setIsPoll, pollChoices, setPollChoices}: ComposePo
 
               <input
                 value={choice}
-                onChange={(e) => handleChoiceChange(index, e.target.value)}
                 className="w-full border border-twitterBorder focus:outline-none focus:ring-0 rounded-xl px-2 h-12"
               />
             <div className="w-16 flex items-center justify-center">
