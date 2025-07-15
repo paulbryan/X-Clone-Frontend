@@ -19,7 +19,7 @@ export function ComposePoll ({setIsPoll, pollChoices, setPollChoices}: ComposePo
 
     const addChoice = () => {
       setPollChoices((prev) => [...prev, ""])
-    }
+    } 
     
     const canAddChoice = (index: number) : boolean => pollChoices.length < 4 && index == pollChoices.length - 1;
 
@@ -38,7 +38,7 @@ export function ComposePoll ({setIsPoll, pollChoices, setPollChoices}: ComposePo
                 value={choice}
                 maxLength={20}
                 onChange={(e) => handleChoiceChange(index, e.target.value)}
-                className="w-full text-twitterText border border-twitterBorder focus:outline-none focus:border-(--color-main) focus:ring-0 rounded-xl px-2 h-12"
+                className={`w-full text-twitterText border ${choice.length < 20 ? "border-twitterBorder focus:border-(--color-main)" : "border-red-500"} bo focus:outline-none  focus:ring-0 rounded-xl px-2 h-12`}
               />
             <div className="w-16 flex items-center justify-center">
               {canAddChoice(index) && (
