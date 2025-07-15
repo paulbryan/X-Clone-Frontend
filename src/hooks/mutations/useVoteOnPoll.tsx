@@ -21,14 +21,13 @@ export const useVoteOnPoll = (
         body: JSON.stringify({ pollId, choiceId }),
       });
 
-      if (!res.ok) throw new Error("Vote submission failed");
-      return await res.json(); // updated pollChoices
+      if (!res.ok) throw new Error("Vote failed");
+      return await res.json();
     },
 
     onMutate: async ({ choiceId }) => {
       await queryClient.cancelQueries({ queryKey: ["poll_votes", pollId] });
       queryClient.setQueryData(["poll_votes", pollId], choiceId);
-
       return { choiceId };
     },
 
@@ -43,3 +42,6 @@ export const useVoteOnPoll = (
     },
   });
 };
+
+
+

@@ -5,13 +5,16 @@ import type { FilesWithId } from "../../../types/file.ts";
 type Props = {
   imagesInput: FilesWithId;
   setImagesInput: (files: FilesWithId) => void;
+  isPoll: boolean;
 };
 
-export function ImageUploadButton({ imagesInput, setImagesInput }: Props) {
+export function ImageUploadButton({ imagesInput, setImagesInput, isPoll }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
-    inputRef.current?.click();
+    if (!isPoll) {
+      inputRef.current?.click();
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +33,7 @@ export function ImageUploadButton({ imagesInput, setImagesInput }: Props) {
 
   return (
     <>
-      <FaRegImage onClick={handleClick} className="cursor-pointer" />
+      <FaRegImage onClick={handleClick} className={`${isPoll ? "opacity-50 hover:cursor-not-allowed" : "hover:cursor-pointer"}`} />
       <input
         type="file"
         accept="image/*"

@@ -36,6 +36,8 @@ function ComposeTweet({
   const clearAllInput = () => {
     setTextInput("");
     setImagesInput([]);
+    setPollChoices(["", ""])
+    setIsPoll(false)
   };
 
   return (
@@ -82,11 +84,16 @@ function ComposeTweet({
           <div className="flex w-full h-10 items-center">
             <div className="flex gap-2 pl-2 items-center text-(--color-main) h-full w-full">
               <ImageUploadButton
+                isPoll={isPoll}
                 imagesInput={imagesInput}
                 setImagesInput={setImagesInput}
               />
-              <MdOutlineGif className="text-4xl" />
-              <FaListUl onClick={() => setIsPoll(!isPoll)} className="text-sm hover:cursor-pointer" />
+              <MdOutlineGif className="text-4xl hover:cursor-not-allowed" />
+              <FaListUl onClick={() => {
+                if (!(imagesInput.length > 0)) {
+                  setIsPoll(!isPoll)}
+                }
+                } className={`text-sm ${!(imagesInput.length > 0) ? "hover:cursor-pointer" : "opacity-50 hover:cursor-not-allowed"}`} />
             </div>
             <div className="w-full h-full justify-end flex gap-2 items-center">
               {textInput.length > 0 && (
