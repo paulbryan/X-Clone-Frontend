@@ -1,5 +1,6 @@
 import type { Post } from "../../../types/Post";
 import { ImagePreviewGrid } from "../../layout/media/ImagePreviewGrid";
+import { Poll } from "../Poll";
 import { PostLine } from "../tweetInfo/PostLine";
 
 type TweetImagesRowProps = {
@@ -17,7 +18,11 @@ export function TweetImagesRow({
     <>
       {isParentPost && <PostLine showLine={isParentPost} />}
       <div className={`${isMainPost ? "col-span-2" : "col-start-2"}`}>
-        <ImagePreviewGrid media={post.postMedia} />
+        {post.pollId ? (
+          <Poll pollId={post.pollId}/>
+        ) : (
+          <ImagePreviewGrid media={post.postMedia} />
+        )}
       </div>
     </>
   );
