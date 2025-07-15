@@ -17,8 +17,8 @@ export function TweetImagesRow({
   return (
     <>
       {isParentPost && <PostLine showLine={isParentPost} />}
-      <div className={`${isMainPost ? "col-span-2" : "col-start-2"}`}>
-        {post.postMedia.length > 0 ? (
+      <div className={`${isMainPost ? "col-span-2" : "col-start-2"} `}>
+        {post.postMedia && post.postMedia.length > 0 ? (
           <ImagePreviewGrid media={post.postMedia} />
         ) : post.pollId && (
           <Poll pollId={post.pollId}/>

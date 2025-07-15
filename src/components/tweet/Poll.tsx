@@ -15,7 +15,7 @@ export function Poll ({pollId}: PollProps) {
     const {data: pollChoices} = usePollChoices(pollId);
     const {data: hasVoted} = useHasVoted(pollId);
     const hasAlreadyVoted = hasVoted && hasVoted != -1;
-    const voteMutation = useVoteOnPoll(pollId); // Don't pass choiceId yet
+    const voteMutation = useVoteOnPoll(pollId);
 
     const handleVote = (choiceId: number) => {
       if (hasAlreadyVoted) return;
@@ -33,10 +33,14 @@ export function Poll ({pollId}: PollProps) {
 
     return (
         <div
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {
+            if (!hasAlreadyVoted) {
+                e.stopPropagation()
+            }
+        }}
         >
 
-<div className="flex flex-col w-full gap-2 mb-4">
+<div className="flex flex-col h-full w-full justify-center gap-2 my-2">
   {pollChoices &&
     (() => {
       const totalVotes = pollChoices.reduce((sum, c) => sum + c.voteCount, 0);
@@ -69,7 +73,7 @@ export function Poll ({pollId}: PollProps) {
           <div
             key={choice.id}
             onClick={() => handleVote(choice.id)}
-            className="w-full border-2 border-twitterBorder text-sm rounded-4xl h-12 px-4 flex items-center hover:bg-twitterBlue/10 cursor-pointer"
+            className="w-full border-2 border-(--color-main) text-sm rounded-4xl h-12 px-4 flex items-center hover:bg-twitterBlue/10 cursor-pointer"
           >
             <p>{choice.choice}</p>
           </div>

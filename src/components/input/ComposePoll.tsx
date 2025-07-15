@@ -37,12 +37,12 @@ export function ComposePoll ({setIsPoll, pollChoices, setPollChoices}: ComposePo
               <input
                 value={choice}
                 onChange={(e) => handleChoiceChange(index, e.target.value)}
-                className="w-full border border-twitterBorder focus:outline-none focus:ring-0 rounded-xl px-2 h-12"
+                className="w-full text-twitterText border border-twitterBorder focus:outline-none focus:border-(--color-main) focus:ring-0 rounded-xl px-2 h-12"
               />
             <div className="w-16 flex items-center justify-center">
               {canAddChoice(index) && (
                 <div onClick={() => addChoice()}>
-                    <HeroIcon  iconName="PlusIcon" className="w-8 h-8 color-(--color-main)"/>
+                    <HeroIcon  iconName="PlusIcon" className="w-8 h-8 text-(--color-main)"/>
                 </div>
               )}
             </div>
