@@ -85,10 +85,10 @@ function FullPostTemplate({
 
             <div
               className={`grid ${
-                !isMainPost && "hover:bg-twitterTextAlt/20"
+                !isMainPost && "hover:bg-twitterTextAlt/10 hover:cursor-pointer"
               } px-4 ${
                 !hasParent ? "pt-3" : ""
-              } grid-cols-[auto_1fr] hover:cursor-pointer border-twitterBorder gap-x-3 w-full`}
+              } grid-cols-[auto_1fr] border-twitterBorder gap-x-3 w-full`}
             >
               {/* SEPERATE ROW FOR YOU REPOSTED - ONLY ON "TWEETS" FEED POSTS     */}
               {isTweetsFeedPost && !isPinned && (
@@ -111,7 +111,7 @@ function FullPostTemplate({
               )}
 
               {/* FOURTH ROW - SHOWS IMAGES */}
-              {hasImages || post.pollId && (
+              {(hasImages || post.pollId) && (
                 <TweetImagesRow
                   post={post}
                   isParentPost={isParentPost}
