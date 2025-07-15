@@ -20,7 +20,9 @@ export function Poll ({pollId}: PollProps) {
     }, [pollChoices])
 
     return (
-        <div className={`w-full h-full flex flex-col gap-2 px-4 pt-4 border border-twitterBorder rounded-2xl`}>
+        <div
+        onClick={(e) => e.stopPropagation()}
+        className={`w-full z-40 bg-(--background-main) hover:cursor-default hover:bg-(--background-main) h-full flex flex-col gap-2 px-4 pt-4 border border-twitterBorder rounded-2xl`}>
 
         <div className="flex flex-col w-full gap-4 mb-4">
           { pollChoices && pollChoices.map((choice, index) => (
@@ -32,14 +34,6 @@ export function Poll ({pollId}: PollProps) {
 
           ))}
         </div>
-
-        <hr className="text-twitterBorder"/>
-
-        <div
-        className={`hover:cursor-pointer text-red-500 flex items-center gap-2 justify-center h-10 rounded-full`}
-      >
-        <p className="">Remove Poll</p>
-      </div>
 
         <div>
 
