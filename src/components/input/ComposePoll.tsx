@@ -43,7 +43,7 @@ export function ComposePoll ({setIsPoll, pollChoices, setPollChoices}: ComposePo
             <div className="w-16 flex items-center justify-center">
               {canAddChoice(index) && (
                 <div onClick={() => addChoice()}>
-                    <HeroIcon  iconName="PlusIcon" className="w-8 h-8 text-(--color-main)"/>
+                    <HeroIcon  iconName="PlusIcon" className="w-8 hover:cursor-pointer h-8 text-(--color-main)"/>
                 </div>
               )}
             </div>
