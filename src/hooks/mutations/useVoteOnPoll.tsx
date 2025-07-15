@@ -4,46 +4,42 @@ import type { PollChoice } from "../../types/PollChoice.ts";
 
 export const useVoteOnPoll = (
   pollId: number,
-  choiceId: number,
   { onUpdate }: { onUpdate?: (updatedPollChoices: PollChoice[]) => void } = {}
 ) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({  }: { hasVoted: boolean }) => {
-      const url = "/api/polls/submit-vote";
-
+    mutationFn: async ({ choiceId }: { choiceId: number }) => {
       const token = localStorage.getItem("jwt");
 
-      const res = await fetch(`${API_URL}${url}`, {
+      const res = await fetch(`${API_URL}/api/polls/submit-vote`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
-        body: JSON.stringify({ pollId: pollId }),
+        body: JSON.stringify({ pollId, choiceId }),
       });
 
-      if (!res.ok) throw new Error("Like toggle failed");
-      return await res.json();
+      if (!res.ok) throw new Error("Vote submission failed");
+      return await res.json(); // updated pollChoices
     },
 
-    onMutate: async ({ hasVoted }) => {
+    onMutate: async ({ choiceId }) => {
       await queryClient.cancelQueries({ queryKey: ["poll_votes", pollId] });
       queryClient.setQueryData(["poll_votes", pollId], choiceId);
 
-      return { hasVoted };
+      return { choiceId };
     },
 
-    onError: (_err, _vars) => {
-        queryClient.setQueryData(["poll_votes", pollId], 0);
+    onError: () => {
+      queryClient.setQueryData(["poll_votes", pollId], null);
     },
 
     onSuccess: (updatedPollChoices) => {
       onUpdate?.(updatedPollChoices);
       queryClient.invalidateQueries({ queryKey: ["poll_choices", pollId] });
       queryClient.invalidateQueries({ queryKey: ["poll_votes", pollId] });
-    }
-
-    });
+    },
+  });
 };
