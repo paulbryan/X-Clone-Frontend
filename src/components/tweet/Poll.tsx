@@ -11,6 +11,8 @@ type PollProps = {
 export function Poll ({pollId}: PollProps) {
 
     const {data: pollChoices} = usePollChoices(pollId);
+    
+
 
     useEffect(() => {
         console.log("Poll id is: " + [pollId])

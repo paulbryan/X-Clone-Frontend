@@ -8,8 +8,8 @@ export const usePollChoices = (pollId: number) =>
       queryFn: async () => {
         const response = await fetch(`${API_URL}/api/polls/${pollId}/choices`);
         if (!response.ok) throw new Error("Failed to fetch unseen notifications");
-        return response.json(); // should be an array of PollChoice
+        return response.json();
       },
       enabled: typeof pollId === "number" && pollId > 0,
-      staleTime: 1000 * 60 * 5, // 5 min cache
+      staleTime: 1000 * 60 * 5,
     });
