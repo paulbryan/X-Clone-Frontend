@@ -36,6 +36,7 @@ export function ComposePoll ({setIsPoll, pollChoices, setPollChoices}: ComposePo
 
               <input
                 value={choice}
+                maxLength={20}
                 onChange={(e) => handleChoiceChange(index, e.target.value)}
                 className="w-full text-twitterText border border-twitterBorder focus:outline-none focus:border-(--color-main) focus:ring-0 rounded-xl px-2 h-12"
               />
