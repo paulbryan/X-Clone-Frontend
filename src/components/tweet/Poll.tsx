@@ -61,7 +61,7 @@ export function Poll ({pollId}: PollProps) {
               style={{ width: `${percent}%` }}
             />
 
-            <div className="flex text-sm text-twitterText w-full justify-between items-center relative z-10">
+            <div className="flex text-sm text-twitterText w-full justify-between items-center relative">
               <div className="flex gap-2 items-center">
                 <p>{choice.choice}</p>
                 {hasVoted === choice.id && (
