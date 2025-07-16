@@ -3,7 +3,7 @@ import DrawerNavigationPair from "../../modal/drawer/DrawerNavigationPair";
 import { HeroIcon } from "../../ui/icons/HeroIcon.tsx";
 import { useModal } from "../../../context/GlobalState/ModalProvider";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useUnseenNotificationIds } from "../../../hooks/mutations/useSeenNotifications";
 
 export function LeftDesktopLayout() {
@@ -11,13 +11,14 @@ export function LeftDesktopLayout() {
   const { currentUser } = useCurrentUser();
   const location = useLocation();
   const { data: unseenIds = [] } = useUnseenNotificationIds();
+  const navigate = useNavigate()
 
   return (
       <div className= "hidden xl:flex items-end xl:flex-col xl:px-15 2xl:px-20 xl:w-2/3 py-3">
         <div className="flex h-fit flex-col py-2">
 
           <div className="flex justify-start mb-4">
-            <FaXTwitter className="text-white text-4xl" />
+            <FaXTwitter className="text-white text-4xl hover:cursor-pointer" onClick={(() => navigate("/"))} />
           </div>
 
           <DrawerNavigationPair name={"Home"} routePath="/">
