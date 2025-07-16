@@ -44,7 +44,7 @@ function ComposeTweet({
     <div
       className={`flex flex-col pt-4 pb-4 bg-(--background-main) w-full ${
         isModal
-          ? "rounded-2xl border border-(--color-main)"
+          ? "rounded-2xl overflow-y-auto scrollbar-none max-h-[calc(100dvh-8rem)] border border-(--color-main)"
           : "border-b border-gray-700"
       }`}
     >

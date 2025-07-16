@@ -20,15 +20,15 @@ function Modal({ children, setToggle, center }: ModalProps) {
   return createPortal(
     <motion.div
       key="backdrop"
-      className={`w-dvw z-10 h-dvh top-0 px-4 fixed backdrop-blur-sm flex justify-center ${
-        center ? "items-center" : "items-start pt-16"
+      className={`w-dvw z-10 h-dvh max-h-dvh top-0 px-4 fixed backdrop-blur-sm flex justify-center ${
+        center ? "items-center" : "items-start pt-16 "
       } bg-black/40`}
       {...backdropMotionProps}
       onClick={() => setToggle(null)}
     >
       <motion.div
         key="modal"
-        className="w-full md:w-1/3 h-fit"
+        className="w-full max-h-dvh md:w-1/3"
         {...modalMotionProps}
         onClick={(e) => e.stopPropagation()}
       >
