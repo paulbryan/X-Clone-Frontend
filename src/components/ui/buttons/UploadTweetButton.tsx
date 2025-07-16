@@ -27,14 +27,14 @@ function UploadTweetButton({
 }: UploadTweetButtonProps) {
   const { currentUser } = useCurrentUser();
 
-  const enableButton = textInput.length > 0 && textInput.length < 181;
+  const enableButton = ((textInput.length > 0) || ((filesWithId.length > 0) && !parentId) ) && (currentUser) && textInput.length < 181;
 
   const createPost = currentUser
     ? useCreatePost(currentUser.id, parentId)
     : undefined;
 
   const handleToastClick = () => {
-    if (!currentUser || textInput.length <= 1 || textInput.length >= 180) {
+    if (!enableButton) {
       toast.error("Invalid input.");
       return;
     }

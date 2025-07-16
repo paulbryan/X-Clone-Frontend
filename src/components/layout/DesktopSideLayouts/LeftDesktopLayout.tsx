@@ -120,6 +120,7 @@ export function LeftDesktopLayout() {
             </DrawerNavigationPair>
           </div>
 
+
           <DrawerNavigationPair name={"Log Out"}>
             <HeroIcon iconName="PowerIcon" className="h-7 w-7" solid={false} />
           </DrawerNavigationPair>
