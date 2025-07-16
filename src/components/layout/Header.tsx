@@ -75,9 +75,9 @@ function Header() {
 
       {!currentUser && (
         <>
-          <div className="flex p-3 gap-4 xl:hidden h-14 font-bold justify-center items-center w-full">
+          <div className="flex p-3 gap-4 xl:hidden h-14 font-bold bg-(--background-main) justify-center items-center w-full">
             <div
-              className="p-1 rounded-2xl border-twitterTextAlt flex items-center justify-center w-full border"
+              className="p-1 rounded-2xl border-twitterTextAlt text-(--color-main) flex items-center justify-center w-full border"
               onClick={() => setModalType("signup")}
             >
               <p>Register</p>
