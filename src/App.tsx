@@ -18,8 +18,25 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GOOGLE_CLIENT_ID } from "./constants/env.ts";
 import { LeftDesktopLayout } from "./components/layout/DesktopSideLayouts/LeftDesktopLayout.tsx";
 import { RightDesktopLayout } from "./components/layout/DesktopSideLayouts/RightDesktopLayout.tsx";
+import { useEffect } from "react";
+import type { ThemeType } from "./types/ThemeType.ts";
+import type { BackgroundType } from "./types/BackgroundType.ts";
 
 function App() {
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("twitterTheme") as ThemeType | null;
+    const savedBackground = localStorage.getItem("twitterBackground") as BackgroundType | null;
+  
+    if (savedTheme) {
+      document.documentElement.style.setProperty("--color-main", savedTheme);
+    }
+  
+    if (savedBackground) {
+      document.documentElement.style.setProperty("--background-main", savedBackground);
+    }
+  }, []);
+
   const toastOptions: DefaultToastOptions = {
     style: {
       color: "white",
@@ -37,7 +54,7 @@ function App() {
             <HeaderContentProvider>
               <ModalManager />
 
-              <div className="xl:flex 2xl:px-60 xl:px-20 bg-[var(--background-main)] xl:justify-between">
+              <div className="xl:flex 2xl:px-60 xl:px-20 bg-(--background-main) xl:justify-between">
                 <LeftDesktopLayout />
 
                 <div className="xl:mt-3 overscroll-y-contain no-scrollbar w-dvw h-dvh max-h-dvh max-w-dvw xl:w-full xl:bg-none bg-[var(--background-main)] text-[var(--color-main)] transition-colors duration-300 flex flex-col">
@@ -45,7 +62,7 @@ function App() {
                     <Header />
                   </div>
 
-                  <div className="flex-grow overflow-y-hidden flex flex-col">
+                  <div className="flex-grow overflow-y-hidden flex flex-col bg-(--background-main)">
                     <Routes>
                       <Route path="" element={<HomePage />} />
 

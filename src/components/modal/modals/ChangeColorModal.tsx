@@ -26,15 +26,17 @@ function ChangeColorModal({ setToggle }: ChangeColorModalProps) {
       .getPropertyValue("--background-main")
       .trim() as BackgroundType
   );
+  
 
   function setBackground(bgType: BackgroundType) {
     document.documentElement.style.setProperty("--background-main", bgType);
+    localStorage.setItem("twitterBackground", bgType);
     setCurrentBackground(bgType);
   }
 
   function setTheme(thType: ThemeType) {
     document.documentElement.style.setProperty("--color-main", thType);
-
+    localStorage.setItem("twitterTheme", thType);
     setCurrentTheme(thType);
   }
 
