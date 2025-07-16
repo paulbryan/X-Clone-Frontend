@@ -3,8 +3,9 @@ import { UserSearchResult } from "../layout/pages/UserSearchResult.tsx";
 import { fadeInFeedMotionProps } from "../../animations/motionAnimations.ts";
 import { LoadMoreForFeed } from "./LoadMoreForFeed.tsx";
 import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import LoadingIcon from "../ui/icons/LoadingIcon.tsx";
+import debounce from 'lodash.debounce';
 
 type UserSearchFeedProps = {
   idsToLoad: number[];
@@ -26,13 +27,20 @@ export function UserSearchFeed({
 }: UserSearchFeedProps) {
   const { ref, inView } = useInView();
 
-  useEffect(() => {
-    if (fetchNextPage) {
-      if (inView && hasNextPage) {
+  const debouncedFetchNextPage = useCallback(
+    debounce(() => {
+      if (fetchNextPage && hasNextPage && !isFetchingNextPage) {
         fetchNextPage();
       }
+    }, 300),
+    [fetchNextPage, hasNextPage, isFetchingNextPage]
+  );
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      debouncedFetchNextPage();
     }
-  }, [inView, hasNextPage, fetchNextPage]);
+  }, [inView, hasNextPage, isFetchingNextPage, debouncedFetchNextPage]);
 
   return (
     <div>
