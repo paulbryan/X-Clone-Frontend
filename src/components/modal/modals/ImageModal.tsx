@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ModalType } from "../../../types/ModalType.ts";
 import { MediaImage } from "../../layout/media/MediaImage.tsx";
 import { HeroIcon } from "../../ui/icons/HeroIcon.tsx";
@@ -16,6 +16,19 @@ type ImageModalProps = {
     const [currentIndex, setCurrentIndex] = useState(
       mediaList.findIndex((media) => media.id === mediaId)
     );
+
+    useEffect(() => {
+      function handleKeyDown(e: KeyboardEvent) {
+        if (e.key === "ArrowLeft" && currentIndex > 0) {
+          setCurrentIndex((prev) => prev - 1);
+        } else if (e.key === "ArrowRight" && currentIndex < mediaList.length - 1) {
+          setCurrentIndex((prev) => prev + 1);
+        }
+      }
+    
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [currentIndex, mediaList.length]);
 
     return (
       <div className="rounded-xl relative flex justify-center items-center w-full h-full">
