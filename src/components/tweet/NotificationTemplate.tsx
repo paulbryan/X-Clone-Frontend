@@ -48,7 +48,7 @@ function NotificationTemplate({
   }
 
   return (
-    <>
+    <div>
       {notification && (
         <div
           className={`h-fit w-full flex border-b hover:bg-twitterTextAlt/20 border-twitterBorder ${
@@ -65,7 +65,7 @@ function NotificationTemplate({
               <div className="flex w-12 pb-1">
                 {sender && (
                   <UserHoverWrapper userId={sender.id}>
-                    <div className={"w-10 h-10"}>
+                    <div className={"w-12 h-12"}>
                       <ProfilePic userId={sender?.id} />
                     </div>
                   </UserHoverWrapper>
@@ -100,7 +100,7 @@ function NotificationTemplate({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
