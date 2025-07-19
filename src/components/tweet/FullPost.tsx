@@ -28,7 +28,7 @@ function FullPost() {
 
   //make this a page?
   return (
-    <div className="flex flex-col h-full w-full grow scrollbar-blue overflow-y-scroll text-white xl:border-x border-twitterBorder">
+    <div className="flex flex-col h-full w-full grow scrollbar-blue overflow-y-auto text-white xl:border-x border-twitterBorder">
       {post && (
         <>
           <Tweet key={postId} postType={"MainPost"} postId={numericPostId} />
