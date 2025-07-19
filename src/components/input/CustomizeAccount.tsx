@@ -50,8 +50,8 @@ function CustomizeAccount({ setToggle, currentUser }: CustomizeAccountProps) {
   }
 
   return (
-    <div 
-    className="w-full overflow-y-auto scrollbar-none max-h-[calc(100dvh-8rem)] flex flex-col border text-twitterText rounded-4xl p-8 items-center gap-10 bg-(--background-main)">
+    <div className="w-full max-h-[calc(100dvh-8rem)] overflow-hidden rounded-4xl border border-(--color-main)">
+  <div className="w-full max-h-[calc(100dvh-8rem)] overflow-y-auto scrollbar-blue p-8 flex flex-col items-center gap-10 bg-(--background-main) text-twitterText">
       <p className="text-xl font-bold text-center">Edit Profile</p>
 
       <div className="w-full relative h-fit mb-4">
@@ -140,6 +140,7 @@ function CustomizeAccount({ setToggle, currentUser }: CustomizeAccountProps) {
       >
         <p className="">Save</p>
       </div>
+    </div>
     </div>
   );
 }
