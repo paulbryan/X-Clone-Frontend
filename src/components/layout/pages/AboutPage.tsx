@@ -9,7 +9,7 @@ function AboutPage() {
   }, []);
 
   return (
-    <div className="flex xl:border-x border-twitterBorder w-full h-full gap-4 flex-col px-4 py-2 mb-4 scrollbar-blue overflow-y-scroll">
+    <div className="flex xl:border-x border-twitterBorder w-full h-full gap-4 flex-col px-4 py-2 mb-4 scrollbar-blue overflow-y-auto">
       <div className="w-full gap-1 flex flex-col">
         <p className="font-bold text-white text-xl">Why X?</p>
         <p className="text-twitterText">

@@ -44,7 +44,7 @@ function HomePage() {
           />
         </div>
       )}
-      <div className="h-full flex flex-col grow w-full scrollbar-blue overflow-y-scroll">
+      <div className="h-full flex flex-col grow w-full scrollbar-blue overflow-y-auto">
         {currentUser && (
           <div className="hidden xl:flex xl:w-full">
             <ComposeTweet />

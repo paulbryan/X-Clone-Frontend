@@ -26,7 +26,6 @@ function ChangeColorModal({ setToggle }: ChangeColorModalProps) {
       .getPropertyValue("--background-main")
       .trim() as BackgroundType
   );
-  
 
   function setBackground(bgType: BackgroundType) {
     document.documentElement.style.setProperty("--background-main", bgType);
