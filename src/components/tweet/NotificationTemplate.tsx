@@ -51,7 +51,7 @@ function NotificationTemplate({
     <div>
       {notification && (
         <div
-          className={`h-fit w-full flex border-b hover:bg-twitterTextAlt/20 border-twitterBorder ${
+          className={`h-fit w-full flex border-b hover:bg-twitterTextAlt/20 hover:cursor-pointer border-twitterBorder ${
             isTempUnseen ? "bg-twitterTextAlt/20" : " "
           }`}
           onClick={() => navigateFromNotification()}
