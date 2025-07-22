@@ -23,17 +23,21 @@ import type { ThemeType } from "./types/ThemeType.ts";
 import type { BackgroundType } from "./types/BackgroundType.ts";
 
 function App() {
-
   useEffect(() => {
     const savedTheme = localStorage.getItem("twitterTheme") as ThemeType | null;
-    const savedBackground = localStorage.getItem("twitterBackground") as BackgroundType | null;
-  
+    const savedBackground = localStorage.getItem(
+      "twitterBackground"
+    ) as BackgroundType | null;
+
     if (savedTheme) {
       document.documentElement.style.setProperty("--color-main", savedTheme);
     }
-  
+
     if (savedBackground) {
-      document.documentElement.style.setProperty("--background-main", savedBackground);
+      document.documentElement.style.setProperty(
+        "--background-main",
+        savedBackground
+      );
     }
   }, []);
 
@@ -74,10 +78,7 @@ function App() {
 
                       <Route path="explore" element={<ExplorePage />} />
 
-                      <Route
-                        path="notifications"
-                        element={<NotificationPage />}
-                      />
+                      <Route path="notifications" element={<NotificationPage />} />
 
                       <Route path="about" element={<AboutPage />} />
                     </Routes>
