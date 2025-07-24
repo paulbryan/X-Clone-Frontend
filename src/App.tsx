@@ -9,7 +9,7 @@ import ModalManager from "./components/modal/ModalManager";
 import { CurrentUserProvider } from "./context/Auth/CurrentUserProvider.tsx";
 import BookmarkPage from "./components/pages/BookmarkPage.tsx";
 import NotificationPage from "./components/pages/NotificationPage.tsx";
-import FullPost from "./components/tweet/FullPost.tsx";
+import FullTweet from "./components/tweet/FullTweet.tsx";
 import { HeaderContentProvider } from "./context/GlobalState/HeaderContentProvider";
 import { Toaster, type DefaultToastOptions } from "react-hot-toast";
 import AboutPage from "./components/pages/AboutPage.tsx";
@@ -72,7 +72,7 @@ function App() {
 
                       <Route path="profile/:ID" element={<ProfilePage />} />
 
-                      <Route path="tweet/:postId" element={<FullPost />} />
+                      <Route path="tweet/:postId" element={<FullTweet />} />
 
                       <Route path="bookmarks" element={<BookmarkPage />} />
 

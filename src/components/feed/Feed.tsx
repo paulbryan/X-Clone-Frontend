@@ -5,7 +5,7 @@ import { fadeInFeedMotionProps } from "../../animations/motionAnimations.ts";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import type { FeedType } from "../../types/FeedType.ts";
-import { NoContentYet } from "./NoContentYet.tsx";
+import { NoContentMessage } from "./NoContentMessage.tsx";
 import type { PostType } from "../../types/PostType.ts";
 import Tweet from "../tweet/Tweet.tsx";
 
@@ -86,7 +86,7 @@ function Feed({
               </AnimatePresence>
             ) : (
               tabType != null && (
-                <NoContentYet userId={userId} tabType={tabType} />
+                <NoContentMessage userId={userId} tabType={tabType} />
               )
             )}
           </div>

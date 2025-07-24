@@ -1,7 +1,7 @@
 import LoadingIcon from "../common/icons/LoadingIcon.tsx";
-import NotificationTemplate from "../tweet/NotificationTemplate.tsx";
+import Notification from "../tweet/Notification.tsx";
 import { AnimatePresence, motion } from "framer-motion";
-import { NoContentYet } from "./NoContentYet.tsx";
+import { NoContentMessage } from "./NoContentMessage.tsx";
 
 type NotificationFeedProps = {
   tempUnreads?: number[];
@@ -20,7 +20,7 @@ function NotificationFeed({
   return (
     <div className="w-full">
       {!isLoading && notificationIds.length < 1 ? (
-        <NoContentYet tabType="Notifications" />
+        <NoContentMessage tabType="Notifications" />
       ) : !isLoading ? (
         <AnimatePresence>
           <div className="flex flex-col w-full">
@@ -32,7 +32,7 @@ function NotificationFeed({
                 exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
                 layout
               >
-                <NotificationTemplate
+                <Notification
                   isTempUnseen={tempUnreads?.includes(id)}
                   notificationId={id}
                 />

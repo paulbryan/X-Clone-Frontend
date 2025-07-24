@@ -7,7 +7,7 @@ type Props = {
   children: ReactNode;
 };
 
-export function UserHoverWrapper({ userId, children }: Props) {
+export function UserHoverCardTrigger({ userId, children }: Props) {
   return (
     <HoverCard.Root openDelay={500} closeDelay={300}>
       <HoverCard.Trigger asChild>{children}</HoverCard.Trigger>

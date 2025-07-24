@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { Post } from "../../../types/Post";
-import PostInteractionComponent from "../PostInteractionComponent";
+import TweetInteractions from "../TweetInteractions.tsx";
 import { PostLine } from "../tweetInfo/PostLine";
 
 type PostInteractionRowProps = {
@@ -26,7 +26,7 @@ export function PostInteractionRow({
           isMainPost ? "col-span-2" : "col-start-2"
         }  text-lg border-twitterBorder`}
       >
-        <PostInteractionComponent showPadding={isMainPost} postId={post.id} />
+        <TweetInteractions showPadding={isMainPost} postId={post.id} />
       </div>
     </>
   );

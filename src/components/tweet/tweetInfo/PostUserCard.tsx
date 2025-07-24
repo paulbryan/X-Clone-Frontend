@@ -2,7 +2,7 @@ import { usePost } from "../../../hooks/queries/usePost.tsx";
 import { useUser } from "../../../hooks/queries/useUser.tsx";
 import CreatedAtDisplay from "../../common/CreatedAtDisplay.tsx";
 import { DropdownMenuEllipsis } from "../../modal/dropdown/DropdownMenuEllipsis.tsx";
-import { UserHoverWrapper } from "../../modal/hover_card/UserHoverWrapper.tsx";
+import { UserHoverCardTrigger } from "../../modal/hover_card/UserHoverCardTrigger.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
 
@@ -36,7 +36,7 @@ export function PostUserCard({
         {postUser && (
           <div className="flex w-full justify-between">
             <div className="flex gap-1 w-full min-w-0 h-fit overflow-hidden">
-              <UserHoverWrapper userId={postUser.id}>
+              <UserHoverCardTrigger userId={postUser.id}>
                 <div className="flex gap-1 min-w-0 h-fit items-center">
                   <div className="font-bold truncate min-w-0">
                     <DisplayNameComponent
@@ -53,12 +53,12 @@ export function PostUserCard({
                     />
                   )}
                 </div>
-              </UserHoverWrapper>
-              <UserHoverWrapper userId={postUser.id}>
+              </UserHoverCardTrigger>
+              <UserHoverCardTrigger userId={postUser.id}>
                 <div className="text-twitterTextAlt text-md truncate min-w-0">
                   <UsernameComponent truncate={!mainPost} user={postUser} />
                 </div>
-              </UserHoverWrapper>
+              </UserHoverCardTrigger>
 
               {!mainPost && post && (
                 <div className="flex-shrink-0 pt-0.5 text-twitterTextAlt text-sm whitespace-nowrap flex gap-1">

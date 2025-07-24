@@ -4,13 +4,13 @@ import DisplayNameComponent from "../user/DisplayNameComponent.tsx";
 import NotificationTypeIcon from "../common/icons/NotificationTypeIcon.tsx";
 import { useUser } from "../../hooks/queries/useUser.tsx";
 import { useNotification } from "../../hooks/queries/useNotification.tsx";
-import { UserHoverWrapper } from "../modal/hover_card/UserHoverWrapper.tsx";
+import { UserHoverCardTrigger } from "../modal/hover_card/UserHoverCardTrigger.tsx";
 type NotificationTemplateProps = {
   notificationId: number;
   isTempUnseen?: boolean;
 };
 
-function NotificationTemplate({
+function Notification({
   notificationId,
   isTempUnseen,
 }: NotificationTemplateProps) {
@@ -64,11 +64,11 @@ function NotificationTemplate({
             <div className="w-full h-fit">
               <div className="flex w-12 pb-1">
                 {sender && (
-                  <UserHoverWrapper userId={sender.id}>
+                  <UserHoverCardTrigger userId={sender.id}>
                     <div className={"w-12 h-12"}>
                       <ProfilePic userId={sender?.id} />
                     </div>
-                  </UserHoverWrapper>
+                  </UserHoverCardTrigger>
                 )}
               </div>
             </div>
@@ -77,11 +77,11 @@ function NotificationTemplate({
               <div className="w-full h-fit flex-col">
                 <div className="w-full h-5 flex gap-1 align-middle text-white mb-0.5">
                   {sender && (
-                    <UserHoverWrapper userId={sender.id}>
+                    <UserHoverCardTrigger userId={sender.id}>
                       <div className="font-bold">
                         <DisplayNameComponent user={sender} />
                       </div>
-                    </UserHoverWrapper>
+                    </UserHoverCardTrigger>
                   )}
                   <p onClick={() => navigateFromNotification()}>
                     {" "}
@@ -104,4 +104,4 @@ function NotificationTemplate({
   );
 }
 
-export default NotificationTemplate;
+export default Notification;

@@ -7,7 +7,7 @@ import { useContext, useEffect } from "react";
 import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
 import Tweet from "./Tweet.tsx";
 
-function FullPost() {
+function FullTweet() {
   const { postId } = useParams();
   const numericPostId = Number(postId);
   const { currentUser } = useCurrentUser();
@@ -48,4 +48,4 @@ function FullPost() {
   );
 }
 
-export default FullPost;
+export default FullTweet;

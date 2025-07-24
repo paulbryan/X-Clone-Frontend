@@ -8,7 +8,7 @@ type NoContentYetProps = {
 
 export type NoContentYetMessageType = {};
 
-export function NoContentYet({ tabType, userId }: NoContentYetProps) {
+export function NoContentMessage({ tabType, userId }: NoContentYetProps) {
   const { data: user } = useUser(userId ?? -1);
 
   const shouldShowUsername = () => {

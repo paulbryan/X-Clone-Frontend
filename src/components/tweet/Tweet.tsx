@@ -12,7 +12,7 @@ import { TweetImagesRow } from "./TweetLayout/TweetImagesRow.tsx";
 import { PostInteractionRow } from "./TweetLayout/PostInteractionRow.tsx";
 import { Pinned } from "./tweetInfo/Pinned.tsx";
 
-type FullPostTemplateProps = {
+type TweetProps = {
   postId: number;
   isModal?: boolean;
   isParentPost?: boolean;
@@ -21,14 +21,14 @@ type FullPostTemplateProps = {
   repostUserId?: number;
 };
 
-function FullPostTemplate({
+function Tweet({
   postId,
   isModal,
   isParentPost,
   postType,
   isPinned,
   repostUserId,
-}: FullPostTemplateProps) {
+}: TweetProps) {
   const { data: post } = usePost(postId);
 
   const { data: postUser } = useUser(post?.userId ?? -1);
@@ -80,7 +80,7 @@ function FullPostTemplate({
           >
             {/* SEPERATE ROW FOR POST PARENT - ONLY FOR POSTS THAT ARE REPLIES */}
             {hasParent && post.parentId && (
-              <FullPostTemplate postId={post.parentId} isParentPost={true} />
+              <Tweet postId={post.parentId} isParentPost={true} />
             )}
 
             <div
@@ -137,4 +137,4 @@ function FullPostTemplate({
   );
 }
 
-export default React.memo(FullPostTemplate);
+export default React.memo(Tweet);

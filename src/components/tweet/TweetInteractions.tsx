@@ -17,7 +17,7 @@ type PostInteractionComponentProps = {
   showPadding?: boolean;
 };
 
-function PostInteractionComponent({
+function TweetInteractions({
   postId,
   showPadding,
 }: PostInteractionComponentProps) {
@@ -99,4 +99,4 @@ function PostInteractionComponent({
   );
 }
 
-export default PostInteractionComponent;
+export default TweetInteractions;
