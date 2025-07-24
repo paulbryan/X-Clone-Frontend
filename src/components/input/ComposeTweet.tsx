@@ -29,15 +29,14 @@ function ComposeTweet({
   const [imagesInput, setImagesInput] = useState<FilesWithId>([]);
   const isModal = setToggle != null;
   const placeHolder = parentId ? "Tweet your reply" : "What's up?!";
-  const [isPoll, setIsPoll] = useState(false)
-  const [pollChoices, setPollChoices] = useState<string[]>(["", ""])
-
+  const [isPoll, setIsPoll] = useState(false);
+  const [pollChoices, setPollChoices] = useState<string[]>(["", ""]);
 
   const clearAllInput = () => {
     setTextInput("");
     setImagesInput([]);
-    setPollChoices(["", ""])
-    setIsPoll(false)
+    setPollChoices(["", ""]);
+    setIsPoll(false);
   };
 
   return (
@@ -69,17 +68,26 @@ function ComposeTweet({
               placeholder={placeHolder}
             />
           </div>
+
           {isPoll ? (
             <div className="w-full h-auto ">
-              <ComposePoll setIsPoll={setIsPoll} pollChoices={pollChoices} setPollChoices={setPollChoices}/>
+              <ComposePoll
+                setIsPoll={setIsPoll}
+                pollChoices={pollChoices}
+                setPollChoices={setPollChoices}
+              />
             </div>
-          ) : imagesInput.length > 0 && !isPoll && (
-            <div className="w-full h-auto ">
-              <UploadImageGrid images={imagesInput} setImages={setImagesInput} />
-            </div>
-          )
-          }
-
+          ) : (
+            imagesInput.length > 0 &&
+            !isPoll && (
+              <div className="w-full h-auto ">
+                <UploadImageGrid
+                  images={imagesInput}
+                  setImages={setImagesInput}
+                />
+              </div>
+            )
+          )}
 
           <div className="flex w-full h-10 items-center">
             <div className="flex gap-2 pl-2 items-center text-(--color-main) h-full w-full">
@@ -89,11 +97,18 @@ function ComposeTweet({
                 setImagesInput={setImagesInput}
               />
               <MdOutlineGif className="text-4xl hover:cursor-not-allowed" />
-              <FaListUl onClick={() => {
-                if (!(imagesInput.length > 0)) {
-                  setIsPoll(!isPoll)}
-                }
-                } className={`text-sm ${!(imagesInput.length > 0) ? "hover:cursor-pointer" : "opacity-50 hover:cursor-not-allowed"}`} />
+              <FaListUl
+                onClick={() => {
+                  if (!(imagesInput.length > 0)) {
+                    setIsPoll(!isPoll);
+                  }
+                }}
+                className={`text-sm ${
+                  !(imagesInput.length > 0)
+                    ? "hover:cursor-pointer"
+                    : "opacity-50 hover:cursor-not-allowed"
+                }`}
+              />
             </div>
             <div className="w-full h-full justify-end flex gap-2 items-center">
               {textInput.length > 0 && (

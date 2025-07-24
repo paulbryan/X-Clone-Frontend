@@ -28,7 +28,13 @@ export function ComposePoll({
     <div className="w-full h-full flex flex-col gap-2 px-4 pt-4 border border-twitterBorder rounded-2xl mb-4">
       <div className="flex flex-col w-full gap-4 mb-4">
         {pollChoices.map((choice, index) => (
-            <PollChoiceField choice={choice} index={index} canAddChoice={canAddChoice} addChoice={addChoice} handleChoiceChange={handleChoiceChange}/>
+          <PollChoiceField
+            choice={choice}
+            index={index}
+            canAddChoice={canAddChoice}
+            addChoice={addChoice}
+            handleChoiceChange={handleChoiceChange}
+          />
         ))}
       </div>
 
