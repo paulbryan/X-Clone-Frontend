@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ModalType } from "../../../types/ModalType.ts";
-import { MediaImage } from "../../layout/media/MediaImage.tsx";
+import { TweetImage } from "../../layout/media/TweetImage.tsx";
 import { HeroIcon } from "../../common/icons/HeroIcon.tsx";
 import { AnimatePresence, motion } from "framer-motion";
 import type { PostMedia } from "../../../types/PostMedia.ts";
@@ -48,7 +48,7 @@ type ImageModalProps = {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-    <MediaImage url={mediaList[currentIndex].url} roundedClass="rounded-2xl" isModal={true}/>
+    <TweetImage url={mediaList[currentIndex].url} roundedClass="rounded-2xl" isModal={true}/>
   </motion.div>
 </AnimatePresence>
         </div>

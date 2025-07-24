@@ -6,7 +6,7 @@ import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { useState } from "react";
 import type { ModalType } from "../../types/ModalType.ts";
 import { ImageUploadButton } from "../common/buttons/ImageUploadButton.tsx";
-import { ImageGrid } from "../layout/media/ImageGrid.tsx";
+import { UploadImageGrid } from "./UploadImageGrid.tsx";
 import type { FilesWithId } from "../../types/file.ts";
 import Tweet from "../tweet/Tweet.tsx";
 import { CharsLeftCircle } from "../common/CharsLeftCircle.tsx";
@@ -75,7 +75,7 @@ function ComposeTweet({
             </div>
           ) : imagesInput.length > 0 && !isPoll && (
             <div className="w-full h-auto ">
-              <ImageGrid images={imagesInput} setImages={setImagesInput} />
+              <UploadImageGrid images={imagesInput} setImages={setImagesInput} />
             </div>
           )
           }

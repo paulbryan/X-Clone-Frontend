@@ -1,5 +1,5 @@
 import type { Post } from "../../../types/Post";
-import { ImagePreviewGrid } from "../../layout/media/ImagePreviewGrid";
+import { TweetImageGrid } from "../../layout/media/TweetImageGrid.tsx";
 import { Poll } from "../Poll";
 import { PostLine } from "../tweetInfo/PostLine";
 
@@ -19,7 +19,7 @@ export function TweetImagesRow({
       {isParentPost && <PostLine showLine={isParentPost} />}
       <div className={`${isMainPost ? "col-span-2" : "col-start-2"} `}>
         {post.postMedia && post.postMedia.length > 0 ? (
-          <ImagePreviewGrid media={post.postMedia} />
+          <TweetImageGrid media={post.postMedia} />
         ) : post.pollId && (
           <Poll pollId={post.pollId}/>
         )}

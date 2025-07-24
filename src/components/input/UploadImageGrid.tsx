@@ -1,13 +1,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import cn from "clsx";
-import type { FilesWithId } from "../../../types/file.ts";
+import type { FilesWithId } from "../../types/file.ts";
 
 type Props = {
   images: FilesWithId;
   setImages: (images: FilesWithId) => void;
 };
 
-export function ImageGrid({ images, setImages }: Props) {
+export function UploadImageGrid({ images, setImages }: Props) {
   const handleRemove = (targetId: string) => () => {
     const newImages = images.filter((image) => image.id !== targetId);
     setImages(newImages);

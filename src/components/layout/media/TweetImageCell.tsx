@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MediaImage } from "./MediaImage.tsx";
+import { TweetImage } from "./TweetImage.tsx";
 import type { PostMedia } from "../../../types/PostMedia.ts";
 
 type MediaItemProps = {
@@ -9,7 +9,7 @@ type MediaItemProps = {
   handleClick?: (e: React.MouseEvent<HTMLDivElement>, id: number) => void;
 };
 
-export function MediaItem({
+export function TweetImageCell({
   media,
   index,
   total,
@@ -40,7 +40,7 @@ export function MediaItem({
       exit={{ opacity: 0, scale: 0.7 }}
       transition={{ duration: 0.25 }}
     >
-      <MediaImage url={media.url} roundedClass={roundedClass} />
+      <TweetImage url={media.url} roundedClass={roundedClass} />
     </motion.div>
   );
 }

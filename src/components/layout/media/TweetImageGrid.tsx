@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { MediaItem } from "./MediaItem.tsx";
+import { TweetImageCell } from "./TweetImageCell.tsx";
 import cn from "clsx";
 import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
 import type { PostMedia } from "../../../types/PostMedia.ts";
@@ -9,7 +9,7 @@ type ImagePreviewGridProps = {
   postId?: number;
 };
 
-export function ImagePreviewGrid({ media }: ImagePreviewGridProps) {
+export function TweetImageGrid({ media }: ImagePreviewGridProps) {
   const total = media.length;
 
   const { setModalData, setModalType } = useModal();
@@ -36,7 +36,7 @@ export function ImagePreviewGrid({ media }: ImagePreviewGridProps) {
         >
           <AnimatePresence mode="popLayout">
             {media.map((m, index) => (
-              <MediaItem
+              <TweetImageCell
                 key={m.id}
                 media={m}
                 index={index}

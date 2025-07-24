@@ -7,7 +7,7 @@ type MediaImageProps = {
   isModal?: boolean;
 };
 
-export function MediaImage({ url, roundedClass, isModal }: MediaImageProps) {
+export function TweetImage({ url, roundedClass, isModal }: MediaImageProps) {
   return (
     <>
       {url ? (
