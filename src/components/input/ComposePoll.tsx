@@ -1,4 +1,4 @@
-import { HeroIcon } from "../common/icons/HeroIcon";
+import { PollChoiceField } from "./PollChoiceField";
 
 type ComposePollProps = {
   pollChoices: string[];
@@ -28,33 +28,7 @@ export function ComposePoll({
     <div className="w-full h-full flex flex-col gap-2 px-4 pt-4 border border-twitterBorder rounded-2xl mb-4">
       <div className="flex flex-col w-full gap-4 mb-4">
         {pollChoices.map((choice, index) => (
-          <div className="flex w-full flex-col gap-2">
-            <p className="pl-1 text-twitterTextAlt font-bold">
-              Choice {index + 1}
-            </p>
-            <div className="w-full flex gap-2 items-center">
-              <input
-                value={choice}
-                maxLength={20}
-                onChange={(e) => handleChoiceChange(index, e.target.value)}
-                className={`w-full text-twitterText border ${
-                  choice.length < 20
-                    ? "border-twitterBorder focus:border-(--color-main)"
-                    : "border-red-500"
-                } bo focus:outline-none  focus:ring-0 rounded-xl px-2 h-12`}
-              />
-              <div className="w-16 flex items-center justify-center">
-                {canAddChoice(index) && (
-                  <div onClick={() => addChoice()}>
-                    <HeroIcon
-                      iconName="PlusIcon"
-                      className="w-8 hover:cursor-pointer h-8 text-(--color-main)"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+            <PollChoiceField choice={choice} index={index} canAddChoice={canAddChoice} addChoice={addChoice} handleChoiceChange={handleChoiceChange}/>
         ))}
       </div>
 
