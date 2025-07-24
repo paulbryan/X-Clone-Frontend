@@ -24,8 +24,13 @@ export function UserSearchFeed({
   hasNextPage,
   isFetchingNextPage,
   isLoadingUsers,
+  isInfinite
 }: UserSearchFeedProps) {
-  const { ref, inView } = useInView();
+
+  const { ref, inView } = useInView({
+    triggerOnce: false,
+    skip: !isInfinite,
+  });
 
   const debouncedFetchNextPage = useCallback(
     debounce(() => {
@@ -37,10 +42,10 @@ export function UserSearchFeed({
   );
 
   useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
+    if (isInfinite && inView && hasNextPage && !isFetchingNextPage) {
       debouncedFetchNextPage();
     }
-  }, [inView, hasNextPage, isFetchingNextPage, debouncedFetchNextPage]);
+  }, [isInfinite, inView, hasNextPage, isFetchingNextPage, debouncedFetchNextPage]);
 
   return (
     <div>

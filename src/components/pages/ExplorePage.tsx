@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { isValidElement, useContext, useEffect, useMemo, useState, type ReactElement } from "react";
 import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
 import { ExploreSearchBar } from "../input/ExploreSearchBar.tsx";
 import { useUserSearch } from "../../hooks/queries/useUserSearch.tsx";
@@ -9,7 +9,7 @@ import { useInfiniteUsers } from "../../hooks/queries/useInfiniteUserFeed.tsx";
 import { UserSearchFeed } from "../feed/UserSearchFeed.tsx";
 
 function ExplorePage() {
-  const { setHeaderContent } = useContext(HeaderContentContext);
+  const { setHeaderContent, headerContent } = useContext(HeaderContentContext);
 
   const [input, setInput] = useState("");
   const debouncedQuery = useDebounce(input, 300);
@@ -35,8 +35,13 @@ function ExplorePage() {
       ) ?? []
     );
   }, [data]);
-
+  
   useEffect(() => {
+    if (isValidElement(headerContent)) {
+      const element = headerContent as ReactElement<any>;
+      if (element.props.children === "Explore") return;
+    }
+  
     setHeaderContent(<p>Explore</p>);
   }, []);
 
