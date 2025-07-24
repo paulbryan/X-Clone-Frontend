@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { ModalType } from "../../../types/ModalType.ts";
 import { MediaImage } from "../../layout/media/MediaImage.tsx";
-import { HeroIcon } from "../../ui/icons/HeroIcon.tsx";
+import { HeroIcon } from "../../common/icons/HeroIcon.tsx";
 import { AnimatePresence, motion } from "framer-motion";
 import type { PostMedia } from "../../../types/PostMedia.ts";
 

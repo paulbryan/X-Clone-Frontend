@@ -1,5 +1,5 @@
 import cn from "clsx";
-import LoadingIcon from "../../ui/icons/LoadingIcon.tsx";
+import LoadingIcon from "../../common/icons/LoadingIcon.tsx";
 
 type MediaImageProps = {
   url: string;

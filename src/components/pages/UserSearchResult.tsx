@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../../hooks/queries/useUser";
-import DisplayNameComponent from "../../user/DisplayNameComponent";
-import ProfilePic from "../../user/ProfilePic";
-import UsernameComponent from "../../user/UsernameComponent";
-import { UserHoverWrapper } from "../../modal/hover_card/UserHoverWrapper.tsx";
+import { useUser } from "../../hooks/queries/useUser.tsx";
+import DisplayNameComponent from "../user/DisplayNameComponent.tsx";
+import ProfilePic from "../user/ProfilePic.tsx";
+import UsernameComponent from "../user/UsernameComponent.tsx";
+import { UserHoverWrapper } from "../modal/hover_card/UserHoverWrapper.tsx";
 
 export function UserSearchResult({ userId }: { userId: number }) {
   const { data: user } = useUser(userId);

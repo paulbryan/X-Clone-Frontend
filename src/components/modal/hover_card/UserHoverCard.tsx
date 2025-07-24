@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "../../../hooks/queries/useUser.tsx";
 import ProfilePic from "../../user/ProfilePic.tsx";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
-import FollowButton from "../../ui/buttons/FollowButton.tsx";
+import FollowButton from "../../common/buttons/FollowButton.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
 import FollowersFollowing from "../../user/FollowersFollowing.tsx";

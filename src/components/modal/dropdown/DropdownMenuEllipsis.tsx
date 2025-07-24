@@ -1,5 +1,5 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { HeroIcon } from "../../ui/icons/HeroIcon.tsx";
+import { HeroIcon } from "../../common/icons/HeroIcon.tsx";
 import cn from "clsx";
 import { DropdownMenuContent } from "./DropDownMenuContent.tsx";
 import { useState } from "react";

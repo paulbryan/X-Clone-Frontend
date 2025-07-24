@@ -1,4 +1,4 @@
-import LoadingIcon from "../ui/icons/LoadingIcon.tsx";
+import LoadingIcon from "../common/icons/LoadingIcon.tsx";
 
 type LoadMoreForFeedProps = {
   triggerRef: (node?: Element | null) => void;

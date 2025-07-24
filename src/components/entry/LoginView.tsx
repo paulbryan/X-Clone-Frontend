@@ -1,8 +1,8 @@
 import type { ModalType } from "../../types/ModalType.ts";
 import { FaXTwitter } from "react-icons/fa6";
-import { GoogleAuthButton } from "../ui/buttons/GoogleAuthButton.tsx";
-import { HorizontalStripedText } from "../ui/HorizontalStripedText.tsx";
-import { UseTempAccountButton } from "../ui/buttons/UseTempAccountButton.tsx";
+import { GoogleAuthButton } from "../common/buttons/GoogleAuthButton.tsx";
+import { HorizontalStripedText } from "../common/HorizontalStripedText.tsx";
+import { UseTempAccountButton } from "../common/buttons/UseTempAccountButton.tsx";
 
 type LoginViewProps = {
   setToggle: (type: ModalType) => void;

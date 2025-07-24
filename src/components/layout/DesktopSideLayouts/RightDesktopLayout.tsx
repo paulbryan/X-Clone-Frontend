@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
 import { useTopFiveUsers } from "../../../hooks/queries/useTopFiveUsers.tsx";
 import { TermsAndConditions } from "../../entry/TermsAndConditions";
-import { UseTempAccountButton } from "../../ui/buttons/UseTempAccountButton.tsx";
-import { GoogleAuthButton } from "../../ui/buttons/GoogleAuthButton.tsx";
-import { HorizontalStripedText } from "../../ui/HorizontalStripedText";
-import { UserSearchResult } from "../pages/UserSearchResult";
+import { UseTempAccountButton } from "../../common/buttons/UseTempAccountButton.tsx";
+import { GoogleAuthButton } from "../../common/buttons/GoogleAuthButton.tsx";
+import { HorizontalStripedText } from "../../common/HorizontalStripedText";
+import { UserSearchResult } from "../../pages/UserSearchResult";
 import { AsideContainer } from "./AsideContainer";
 
 export function RightDesktopLayout() {

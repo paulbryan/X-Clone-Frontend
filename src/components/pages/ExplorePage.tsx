@@ -1,12 +1,12 @@
 import { useContext, useEffect, useMemo, useState } from "react";
-import { HeaderContentContext } from "../../../context/GlobalState/HeaderContentProvider.tsx";
-import { ExploreSearchBar } from "../../input/ExploreSearchBar.tsx";
-import { useUserSearch } from "../../../hooks/queries/useUserSearch.tsx";
+import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
+import { ExploreSearchBar } from "../input/ExploreSearchBar.tsx";
+import { useUserSearch } from "../../hooks/queries/useUserSearch.tsx";
 import { useDebounce } from "@uidotdev/usehooks";
-import LoadingIcon from "../../ui/icons/LoadingIcon.tsx";
-import { useInfiniteUsers } from "../../../hooks/queries/useInfiniteUserFeed.tsx";
+import LoadingIcon from "../common/icons/LoadingIcon.tsx";
+import { useInfiniteUsers } from "../../hooks/queries/useInfiniteUserFeed.tsx";
 
-import { UserSearchFeed } from "../../feed/UserSearchFeed.tsx";
+import { UserSearchFeed } from "../feed/UserSearchFeed.tsx";
 
 function ExplorePage() {
   const { setHeaderContent } = useContext(HeaderContentContext);

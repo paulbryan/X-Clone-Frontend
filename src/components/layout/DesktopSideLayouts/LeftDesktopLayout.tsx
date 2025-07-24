@@ -1,6 +1,6 @@
 import { FaXTwitter } from "react-icons/fa6";
 import DrawerNavigationPair from "../../modal/drawer/DrawerNavigationPair";
-import { HeroIcon } from "../../ui/icons/HeroIcon.tsx";
+import { HeroIcon } from "../../common/icons/HeroIcon.tsx";
 import { useModal } from "../../../context/GlobalState/ModalProvider";
 import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
 import { useLocation, useNavigate } from "react-router-dom";

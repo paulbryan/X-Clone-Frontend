@@ -1,4 +1,4 @@
-import { HeroIcon } from "../ui/icons/HeroIcon";
+import { HeroIcon } from "../common/icons/HeroIcon";
 
 type ComposePollProps = {
   pollChoices: string[];

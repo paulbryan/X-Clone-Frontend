@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { usePollChoices } from "../../hooks/queries/usePollChoices";
-import { HeroIcon } from "../ui/icons/HeroIcon";
+import { HeroIcon } from "../common/icons/HeroIcon";
 import { useHasVoted } from "../../hooks/queries/useHasVoted";
 import { useVoteOnPoll } from "../../hooks/mutations/useVoteOnPoll";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider";

@@ -8,7 +8,7 @@ import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
-import { HeroIcon } from "../../ui/icons/HeroIcon.tsx";
+import { HeroIcon } from "../../common/icons/HeroIcon.tsx";
 import { createPortal } from "react-dom";
 
 type MobileMainDrawerProps = {

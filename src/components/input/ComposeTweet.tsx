@@ -1,15 +1,15 @@
 import ProfilePic from "../user/ProfilePic.tsx";
 import TextareaAutosize from "react-textarea-autosize";
 import { MdOutlineGif } from "react-icons/md";
-import UploadTweetButton from "../ui/buttons/UploadTweetButton.tsx";
+import UploadTweetButton from "../common/buttons/UploadTweetButton.tsx";
 import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { useState } from "react";
 import type { ModalType } from "../../types/ModalType.ts";
-import { ImageUploadButton } from "../ui/buttons/ImageUploadButton.tsx";
+import { ImageUploadButton } from "../common/buttons/ImageUploadButton.tsx";
 import { ImageGrid } from "../layout/media/ImageGrid.tsx";
 import type { FilesWithId } from "../../types/file.ts";
 import Tweet from "../tweet/Tweet.tsx";
-import { CharsLeftCircle } from "../ui/CharsLeftCircle.tsx";
+import { CharsLeftCircle } from "../common/CharsLeftCircle.tsx";
 import { FaListUl } from "react-icons/fa";
 import { ComposePoll } from "./ComposePoll.tsx";
 

@@ -3,11 +3,11 @@ import type { ModalType } from "../../../types/ModalType.ts";
 import ProfilePic from "../../user/ProfilePic.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
-import ColorCircleButton from "../../ui/buttons/ColorCircleButton.tsx";
+import ColorCircleButton from "../../common/buttons/ColorCircleButton.tsx";
 import { useState } from "react";
 import type { ThemeType } from "../../../types/ThemeType.ts";
 import type { BackgroundType } from "../../../types/BackgroundType.ts";
-import BackgroundSetterButton from "../../ui/buttons/BackgroundSetterButton.tsx";
+import BackgroundSetterButton from "../../common/buttons/BackgroundSetterButton.tsx";
 
 type ChangeColorModalProps = {
   setToggle: (modalType: ModalType) => void;

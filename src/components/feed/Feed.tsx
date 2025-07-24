@@ -1,4 +1,4 @@
-import LoadingIcon from "../ui/icons/LoadingIcon.tsx";
+import LoadingIcon from "../common/icons/LoadingIcon.tsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { LoadMoreForFeed } from "./LoadMoreForFeed.tsx";
 import { fadeInFeedMotionProps } from "../../animations/motionAnimations.ts";

@@ -1,10 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { UserSearchResult } from "../layout/pages/UserSearchResult.tsx";
+import { UserSearchResult } from "../pages/UserSearchResult.tsx";
 import { fadeInFeedMotionProps } from "../../animations/motionAnimations.ts";
 import { LoadMoreForFeed } from "./LoadMoreForFeed.tsx";
 import { useInView } from "react-intersection-observer";
 import { useCallback, useEffect } from "react";
-import LoadingIcon from "../ui/icons/LoadingIcon.tsx";
+import LoadingIcon from "../common/icons/LoadingIcon.tsx";
 import debounce from 'lodash.debounce';
 
 type UserSearchFeedProps = {

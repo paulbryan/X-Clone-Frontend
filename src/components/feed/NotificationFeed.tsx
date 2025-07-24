@@ -1,4 +1,4 @@
-import LoadingIcon from "../ui/icons/LoadingIcon.tsx";
+import LoadingIcon from "../common/icons/LoadingIcon.tsx";
 import NotificationTemplate from "../tweet/NotificationTemplate.tsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { NoContentYet } from "./NoContentYet.tsx";

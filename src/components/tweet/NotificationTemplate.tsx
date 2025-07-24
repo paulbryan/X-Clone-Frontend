@@ -1,7 +1,7 @@
 import ProfilePic from "../user/ProfilePic.tsx";
 import { useNavigate } from "react-router-dom";
 import DisplayNameComponent from "../user/DisplayNameComponent.tsx";
-import NotificationTypeIcon from "../ui/icons/NotificationTypeIcon.tsx";
+import NotificationTypeIcon from "../common/icons/NotificationTypeIcon.tsx";
 import { useUser } from "../../hooks/queries/useUser.tsx";
 import { useNotification } from "../../hooks/queries/useNotification.tsx";
 import { UserHoverWrapper } from "../modal/hover_card/UserHoverWrapper.tsx";
