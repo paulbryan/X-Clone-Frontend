@@ -8,11 +8,14 @@ import { UserHoverCardTrigger } from "../modal/hover_card/UserHoverCardTrigger.t
 export function UserSearchResult({ userId }: { userId: number }) {
   const { data: user } = useUser(userId);
   const navigate = useNavigate();
-  if (!user) return null;
 
   return (
     <div
-      onClick={() => navigate("/profile/" + user.id)}
+      onClick={() => {
+        if (user) {
+          navigate("/profile/" + user.id);
+        }
+      }}
       className="w-full flex gap-2 hover:cursor-pointer hover:bg-twitterTextAlt/20 items-center py-3 px-2"
     >
       <UserHoverCardTrigger userId={userId}>
