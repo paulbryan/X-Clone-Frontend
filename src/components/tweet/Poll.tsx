@@ -69,12 +69,12 @@ export function Poll({ pollId, post }: PollProps) {
       }}
     >
       <div className="flex flex-col h-full w-full justify-center gap-2 my-2">
-        {pollChoices && totalVotes &&
+        {pollChoices &&
           (() => {
 
             return pollChoices.map((choice) => {
               const percent =
-                totalVotes > 0
+                totalVotes && totalVotes > 0
                   ? Math.round((choice.voteCount / totalVotes) * 100)
                   : 0;
 
