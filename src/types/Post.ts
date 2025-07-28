@@ -13,5 +13,6 @@ export type Post = {
     retweetedBy: number[];
     postMedia: PostMedia[];
     pollId?: number;
+    pollExpiryTimeStamp: string;
 
 }
