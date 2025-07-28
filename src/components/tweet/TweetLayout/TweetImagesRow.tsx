@@ -21,7 +21,7 @@ export function TweetImagesRow({
         {post.postMedia && post.postMedia.length > 0 ? (
           <TweetImageGrid media={post.postMedia} />
         ) : post.pollId && (
-          <Poll pollId={post.pollId}/>
+          <Poll pollId={post.pollId} post={post}/>
         )}
       </div>
     </>
