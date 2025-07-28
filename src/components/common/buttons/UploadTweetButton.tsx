@@ -14,6 +14,7 @@ type UploadTweetButtonProps = {
   filesWithId: FilesWithId;
   isPoll: boolean;
   pollChoices: string[]
+  pollExpiry: number[]
 };
 
 function UploadTweetButton({
@@ -23,11 +24,15 @@ function UploadTweetButton({
   filesWithId,
   setToggle,
   isPoll,
-  pollChoices
+  pollChoices,
+  pollExpiry
 }: UploadTweetButtonProps) {
   const { currentUser } = useCurrentUser();
 
-  const enableButton = ((textInput.length > 0) || ((filesWithId.length > 0) && !parentId) ) && (currentUser) && textInput.length < 181;
+
+  const hasValidPollExpiry = pollExpiry.some(entry => entry !== 0);
+  const hasValidPoll = !(pollChoices.some(choice => choice == ""))
+  const enableButton = ((textInput.length > 0) || ((filesWithId.length > 0) && !parentId) ) && (currentUser) && textInput.length < 181 && (!isPoll || (hasValidPollExpiry && hasValidPoll));
 
   const createPost = currentUser
     ? useCreatePost(currentUser.id, parentId)

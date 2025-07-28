@@ -122,6 +122,7 @@ function ComposeTweet({
                 clearAllInput={clearAllInput}
                 filesWithId={imagesInput}
                 isPoll={isPoll}
+                pollExpiry={pollExpiry}
                 pollChoices={pollChoices}
                 setToggle={setToggle}
                 textInput={textInput}
