@@ -56,7 +56,9 @@ function UploadTweetButton({
       pollChoices.forEach(choice => {
         formData.append("pollChoices", choice);
       });
-      formData.append("pollExpiry", JSON.stringify(pollExpiry));
+      pollExpiry.forEach((time) => {
+        formData.append("pollExpiry", time.toString());
+      });
     }
 
     filesWithId.forEach((file) => {
