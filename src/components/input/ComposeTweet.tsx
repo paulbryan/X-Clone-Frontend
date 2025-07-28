@@ -31,11 +31,13 @@ function ComposeTweet({
   const placeHolder = parentId ? "Tweet your reply" : "What's up?!";
   const [isPoll, setIsPoll] = useState(false);
   const [pollChoices, setPollChoices] = useState<string[]>(["", ""]);
+  const [pollExpiry, setPollExpiry] = useState<number[]>([1, 0, 0])
 
   const clearAllInput = () => {
     setTextInput("");
     setImagesInput([]);
     setPollChoices(["", ""]);
+    setPollExpiry([1, 0, 0])
     setIsPoll(false);
   };
 
@@ -72,6 +74,8 @@ function ComposeTweet({
           {isPoll ? (
             <div className="w-full h-auto ">
               <ComposePoll
+                pollExpiry={pollExpiry}
+                setPollExpiry={setPollExpiry}
                 setIsPoll={setIsPoll}
                 pollChoices={pollChoices}
                 setPollChoices={setPollChoices}

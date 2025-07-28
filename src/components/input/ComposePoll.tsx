@@ -1,16 +1,22 @@
+import { ComposePollExpiry } from "./ComposePollExpiry";
 import { PollChoiceField } from "./PollChoiceField";
 
 type ComposePollProps = {
   pollChoices: string[];
   setPollChoices: React.Dispatch<React.SetStateAction<string[]>>;
   setIsPoll: React.Dispatch<React.SetStateAction<boolean>>;
+  pollExpiry: number[]
+  setPollExpiry: (newExpiry: number[]) => void;
 };
 
 export function ComposePoll({
   setIsPoll,
   pollChoices,
   setPollChoices,
+  pollExpiry,
+  setPollExpiry
 }: ComposePollProps) {
+
   const handleChoiceChange = (index: number, value: string) => {
     const updated = [...pollChoices];
     updated[index] = value;
@@ -37,6 +43,10 @@ export function ComposePoll({
           />
         ))}
       </div>
+
+      <hr className="text-twitterBorder" />
+
+        <ComposePollExpiry pollExpiry={pollExpiry} setPollExpiry={setPollExpiry}/>
 
       <hr className="text-twitterBorder" />
 
