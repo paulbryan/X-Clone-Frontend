@@ -33,7 +33,7 @@ function ProfilePageOverview({ pageUser }: ProfilePageOverviewProps) {
             <BannerComponent userId={pageUser.id} />
           </div>
 
-          <div className="absolute w-20 h-20 left-5 bottom-0 rounded-full">
+          <div className="absolute w-20 h-20 left-3 bottom-0 rounded-full">
             <ProfilePic disableNavigation={true} userId={pageUser.id} />
           </div>
 
@@ -56,17 +56,17 @@ function ProfilePageOverview({ pageUser }: ProfilePageOverviewProps) {
           </div>
         </div>
 
-        <div className="w-full h-full px-4 text-twitterText flex flex-col">
-          <div className="w-full h-12 mt-1 mb-3 flex flex-col">
-            <div className="font-bold text-xl text-twitterText">
+        <div className="w-full h-full mt-3 px-4 text-twitterText flex flex-col">
+          <div className="w-full h-12 mb-2 flex flex-col">
+            <div className="font-bold text-xl w-fit text-twitterText">
               <DisplayNameComponent user={pageUser} />
             </div>
-            <div className="text-twitterTextAlt">
+            <div className="text-twitterTextAlt w-fit">
               <UsernameComponent user={pageUser} />
             </div>
           </div>
 
-          <div className="flex w-full h-fit gap-0.5 flex-col">
+          <div className="flex w-full h-fit gap-2 flex-col">
             <div className="text-twitterText">
               <BioComponent user={pageUser} />
             </div>

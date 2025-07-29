@@ -57,7 +57,7 @@ function MobileMainDrawer({ setDrawerOpen }: MobileMainDrawerProps) {
           >
             <ProfilePic userId={currentUser?.id} />
           </div>
-          <div className="text-twitterTextAlt">
+          <div className="text-twitterTextAlt mt-2">
             <div className="text-twitterText text-xl font-bold">
               <DisplayNameComponent user={currentUser} />
             </div>
