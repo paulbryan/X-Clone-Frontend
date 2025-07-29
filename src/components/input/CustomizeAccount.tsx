@@ -12,7 +12,7 @@ function CustomizeAccount({ setToggle, currentUser }: CustomizeAccountProps) {
   const [inputPfp, setInputPfp] = useState(currentUser.profilePictureUrl);
   const [inputBanner, setInputBanner] = useState(currentUser.bannerImageUrl);
   const [inputDisplayName, setInputDisplayName] = useState(
-    currentUser.displayName
+    currentUser.displayName ? currentUser.displayName : ""
   );
   const [inputUsername, setInputUsername] = useState(currentUser.username);
   const [inputBio, setInputBio] = useState(currentUser.bio);
@@ -23,7 +23,12 @@ function CustomizeAccount({ setToggle, currentUser }: CustomizeAccountProps) {
 
   const updateUser = useUpdateUser();
 
+  const hasFilledMandatoryFields = (inputUsername.length > 0) && (inputDisplayName.length > 0)
+
   function handleSave() {
+
+    if (!hasFilledMandatoryFields) return;
+
     const formData = new FormData();
     formData.append("displayName", inputDisplayName);
     formData.append("username", inputUsername);
@@ -135,8 +140,8 @@ function CustomizeAccount({ setToggle, currentUser }: CustomizeAccountProps) {
         </div>
 
         <div
-          onClick={() => handleSave()}
-          className={`hover:cursor-pointer hover:bg-(--color-main)/75 w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full`}
+          onClick={() => hasFilledMandatoryFields && handleSave()}
+          className={` ${hasFilledMandatoryFields ? "hover:cursor-pointer hover:bg-(--color-main)/75" : "hover:cursor-not-allowed text-twitterTextAlt bg-(--color-main)/50"}  w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full`}
         >
           <p className="">Save</p>
         </div>
