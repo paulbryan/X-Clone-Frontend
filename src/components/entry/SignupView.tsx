@@ -23,7 +23,7 @@ function SignupView({ setToggle }: SignUpViewProps) {
 
         <HorizontalStripedText> OR </HorizontalStripedText>
 
-        <UseTempAccountButton setToggle={setToggle} />
+        <UseTempAccountButton/>
 
         <TermsAndConditions />
 

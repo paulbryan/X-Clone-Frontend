@@ -1,15 +1,12 @@
 import { API_URL } from "../../../constants/env.ts";
 import { useAuth } from "../../../context/Auth/AuthProvider.tsx";
 import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
-import type { ModalType } from "../../../types/ModalType.ts";
 
-type UseTempAccountButtonProps = {
-  setToggle?: (type: ModalType) => void;
-};
 
-export function UseTempAccountButton({ setToggle }: UseTempAccountButtonProps) {
+
+export function UseTempAccountButton() {
   const { setAuthId } = useAuth();
-  const { setModalType, modalType } = useModal()
+  const { setModalType } = useModal()
 
   function authenticateTempUser() {
     fetch(`${API_URL}/api/auth/demo-signup`, {
@@ -24,7 +21,7 @@ export function UseTempAccountButton({ setToggle }: UseTempAccountButtonProps) {
         setAuthId(data.user.id);
         setModalType("createAccount")
       })
-      
+
       .catch((err) => {
         console.error("Admin login error:", err);
       });
