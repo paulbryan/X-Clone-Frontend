@@ -51,7 +51,7 @@ function ProfilePage() {
   }, [pageUser]);
 
   return (
-    <div className="flex flex-col h-full w-full flex-grow xl:border-x border-twitterBorder scrollbar-blue overflow-y-scroll">
+    <div className="flex flex-col h-full w-full flex-grow xl:border-x border-twitterBorder scrollbar-blue overflow-y-auto">
       <ProfilePageOverview pageUser={pageUser} />
 
       <div className="">
