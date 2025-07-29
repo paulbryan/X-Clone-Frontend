@@ -1,5 +1,6 @@
 import { API_URL } from "../../../constants/env.ts";
 import { useAuth } from "../../../context/Auth/AuthProvider.tsx";
+import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
 import type { ModalType } from "../../../types/ModalType.ts";
 
 type UseTempAccountButtonProps = {
@@ -8,6 +9,7 @@ type UseTempAccountButtonProps = {
 
 export function UseTempAccountButton({ setToggle }: UseTempAccountButtonProps) {
   const { setAuthId } = useAuth();
+  const { setModalType, modalType } = useModal()
 
   function authenticateTempUser() {
     fetch(`${API_URL}/api/auth/demo-signup`, {
@@ -20,10 +22,9 @@ export function UseTempAccountButton({ setToggle }: UseTempAccountButtonProps) {
       .then((data) => {
         localStorage.setItem("jwt", data.token);
         setAuthId(data.user.id);
-        if (setToggle) {
-          setToggle(null);
-        }
+        setModalType("createAccount")
       })
+      
       .catch((err) => {
         console.error("Admin login error:", err);
       });

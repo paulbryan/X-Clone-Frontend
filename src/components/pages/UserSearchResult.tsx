@@ -20,7 +20,7 @@ export function UserSearchResult({ userId }: { userId: number }) {
     >
       <UserHoverCardTrigger userId={userId}>
         <div className="w-10 h-10">
-          <ProfilePic userId={userId} />
+          <ProfilePic userId={user?.id} />
         </div>
       </UserHoverCardTrigger>
       <div className="flex text-sm flex-col text-twitterTextAlt">
