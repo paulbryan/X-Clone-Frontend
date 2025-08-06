@@ -26,6 +26,8 @@ export function PostUserCard({
 
   const verified = postUser?.verified;
 
+  //TODO extract verified into own component
+
   return (
     <>
       <div

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../hooks/queries/useUser.tsx";
+import { useLocation } from "react-router-dom";
 
 type ProfilePicComponentProps = {
   userId?: number;
@@ -14,6 +15,9 @@ function ProfilePic({
 }: ProfilePicComponentProps) {
   const { data: user } = useUser(userId);
 
+    const location = useLocation();
+
+
   const navigate = useNavigate();
   const navigateToProfile = (e: React.MouseEvent<HTMLImageElement>): void => {
     if (userId && !disableNavigation) {
@@ -21,6 +25,10 @@ function ProfilePic({
       navigate("/profile/" + userId);
     }
   };
+
+  const isTweetPage = location.pathname.startsWith("/tweet/");
+
+  //TODO clean this up with the hover logic
 
   if (showForSample)
     return (
@@ -44,7 +52,7 @@ function ProfilePic({
       {user ? (
         <img
           onClick={(e) => navigateToProfile(e)}
-          className={`h-full w-full rounded-full object-cover ${
+          className={`h-full w-full rounded-full object-cover ${isTweetPage ? "hover:cursor-pointer" : ""} ${
             disableNavigation ? "" : "hover:opacity-75"
           }`}
           src={user.profilePictureUrl}
