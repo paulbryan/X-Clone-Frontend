@@ -11,9 +11,12 @@ function ColorCircleButton({
   currentColor,
   setCurrentTheme,
 }: ColorCircleButtonProps) {
+
+  const isCurrentlySelectedColor = currentColor == color;
+
   return (
     <>
-      {currentColor == color ? (
+      {isCurrentlySelectedColor ? (
         <div
           style={{ backgroundColor: `${color}` }}
           className="w-12 hover:cursor-pointer h-12 rounded-full border border-twitterTextAlt"
