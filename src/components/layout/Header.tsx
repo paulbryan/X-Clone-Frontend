@@ -2,12 +2,12 @@ import { FaXTwitter } from "react-icons/fa6";
 import ProfilePic from "../user/ProfilePic.tsx";
 import { FaArrowLeft } from "react-icons/fa";
 
-import { useModal } from "../../context/GlobalState/ModalProvider.tsx";
+import { useModal } from "../../context/ModalProvider.tsx";
 import { useContext, useState } from "react";
 import MobileMainDrawer from "../modal/drawer/MobileMainDrawer.tsx";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
+import { HeaderContentContext } from "../../context/HeaderContentProvider.tsx";
 import { useCurrentUser } from "../../hooks/auth/useCurrentUser.tsx";
 
 function Header() {

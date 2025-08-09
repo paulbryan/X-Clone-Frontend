@@ -6,7 +6,7 @@ import UsernameComponent from "../../user/UsernameComponent.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
+import { useModal } from "../../../context/ModalProvider.tsx";
 import { HeroIcon } from "../../common/icons/HeroIcon.tsx";
 import { createPortal } from "react-dom";
 import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";

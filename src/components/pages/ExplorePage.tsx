@@ -6,7 +6,7 @@ import {
   useState,
   type ReactElement,
 } from "react";
-import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
+import { HeaderContentContext } from "../../context/HeaderContentProvider.tsx";
 import { ExploreSearchBar } from "../input/ExploreSearchBar.tsx";
 import { useUserSearch } from "../../hooks/queries/useUserSearch.tsx";
 import { useDebounce } from "@uidotdev/usehooks";

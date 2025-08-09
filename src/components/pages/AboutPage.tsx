@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
+import { HeaderContentContext } from "../../context/HeaderContentProvider.tsx";
 
 function AboutPage() {
   const { setHeaderContent } = useContext(HeaderContentContext);

@@ -1,7 +1,7 @@
 import type { User } from "../../../types/User.ts";
 import { useFollowUser } from "../../../hooks/mutations/useFollowUser.tsx";
 import { useQueryClient } from "@tanstack/react-query";
-import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
+import { useModal } from "../../../context/ModalProvider.tsx";
 import type { ReactNode } from "react";
 import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";
 

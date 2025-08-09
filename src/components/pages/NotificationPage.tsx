@@ -1,6 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import NotificationFeed from "../feed/NotificationFeed.tsx";
-import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
+import { HeaderContentContext } from "../../context/HeaderContentProvider.tsx";
 import { useInfiniteFeed } from "../../hooks/queries/useInfiniteFeed.tsx";
 import { useUnseenNotificationIds } from "../../hooks/mutations/useSeenNotifications.tsx";
 import { useQueryClient } from "@tanstack/react-query";

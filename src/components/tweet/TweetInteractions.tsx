@@ -1,5 +1,5 @@
 import InteractionButton from "../common/buttons/InteractionButton.tsx";
-import { useModal } from "../../context/GlobalState/ModalProvider.tsx";
+import { useModal } from "../../context/ModalProvider.tsx";
 import { useLikePost } from "../../hooks/mutations/useLikePost.tsx";
 import { useBookmarkPost } from "../../hooks/mutations/useBookmarkPost.tsx";
 import { useRepostPost } from "../../hooks/mutations/useRepostPost.tsx";

@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "../../../constants/env.ts";
-import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
+import { useModal } from "../../../context/ModalProvider.tsx";
 
 export function UseTempAccountButton() {
   const { setModalType } = useModal();

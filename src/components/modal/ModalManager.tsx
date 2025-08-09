@@ -1,4 +1,4 @@
-import { useModal } from "../../context/GlobalState/ModalProvider.tsx";
+import { useModal } from "../../context/ModalProvider.tsx";
 import Modal from "./Modal.tsx";
 import SignupView from "../entry/SignupView.tsx";
 import LoginView from "../entry/LoginView.tsx";

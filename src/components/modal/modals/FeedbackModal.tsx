@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { API_URL } from "../../../constants/env";
-import { useModal } from "../../../context/GlobalState/ModalProvider";
+import { useModal } from "../../../context/ModalProvider";
 
 export function FeedbackModal() {
   const { setModalType } = useModal();

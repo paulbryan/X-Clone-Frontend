@@ -10,7 +10,7 @@ import BioComponent from "../../user/BioComponent.tsx";
 import LoadingIcon from "../../common/icons/LoadingIcon.tsx";
 import CreatedAtDisplay from "../../common/CreatedAtDisplay.tsx";
 import FollowButton from "../../common/buttons/FollowButton.tsx";
-import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
+import { useModal } from "../../../context/ModalProvider.tsx";
 import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";
 type ProfilePageOverviewProps = {
   pageUser?: User | null;

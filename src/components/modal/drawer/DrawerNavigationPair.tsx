@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Dispatch, SetStateAction } from "react";
-import { useModal } from "../../../context/GlobalState/ModalProvider";
+import { useModal } from "../../../context/ModalProvider";
 import { useCurrentUser } from "../../../hooks/auth/useCurrentUser";
 import { useLogout } from "../../../hooks/auth/useLogout";
 

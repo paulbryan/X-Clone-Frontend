@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { TweetImageCell } from "./TweetImageCell.tsx";
 import cn from "clsx";
-import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
+import { useModal } from "../../../context/ModalProvider.tsx";
 import type { PostMedia } from "../../../types/PostMedia.ts";
 
 type ImagePreviewGridProps = {

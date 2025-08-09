@@ -1,7 +1,7 @@
 import { useMemo, type MouseEvent } from "react";
 import { HeroIcon, type IconName } from "../icons/HeroIcon.tsx";
 import { InteractionCounter } from "../InteractionCounter.tsx";
-import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
+import { useModal } from "../../../context/ModalProvider.tsx";
 import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";
 
 type InteractionButtonProps = {

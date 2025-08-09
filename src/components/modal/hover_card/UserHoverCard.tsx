@@ -5,7 +5,7 @@ import FollowButton from "../../common/buttons/FollowButton.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
 import FollowersFollowing from "../../user/FollowersFollowing.tsx";
-import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
+import { useModal } from "../../../context/ModalProvider.tsx";
 import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";
 
 type Props = {

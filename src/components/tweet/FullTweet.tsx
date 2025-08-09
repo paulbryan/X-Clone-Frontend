@@ -3,7 +3,7 @@ import { usePost } from "../../hooks/queries/usePost.tsx";
 import ComposeTweet from "../input/ComposeTweet.tsx";
 import Feed from "../feed/Feed.tsx";
 import { useContext, useEffect } from "react";
-import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
+import { HeaderContentContext } from "../../context/HeaderContentProvider.tsx";
 import Tweet from "./Tweet.tsx";
 import { useCurrentUser } from "../../hooks/auth/useCurrentUser.tsx";
 
