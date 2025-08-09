@@ -10,14 +10,9 @@
 ## Preview 🎬
 https://github.com/user-attachments/assets/f74ae27d-68cb-41d2-b72c-37ab0fc9cf4b
 
-## About Me
-
-I'm a 21-year-old International Studies student based in the Netherlands, currently teaching myself programming alongside my degree. I created this project to improve my understanding of building, deploying, and maintaining a complete web application.  
-I'm open to feedback, collaboration, or new opportunities. Feel free to reach out at **thejokerhut@gmail.com**.
-
 ---
 
-## Key Features 🎯
+## Key Features
 
 - **Google OAuth login** with secure JWT authentication  
 - **Image & video uploads** with preview support and cloud storage  
@@ -30,7 +25,7 @@ I'm open to feedback, collaboration, or new opportunities. Feel free to reach ou
 - **Light/Dark mode** and persistent user theme preferences  
 
 ---
-## 📡 API Routes
+## API Routes
 
 ---
 
