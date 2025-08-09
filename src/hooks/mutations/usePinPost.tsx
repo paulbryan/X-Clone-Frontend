@@ -13,6 +13,10 @@ export const usePinPost = (
       const endpoint = isPinned ? "/api/posts/unpin" : "/api/posts/pin";
       const token = localStorage.getItem("jwt");
 
+      console.log("Token is:" + token)
+      console.log("isPinned is: " + isPinned)
+      console.log("Post id is: " + postId)
+
       const res = await fetch(`${API_URL}${endpoint}?postId=${postId}`, {
         method: "POST",
         headers: {
@@ -30,6 +34,7 @@ export const usePinPost = (
       console.log("Updated user: " + JSON.stringify(updatedUser));
       queryClient.setQueryData(["currentUser"], updatedUser);
       queryClient.setQueryData(["user", updatedUser.id], updatedUser);
+
     },
 
     onError: (err) => {

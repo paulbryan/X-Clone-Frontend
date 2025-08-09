@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Dispatch, SetStateAction } from "react";
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
 import { useModal } from "../../../context/GlobalState/ModalProvider";
-import { useAuth } from "../../../context/Auth/AuthProvider";
+import { useCurrentUser } from "../../../hooks/auth/useCurrentUser";
+import { useLogout } from "../../../hooks/auth/useLogout";
 
 type DrawerNavigationPairProps = {
   children: ReactNode;
@@ -21,9 +21,10 @@ function DrawerNavigationPair({
   setDrawerOpen,
 }: DrawerNavigationPairProps) {
   const { setModalType } = useModal();
-  const { logout } = useAuth();
   const navigate = useNavigate();
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
+
+  const logout = useLogout();
 
   const onlyOnUserId = () => {
     switch (name) {

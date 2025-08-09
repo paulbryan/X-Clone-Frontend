@@ -1,8 +1,8 @@
 import { useMemo, type MouseEvent } from "react";
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import { HeroIcon, type IconName } from "../icons/HeroIcon.tsx";
 import { InteractionCounter } from "../InteractionCounter.tsx";
 import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
+import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";
 
 type InteractionButtonProps = {
   numberList: number[];
@@ -17,7 +17,7 @@ function InteractionButton({
   mutationFunction,
   iconName,
 }: InteractionButtonProps) {
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
   const { setModalType } = useModal();
 
   const canInteract = !!currentUser;

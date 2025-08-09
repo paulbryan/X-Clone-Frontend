@@ -4,7 +4,6 @@ import { useLikePost } from "../../hooks/mutations/useLikePost.tsx";
 import { useBookmarkPost } from "../../hooks/mutations/useBookmarkPost.tsx";
 import { useRepostPost } from "../../hooks/mutations/useRepostPost.tsx";
 import { useQueryClient } from "@tanstack/react-query";
-import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { useEffect } from "react";
 import { usePost } from "../../hooks/queries/usePost.tsx";
 import {
@@ -12,6 +11,7 @@ import {
   getLikeOnUpdate,
   getRepostOnUpdate,
 } from "../../hooks/mutations/mutationHelpers/useMutationHelpers.tsx";
+import { useCurrentUser } from "../../hooks/auth/useCurrentUser.tsx";
 type PostInteractionComponentProps = {
   postId: number;
   showPadding?: boolean;
@@ -21,7 +21,7 @@ function TweetInteractions({
   postId,
   showPadding,
 }: PostInteractionComponentProps) {
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
   const queryClient = useQueryClient();
 
   const { setModalType, setModalData } = useModal();

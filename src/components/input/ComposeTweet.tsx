@@ -2,7 +2,6 @@ import ProfilePic from "../user/ProfilePic.tsx";
 import TextareaAutosize from "react-textarea-autosize";
 import { MdOutlineGif } from "react-icons/md";
 import UploadTweetButton from "../common/buttons/UploadTweetButton.tsx";
-import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { useState } from "react";
 import type { ModalType } from "../../types/ModalType.ts";
 import { ImageUploadButton } from "../common/buttons/ImageUploadButton.tsx";
@@ -12,6 +11,7 @@ import Tweet from "../tweet/Tweet.tsx";
 import { CharsLeftCircle } from "../common/CharsLeftCircle.tsx";
 import { FaListUl } from "react-icons/fa";
 import { ComposePoll } from "./ComposePoll.tsx";
+import { useCurrentUser } from "../../hooks/auth/useCurrentUser.tsx";
 
 type ComposeTweetProps = {
   parentId?: number;
@@ -25,7 +25,7 @@ function ComposeTweet({
   showParentPreview,
 }: ComposeTweetProps) {
   const [textInput, setTextInput] = useState<string>("");
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
   const [imagesInput, setImagesInput] = useState<FilesWithId>([]);
   const isModal = setToggle != null;
   const placeHolder = parentId ? "Tweet your reply" : "What's up?!";

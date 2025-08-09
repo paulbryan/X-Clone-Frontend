@@ -1,9 +1,9 @@
 import { useGoogleLogin } from "@react-oauth/google";
-import { useAuth } from "../../context/Auth/AuthProvider.tsx";
 import { API_URL } from "../../constants/env.ts";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function useGoogleAuthEntry() {
-  const { setAuthId } = useAuth();
+  const queryClient = useQueryClient();
 
   return useGoogleLogin({
     flow: "implicit",
@@ -23,7 +23,8 @@ export function useGoogleAuthEntry() {
         const data = await res.json();
         console.log("User authenticated with data: " + JSON.stringify(data));
         localStorage.setItem("jwt", data.token);
-        setAuthId(data.user.id);
+        await queryClient.invalidateQueries({ queryKey: ["currentUser"] });
+        window.location.reload();
       } catch (err) {
         console.error("Login error:", err);
       }

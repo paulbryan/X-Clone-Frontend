@@ -1,12 +1,10 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "../../../constants/env.ts";
-import { useAuth } from "../../../context/Auth/AuthProvider.tsx";
 import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
 
-
-
 export function UseTempAccountButton() {
-  const { setAuthId } = useAuth();
-  const { setModalType } = useModal()
+  const { setModalType } = useModal();
+  const queryClient = useQueryClient();
 
   function authenticateTempUser() {
     fetch(`${API_URL}/api/auth/demo-signup`, {
@@ -16,10 +14,10 @@ export function UseTempAccountButton() {
         if (!res.ok) throw new Error("Temp login failed");
         return res.json();
       })
-      .then((data) => {
+      .then(async (data) => {
         localStorage.setItem("jwt", data.token);
-        setAuthId(data.user.id);
-        setModalType("createAccount")
+        await queryClient.invalidateQueries({ queryKey: ["currentUser"] });
+        setModalType("createAccount");
       })
 
       .catch((err) => {

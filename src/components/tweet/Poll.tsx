@@ -3,8 +3,8 @@ import { usePollChoices } from "../../hooks/queries/usePollChoices";
 import { HeroIcon } from "../common/icons/HeroIcon";
 import { useHasVoted } from "../../hooks/queries/useHasVoted";
 import { useVoteOnPoll } from "../../hooks/mutations/useVoteOnPoll";
-import { useCurrentUser } from "../../context/Auth/CurrentUserProvider";
 import type { Post } from "../../types/Post";
+import { useCurrentUser } from "../../hooks/auth/useCurrentUser";
 
 type PollProps = {
   pollId: number;
@@ -14,7 +14,7 @@ type PollProps = {
 export function Poll({ pollId, post }: PollProps) {
   const { data: pollChoices } = usePollChoices(pollId);
   const { data: hasVoted } = useHasVoted(pollId);
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
   const hasAlreadyVoted = hasVoted && hasVoted != -1;
   const voteMutation = useVoteOnPoll(pollId);
 

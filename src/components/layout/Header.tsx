@@ -5,14 +5,14 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useModal } from "../../context/GlobalState/ModalProvider.tsx";
 import { useContext, useState } from "react";
 import MobileMainDrawer from "../modal/drawer/MobileMainDrawer.tsx";
-import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
+import { useCurrentUser } from "../../hooks/auth/useCurrentUser.tsx";
 
 function Header() {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
   const { setModalType } = useModal();
   const navigate = useNavigate();
   const location = useLocation();

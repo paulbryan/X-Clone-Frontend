@@ -1,13 +1,13 @@
 import { useContext, useEffect, useMemo, useState } from "react";
-import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import NotificationFeed from "../feed/NotificationFeed.tsx";
 import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
 import { useInfiniteFeed } from "../../hooks/queries/useInfiniteFeed.tsx";
 import { useUnseenNotificationIds } from "../../hooks/mutations/useSeenNotifications.tsx";
 import { useQueryClient } from "@tanstack/react-query";
+import { useCurrentUser } from "../../hooks/auth/useCurrentUser.tsx";
 
 function NotificationPage() {
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
   const { setHeaderContent } = useContext(HeaderContentContext);
 
   const { data: unseenIds = [] } = useUnseenNotificationIds();

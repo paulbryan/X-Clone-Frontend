@@ -1,16 +1,16 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import TabList from "./TabList.tsx";
-import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import Feed from "../feed/Feed.tsx";
 import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
 import { useInfiniteFeed } from "../../hooks/queries/useInfiniteFeed.tsx";
 import type { FeedType } from "../../types/FeedType.ts";
 import ComposeTweet from "../input/ComposeTweet.tsx";
+import { useCurrentUser } from "../../hooks/auth/useCurrentUser.tsx";
 
 function HomePage() {
   const tabs: FeedType[] = ["For You", "Following"];
   const [activeTab, setActiveTab] = useState<FeedType>("For You");
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
   const { setHeaderContent } = useContext(HeaderContentContext);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =

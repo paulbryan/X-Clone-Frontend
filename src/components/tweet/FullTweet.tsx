@@ -1,16 +1,16 @@
 import { useParams } from "react-router-dom";
-import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { usePost } from "../../hooks/queries/usePost.tsx";
 import ComposeTweet from "../input/ComposeTweet.tsx";
 import Feed from "../feed/Feed.tsx";
 import { useContext, useEffect } from "react";
 import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
 import Tweet from "./Tweet.tsx";
+import { useCurrentUser } from "../../hooks/auth/useCurrentUser.tsx";
 
 function FullTweet() {
   const { postId } = useParams();
   const numericPostId = Number(postId);
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
 
   if (!postId || isNaN(numericPostId)) {
     return <div className="text-white">Invalid post ID.</div>;

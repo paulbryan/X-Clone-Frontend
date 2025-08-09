@@ -2,13 +2,13 @@ import { FaXTwitter } from "react-icons/fa6";
 import DrawerNavigationPair from "../../modal/drawer/DrawerNavigationPair";
 import { HeroIcon } from "../../common/icons/HeroIcon.tsx";
 import { useModal } from "../../../context/GlobalState/ModalProvider";
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUnseenNotificationIds } from "../../../hooks/mutations/useSeenNotifications";
+import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";
 
 export function LeftDesktopLayout() {
   const { setModalType } = useModal();
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
   const location = useLocation();
   const { data: unseenIds = [] } = useUnseenNotificationIds();
   const navigate = useNavigate()

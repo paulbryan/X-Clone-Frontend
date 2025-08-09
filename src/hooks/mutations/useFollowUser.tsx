@@ -31,7 +31,7 @@ export const useFollowUser = (
 
       if (!res.ok) throw new Error("Follow toggle failed");
 
-      return await res.json(); // should return updated followed user
+      return await res.json();
     },
 
     onMutate: async ({ currentlyFollowing }) => {
@@ -60,6 +60,10 @@ export const useFollowUser = (
     },
 
     onSuccess: (updatedFollowed) => {
+      queryClient.setQueryData<User>(
+        ["user", updatedFollowed.id],
+        updatedFollowed
+      );
       onUpdate?.(updatedFollowed);
 
       queryClient.invalidateQueries({

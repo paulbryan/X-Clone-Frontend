@@ -1,5 +1,4 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import { usePost } from "../../../hooks/queries/usePost.tsx";
 import { useDeletePost } from "../../../hooks/mutations/useDeletePost.tsx";
 import { HeroIcon } from "../../common/icons/HeroIcon.tsx";
@@ -10,6 +9,9 @@ import FollowButton from "../../common/buttons/FollowButton.tsx";
 import { usePinPost } from "../../../hooks/mutations/usePinPost.tsx";
 import { RiUnpinLine } from "react-icons/ri";
 import { RiPushpinLine } from "react-icons/ri";
+import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";
+import { useQueryClient } from "@tanstack/react-query";
+import type { User } from "../../../types/User.ts";
 
 type DropdownMenuContentProps = {
   postId: number;
@@ -22,7 +24,9 @@ export function DropdownMenuContent({
   mainPost,
   closeMenu,
 }: DropdownMenuContentProps) {
-  const { currentUser } = useCurrentUser();
+  const queryClient = useQueryClient(); // ← add this
+
+  const { data: currentUser } = useCurrentUser();
   const { data: post } = usePost(postId);
   const isOwnPost = post?.userId == currentUser?.id;
   const { data: pageUser } = useUser(post?.userId);
@@ -48,7 +52,11 @@ export function DropdownMenuContent({
     }
   };
 
-  const pinToProfile = () => {
+  const pinToProfile = async () => {
+    // ensure we use the freshest current user we have cached
+    const me = queryClient.getQueryData<User>(["currentUser"]) ?? currentUser;
+    if (!post || !me) return;
+    if (post.userId !== me.id) return; // do not call API if not owner
     pinPost.mutate({ isPinned });
   };
 

@@ -23,10 +23,10 @@ function CustomizeAccount({ setToggle, currentUser }: CustomizeAccountProps) {
 
   const updateUser = useUpdateUser();
 
-  const hasFilledMandatoryFields = (inputUsername.length > 0) && (inputDisplayName.length > 0)
+  const hasFilledMandatoryFields =
+    inputUsername.length > 0 && inputDisplayName.length > 0;
 
   function handleSave() {
-
     if (!hasFilledMandatoryFields) return;
 
     const formData = new FormData();
@@ -50,6 +50,7 @@ function CustomizeAccount({ setToggle, currentUser }: CustomizeAccountProps) {
       onSuccess: () => {
         setUsernameError("");
         setToggle(null);
+        window.location.reload();
       },
     });
   }
@@ -141,7 +142,11 @@ function CustomizeAccount({ setToggle, currentUser }: CustomizeAccountProps) {
 
         <div
           onClick={() => hasFilledMandatoryFields && handleSave()}
-          className={` ${hasFilledMandatoryFields ? "hover:cursor-pointer hover:bg-(--color-main)/75" : "hover:cursor-not-allowed text-twitterTextAlt bg-(--color-main)/50"}  w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full`}
+          className={` ${
+            hasFilledMandatoryFields
+              ? "hover:cursor-pointer hover:bg-(--color-main)/75"
+              : "hover:cursor-not-allowed text-twitterTextAlt bg-(--color-main)/50"
+          }  w-full bg-(--color-main) text-twitterText flex items-center gap-2 justify-center h-10 rounded-full`}
         >
           <p className="">Save</p>
         </div>

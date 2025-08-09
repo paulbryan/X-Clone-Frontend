@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../../../hooks/queries/useUser.tsx";
 import ProfilePic from "../../user/ProfilePic.tsx";
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import FollowButton from "../../common/buttons/FollowButton.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
 import FollowersFollowing from "../../user/FollowersFollowing.tsx";
 import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
+import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";
 
 type Props = {
   userId: number;
@@ -16,7 +16,7 @@ export function UserHoverCard({ userId }: Props) {
   const { data: tooltipUser } = useUser(userId);
 
   const [isOwnPage, setIsOwnPage] = useState(false);
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
   const { setModalType } = useModal();
 
   useEffect(() => {

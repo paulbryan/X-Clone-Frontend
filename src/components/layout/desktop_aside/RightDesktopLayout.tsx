@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider";
 import { useTopFiveUsers } from "../../../hooks/queries/useTopFiveUsers.tsx";
 import { TermsAndConditions } from "../../entry/TermsAndConditions";
 import { UseTempAccountButton } from "../../common/buttons/UseTempAccountButton.tsx";
@@ -7,9 +6,10 @@ import { GoogleAuthButton } from "../../common/buttons/GoogleAuthButton.tsx";
 import { HorizontalStripedText } from "../../common/HorizontalStripedText";
 import { UserSearchResult } from "../../pages/UserSearchResult";
 import { AsideContainer } from "./AsideContainer";
+import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";
 
 export function RightDesktopLayout() {
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
 
   const { data: topUsers } = useTopFiveUsers();
 

@@ -1,12 +1,12 @@
 import ComposePostMobileButton from "../common/buttons/ComposePostMobileButton.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useCurrentUser } from "../../context/Auth/CurrentUserProvider.tsx";
 import { HeroIcon } from "../common/icons/HeroIcon.tsx";
 import { useUnseenNotificationIds } from "../../hooks/mutations/useSeenNotifications.tsx";
+import { useCurrentUser } from "../../hooks/auth/useCurrentUser.tsx";
 
 function FooterBar() {
   const navigate = useNavigate();
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
   const location = useLocation();
   const { data: unseenIds = [] } = useUnseenNotificationIds();
 

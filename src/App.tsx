@@ -6,7 +6,6 @@ import HomePage from "./components/pages/HomePage.tsx";
 import ProfilePage from "./components/pages/profile/ProfilePage.tsx";
 import { ModalProvider } from "./context/GlobalState/ModalProvider";
 import ModalManager from "./components/modal/ModalManager";
-import { CurrentUserProvider } from "./context/Auth/CurrentUserProvider.tsx";
 import BookmarkPage from "./components/pages/BookmarkPage.tsx";
 import NotificationPage from "./components/pages/NotificationPage.tsx";
 import FullTweet from "./components/tweet/FullTweet.tsx";
@@ -53,7 +52,6 @@ function App() {
   return (
     <Router>
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        <CurrentUserProvider>
           <ModalProvider>
             <HeaderContentProvider>
               <ModalManager />
@@ -98,7 +96,6 @@ function App() {
               </div>
             </HeaderContentProvider>
           </ModalProvider>
-        </CurrentUserProvider>
       </GoogleOAuthProvider>
     </Router>
   );

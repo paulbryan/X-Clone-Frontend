@@ -1,9 +1,9 @@
 import type { Post } from "../../../types/Post.ts";
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import type { ModalType } from "../../../types/ModalType.ts";
 import toast from "react-hot-toast";
 import { useCreatePost } from "../../../hooks/mutations/useCreatePost.tsx";
 import type { FilesWithId } from "../../../types/file.ts";
+import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";
 
 type UploadTweetButtonProps = {
   textInput: string;
@@ -27,7 +27,7 @@ function UploadTweetButton({
   pollChoices,
   pollExpiry
 }: UploadTweetButtonProps) {
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
 
 
   const hasValidPollExpiry = pollExpiry.some(entry => entry !== 0);

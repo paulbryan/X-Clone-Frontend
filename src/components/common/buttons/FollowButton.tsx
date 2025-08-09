@@ -1,9 +1,9 @@
-import { useCurrentUser } from "../../../context/Auth/CurrentUserProvider.tsx";
 import type { User } from "../../../types/User.ts";
 import { useFollowUser } from "../../../hooks/mutations/useFollowUser.tsx";
 import { useQueryClient } from "@tanstack/react-query";
 import { useModal } from "../../../context/GlobalState/ModalProvider.tsx";
 import type { ReactNode } from "react";
+import { useCurrentUser } from "../../../hooks/auth/useCurrentUser.tsx";
 
 type FollowButtonProps = {
   pageUser?: User | null;
@@ -12,7 +12,7 @@ type FollowButtonProps = {
 };
 
 function FollowButton({ pageUser, children, closeModal }: FollowButtonProps) {
-  const { currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
   const queryClient = useQueryClient();
 
   const { setModalType } = useModal();
@@ -23,25 +23,37 @@ function FollowButton({ pageUser, children, closeModal }: FollowButtonProps) {
 
   const followMutation = useFollowUser(currentUser?.id, pageUser?.id, {
     onUpdate: (updatedFollowed) => {
-      const isNowFollowing = updatedFollowed.followers.includes(
-        currentUser?.id ?? -1
-      );
+      const followerId = currentUser?.id;
+      const viewedId = pageUser?.id;
+      if (!followerId || !viewedId) return;
+
+      const isNowFollowing = updatedFollowed.followers.includes(followerId);
 
       queryClient.setQueryData<User>(["currentUser"], (prev) => {
         if (!prev) return prev;
-
-        const alreadyThere = prev.following.includes(pageUser!.id);
+        const already = prev.following.includes(viewedId);
         const following = isNowFollowing
-          ? alreadyThere
+          ? already
             ? prev.following
-            : [...prev.following, pageUser!.id]
-          : prev.following.filter((id) => id !== pageUser!.id);
-
+            : [...prev.following, viewedId]
+          : prev.following.filter((id) => id !== viewedId);
         return { ...prev, following };
       });
+
+      queryClient.setQueryData<User>(["user", followerId], (prev) => {
+        if (!prev) return prev;
+        const already = prev.following.includes(viewedId);
+        const following = isNowFollowing
+          ? already
+            ? prev.following
+            : [...prev.following, viewedId]
+          : prev.following.filter((id) => id !== viewedId);
+        return { ...prev, following };
+      });
+
       if (!isNowFollowing) {
         queryClient.invalidateQueries({
-          queryKey: ["feed", "following", currentUser?.id],
+          queryKey: ["feed", "following", followerId],
         });
       }
     },
@@ -56,7 +68,7 @@ function FollowButton({ pageUser, children, closeModal }: FollowButtonProps) {
       }
     } else {
       if (closeModal) {
-        closeModal()
+        closeModal();
       }
       setModalType("signup");
     }
