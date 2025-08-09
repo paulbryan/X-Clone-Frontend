@@ -5,13 +5,13 @@ export const fadeInUpLong: Variants = {
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" },
   },
   exit: {
     opacity: 0,
     y: -4,
-    transition: { duration: 0.2, ease: "easeIn" }
-  }
+    transition: { duration: 0.2, ease: "easeIn" },
+  },
 };
 
 export const backdropVariant: Variants = {
@@ -33,4 +33,3 @@ export const modalVariant: Variants = {
     transition: { duration: 0.3 },
   },
 };
-

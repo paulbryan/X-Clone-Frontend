@@ -1,11 +1,14 @@
-
 type CharsLeftCircleProps = {
   charsLeft: number;
   radius?: number;
   stroke?: number;
 };
 
-export function CharsLeftCircle({ charsLeft, radius = 9, stroke = 1.5 }: CharsLeftCircleProps) {
+export function CharsLeftCircle({
+  charsLeft,
+  radius = 9,
+  stroke = 1.5,
+}: CharsLeftCircleProps) {
   const scale = 1.5;
 
   const r = radius * scale;
@@ -48,7 +51,9 @@ export function CharsLeftCircle({ charsLeft, radius = 9, stroke = 1.5 }: CharsLe
           x={center}
           y={center + 4} // adjust for visual vertical alignment
           textAnchor="middle"
-          className={`text-xs ${charsLeft < 0 ? "fill-red-500" : "fill-(--color-main)"}`}
+          className={`text-xs ${
+            charsLeft < 0 ? "fill-red-500" : "fill-(--color-main)"
+          }`}
         >
           {charsLeft}
         </text>

@@ -1,4 +1,1 @@
-export type PostType =
-   | "MainPost" 
-   | "ReplyFeedPost"
-   | "TweetFeedPost";
+export type PostType = "MainPost" | "ReplyFeedPost" | "TweetFeedPost";

@@ -13,8 +13,8 @@ type UploadTweetButtonProps = {
   setToggle?: (modalType: ModalType) => void;
   filesWithId: FilesWithId;
   isPoll: boolean;
-  pollChoices: string[]
-  pollExpiry: number[]
+  pollChoices: string[];
+  pollExpiry: number[];
 };
 
 function UploadTweetButton({
@@ -25,14 +25,17 @@ function UploadTweetButton({
   setToggle,
   isPoll,
   pollChoices,
-  pollExpiry
+  pollExpiry,
 }: UploadTweetButtonProps) {
   const { data: currentUser } = useCurrentUser();
 
-
-  const hasValidPollExpiry = pollExpiry.some(entry => entry !== 0);
-  const hasValidPoll = !(pollChoices.some(choice => choice == ""))
-  const enableButton = ((textInput.length > 0) || ((filesWithId.length > 0) && !parentId) ) && (currentUser) && textInput.length < 181 && (!isPoll || (hasValidPollExpiry && hasValidPoll));
+  const hasValidPollExpiry = pollExpiry.some((entry) => entry !== 0);
+  const hasValidPoll = !pollChoices.some((choice) => choice == "");
+  const enableButton =
+    (textInput.length > 0 || (filesWithId.length > 0 && !parentId)) &&
+    currentUser &&
+    textInput.length < 181 &&
+    (!isPoll || (hasValidPollExpiry && hasValidPoll));
 
   const createPost = currentUser
     ? useCreatePost(currentUser.id, parentId)
@@ -53,7 +56,7 @@ function UploadTweetButton({
     }
 
     if (isPoll) {
-      pollChoices.forEach(choice => {
+      pollChoices.forEach((choice) => {
         formData.append("pollChoices", choice);
       });
       pollExpiry.forEach((time) => {

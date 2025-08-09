@@ -1,1 +1,1 @@
-export type PollExpiryTimes = "Days" | "Hours" | "Minutes"
+export type PollExpiryTimes = "Days" | "Hours" | "Minutes";

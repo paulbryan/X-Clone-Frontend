@@ -21,7 +21,7 @@ function LoginView({ setToggle }: LoginViewProps) {
 
       <HorizontalStripedText> OR </HorizontalStripedText>
 
-      <UseTempAccountButton/>
+      <UseTempAccountButton />
 
       <p className="text-md w-full font text-twitterTextAlt">
         Don't have an account?{" "}

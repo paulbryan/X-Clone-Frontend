@@ -1,4 +1,11 @@
-import { isValidElement, useContext, useEffect, useMemo, useState, type ReactElement } from "react";
+import {
+  isValidElement,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactElement,
+} from "react";
 import { HeaderContentContext } from "../../context/GlobalState/HeaderContentProvider.tsx";
 import { ExploreSearchBar } from "../input/ExploreSearchBar.tsx";
 import { useUserSearch } from "../../hooks/queries/useUserSearch.tsx";
@@ -35,13 +42,13 @@ function ExplorePage() {
       ) ?? []
     );
   }, [data]);
-  
+
   useEffect(() => {
     if (isValidElement(headerContent)) {
       const element = headerContent as ReactElement<any>;
       if (element.props.children === "Explore") return;
     }
-  
+
     setHeaderContent(<p>Explore</p>);
   }, []);
 

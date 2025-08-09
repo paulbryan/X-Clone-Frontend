@@ -7,12 +7,15 @@ export const useHasVoted = (pollId: number) =>
     queryFn: async () => {
       const token = localStorage.getItem("jwt");
 
-      const response = await fetch(`${API_URL}/api/polls/${pollId}/getPollVote`, {
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-      });
+      const response = await fetch(
+        `${API_URL}/api/polls/${pollId}/getPollVote`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to fetch poll vote");
       return response.json();

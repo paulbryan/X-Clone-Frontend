@@ -5,7 +5,7 @@ import { LoadMoreForFeed } from "./LoadMoreForFeed.tsx";
 import { useInView } from "react-intersection-observer";
 import { useCallback, useEffect } from "react";
 import LoadingIcon from "../common/icons/LoadingIcon.tsx";
-import debounce from 'lodash.debounce';
+import debounce from "lodash.debounce";
 
 type UserSearchFeedProps = {
   idsToLoad: number[];
@@ -24,9 +24,8 @@ export function UserSearchFeed({
   hasNextPage,
   isFetchingNextPage,
   isLoadingUsers,
-  isInfinite
+  isInfinite,
 }: UserSearchFeedProps) {
-
   const { ref, inView } = useInView({
     triggerOnce: false,
     skip: !isInfinite,
@@ -45,7 +44,13 @@ export function UserSearchFeed({
     if (isInfinite && inView && hasNextPage && !isFetchingNextPage) {
       debouncedFetchNextPage();
     }
-  }, [isInfinite, inView, hasNextPage, isFetchingNextPage, debouncedFetchNextPage]);
+  }, [
+    isInfinite,
+    inView,
+    hasNextPage,
+    isFetchingNextPage,
+    debouncedFetchNextPage,
+  ]);
 
   return (
     <div>

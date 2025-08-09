@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "../../constants/env.ts";
 import type { User } from "../../types/User.ts";
 
-
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
 

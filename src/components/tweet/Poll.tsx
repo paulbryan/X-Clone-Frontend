@@ -19,12 +19,12 @@ export function Poll({ pollId, post }: PollProps) {
   const voteMutation = useVoteOnPoll(pollId);
 
   const isPollExpired = post.pollExpiryTimeStamp
-  ? new Date(post.pollExpiryTimeStamp).getTime() <= Date.now()
-  : false;
+    ? new Date(post.pollExpiryTimeStamp).getTime() <= Date.now()
+    : false;
 
   const timeRemainingMs = post.pollExpiryTimeStamp
-  ? new Date(post.pollExpiryTimeStamp).getTime() - Date.now()
-  : 0;
+    ? new Date(post.pollExpiryTimeStamp).getTime() - Date.now()
+    : 0;
 
   let timeRemaining = "";
 
@@ -46,12 +46,7 @@ export function Poll({ pollId, post }: PollProps) {
     voteMutation.mutate({ choiceId });
   };
 
-  
-  const totalVotes = pollChoices?.reduce(
-    (sum, c) => sum + c.voteCount,
-    0
-  );
-
+  const totalVotes = pollChoices?.reduce((sum, c) => sum + c.voteCount, 0);
 
   useEffect(() => {
     console.log("Poll id is: " + [pollId]);
@@ -71,7 +66,6 @@ export function Poll({ pollId, post }: PollProps) {
       <div className="flex flex-col h-full w-full justify-center gap-2 my-2">
         {pollChoices &&
           (() => {
-
             return pollChoices.map((choice) => {
               const percent =
                 totalVotes && totalVotes > 0
@@ -113,10 +107,12 @@ export function Poll({ pollId, post }: PollProps) {
             });
           })()}
 
-          <div className="w-full text-twitterTextAlt">
-            <p>{totalVotes} Votes · {isPollExpired ? "Final Results" : timeRemaining}</p>
-          </div>
-
+        <div className="w-full text-twitterTextAlt">
+          <p>
+            {totalVotes} Votes ·{" "}
+            {isPollExpired ? "Final Results" : timeRemaining}
+          </p>
+        </div>
       </div>
 
       <div></div>

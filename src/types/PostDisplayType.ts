@@ -1,9 +1,6 @@
-
-
-export type PostDisplayType = 
-
-    "mainTweet" |
-    "mainThread" |
-    "modalParent" |
-    "mainThreadParent" |
-    "feedReply"
+export type PostDisplayType =
+  | "mainTweet"
+  | "mainThread"
+  | "modalParent"
+  | "mainThreadParent"
+  | "feedReply";

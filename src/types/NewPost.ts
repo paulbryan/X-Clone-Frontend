@@ -1,7 +1,5 @@
 export type NewPost = {
-    
-    userId: number;
-    text: string;
-    parentId?: number;
-
-}
+  userId: number;
+  text: string;
+  parentId?: number;
+};

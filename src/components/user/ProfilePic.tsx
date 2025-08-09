@@ -15,8 +15,7 @@ function ProfilePic({
 }: ProfilePicComponentProps) {
   const { data: user } = useUser(userId);
 
-    const location = useLocation();
-
+  const location = useLocation();
 
   const navigate = useNavigate();
   const navigateToProfile = (e: React.MouseEvent<HTMLImageElement>): void => {
@@ -52,9 +51,9 @@ function ProfilePic({
       {user ? (
         <img
           onClick={(e) => navigateToProfile(e)}
-          className={`h-full w-full rounded-full object-cover ${isTweetPage ? "hover:cursor-pointer" : ""} ${
-            disableNavigation ? "" : "hover:opacity-75"
-          }`}
+          className={`h-full w-full rounded-full object-cover ${
+            isTweetPage ? "hover:cursor-pointer" : ""
+          } ${disableNavigation ? "" : "hover:opacity-75"}`}
           src={user.profilePictureUrl}
         />
       ) : (

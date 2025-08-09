@@ -20,8 +20,8 @@ export function TweetImagesRow({
       <div className={`${isMainPost ? "col-span-2" : "col-start-2"} `}>
         {post.postMedia && post.postMedia.length > 0 ? (
           <TweetImageGrid media={post.postMedia} />
-        ) : post.pollId && (
-          <Poll pollId={post.pollId} post={post}/>
+        ) : (
+          post.pollId && <Poll pollId={post.pollId} post={post} />
         )}
       </div>
     </>

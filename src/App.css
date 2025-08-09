@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: 'TwitterChirp';
+  font-family: "TwitterChirp";
   src: url("/fonts/Chirp Regular.woff") format("woff");
-    font-weight: normal;
+  font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'TwitterChirp';
-  src: url('/fonts/Chirp Heavy.woff') format('woff');
+  font-family: "TwitterChirp";
+  src: url("/fonts/Chirp Heavy.woff") format("woff");
   font-weight: bold;
   font-style: normal;
 }
@@ -44,11 +44,8 @@
   }
 }
 
-
-
 @theme {
-
-  --color-twitterBorder: #4C5159;
+  --color-twitterBorder: #4c5159;
   --color-twitterHover: #16181c;
 
   --color-twitterText: #f7f9f9;
@@ -57,7 +54,7 @@
   --color-backgroundBlack: #000000;
   --color-backgroundDim: #15202c;
 
-  --color-twitterBlue: #1C9BF0;
+  --color-twitterBlue: #1c9bf0;
   --color-twitterRed: #ff2c84;
   --color-twitterYellow: #ffd404;
   --color-twitterPurple: #8054fc;
@@ -71,13 +68,17 @@
   --animate-hover-card: fade-in 0.2s ease-out;
 
   @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
-
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;

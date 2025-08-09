@@ -8,7 +8,11 @@ type Props = {
   isPoll: boolean;
 };
 
-export function ImageUploadButton({ imagesInput, setImagesInput, isPoll }: Props) {
+export function ImageUploadButton({
+  imagesInput,
+  setImagesInput,
+  isPoll,
+}: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
@@ -33,7 +37,14 @@ export function ImageUploadButton({ imagesInput, setImagesInput, isPoll }: Props
 
   return (
     <>
-      <FaRegImage onClick={handleClick} className={`${isPoll ? "opacity-50 hover:cursor-not-allowed" : "hover:cursor-pointer"}`} />
+      <FaRegImage
+        onClick={handleClick}
+        className={`${
+          isPoll
+            ? "opacity-50 hover:cursor-not-allowed"
+            : "hover:cursor-pointer"
+        }`}
+      />
       <input
         type="file"
         accept="image/*"

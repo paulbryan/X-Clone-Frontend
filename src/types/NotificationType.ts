@@ -1,9 +1,6 @@
-export type NotificationType = 
-
-    "like" |
-    "repost" |
-    "reply" |
-    "message" |
-    "follow"
-
-
+export type NotificationType =
+  | "like"
+  | "repost"
+  | "reply"
+  | "message"
+  | "follow";
