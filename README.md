@@ -12,6 +12,9 @@ https://github.com/user-attachments/assets/f74ae27d-68cb-41d2-b72c-37ab0fc9cf4b
 
 ---
 
+## Architecture Overview Guide
+👉 [Architecture Overview & Contributor Guide](https://github.com/jokerhutt/X-Clone-Frontend/wiki/Architecture-Overview-&-Contributor-Guide)
+
 ## Key Features
 
 - **Google OAuth login** with secure JWT authentication  
