@@ -47,14 +47,16 @@ function Feed({
       ? "TweetFeedPost"
       : undefined;
 
+  if (isLoading) {
+  return (
+    <div className="flex justify-center py-2 flex-col w-full">
+      <LoadingIcon />
+    </div>
+  );
+}
+
   return (
     <div className="w-full flex flex-col">
-      {isLoading ? (
-        <div className="flex justify-center py-2 flex-col w-full">
-          <LoadingIcon />
-        </div>
-      ) : (
-        <>
           <div
             className={`flex ${
               reverseFeed ? "flex-col-reverse" : "flex-col"
@@ -90,8 +92,6 @@ function Feed({
               )
             )}
           </div>
-        </>
-      )}
     </div>
   );
 }

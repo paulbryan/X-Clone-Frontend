@@ -8,7 +8,9 @@ function ComposePostMobileButton() {
 
   const location = useLocation();
 
-  if (location.pathname.startsWith("/tweet")) return null;
+  const isOnFullTweet = location.pathname.startsWith("/tweet")
+
+  if (isOnFullTweet) return null;
 
   return (
     <>
