@@ -23,7 +23,7 @@ function LoginView({ setToggle }: LoginViewProps) {
 
       <UseTempAccountButton />
 
-      <p className="text-md w-full font text-twitterTextAlt">
+      <p onClick={() => setToggle("signup")} className="text-md w-full font text-twitterTextAlt">
         Don't have an account?{" "}
         <span className="text-(--color-main)">Sign up</span>
       </p>
