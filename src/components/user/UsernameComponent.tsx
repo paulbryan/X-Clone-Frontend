@@ -25,7 +25,7 @@ function UsernameComponent({
   ): void => {
     if (user && !disableNavigation) {
       e.stopPropagation();
-      navigate("profile/" + user.id);
+      navigate("/profile/" + user.id);
     }
   };
 
