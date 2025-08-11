@@ -3,13 +3,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { HeroIcon } from "../common/icons/HeroIcon.tsx";
 import { useUnseenNotificationIds } from "../../hooks/mutations/useSeenNotifications.tsx";
 import { useCurrentUser } from "../../hooks/auth/useCurrentUser.tsx";
+import { useModal } from "../../context/ModalProvider.tsx";
 
 function FooterBar() {
   const navigate = useNavigate();
   const { data: currentUser } = useCurrentUser();
   const location = useLocation();
   const { data: unseenIds = [] } = useUnseenNotificationIds();
-
+  const {setModalType} = useModal();
+  
   return (
     <>
       <div className="h-14 w-full bg-(--background-main) text-2xl text-white border-t border-t-twitterBorder flex items-center justify-around">
@@ -33,7 +35,7 @@ function FooterBar() {
         </div>
         <div className="w-full h-full flex relative items-center justify-center">
           <div
-            onClick={() => (currentUser ? navigate("/notifications") : null)}
+            onClick={() => (currentUser ? navigate("/notifications") : setModalType("signup"))}
           >
             <HeroIcon
               iconName="BellIcon"
