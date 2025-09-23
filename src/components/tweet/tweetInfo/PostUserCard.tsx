@@ -1,11 +1,9 @@
 import { usePost } from "../../../hooks/queries/usePost.tsx";
 import { useUser } from "../../../hooks/queries/useUser.tsx";
-import CreatedAtDisplay from "../../common/CreatedAtDisplay.tsx";
 import { DropdownMenuEllipsis } from "../../modal/dropdown/DropdownMenuEllipsis.tsx";
 import { UserHoverCardTrigger } from "../../modal/hover_card/UserHoverCardTrigger.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
-import { VerifiedImage } from "../../user/VerifiedImage.tsx";
 import { TweetCreatedAgo } from "../TweetCreatedAgo.tsx";
 
 type PostUserCardProps = {
@@ -25,8 +23,6 @@ export function PostUserCard({
   const { data: post } = usePost(postId);
 
   const { data: postUser } = useUser(postUserId ?? -1);
-
-  const verified = postUser?.verified;
 
   //TODO extract verified into own component
 
@@ -48,10 +44,6 @@ export function PostUserCard({
                       truncate={!mainPost}
                     />
                   </div>
-
-                  {verified && (
-                    <VerifiedImage/>
-                  )}
                 </div>
               </UserHoverCardTrigger>
               <UserHoverCardTrigger userId={postUser.id}>

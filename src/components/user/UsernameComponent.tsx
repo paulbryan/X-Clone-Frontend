@@ -16,6 +16,7 @@ function UsernameComponent({
 
   const textToDisplay = user?.username;
 
+
   const hoverDisplay = !disableNavigation
     ? "hover:cursor-pointer truncate"
     : "truncate ";
@@ -33,9 +34,11 @@ function UsernameComponent({
 
   if (user) {
     return (
-      <p className={hoverDisplay} onClick={(e) => navigateToProfile(e)}>
-        @{textToDisplay}
-      </p>
+      <div className="flex gap-2">
+        <p className={hoverDisplay} onClick={(e) => navigateToProfile(e)}>
+          @{textToDisplay}
+        </p>
+      </div>
     );
   } else {
     return (

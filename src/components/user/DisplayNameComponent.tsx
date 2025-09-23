@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { User } from "../../types/User.ts";
+import { VerifiedImage } from "./VerifiedImage.tsx";
 
 type DisplayNameComponentProps = {
   user?: User | null;
@@ -26,6 +27,8 @@ function DisplayNameComponent({
     }
   };
 
+  const isVerified = user?.verified;
+
   const customClass = customClassName ? customClassName : "";
   const hoverDisplay = !disableNavigation
     ? " hover:cursor-pointer truncate hover:underline "
@@ -38,12 +41,15 @@ function DisplayNameComponent({
 
   if (user && user.displayName) {
     return (
-      <p
-        className={hoverDisplay + " " + customClass}
-        onClick={(e) => navigateToProfile(e)}
-      >
-        {textToDisplay}
-      </p>
+      <div className="flex gap-1 items-center">
+        <p
+          className={hoverDisplay + " " + customClass}
+          onClick={(e) => navigateToProfile(e)}
+        >
+          {textToDisplay}
+        </p>
+        {isVerified && <VerifiedImage/>}
+      </div>
     );
   } else if (user) {
     return null;
