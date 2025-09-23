@@ -45,7 +45,7 @@ function ModalManager() {
               />
             )}
           {modalType === "feedback" && <FeedbackModal />}
-          {modalType === "createAccount" && currentUser && (
+          {(modalType === "createAccount" || modalType == "editProfile") && currentUser && (
             <CustomizeAccount
               setToggle={setModalType}
               currentUser={currentUser}
