@@ -5,6 +5,7 @@ import { DropdownMenuEllipsis } from "../../modal/dropdown/DropdownMenuEllipsis.
 import { UserHoverCardTrigger } from "../../modal/hover_card/UserHoverCardTrigger.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
+import { VerifiedImage } from "../../user/VerifiedImage.tsx";
 import { TweetCreatedAgo } from "../TweetCreatedAgo.tsx";
 
 type PostUserCardProps = {
@@ -49,11 +50,7 @@ export function PostUserCard({
                   </div>
 
                   {verified && (
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg"
-                      alt="Verified"
-                      className="w-4 h-4 flex-shrink-0"
-                    />
+                    <VerifiedImage/>
                   )}
                 </div>
               </UserHoverCardTrigger>
