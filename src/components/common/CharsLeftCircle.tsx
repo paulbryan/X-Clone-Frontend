@@ -49,7 +49,7 @@ export function CharsLeftCircle({
       {charsLeft <= 20 && (
         <text
           x={center}
-          y={center + 4} // adjust for visual vertical alignment
+          y={center + 4}
           textAnchor="middle"
           className={`text-xs ${
             charsLeft < 0 ? "fill-red-500" : "fill-(--color-main)"

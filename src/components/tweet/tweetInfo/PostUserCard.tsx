@@ -5,6 +5,7 @@ import { DropdownMenuEllipsis } from "../../modal/dropdown/DropdownMenuEllipsis.
 import { UserHoverCardTrigger } from "../../modal/hover_card/UserHoverCardTrigger.tsx";
 import DisplayNameComponent from "../../user/DisplayNameComponent.tsx";
 import UsernameComponent from "../../user/UsernameComponent.tsx";
+import { TweetCreatedAgo } from "../TweetCreatedAgo.tsx";
 
 type PostUserCardProps = {
   postId: number;
@@ -62,15 +63,11 @@ export function PostUserCard({
                 </div>
               </UserHoverCardTrigger>
 
-              {!mainPost && post && (
-                <div className="flex-shrink-0 pt-0.5 text-twitterTextAlt text-sm whitespace-nowrap flex gap-1">
-                  <p>•</p>
-                  <CreatedAtDisplay
-                    createdAt={post.createdAt}
-                    typeOfCreatedAt="timeago"
-                  />
-                </div>
-              )}
+              <TweetCreatedAgo
+                open={!mainPost && !!post}
+                createdAt={post?.createdAt}
+              />
+
             </div>
 
             {!isModal && (
